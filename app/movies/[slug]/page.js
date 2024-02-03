@@ -1,7 +1,10 @@
-import MovieBar from "@/app/components/movieBar";
-import MovieInfo from "@/app/components/movieInfo";
-import { client } from "@/sanity/lib/client";
-import Image from "next/image";
+import MovieVideo from "../../components/movieBar";
+import MovieInfo from "../../components/movieInfo";
+import { client } from "../../../sanity/lib/client";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import Loading from "./loading";
+import Share from "@/app/components/share";
 
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
@@ -16,38 +19,89 @@ export async function getData({ params }) {
 
 export async function generateMetadata({ params }) {
   const movie = await getData({ params });
+
+  if (!movie) {
+    return notFound();
+  }
+
   const ogImage1 = [
     {
-      url: `https://next.filmisbest.com/_next/image?url=${movie.poster}&w=640&q=75`,
+      url: `https://filmisbest.com/movies/${params.slug}/opengraph-image`,
       width: 1200,
-      height: 630,
-      alt: movie.filmName,
-    },
-    {
-      url: movie.poster,
-      width: 1200,
-      height: 630,
+      height: 600,
       alt: movie.filmName,
     },
   ];
   return {
-    title: `FilmIsBest | ${movie.filmName}`,
+    title: `${movie.filmName}`,
+    url: `https://filmisbest.com/movies/${movie.slug}`,
     description: movie.description,
+    keywords: [
+      "FilmİsBest",
+      "Film",
+      "Filmlər səhifəsi",
+      "Movie",
+      "Filmisbest.com",
+      "yusifaliyevpro",
+      "yusifaliyevpro.com",
+      "Azfilm",
+      "Türkçə film",
+      "İngiliscə film",
+      "Türkçə altyazılı film",
+      "İngiliscə altyazılı film",
+      "Azərbaycan film",
+      "Film izle",
+      "Türkçə dublaj",
+      "Film dublajı",
+      "Filmlər",
+      "Movies",
+      "hd",
+      "hd film",
+      "full film",
+      "1080p film",
+      "filmifullizle",
+      "film izle türk",
+      "Netflix film",
+      "sinema",
+      "film sineması",
+      "Azəri film",
+      "yusifaliyev",
+      "yusif",
+      "aliyev",
+      `${movie.filmName}`,
+      `${movie.actors.trim().replace(/!/g, "•")}`,
+    ],
     openGraph: {
+      title: `FilmIsBest | ${movie.filmName}`,
       images: ogImage1,
+      url: `https://filmisbest.com/movies/${movie.slug}`,
       description: movie.description,
       type: "website",
-      url: `https://next.filmisbest.com/movies/${movie.slug}`,
     },
   };
 }
 
 export default async function Movie({ params }) {
   const movie = await getData({ params });
+
+  if (!movie) {
+    return notFound();
+  }
+
   return (
-    <main>
-      <MovieBar movie={movie}/>
-      <MovieInfo movie={movie}/>
-    </main>
+    <Suspense fallback={<Loading />}>
+      <main>
+        <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
+          <h1 className="relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-namebg p-3 text-center text-2xl font-bold text-white sm:mx-auto sm:w-200">
+            {movie.filmName}
+          </h1>
+          <MovieVideo movie={movie} />
+          <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
+            <Share movie={movie} />
+          </div>
+        </div>
+        <MovieInfo movie={movie} />
+      </main>
+    </Suspense>
   );
 }

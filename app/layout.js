@@ -5,40 +5,87 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import "swiper/css";
 import CookiesConsent from "./components/cookies";
 
 const inter = Inter({ subsets: ["latin"] });
-const ogImage = {
-  url: "/FilmIsBest.png",
-  width: 1200,
-  height: 630,
-  alt: "FilmIsBest",
-  type: "image/png",
-};
 export const metadata = {
-  title: "FilmIsBest | Ana Səhifə",
-  description: "FilmIsBest.com will move to Next.JS as soon as possible",
+  category: "movie",
+  icons: {
+    icon: "https://filmisbest.com/icon.png",
+    shortcut: "https://filmisbest.com/icon.png",
+    apple: "https://filmisbest.com/icon.png",
+    other: {
+      rel: "apple-touch-icon-precomposed",
+      url: "https://filmisbest.com/icon.png",
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  title: {
+    default: "FilmIsBest",
+    template: "FilmIsBest | %s",
+  },
+  keywords: [
+    "FilmİsBest",
+    "Film",
+    "Filmlər səhifəsi",
+    "Movie",
+    "Filmisbest.com",
+    "yusifaliyevpro",
+    "yusifaliyevpro.com",
+    "Azfilm",
+    "Türkçə film",
+    "İngiliscə film",
+    "Türkçə altyazılı film",
+    "İngiliscə altyazılı film",
+    "Azərbaycan film",
+    "Film izle",
+    "Türkçə dublaj",
+    "Film dublajı",
+    "Filmlər",
+    "Movies",
+    "hd",
+    "hd film",
+    "full film",
+    "1080p film",
+    "filmifullizle",
+    "film izle türk",
+    "Netflix film",
+    "sinema",
+    "film sineması",
+    "Azəri film",
+    "yusifaliyev",
+    "yusif",
+    "aliyev",
+  ],
   creator: "Yusif Aliyev",
-  url: "https://filmisbest.com",
+  publisher: "Yusif Aliyev",
+  applicationName: "FilmIsBest",
+  generator: "FilmIsBest",
+  authors: [{ name: "Yusif Aliyev", url: "https://yusifaliyevpro.com" }],
   siteName: "FilmIsBest",
   openGraph: {
-    images: [ogImage],
-    description: "FilmIsBest.com will move to Next.JS as soon as possible",
     type: "website",
-    url: "https://filmisbest.com",
+    siteName: "FilmIsBest",
+    locale: "az_AZ",
   },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-gray-100 dark">
-      <head>
-      <ColorSchemeScript />
-      </head>
       <body className={inter.className}>
         <Header />
-        <Suspense fallback={<Loading />}>  <MantineProvider>{children}</MantineProvider></Suspense>
+        <Suspense fallback={<Loading />}>
+          <main className="min-h-screen">{children}</main>
+        </Suspense>
         <CookiesConsent />
         <Footer />
       </body>

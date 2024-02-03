@@ -35,14 +35,14 @@ module.exports = {
   darkMode: "class",
   plugins: [
     {
-      'postcss-preset-mantine': {},
-      'postcss-simple-vars': {
+      "postcss-preset-mantine": {},
+      "postcss-simple-vars": {
         variables: {
-          'mantine-breakpoint-xs': '36em',
-          'mantine-breakpoint-sm': '48em',
-          'mantine-breakpoint-md': '62em',
-          'mantine-breakpoint-lg': '75em',
-          'mantine-breakpoint-xl': '88em',
+          "mantine-breakpoint-xs": "36em",
+          "mantine-breakpoint-sm": "48em",
+          "mantine-breakpoint-md": "62em",
+          "mantine-breakpoint-lg": "75em",
+          "mantine-breakpoint-xl": "88em",
         },
       },
     },
@@ -58,13 +58,15 @@ module.exports = {
               foreground: "#FFFFFF",
               DEFAULT: "#006FEE",
             },
+            gray: {
+              200: "#191e25",
+            },
             // ... rest of the colors
           },
         },
         dark: {
           // ...
           colors: {
-            orange: "bg-[#ff8c00] text-[#fff]",
             default: {
               50: "#222831",
               foreground: "#FFFFFF",

@@ -1,48 +1,68 @@
-export default function MovieBar({movie}) {
+"use client";
+import { Tabs, Tab } from "@nextui-org/tabs";
+import { useState } from "react";
 
-    return(
-        <div className="movie-container">
-        <h1 className="relative top-0 z-0 m-auto mt-14 w-200 rounded-10 bg-namebg p-3 text-center text-2xl font-bold text-white">
-          {movie.filmName}
-        </h1>
-        <div className="relative mx-auto mb-12 mt-8 h-105 w-200 items-center justify-center justify-items-center rounded-10 px-3">
-          <ul className="absolute left-0 mx-auto flex h-12 w-200 select-none flex-row items-center justify-center justify-items-center rounded-t-10 bg-gray-100">
-            <li
-              key={"english"}
-              className="relative ml-3 flex h-14 w-max cursor-pointer flex-row items-center justify-center justify-items-center rounded-t-10 bg-gray-200 px-8 text-center font-bold text-white"
-            >
-              Ingiliscə
-            </li>
-            <li
-              key={"eng-sub"}
-              className="relative ml-3 flex h-14 w-max cursor-pointer flex-row items-center justify-center justify-items-center rounded-t-10 bg-gray-100 px-8 text-center font-bold text-white"
-            >
-              Ingiliscə Altyazılı
-            </li>
-            <li
-              key={"tur"}
-              className="relative ml-3 flex h-14 w-max cursor-pointer flex-row items-center justify-center justify-items-center rounded-t-10 bg-gray-100 px-8 text-center font-bold text-white"
-            >
-              Türkçə
-            </li>
-            <li
-              key={"tur-sub"}
-              className="relative ml-3 flex h-14 w-max cursor-pointer flex-row items-center justify-center justify-items-center rounded-t-10 bg-gray-100 px-8 text-center font-bold text-white"
-            >
-              Türkçə Altyazılı
-            </li>
-            <li
-              key={"fraqman"}
-              className="relative ml-3 flex h-14 w-max cursor-pointer flex-row items-center justify-center justify-items-center rounded-t-10 bg-gray-100 px-8 text-center font-bold text-white"
-            >
-              Fraqman
-            </li>
-          </ul>
-          <iframe
-            className="absolute bottom-0 left-0 h-102 w-200 select-none rounded-b-10 border-none bg-black"
-            src={"https://vidsrc.to/embed/movie/" + movie.imdbID}
-          ></iframe>
-        </div>
-      </div>
-    )
+export default function MovieVideo({ movie }) {
+  const englishLink = "https://vidsrc.to/embed/movie/" + movie.imdbID;
+  const turkishLink = movie.TurkishLink;
+  const turkishSubLink = movie.TurkishSubtitleLink;
+  const youtubeLink = "https://www.youtube.com/embed/" + movie.FraqmanLink;
+  const [activeLink, setActiveLink] = useState(englishLink);
+
+  function handleLanguage(key) {
+    if (key === "english" || key === "englishSubtitle") {
+      setActiveLink(englishLink);
+    } else if (key === "turkish") {
+      setActiveLink(movie.TurkishLink);
+    } else if (key === "turkishSubtitle") {
+      setActiveLink(movie.TurkishSubtitleLink);
+    } else if (key === "trailer") {
+      setActiveLink(youtubeLink);
+    }
+  }
+
+  return (
+    <div className="relative mx-auto mt-12 flex h-80 w-auto flex-col rounded-10 px-3 sm:h-[560px] sm:w-200">
+      <Tabs
+        aria-label="Options"
+        keyboardActivation="manual"
+        size="lg"
+        variant="solid"
+        onSelectionChange={handleLanguage}
+        color="primary"
+        fullWidth={true}
+        defaultSelectedKey="english"
+      >
+        <Tab
+          key="english"
+          isDisabled={!movie.EnglishLink}
+          className="font-bold"
+          title="İngilsicə"
+        ></Tab>
+        <Tab
+          key="englishSubtitle"
+          isDisabled={!movie.EnglishSubtitleLink}
+          className="font-bold"
+          title="İngiliscə Altyazılı"
+        ></Tab>
+        <Tab
+          key="turkish"
+          isDisabled={turkishLink === "Empty" ? true : false}
+          className="font-bold"
+          title="Türkçə"
+        ></Tab>
+        <Tab
+          key="turkishSubtitle"
+          isDisabled={turkishSubLink === "Empty" ? true : false}
+          className="font-bold"
+          title="Türkçə altyazılı"
+        ></Tab>
+        <Tab key="trailer" className="font-bold" title="Fraqman"></Tab>
+      </Tabs>
+      <iframe
+        className="z-35 relative bottom-0 left-0 mx-auto mt-0 h-60 w-full select-none rounded-b-10 border-none bg-black sm:absolute sm:h-102 sm:w-200"
+        src={activeLink}
+      ></iframe>
+    </div>
+  );
 }

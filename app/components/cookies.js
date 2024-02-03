@@ -49,7 +49,7 @@ export default function CookiesConsent() {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-row items-center justify-center gap-2 text-2xl font-bold">
-              <i class="bx bx-cookie text-2xl"></i>
+              <i className="bx bx-cookie text-2xl"></i>
               Çərəzlər
             </ModalHeader>
             <ModalBody>

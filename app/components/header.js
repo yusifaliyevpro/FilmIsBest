@@ -74,6 +74,7 @@ export default function Header() {
           <Select
             className=" w-40 "
             defaultSelectedKeys="1"
+            aria-label="AZ"
             placeholder="AZ"
             variant="underlined"
             size="lg"
@@ -97,7 +98,7 @@ export default function Header() {
             placeholder="AZ"
             variant="underlined"
             isDisabled={true}
-            startContent={<i class="bx bx-globe text-3xl"></i>}
+            startContent={<i className="bx bx-globe text-3xl"></i>}
           >
             <SelectItem key={1} textValue="AZ">
               Azərbaycanca

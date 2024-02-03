@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
 import Lottie from "lottie-react";
-import animationData from "../../public/Movieanm.json";
 
-const LottieComponent = () => {
+const LottieComponent = ({ animationData }) => {
   return (
     <Lottie
       animationData={animationData} // Animation JSON data

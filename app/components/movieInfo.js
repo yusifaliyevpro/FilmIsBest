@@ -1,74 +1,79 @@
-import Image from "next/image"
+import Image from "next/image";
+import translationMap from "../lib/translationMap";
 
-export default function MovieInfo({movie}) {
-    return(
-        <div className="relative mx-auto mb-20 mt-3 flex h-max w-200 flex-row justify-between rounded-10 border border-solid border-gray-500 p-4">
-        <div className="relative h-76 w-60 items-start justify-between justify-items-start">
+export default function MovieInfo({ movie }) {
+  const translatedGenres = movie.genre.map(
+    (genre) => translationMap[genre] || genre,
+  );
+
+  return (
+    <div className="relative mx-3 mb-20 flex h-auto w-auto flex-col items-center justify-center rounded-10 border border-solid border-gray-500 p-4 sm:mx-auto sm:w-200 sm:flex-row sm:items-start sm:justify-between">
+      <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start  sm:mx-0 sm:h-76 sm:w-60">
+        <Image
+          src={movie.poster}
+          alt={movie.filmName + " movie poster"}
+          width={240}
+          height={360}
+          priority
+          placeholder="blur"
+          blurDataURL="data:..."
+          className="relative h-auto w-auto select-none rounded-10  sm:h-76 sm:w-60"
+        />
+      </div>
+      <div className="relative mx-auto w-auto list-none rounded-10 tracking-normal sm:ml-5 sm:w-105">
+        <li className="mt-4 w-fit font-bold text-gray-400 ">
+          Filmin Adı:{" "}
+          <span className="text-white">{movie.filmName.trim()}</span>
+        </li>
+        <li className="mt-4 w-fit font-bold text-gray-400">
+          Ulduzlar:{" "}
+          <span className="text-white">
+            {movie.actors.trim().replace(/!/g, "•")}
+          </span>
+        </li>
+        <li className="mt-4 w-fit font-bold text-gray-400">
+          Kateqoriya:{" "}
+          <span className="text-white">{translatedGenres.join(", ")}</span>
+        </li>
+        <li className="mt-4 w-fit font-bold text-gray-400">
+          Rejissor(lar):{" "}
+          <span className="text-white">{movie.directed.trim()}</span>
+        </li>
+        <div className="relative mt-4 flex w-fit flex-row items-center gap-4">
           <Image
-            src={movie.poster}
-            alt={movie.filmName}
-            width={240}
-            height={360}
-            priority
-            placeholder="blur"
-            blurDataURL="data:..."
-            className="h-76 w-60 select-none rounded-10"
+            src="/imdb.svg"
+            width={40}
+            height={40}
+            alt="Imdb Logo"
+            className="select-none"
           />
+          <span className="font-bold text-white">{movie.imdbpuan}</span>
         </div>
-        <div className="relative ml-5 w-106 list-none rounded-10 tracking-normal">
-          <li className="mt-4 w-fit font-bold text-gray-400 ">
-            Filmin Adı:{" "}
-            <span className="text-white">{movie.filmName.trim()}</span>
-          </li>
-          <li className="mt-4 w-fit font-bold text-gray-400">
-            Ulduzlar:{" "}
-            <span className="text-white">
-              {movie.actors.trim().replace(/!/g, "•")}
+        <li className="mt-4 w-auto font-bold text-gray-400 sm:w-fit">
+          Filmin Təsviri:{" "}
+          <span className="text-white">{movie.description.trim()}</span>
+        </li>
+
+        <div className="left-0 mb-9 box-border flex list-none flex-row justify-around pt-12 text-left sm:mb-0 sm:p-12">
+          <li className=" box-border text-left font-bold text-gray-400 sm:px-12">
+            Vaxt
+            <br />
+            <span className="text-nowrap text-white">
+              {movie.movieTime} dəq
             </span>
           </li>
-          <li className="mt-4 w-fit font-bold text-gray-400">
-            Kateqoriya:{" "}
-            <span className="text-white">{movie.genre.join(", ")}</span>
+          <li className=" box-border w-max text-left font-bold text-gray-400 sm:px-12">
+            İl
+            <br />
+            <span className="text-white">{movie.releaseDate}</span>
           </li>
-          <li className="mt-4 w-fit font-bold text-gray-400">
-            Rejissor(lar):{" "}
-            <span className="text-white">{movie.directed.trim()}</span>
+          <li className=" box-border w-max text-balance text-left font-bold text-gray-400 sm:px-8">
+            Ölkə
+            <br />
+            <span className="text-white">{movie.country}</span>
           </li>
-          <div className="relative mt-4 flex w-fit flex-row items-center gap-4">
-            <Image
-              src="/imdb.svg"
-              width={40}
-              height={40}
-              alt="Imdb Logo"
-              className="select-none"
-            />
-            <span className="font-bold text-white">{movie.imdbpuan}</span>
-          </div>
-          <li className="mt-4 w-fit font-bold text-gray-400">
-            Filmin Təsviri:{" "}
-            <span className="text-white">{movie.description.trim()}</span>
-          </li>
-
-          <div className="box-border flex list-none flex-row p-12 text-left">
-            <li className=" box-border px-12 text-left font-bold text-gray-400">
-              Vaxt
-              <br />
-              <span className="text-nowrap text-white">
-                {movie.movieTime} dəq
-              </span>
-            </li>
-            <li className=" box-border w-max px-12 text-left font-bold text-gray-400">
-              İl
-              <br />
-              <span className="text-white">{movie.releaseDate}</span>
-            </li>
-            <li className=" box-border w-max text-balance px-8 text-left font-bold text-gray-400">
-              Ölkə
-              <br />
-              <span className="text-white">{movie.country}</span>
-            </li>
-          </div>
         </div>
       </div>
-    )
+    </div>
+  );
 }
