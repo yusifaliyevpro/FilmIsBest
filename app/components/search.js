@@ -3,8 +3,9 @@ import { Input } from "@nextui-org/input";
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "use-debounce";
+import toast from "react-hot-toast";
 
-export default function Search({ searchQuery, pageQuery }) {
+export default function Search({ searchQuery, resultCount, pageQuery }) {
   const router = useRouter();
   const [text, setText] = useState(searchQuery);
   const [query] = useDebounce(text, 600);
@@ -23,6 +24,16 @@ export default function Search({ searchQuery, pageQuery }) {
       );
     }
   }, [query, router]);
+
+  useEffect(() => {
+    if (resultCount === 0) {
+      toast("Axtarışınıza uyğun film tapılmadı", {
+        position:
+          window.innerHeight > window.innerWidth ? "top-right" : "bottom-right",
+        icon: <i className="bx bx-search text-2xl font-bold"></i>,
+      });
+    }
+  }, [resultCount]);
 
   return (
     <div>

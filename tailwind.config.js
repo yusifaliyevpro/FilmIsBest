@@ -9,6 +9,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      textColor: {
+        light: "#FFFFFF", // light mod için metin rengi
+        dark: "#FFFFFF", // dark mod için metin rengi
+      },
       colors: {
         "gray-100": "#222831",
         "gray-200": "#191e25",
@@ -47,32 +51,19 @@ module.exports = {
       },
     },
     nextui({
+      prefix: "nextui",
+      defaultTheme: "dark",
+      defaultExtendTheme: "dark",
       themes: {
         light: {
-          // ...
+          layout: {}, // light theme layout tokens
           colors: {
-            background: "#FFFFFF", // or DEFAULT
-            foreground: "#11181C", // or 50 to 900 DEFAULT
-            primary: {
-              //... 50 to 900
-              foreground: "#FFFFFF",
-              DEFAULT: "#006FEE",
-            },
-            gray: {
-              200: "#191e25",
-            },
-            // ... rest of the colors
+            foreground: "#FFFFFF",
           },
         },
         dark: {
-          // ...
-          colors: {
-            default: {
-              50: "#222831",
-              foreground: "#FFFFFF",
-            },
-            // ... rest of the colors
-          },
+          layout: {}, // dark theme layout tokens
+          colors: {}, // dark theme colors
         },
         // ... custom themes
       },

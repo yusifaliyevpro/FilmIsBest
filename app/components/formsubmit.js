@@ -15,15 +15,16 @@ import {
   Link,
 } from "@nextui-org/react";
 import Complete from "./complete";
+import toast from "react-hot-toast";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  const [successful, setSuccessful] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [movieName, setMovieName] = useState("");
 
   const submitForm = () => {
+    toast.loading("Göndərilir...", { duration: 3000 });
     fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
       method: "POST",
       headers: {
@@ -40,18 +41,22 @@ export default function FormSubmit() {
       }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+      .then((data) =>
+        toast.success("Göndərildi!", {
+          duration: 4000,
+        }),
+      )
+      .catch((error) =>
+        toast.error("Göndərilmə uğursuz oldu", {
+          duration: 4000,
+        }),
+      );
 
     onClose();
-    setSuccessful(true);
-    setTimeout(() => {
-      setSuccessful(false);
-    }, 8000);
   };
 
   return (
-    <div className="mt-4 flex sm:absolute sm:right-28 sm:ml-auto sm:mt-auto">
+    <div className="mt-4 flex text-light sm:absolute sm:right-28 sm:ml-auto sm:mt-auto">
       <Button
         onPress={onOpen}
         color="primary"
@@ -60,11 +65,16 @@ export default function FormSubmit() {
       >
         Film İstəyi
       </Button>
-      <Modal isOpen={isOpen} backdrop="blur" onOpenChange={onOpenChange}>
+      <Modal
+        isOpen={isOpen}
+        placement="center"
+        backdrop="blur"
+        onOpenChange={onOpenChange}
+      >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold">
+              <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold light:text-white dark:text-white">
                 Film İstəyi
               </ModalHeader>
               <ModalBody>
@@ -115,9 +125,6 @@ export default function FormSubmit() {
           )}
         </ModalContent>
       </Modal>
-      {successful ? (
-        <Complete message={"Göndərildi!"} successful={successful} />
-      ) : null}
     </div>
   );
 }

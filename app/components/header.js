@@ -12,17 +12,22 @@ import {
   NavbarItem,
 } from "@nextui-org/navbar";
 import { Select, SelectItem } from "@nextui-org/select";
+import toast from "react-hot-toast";
 
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const isMainPage = pathname === "/";
 
+  const notify = () =>
+    toast("Bu özəllik hazırlanma mərhələsindədir", {
+      icon: <i className="bx bx-code-alt text-xl font-bold"></i>,
+    });
+
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className="mt-2 min-h-10 select-none bg-gray-100 font-bold"
-      isBlurred={true}
+      className="min-h-10 select-none bg-gray-100 font-bold text-white light:text-white dark:text-white"
       classNames={{
         item: [
           "flex",
@@ -56,7 +61,7 @@ export default function Header() {
         <NavbarItem isActive={isMainPage}>
           <Link
             color="foreground"
-            className="text-lg"
+            className="hover: text-lg text-gray-300 hover:text-white"
             href="/"
             aria-current="page"
           >
@@ -64,13 +69,17 @@ export default function Header() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive={!isMainPage}>
-          <Link href="/movies" className="text-lg" aria-current="page">
+          <Link
+            href="/movies"
+            className="text-lg  text-gray-300 hover:text-white"
+            aria-current="page"
+          >
             Filmlər
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden sm:flex">
+        <NavbarItem onClick={notify} className="hidden sm:flex">
           <Select
             className=" w-40 "
             defaultSelectedKeys="1"
@@ -90,8 +99,8 @@ export default function Header() {
           </Select>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu className="items-center gap-3 overflow-hidden bg-gray-100">
-        <NavbarMenuItem key={0} className="mb-5 mt-5">
+      <NavbarMenu className="items-center gap-3 overflow-hidden bg-transparent">
+        <NavbarMenuItem key={0} onClick={notify} className="mb-5 mt-5">
           <Select
             className=" w-40 "
             defaultSelectedKeys="1"

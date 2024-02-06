@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import React from "react";
 import translationMap from "../lib/translationMap";
+import { toast } from "react-hot-toast";
 
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -78,30 +79,38 @@ export default function Share({ movie }) {
       router.push(`tg://msg?text=${encodeURIComponent(telegramBody)}`);
     } else if (platform === "copy") {
       navigator.clipboard.writeText(copyBody);
+      toast.success("Kopyalandı");
       if (navigator.vibrate) {
         navigator.vibrate(200);
       }
-    } else {
-      return;
+    } else if (platform === "other") {
+      const shareData = {
+        title: `FilmIsBest | ${movie.filmName}`,
+        text: copyBody,
+      };
+      toast.loading("Hazırlanır", {
+        duration: 1000,
+      });
+      navigator.share(shareData);
     }
   };
 
-  async function handleOther() {
-    const response = await fetch(
-      `https://filmisbest.com/_next/image?url=${movie.poster}`,
-    );
+  async function handlePoster() {
+    const response = await fetch(movie.poster);
     const blob = await response.blob();
     const filesArray = [
-      new File([blob], "poster.jpg", {
-        type: "image/png",
+      new File([blob], `poster.jpg`, {
+        type: "image/jpeg",
         lastModified: new Date().getTime(),
       }),
     ];
     const shareData = {
+      title: `FilmIsBest | ${movie.filmName}`,
       files: filesArray,
     };
-    navigator.share(shareData).then(() => {
-      console.log("Shared successfully");
+    navigator.share(shareData);
+    toast.loading("Şəkil hazırlanır", {
+      duration: 2500,
     });
   }
 
@@ -116,7 +125,12 @@ export default function Share({ movie }) {
         <i className="bx bxs-share-alt mt-1 text-2xl"></i>
         <p>Paylaş</p>
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal
+        isOpen={isOpen}
+        placement="center"
+        className="light:text-white dark:text-white"
+        onOpenChange={onOpenChange}
+      >
         <ModalContent>
           {(onClose) => (
             <>
@@ -151,13 +165,28 @@ export default function Share({ movie }) {
                     <i className="bx bx-link text-7xl text-blue-600"></i>
                     <p className="text-nowrap font-bold">Copy Text</p>
                   </div>
-                  <div
-                    className="relative flex w-fit cursor-pointer flex-col items-center p-2"
-                    onClick={() => handleOther}
-                  >
-                    <i className="bx bx-dots-vertical-rounded text-7xl text-blue-600"></i>
-                    <p className="font-bold">Digər</p>
-                  </div>
+                  {navigator.canShare ? (
+                    <div
+                      className="relative flex w-fit cursor-pointer flex-col items-center p-2"
+                      onClick={handlePoster}
+                    >
+                      <i className="bx bx-image-alt text-nowrap text-7xl text-blue-600"></i>
+                      <p className="font-bold">Poster</p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {navigator.share ? (
+                    <div
+                      className="relative flex w-fit cursor-pointer flex-col items-center p-2"
+                      onClick={() => handleShare("other")}
+                    >
+                      <i className="bx bx-dots-vertical-rounded text-7xl text-blue-600"></i>
+                      <p className="font-bold">Digər</p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </ModalBody>
             </>

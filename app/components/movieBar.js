@@ -22,7 +22,7 @@ export default function MovieVideo({ movie }) {
   }
 
   return (
-    <div className="relative mx-auto mt-12 flex h-80 w-auto flex-col rounded-10 px-3 sm:h-[560px] sm:w-200">
+    <div className="relative mx-auto mt-12 flex h-auto w-auto flex-col rounded-10 px-3 sm:h-[560px] sm:w-200">
       <Tabs
         aria-label="Options"
         keyboardActivation="manual"

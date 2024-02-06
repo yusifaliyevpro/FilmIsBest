@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { client } from "../../sanity/lib/client";
 import FormSubmit from "../components/formsubmit";
 import Movies from "../components/movies";
 import Pagination from "../components/pagination";
 import Search from "../components/search";
+import Loading from "../loading";
 
 const ogImage = {
   url: "https://filmisbest.com/FilmIsBest.png",
@@ -58,7 +60,11 @@ export default async function MoviesPage({ searchParams }) {
   return (
     <main className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
-        <Search searchQuery={search} pageQuery={page} />
+        <Search
+          searchQuery={search}
+          resultCount={resultCount}
+          pageQuery={page}
+        />
         <Pagination
           searchQuery={search}
           resultCount={resultCount}
@@ -66,7 +72,9 @@ export default async function MoviesPage({ searchParams }) {
           count={count}
         />
       </div>
-      <Movies movies={movies} />
+      <Suspense fallback={<Loading />}>
+        <Movies movies={movies} />
+      </Suspense>
     </main>
   );
 }
