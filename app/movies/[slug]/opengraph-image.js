@@ -69,6 +69,7 @@ export default async function Image({ params }) {
       ],
       height: 600,
       width: 1200,
+      alt: `FilmIsBest | ${movie.filmName}`,
     },
   );
 }

@@ -11,14 +11,17 @@ import {
 import WhatsappIcon from "../../public/whatsapp.svg";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import React from "react";
 import translationMap from "../lib/translationMap";
 import { toast } from "react-hot-toast";
+import { useAuth } from "@clerk/nextjs";
+import SuspenseButton from "./suspenseButton";
 
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
+  const user = useAuth();
   const router = useRouter();
   const translatedGenres = movie.genre.map(
     (genre) => translationMap[genre] || genre,
@@ -96,6 +99,9 @@ export default function Share({ movie }) {
   };
 
   async function handlePoster() {
+    toast.loading("Şəkil hazırlanır", {
+      duration: 2500,
+    });
     const response = await fetch(movie.poster);
     const blob = await response.blob();
     const filesArray = [
@@ -109,10 +115,12 @@ export default function Share({ movie }) {
       files: filesArray,
     };
     navigator.share(shareData);
-    toast.loading("Şəkil hazırlanır", {
-      duration: 2500,
-    });
   }
+
+  const notify = () =>
+    toast("Bu özəllikdən istifadə etmək üçün hesabınıza daxil olun", {
+      icon: <i className="bx bx-log-in text-2xl font-bold"></i>,
+    });
 
   return (
     <div>
@@ -120,7 +128,7 @@ export default function Share({ movie }) {
         size="lg"
         color="primary"
         className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
-        onPress={onOpen}
+        onPress={user.isSignedIn ? onOpen : notify}
       >
         <i className="bx bxs-share-alt mt-1 text-2xl"></i>
         <p>Paylaş</p>

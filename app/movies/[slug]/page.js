@@ -4,7 +4,8 @@ import { client } from "../../../sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Loading from "./loading";
-import Share from "@/app/components/share";
+import Share from "../../components/share";
+import SuspenseButton from "@/app/components/suspenseButton";
 
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
@@ -81,8 +82,12 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Movie({ params }) {
+export default async function Movie({ params, searchParams }) {
   const movie = await getData({ params });
+  const activeKey =
+    typeof searchParams.activekey === "string"
+      ? searchParams.activekey
+      : "english";
 
   if (!movie) {
     return notFound();
@@ -95,10 +100,12 @@ export default async function Movie({ params }) {
           {movie.filmName}
         </h1>
         <Suspense fallback={<p>Loading Movie</p>}>
-          <MovieVideo movie={movie} />
+          <MovieVideo movie={movie} query={activeKey} />
         </Suspense>
         <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
-          <Share movie={movie} />
+          <Suspense fallback={<SuspenseButton />}>
+            <Share movie={movie} />
+          </Suspense>
         </div>
       </div>
       <Suspense fallback={<p>Loading Info</p>}>

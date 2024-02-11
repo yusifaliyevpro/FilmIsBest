@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import LottieAnimation from "./LottieAnimation";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import animation from "../../public/Complete.json";
 import {
   Modal,
@@ -16,16 +17,20 @@ import {
 } from "@nextui-org/react";
 import Complete from "./complete";
 import toast from "react-hot-toast";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [movieName, setMovieName] = useState("");
-
+  const user = useAuth();
+  const router = useRouter();
   const submitForm = () => {
     toast.loading("Göndərilir...", { duration: 3000 });
     fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
+      cache: "no-store",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,11 +59,15 @@ export default function FormSubmit() {
 
     onClose();
   };
+  const notify = () =>
+    toast("Bu özəllikdən istifadə etmək üçün hesabınıza daxil olun", {
+      icon: <i className="bx bx-log-in text-2xl font-bold"></i>,
+    });
 
   return (
     <div className="mt-4 flex text-light sm:absolute sm:right-28 sm:ml-auto sm:mt-auto">
       <Button
-        onPress={onOpen}
+        onPress={user.isSignedIn ? onOpen : notify}
         color="primary"
         size="lg"
         className="text-base font-bold"

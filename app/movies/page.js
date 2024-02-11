@@ -1,11 +1,9 @@
 import { Suspense } from "react";
 import { client } from "../../sanity/lib/client";
-import FormSubmit from "../components/formsubmit";
 import Movies from "../components/movies";
-import Pagination from "../components/pagination";
+import PaginationUI from "../components/pagination";
 import Search from "../components/search";
-import Loading from "../loading";
-
+import Loading from "./loading";
 const ogImage = {
   url: "https://filmisbest.com/FilmIsBest.png",
   width: 1080,
@@ -60,17 +58,21 @@ export default async function MoviesPage({ searchParams }) {
   return (
     <main className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
-        <Search
-          searchQuery={search}
-          resultCount={resultCount}
-          pageQuery={page}
-        />
-        <Pagination
-          searchQuery={search}
-          resultCount={resultCount}
-          pageQuery={page}
-          count={count}
-        />
+        <Suspense fallback={<p>Loading Search...</p>}>
+          <Search
+            searchQuery={search}
+            resultCount={resultCount}
+            pageQuery={page}
+          />
+        </Suspense>
+        <Suspense fallback={<p>Loading Pagination...</p>}>
+          <PaginationUI
+            searchQuery={search}
+            resultCount={resultCount}
+            pageQuery={page}
+            count={count}
+          />
+        </Suspense>
       </div>
       <Suspense fallback={<Loading />}>
         <Movies movies={movies} />

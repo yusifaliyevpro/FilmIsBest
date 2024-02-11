@@ -1,4 +1,4 @@
-import { client } from "@/sanity/lib/client";
+import { client } from "../sanity/lib/client";
 const BASE_URL = "https://filmisbest.com";
 
 export default async function sitemap() {

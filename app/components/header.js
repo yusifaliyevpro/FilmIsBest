@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import React from "react";
-import { usePathname } from "next/navigation";
+import React, { Suspense, use, useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Navbar,
   NavbarBrand,
@@ -10,24 +10,62 @@ import {
   NavbarMenuItem,
   NavbarMenu,
   NavbarItem,
-} from "@nextui-org/navbar";
-import { Select, SelectItem } from "@nextui-org/select";
+  Input,
+  Button,
+} from "@nextui-org/react";
 import toast from "react-hot-toast";
+import { UserButton } from "@clerk/nextjs";
+import firebaseApp from "../lib/firebase";
+import {
+  useAuth,
+  SignedIn,
+  SignInButton,
+  ClerkLoaded,
+  ClerkLoading,
+  SignedOut,
+} from "@clerk/nextjs";
+import { getAuth, signInWithCustomToken } from "firebase/auth";
+import SuspenseButton from "./suspenseButton";
 
 export default function Header() {
   const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const isMainPage = pathname === "/";
+  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [text, setText] = useState("");
+  const { getToken } = useAuth();
+  const user = useAuth();
+
+  useEffect(() => {
+    if (user.isSignedIn) {
+      const signInWithClerk = async () => {
+        firebaseApp;
+        const auth = getAuth();
+        const token = await getToken({ template: "integration_firebase" });
+        const userCredentials = await signInWithCustomToken(auth, token);
+      };
+      signInWithClerk();
+    } else {
+      return;
+    }
+  }, []);
 
   const notify = () =>
     toast("Bu özəllik hazırlanma mərhələsindədir", {
       icon: <i className="bx bx-code-alt text-xl font-bold"></i>,
     });
 
+  const handleClick = () => {
+    if (pathname !== "/movies") {
+      router.push("/movies");
+    } else {
+      return;
+    }
+  };
+
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className="min-h-10 select-none bg-gray-100 font-bold text-white light:text-white dark:text-white"
+      className="min-h-10 select-none bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white"
       classNames={{
         item: [
           "flex",
@@ -58,7 +96,7 @@ export default function Header() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-16 sm:flex" justify="center">
-        <NavbarItem isActive={isMainPage}>
+        <NavbarItem isActive={pathname === "/"}>
           <Link
             color="foreground"
             className="hover: text-lg text-gray-300 hover:text-white"
@@ -68,7 +106,7 @@ export default function Header() {
             Ana Səhifə
           </Link>
         </NavbarItem>
-        <NavbarItem isActive={!isMainPage}>
+        <NavbarItem isActive={pathname === "/movies"}>
           <Link
             href="/movies"
             className="text-lg  text-gray-300 hover:text-white"
@@ -79,48 +117,51 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem onClick={notify} className="hidden sm:flex">
-          <Select
-            className=" w-40 "
-            defaultSelectedKeys="1"
-            aria-label="AZ"
-            placeholder="AZ"
-            variant="underlined"
+        <NavbarItem>
+          <Input
+            classNames={{
+              base: "max-w-full sm:max-w-full  mb-1 h-10",
+              mainWrapper: "h-full",
+              input: "text-small font-bold",
+              inputWrapper:
+                "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+            }}
+            className="hidden"
+            placeholder="Film adı ilə axtarın"
+            variant="bordered"
             size="lg"
-            isDisabled={true}
-            startContent={<i className="bx bx-globe text-3xl"></i>}
-          >
-            <SelectItem key={1} textValue="AZ">
-              Azərbaycanca
-            </SelectItem>
-            <SelectItem key={2} textValue="EN" className="text-lg font-bold">
-              İngiliscə
-            </SelectItem>
-          </Select>
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value.replace(/['\[\]\/\\()]/g, ""));
+            }}
+            radius="full"
+            startContent={<i className="bx bx-search text-2xl font-bold"></i>}
+            type="search"
+          />
+        </NavbarItem>
+        <NavbarItem>
+          <ClerkLoading>
+            <SuspenseButton />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/movies" />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton>
+                <Button color="primary" className="text-md flex font-bold">
+                  Daxil ol
+                </Button>
+              </SignInButton>
+            </SignedOut>
+          </ClerkLoaded>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu className="items-center gap-3 overflow-hidden bg-transparent">
-        <NavbarMenuItem key={0} onClick={notify} className="mb-5 mt-5">
-          <Select
-            className=" w-40 "
-            defaultSelectedKeys="1"
-            placeholder="AZ"
-            variant="underlined"
-            isDisabled={true}
-            startContent={<i className="bx bx-globe text-3xl"></i>}
-          >
-            <SelectItem key={1} textValue="AZ">
-              Azərbaycanca
-            </SelectItem>
-            <SelectItem key={2} textValue="EN" className="text-lg font-bold">
-              İngiliscə
-            </SelectItem>
-          </Select>
-        </NavbarMenuItem>
+      <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
         <NavbarMenuItem key={1}>
           <Link
             href="/"
-            className={`${isMainPage ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+            className={`${pathname === "/" ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             Ana Səhifə
           </Link>
@@ -128,7 +169,7 @@ export default function Header() {
         <NavbarMenuItem key={2}>
           <Link
             href="/movies"
-            className={`${!isMainPage ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+            className={`${pathname === "/movies" ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             Filmlər
           </Link>

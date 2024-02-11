@@ -10,6 +10,10 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookiesConsent from "./components/cookies";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark, neobrutalism } from "@clerk/themes";
+import { trTR } from "@clerk/localizations";
+import { azAZ } from "./lib/az-AZ";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   category: "movie",
@@ -82,32 +86,46 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="bg-gray-100 dark">
-      <head>
-        <meta name="google-adsense-account" content="ca-pub-7613480628428091" />
-      </head>
-      <body className={inter.className}>
-        <Header />
-        <Toaster
-          toastOptions={{
-            className: "",
-            style: {
-              border: "1px solid #007bff",
-              color: "#000",
-            },
-          }}
-          position="bottom-right"
-        />
-        <Suspense fallback={<Loading />}>
-          <main className="min-h-screen text-white dark">
-            {children}
-            <SpeedInsights />
-            <Analytics />
-          </main>
-        </Suspense>
-        <CookiesConsent />
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider
+      localization={azAZ}
+      appearance={{
+        elements: {
+          logoBox: "justify-center",
+        },
+        baseTheme: dark,
+        variables: { colorPrimary: "#007bff" },
+      }}
+    >
+      <html lang="az" className="bg-gray-100 dark">
+        <head>
+          <meta
+            name="google-adsense-account"
+            content="ca-pub-7613480628428091"
+          />
+        </head>
+        <body className={inter.className}>
+          <Header />
+          <Toaster
+            toastOptions={{
+              className: "",
+              style: {
+                border: "1px solid #007bff",
+                color: "#000",
+              },
+            }}
+            position="bottom-right"
+          />
+          <Suspense fallback={<Loading />}>
+            <main className="min-h-screen  text-white dark">
+              {children}
+              <SpeedInsights />
+              <Analytics />
+            </main>
+          </Suspense>
+          <CookiesConsent />
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
