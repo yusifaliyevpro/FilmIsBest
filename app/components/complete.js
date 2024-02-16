@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import LottieAnimation from "./LottieAnimation";
-import animation from "../../public/Complete.json";
 import {
   Modal,
   ModalContent,
@@ -31,7 +30,7 @@ export default function Complete({ successful, message }) {
       <ModalContent>
         <ModalBody>
           <div className="relative flex flex-col items-center justify-center">
-            <LottieAnimation animationData={animation} />
+            <LottieAnimation animationPath="/success.lottie" />
             <p className="absolute top-3/4 mt-6 text-xl font-bold">{message}</p>
           </div>
         </ModalBody>

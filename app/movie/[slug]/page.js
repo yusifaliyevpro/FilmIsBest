@@ -2,6 +2,7 @@ import MovieInfo from "../../components/movieInfo";
 import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import Image from "./opengraph-image";
 import Share from "../../components/share";
 import SuspenseButton from "@/app/components/suspenseButton";
 import MovieInfoSuspense from "@/app/components/movieInfoSuspense";
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }) {
 
   const ogImage1 = [
     {
-      url: `https://filmisbest.com/movie/${params.slug}/opengraph-image`,
+      url: `https://filmisbest.com/movie/${movie.slug}/opengraph-image`,
       width: 1200,
       height: 600,
       alt: movie.filmName,

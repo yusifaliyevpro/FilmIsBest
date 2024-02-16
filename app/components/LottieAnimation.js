@@ -1,15 +1,8 @@
 "use client";
-import React from "react";
-import Lottie from "lottie-react";
+import { DotLottiePlayer } from "@dotlottie/react-player";
 
-const LottieComponent = ({ animationData }) => {
-  return (
-    <Lottie
-      animationData={animationData} // Animation JSON data
-      loop
-      autoplay
-    />
-  );
+const LottieComponent = ({ animationPath }) => {
+  return <DotLottiePlayer src={animationPath} autoplay loop></DotLottiePlayer>;
 };
 
 export default LottieComponent;

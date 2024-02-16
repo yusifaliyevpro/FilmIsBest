@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Loading() {
   return (
     <main>
@@ -41,7 +43,13 @@ export default function Loading() {
             </span>
           </li>
           <div className="relative mt-4 flex w-fit flex-row items-center gap-4">
-            <div className="h-[43px] w-[43px] animate-pulse rounded-10 bg-gray-200"></div>
+            <Image
+              src="/imdb.svg"
+              width={40}
+              height={40}
+              alt="Imdb Logo"
+              className="select-none"
+            />
             <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
               5.5
             </span>

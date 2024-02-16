@@ -24,7 +24,7 @@ export const contentType = "image/png";
 export default async function Image({ params }) {
   const movie = await getData({ params });
   const interSemiBold = fetch(
-    new URL("../../../public/Inter-SemiBold.ttf", import.meta.url),
+    new URL("/public/fonts/Inter-Bold.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(

@@ -2,7 +2,6 @@ import LottieComponent from "./components/LottieAnimation";
 import RecentlyMovies from "./components/recentlyMovies";
 import { client } from "../sanity/lib/client";
 import Link from "next/link";
-import animation from "../public/Movieanm.json";
 import { Suspense } from "react";
 import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
 
@@ -62,7 +61,7 @@ export default async function Home() {
           </Link>
         </div>
         <div className="relative mt-12 flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100">
-          <LottieComponent animationData={animation} />
+          <LottieComponent animationPath="/Movieanm.lottie" />
         </div>
       </div>
       <h2 className=" mt-10 w-full text-center text-3xl font-bold">
