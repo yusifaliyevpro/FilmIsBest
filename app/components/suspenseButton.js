@@ -1,10 +1,11 @@
 "use client";
 import { Button } from "@nextui-org/react";
+import { BiLoaderAlt } from "react-icons/bi";
 
 export default function SuspenseButton() {
   return (
     <Button color="primary" className="text-md flex font-bold">
-      <i class="bx bx-loader-alt animate-spin text-2xl"></i>
+      <BiLoaderAlt className="animate-spin text-2xl" />
     </Button>
   );
 }

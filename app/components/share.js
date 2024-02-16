@@ -14,6 +14,16 @@ import translationMap from "../lib/translationMap";
 import { toast } from "react-hot-toast";
 import { ClerkLoaded, ClerkLoading, useAuth } from "@clerk/nextjs";
 import SuspenseButton from "./suspenseButton";
+import {
+  BiDotsVerticalRounded,
+  BiImageAlt,
+  BiLink,
+  BiLogIn,
+  BiLogoTelegram,
+  BiLogoWhatsapp,
+  BiLogoWhatsappSquare,
+  BiSolidShareAlt,
+} from "react-icons/bi";
 
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -116,7 +126,7 @@ export default function Share({ movie }) {
 
   const notify = () =>
     toast("Bu özəllikdən istifadə etmək üçün hesabınıza daxil olun", {
-      icon: <i className="bx bx-log-in text-2xl font-bold"></i>,
+      icon: <BiLogIn className="text-2xl font-bold" />,
     });
 
   return (
@@ -131,7 +141,7 @@ export default function Share({ movie }) {
           className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
           onPress={user.isSignedIn ? onOpen : notify}
         >
-          <i className="bx bxs-share-alt mt-1 text-2xl"></i>
+          <BiSolidShareAlt className="mt-1 text-2xl" />
           <p>Paylaş</p>
         </Button>
       </ClerkLoaded>
@@ -145,7 +155,7 @@ export default function Share({ movie }) {
           {(onClose) => (
             <>
               <ModalHeader className="flex w-full flex-row items-center justify-center gap-3 font-bold">
-                <i className="bx bxs-share-alt mt-1 text-4xl"></i>
+                <BiSolidShareAlt className="mt-1 text-4xl" />
                 <h6 className="text-3xl font-bold">Paylaş</h6>
               </ModalHeader>
               <ModalBody className=" p-8">
@@ -154,7 +164,7 @@ export default function Share({ movie }) {
                     className="relative flex w-fit cursor-pointer flex-col items-center p-2"
                     onClick={() => handleShare("whatsapp")}
                   >
-                    <i className="bx bxl-whatsapp text-7xl text-blue-600"></i>
+                    <BiLogoWhatsapp className=" text-7xl text-blue-600" />
                     <p className="font-bold">WhatsApp</p>
                   </div>
                   {window.innerWidth < window.innerHeight ? (
@@ -162,7 +172,7 @@ export default function Share({ movie }) {
                       className="relative flex w-fit cursor-pointer flex-col items-center p-2"
                       onClick={() => handleShare("telegram")}
                     >
-                      <i className="bx bxl-telegram text-7xl text-blue-600"></i>
+                      <BiLogoTelegram className="text-7xl text-blue-600" />
                       <p className="font-bold">Telegram</p>
                     </div>
                   ) : (
@@ -172,7 +182,7 @@ export default function Share({ movie }) {
                     className="relative flex w-fit cursor-pointer flex-col items-center p-2"
                     onClick={() => handleShare("copy")}
                   >
-                    <i className="bx bx-link text-7xl text-blue-600"></i>
+                    <BiLink className="text-7xl text-blue-600" />
                     <p className="text-nowrap font-bold">Copy Text</p>
                   </div>
                   {navigator.canShare ? (
@@ -180,7 +190,7 @@ export default function Share({ movie }) {
                       className="relative flex w-fit cursor-pointer flex-col items-center p-2"
                       onClick={handlePoster}
                     >
-                      <i className="bx bx-image-alt text-nowrap text-7xl text-blue-600"></i>
+                      <BiImageAlt className="text-nowrap text-7xl text-blue-600" />
                       <p className="font-bold">Poster</p>
                     </div>
                   ) : (
@@ -191,7 +201,7 @@ export default function Share({ movie }) {
                       className="relative flex w-fit cursor-pointer flex-col items-center p-2"
                       onClick={() => handleShare("other")}
                     >
-                      <i className="bx bx-dots-vertical-rounded text-7xl text-blue-600"></i>
+                      <BiDotsVerticalRounded className="text-7xl text-blue-600" />
                       <p className="font-bold">Digər</p>
                     </div>
                   ) : (

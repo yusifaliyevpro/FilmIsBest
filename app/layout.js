@@ -1,8 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import "boxicons/css/boxicons.min.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import "react-icons/bi";
 import "swiper/css";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
@@ -11,6 +11,7 @@ import CookiesConsent from "./components/cookies";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { azAZ } from "./lib/az-AZ";
+import { IconContext } from "react-icons";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   category: "movie",

@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import SuspenseButton from "./suspenseButton";
+import { BiLogIn } from "react-icons/bi";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -60,7 +61,7 @@ export default function FormSubmit() {
   };
   const notify = () =>
     toast("Bu özəllikdən istifadə etmək üçün hesabınıza daxil olun", {
-      icon: <i className="bx bx-log-in text-2xl font-bold"></i>,
+      icon: <BiLogIn className="text-4xl font-bold" />,
     });
 
   return (

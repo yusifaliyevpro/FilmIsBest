@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useDebounce } from "use-debounce";
 import toast from "react-hot-toast";
+import { BiSearch } from "react-icons/bi";
 
 export default function Search({ searchQuery, resultCount, pageQuery }) {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function Search({ searchQuery, resultCount, pageQuery }) {
       toast("Axtarışınıza uyğun film tapılmadı", {
         position:
           window.innerHeight > window.innerWidth ? "top-right" : "bottom-right",
-        icon: <i className="bx bx-search text-2xl font-bold"></i>,
+        icon: <BiSearch className="text-2xl font-bold" />,
       });
     }
   }, [resultCount]);
@@ -54,7 +55,7 @@ export default function Search({ searchQuery, resultCount, pageQuery }) {
             setText(e.target.value.replace(/['\[\]\/\\()]/g, ""));
           }}
           radius="full"
-          startContent={<i className="bx bx-search text-2xl font-bold"></i>}
+          startContent={<BiSearch className="text-[1.7rem] font-bold" />}
           type="search"
         />
       </div>

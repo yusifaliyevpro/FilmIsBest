@@ -44,8 +44,9 @@ export default function RecentlyMovies({ movies }) {
                     alt={movie.filmName + " movie poster"}
                     width={260}
                     height={380}
-                    quality={75}
-                    fetchPriority="low"
+                    quality={60}
+                    priority={true}
+                    fetchPriority="high"
                     className="h-[380px] rounded-10 transition-transform duration-300 ease-in-out hover:scale-110"
                   />
                   <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">

@@ -26,6 +26,7 @@ import {
 } from "@clerk/nextjs";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import SuspenseButton from "./suspenseButton";
+import { BiCode, BiSearch, BiSolidMovie } from "react-icons/bi";
 
 export default function Header() {
   const pathname = usePathname();
@@ -51,7 +52,7 @@ export default function Header() {
 
   const notify = () =>
     toast("Bu özəllik hazırlanma mərhələsindədir", {
-      icon: <i className="bx bx-code-alt text-xl font-bold"></i>,
+      icon: <BiCode className="text-xl font-bold" />,
     });
 
   const handleClick = () => {
@@ -90,7 +91,7 @@ export default function Header() {
             href="/"
             className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
           >
-            <i className="bx bxs-movie text-2xl font-normal text-blue-600"></i>
+            <BiSolidMovie className=" text-2xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>
           </Link>
         </NavbarBrand>
@@ -135,7 +136,7 @@ export default function Header() {
               setText(e.target.value.replace(/['\[\]\/\\()]/g, ""));
             }}
             radius="full"
-            startContent={<i className="bx bx-search text-2xl font-bold"></i>}
+            startContent={<BiSearch className="text-2xl font-bold" />}
             type="search"
           />
         </NavbarItem>

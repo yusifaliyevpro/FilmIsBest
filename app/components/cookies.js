@@ -12,6 +12,7 @@ import {
   useDisclosure,
   Button,
 } from "@nextui-org/react";
+import { BiCookie } from "react-icons/bi";
 
 export default function CookiesConsent() {
   const cookie = Cookies.get("FilmIsBestConsent");
@@ -50,7 +51,7 @@ export default function CookiesConsent() {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-row items-center justify-center gap-2 text-2xl font-bold">
-              <i className="bx bx-cookie text-2xl"></i>
+              <BiCookie className="text-2xl font-bold" />
               Çərəzlər
             </ModalHeader>
             <ModalBody>
