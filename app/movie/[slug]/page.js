@@ -1,11 +1,12 @@
-import MovieVideo from "../../components/movieBar";
 import MovieInfo from "../../components/movieInfo";
-import { client } from "../../../sanity/lib/client";
+import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Loading from "./loading";
 import Share from "../../components/share";
 import SuspenseButton from "@/app/components/suspenseButton";
+import MovieInfoSuspense from "@/app/components/movieInfoSuspense";
+import MovieBar from "../../components/movieBar";
+import MovieBarSuspense from "@/app/components/movieBarSuspense";
 
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }) {
 
   const ogImage1 = [
     {
-      url: `https://filmisbest.com/movies/${params.slug}/opengraph-image`,
+      url: `https://filmisbest.com/movie/${params.slug}/opengraph-image`,
       width: 1200,
       height: 600,
       alt: movie.filmName,
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }) {
   ];
   return {
     title: `${movie.filmName}`,
-    url: `https://filmisbest.com/movies/${movie.slug}`,
+    url: `https://filmisbest.com/movie/${movie.slug}`,
     description: movie.description,
     keywords: [
       "FilmİsBest",
@@ -75,7 +76,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,
       images: ogImage1,
-      url: `https://filmisbest.com/movies/${movie.slug}`,
+      url: `https://filmisbest.com/movie/${movie.slug}`,
       description: movie.description,
       type: "website",
     },
@@ -99,8 +100,8 @@ export default async function Movie({ params, searchParams }) {
         <h1 className="relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-namebg p-3 text-center text-2xl font-bold text-white sm:mx-auto sm:w-200">
           {movie.filmName}
         </h1>
-        <Suspense fallback={<p>Loading Movie</p>}>
-          <MovieVideo movie={movie} query={activeKey} />
+        <Suspense fallback={<MovieBarSuspense />}>
+          <MovieBar movie={movie} query={activeKey} />
         </Suspense>
         <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
           <Suspense fallback={<SuspenseButton />}>
@@ -108,7 +109,7 @@ export default async function Movie({ params, searchParams }) {
           </Suspense>
         </div>
       </div>
-      <Suspense fallback={<p>Loading Info</p>}>
+      <Suspense fallback={<MovieInfoSuspense />}>
         <MovieInfo movie={movie} />
       </Suspense>
     </main>

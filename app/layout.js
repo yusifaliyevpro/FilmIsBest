@@ -3,16 +3,13 @@ import "./globals.css";
 import "boxicons/css/boxicons.min.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import { Suspense } from "react";
-import Loading from "./loading";
 import "swiper/css";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookiesConsent from "./components/cookies";
 import { ClerkProvider } from "@clerk/nextjs";
-import { dark, neobrutalism } from "@clerk/themes";
-import { trTR } from "@clerk/localizations";
+import { dark } from "@clerk/themes";
 import { azAZ } from "./lib/az-AZ";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
@@ -115,13 +112,9 @@ export default function RootLayout({ children }) {
             }}
             position="bottom-right"
           />
-          <Suspense fallback={<Loading />}>
-            <main className="min-h-screen  text-white dark">
-              {children}
-              <SpeedInsights />
-              <Analytics />
-            </main>
-          </Suspense>
+          <main className="min-h-screen  text-white dark">{children}</main>
+          <SpeedInsights />
+          <Analytics />
           <CookiesConsent />
           <Footer />
         </body>

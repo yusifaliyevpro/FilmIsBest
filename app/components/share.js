@@ -4,18 +4,15 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import WhatsappIcon from "../../public/whatsapp.svg";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { Suspense, useState } from "react";
 import React from "react";
 import translationMap from "../lib/translationMap";
 import { toast } from "react-hot-toast";
-import { useAuth } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, useAuth } from "@clerk/nextjs";
 import SuspenseButton from "./suspenseButton";
 
 export default function Share({ movie }) {
@@ -124,15 +121,20 @@ export default function Share({ movie }) {
 
   return (
     <div>
-      <Button
-        size="lg"
-        color="primary"
-        className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
-        onPress={user.isSignedIn ? onOpen : notify}
-      >
-        <i className="bx bxs-share-alt mt-1 text-2xl"></i>
-        <p>Paylaş</p>
-      </Button>
+      <ClerkLoading>
+        <SuspenseButton />
+      </ClerkLoading>
+      <ClerkLoaded>
+        <Button
+          size="lg"
+          color="primary"
+          className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
+          onPress={user.isSignedIn ? onOpen : notify}
+        >
+          <i className="bx bxs-share-alt mt-1 text-2xl"></i>
+          <p>Paylaş</p>
+        </Button>
+      </ClerkLoaded>
       <Modal
         isOpen={isOpen}
         placement="center"

@@ -3,7 +3,8 @@ import { client } from "../../sanity/lib/client";
 import Movies from "../components/movies";
 import PaginationUI from "../components/pagination";
 import Search from "../components/search";
-import Loading from "./loading";
+import SearchSkeleton from "../components/searchSkeleton";
+import PaginationSkeleton from "../components/paginationSkeleton";
 const ogImage = {
   url: "https://filmisbest.com/FilmIsBest.png",
   width: 1080,
@@ -58,14 +59,14 @@ export default async function MoviesPage({ searchParams }) {
   return (
     <main className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
-        <Suspense fallback={<p>Loading Search...</p>}>
+        <Suspense fallback={<SearchSkeleton />}>
           <Search
             searchQuery={search}
             resultCount={resultCount}
             pageQuery={page}
           />
         </Suspense>
-        <Suspense fallback={<p>Loading Pagination...</p>}>
+        <Suspense fallback={<PaginationSkeleton />}>
           <PaginationUI
             searchQuery={search}
             resultCount={resultCount}
@@ -74,7 +75,7 @@ export default async function MoviesPage({ searchParams }) {
           />
         </Suspense>
       </div>
-      <Suspense fallback={<Loading />}>
+      <Suspense>
         <Movies movies={movies} />
       </Suspense>
     </main>

@@ -4,7 +4,7 @@ import { client } from "../sanity/lib/client";
 import Link from "next/link";
 import animation from "../public/Movieanm.json";
 import { Suspense } from "react";
-import Loading from "./loading";
+import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
 
 const ogImage = {
   url: "https://filmisbest.com/FilmIsBest.png",
@@ -47,10 +47,12 @@ export default async function Home() {
     <main>
       <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
         <div>
-          <h1 className="relative mt-6 flex flex-col text-nowrap text-center text-2xl font-bold no-underline lg:mt-0 lg:text-4xl">
+          <h1 className=" relative mt-6 flex-col  text-nowrap  text-center text-2xl font-bold  no-underline lg:mt-0 lg:text-4xl">
             Axtardığın bütün filmlər &nbsp;
             <br />
-            filmisbest.com-da
+            <p className="inline-block bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50%  to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
+              filmisbest.com-da
+            </p>
           </h1>
           <Link
             href={"/movies"}
@@ -67,7 +69,7 @@ export default async function Home() {
         Ən Son Əlavə Olunanlar
       </h2>
       <div className="relative w-full">
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<RecentlyMoviesSkeleton />}>
           <RecentlyMovies movies={movies} />
         </Suspense>
       </div>

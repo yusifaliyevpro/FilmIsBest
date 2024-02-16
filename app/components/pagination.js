@@ -3,7 +3,6 @@ import React from "react";
 import { Pagination } from "@nextui-org/pagination";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useDebounce } from "use-debounce";
 
 export default function PaginationUI({
   pageQuery,

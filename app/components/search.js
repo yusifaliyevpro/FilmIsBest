@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@nextui-org/input";
 import { useState, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDebounce } from "use-debounce";
 import toast from "react-hot-toast";
 

@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import LottieAnimation from "./LottieAnimation";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import animation from "../../public/Complete.json";
+import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import {
   Modal,
   ModalContent,
@@ -19,6 +17,7 @@ import Complete from "./complete";
 import toast from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import SuspenseButton from "./suspenseButton";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -66,14 +65,19 @@ export default function FormSubmit() {
 
   return (
     <div className="mt-4 flex text-light sm:absolute sm:right-28 sm:ml-auto sm:mt-auto">
-      <Button
-        onPress={user.isSignedIn ? onOpen : notify}
-        color="primary"
-        size="lg"
-        className="text-base font-bold"
-      >
-        Film İstəyi
-      </Button>
+      <ClerkLoading>
+        <SuspenseButton />
+      </ClerkLoading>
+      <ClerkLoaded>
+        <Button
+          onPress={user.isSignedIn ? onOpen : notify}
+          color="primary"
+          size="lg"
+          className="text-base font-bold"
+        >
+          Film İstəyi
+        </Button>
+      </ClerkLoaded>
       <Modal
         isOpen={isOpen}
         placement="center"

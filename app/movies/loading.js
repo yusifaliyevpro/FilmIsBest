@@ -1,10 +1,14 @@
-import PaginationUI from "../components/pagination";
-import Search from "../components/search";
-
-export default function Skeleton() {
+export default function Loading() {
   return (
     <main className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
-      <div className="sm:flx-row relative flex h-[140px] w-full flex-col items-center justify-center"></div>
+      <div className="sm:flx-row relative flex h-[140px] w-full flex-col items-center justify-center">
+        <div>
+          <div className=" mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
+        </div>
+        <div className="relative mt-5 flex animate-pulse rounded-xl bg-gray-200">
+          <div className="h-[36px] w-[76px]"></div>
+        </div>
+      </div>
       <div className="justify-content-center mx-2.5 flex flex-wrap items-center justify-center gap-x-10">
         {Array(20)
           .fill()

@@ -11,16 +11,16 @@ export default async function sitemap() {
   const moviess = await getData();
 
   const movies = moviess.map((movie) => ({
-    url: `${BASE_URL}/movies/${movie.slug}`,
+    url: `${BASE_URL}/movie/${movie.slug}`,
     lastModified: movie._updatedAt,
     changeFrequency: "monthly",
-    priority: 0.7,
+    priority: 0.8,
   }));
 
-  const routes = ["", "/movies"].map((route) => ({
+  const routes = ["/", "/movies"].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: "monthly",
+    changeFrequency: "weekly",
     priority: 0.99,
   }));
 

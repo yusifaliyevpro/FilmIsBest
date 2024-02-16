@@ -34,7 +34,7 @@ export default function RecentlyMovies({ movies }) {
           <SwiperSlide key={index} className="relative mx-auto flex">
             <Link
               key={index}
-              href={`movies/${movie.slug}`}
+              href={`movie/${movie.slug}`}
               className="justify-content-center relative mx-auto inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
             >
               <Skeleton className="rounded-10" isLoaded={true}>
@@ -43,7 +43,6 @@ export default function RecentlyMovies({ movies }) {
                     src={movie.poster}
                     alt={movie.filmName + " movie poster"}
                     width={260}
-                    priority="lazy"
                     height={380}
                     className="h-[380px] rounded-10 transition-transform duration-300 ease-in-out hover:scale-110"
                   />

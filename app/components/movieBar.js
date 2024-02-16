@@ -1,10 +1,9 @@
 "use client";
 import { Tabs, Tab } from "@nextui-org/tabs";
-import { Suspense, useState } from "react";
-import Loading from "../loading";
+import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 
-export default function MovieVideo({ movie }) {
+export default function MovieBar({ movie }) {
   const englishLink = "https://vidsrc.to/embed/movie/" + movie.imdbID;
   const turkishLink = movie.TurkishLink;
   const turkishSubLink = movie.TurkishSubtitleLink;
@@ -62,15 +61,13 @@ export default function MovieVideo({ movie }) {
         ></Tab>
         <Tab key="trailer" className="font-bold" title="Fraqman"></Tab>
       </Tabs>
-      <Suspense fallback={<Loading />}>
-        <iframe
-          className="z-35 relative bottom-0 left-0 mx-auto mt-0 h-60 w-full select-none rounded-b-10 border-none bg-black sm:absolute sm:h-102 sm:w-200"
-          src={activeLink}
-          allowFullScreen
-          loading="lazy"
-          title={movie.filmName}
-        ></iframe>
-      </Suspense>
+      <iframe
+        className="z-35 relative bottom-0 left-0 mx-auto mt-0 h-60 w-full select-none rounded-b-10 border-none bg-black sm:absolute sm:h-102 sm:w-200"
+        src={activeLink}
+        allowFullScreen
+        loading="lazy"
+        title={movie.filmName}
+      ></iframe>
     </div>
   );
 }

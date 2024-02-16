@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Skeleton } from "@nextui-org/skeleton";
 
 export default function Movies({ movies }) {
   return (
@@ -8,7 +7,7 @@ export default function Movies({ movies }) {
       {movies.map((movie, index) => (
         <Link
           key={index}
-          href={`movies/${movie.slug.current}`}
+          href={`movie/${movie.slug.current}`}
           className="justify-content-center relative mt-10 inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
         >
           <div>

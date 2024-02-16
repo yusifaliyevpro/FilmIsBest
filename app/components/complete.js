@@ -1,18 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import LottieAnimation from "./LottieAnimation";
 import animation from "../../public/Complete.json";
 import {
   Modal,
   ModalContent,
-  ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
   useDisclosure,
-  Checkbox,
-  Input,
-  Link,
 } from "@nextui-org/react";
 
 export default function Complete({ successful, message }) {
