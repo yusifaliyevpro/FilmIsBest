@@ -36,6 +36,8 @@ export default function Header() {
   const { getToken } = useAuth();
   const user = useAuth();
 
+  console.log(pathname);
+
   useEffect(() => {
     if (user.isSignedIn) {
       const signInWithClerk = async () => {
@@ -66,7 +68,7 @@ export default function Header() {
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className="min-h-10 select-none bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white"
+      className={`min-h-10 select-none ${pathname.startsWith("/studio") ? "hidden" : "flex"} bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white`}
       classNames={{
         item: [
           "flex",

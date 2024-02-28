@@ -14,7 +14,7 @@ export default async function sitemap() {
     url: `${BASE_URL}/movie/${movie.slug}`,
     lastModified: movie._updatedAt,
     changeFrequency: "monthly",
-    priority: 0.8,
+    priority: 0.9,
   }));
 
   const routes = ["/", "/movies"].map((route) => ({

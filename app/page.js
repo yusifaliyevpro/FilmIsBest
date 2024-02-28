@@ -4,7 +4,8 @@ import { client } from "../sanity/lib/client";
 import Link from "next/link";
 import { Suspense } from "react";
 import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
-import { BiSolidChevronRight } from "react-icons/bi";
+import { BiLoaderAlt, BiSolidChevronRight } from "react-icons/bi";
+import { ClerkLoaded, ClerkLoading, SignedIn, auth } from "@clerk/nextjs";
 
 const ogImage = {
   url: "https://filmisbest.com/FilmIsBest.png",
@@ -43,6 +44,7 @@ export async function getData() {
 
 export default async function Home() {
   const movies = await getData();
+  const { userId } = auth();
   return (
     <main>
       <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
@@ -54,15 +56,46 @@ export default async function Home() {
               filmisbest.com-da
             </p>
           </h1>
-          <Link
-            href={"/movies"}
-            className="relative mx-auto mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
-          >
-            <p>Filmlər</p> <BiSolidChevronRight />
-          </Link>
+          <ClerkLoading>
+            <div
+              href={"/movies"}
+              className="relative mx-auto mt-7 flex h-[56px] w-[128px] items-center justify-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+            >
+              <BiLoaderAlt className="animate-spin text-3xl" />
+            </div>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <div className="relative flex flex-row items-center justify-center gap-x-8">
+              <Link
+                href={"/movies"}
+                className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+              >
+                <p>Filmlər</p> <BiSolidChevronRight />
+              </Link>
+              <SignedIn>
+                {userId === process.env.CLERK_ADMIN_DEV_ID ||
+                userId === process.env.CLERK_ADMIN_PROD_ID ? (
+                  <Link
+                    href={"/studio"}
+                    className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                  >
+                    <p>Studio</p> <BiSolidChevronRight />
+                  </Link>
+                ) : (
+                  ""
+                )}
+              </SignedIn>
+            </div>
+          </ClerkLoaded>
         </div>
         <div className="relative mt-12 flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100">
-          <LottieComponent animationPath="/Movieanm.lottie" />
+          <Suspense
+            fallback={
+              <div className="relative mt-12 flex h-74 w-74 animate-pulse rounded-full bg-gray-200 lg:mt-0 lg:h-100 lg:w-100"></div>
+            }
+          >
+            <LottieComponent animationPath="/Movieanm.lottie" />
+          </Suspense>
         </div>
       </div>
       <h2 className=" mt-10 w-full text-center text-3xl font-bold">

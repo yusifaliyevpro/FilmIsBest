@@ -9,10 +9,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "main-page":
-          "url('https://my.spline.design/3dtextcopy-af24999d656096bb91fd9a1f92dcc7d0/')",
-      },
       textColor: {
         light: "#FFFFFF", // light mod için metin rengi
         dark: "#FFFFFF", // dark mod için metin rengi

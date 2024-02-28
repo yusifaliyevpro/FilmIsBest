@@ -1,3 +1,4 @@
+import movie from "./movie";
 export const schema = {
-  types: [],
+  types: [movie],
 };

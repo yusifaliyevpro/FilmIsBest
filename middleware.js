@@ -4,6 +4,7 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/(.*)",
+    "/studio",
     "/movies",
     "/movies/(.*)",
     "/movie/(.*)",

@@ -1,10 +1,15 @@
+"use client";
 import { Suspense } from "react";
 import FormSubmit from "./formsubmit";
 import SuspenseButton from "./suspenseButton";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
   return (
-    <footer className="relative bottom-0 left-0 z-50 flex h-auto w-full flex-col items-center justify-center bg-gray-200 fill-current py-5 text-white sm:flex-row">
+    <footer
+      className={`relative bottom-0 ${pathname.startsWith("/studio") ? "hidden" : "flex"} left-0 z-50 flex h-auto w-full flex-col items-center justify-center bg-gray-200 fill-current py-5 text-white sm:flex-row`}
+    >
       <h3 className="select-none text-xl font-bold no-underline">
         👌 Made by{" "}
         <a

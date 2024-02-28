@@ -69,11 +69,11 @@ export const metadata = {
     "yusif",
     "aliyev",
   ],
-  creator: "Yusif Aliyev",
-  publisher: "Yusif Aliyev",
+  creator: "YusifAliyevPro",
+  publisher: "YusifAliyevPro",
   applicationName: "FilmIsBest",
   generator: "FilmIsBest",
-  authors: [{ name: "Yusif Aliyev", url: "https://yusifaliyevpro.com" }],
+  authors: [{ name: "YusifAliyevPro", url: "https://yusifaliyevpro.com" }],
   siteName: "FilmIsBest",
   openGraph: {
     type: "website",
@@ -84,24 +84,25 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider
-      localization={azAZ}
-      appearance={{
-        elements: {
-          logoBox: "justify-center",
-        },
-        baseTheme: dark,
-        variables: { colorPrimary: "#007bff" },
-      }}
-    >
-      <html lang="az" className="bg-gray-100 dark">
-        <head>
-          <meta
-            name="google-adsense-account"
-            content="ca-pub-7613480628428091"
-          />
-        </head>
-        <body className={inter.className}>
+    <html lang="az" className="bg-gray-100 dark">
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-7613480628428091" />
+      </head>
+      <body className={inter.className}>
+        <ClerkProvider
+          localization={azAZ}
+          appearance={{
+            layout: {
+              socialButtonsPlacement: "bottom",
+              socialButtonsVariant: "iconButton",
+            },
+            elements: {
+              logoBox: "justify-center",
+            },
+            baseTheme: dark,
+            variables: { colorPrimary: "#007bff" },
+          }}
+        >
           <Header />
           <Toaster
             toastOptions={{
@@ -118,8 +119,8 @@ export default function RootLayout({ children }) {
           <Analytics />
           <CookiesConsent />
           <Footer />
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
