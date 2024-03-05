@@ -4,12 +4,10 @@ export const metadata = {
   title: "FilmIsBest | 404 Not Found",
   description: "Axtardığınız səhifə mövcud deyil",
   creator: "Yusif Aliyev",
-  url: "https://filmisbest.com",
   siteName: "FilmIsBest",
   openGraph: {
     description: "Axtardığınız səhifə mövcud deyil",
     type: "website",
-    url: "https://filmisbest.com",
   },
 };
 

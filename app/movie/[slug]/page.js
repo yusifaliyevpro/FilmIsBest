@@ -8,6 +8,7 @@ import SuspenseButton from "@/app/components/suspenseButton";
 import MovieInfoSuspense from "@/app/components/movieInfoSuspense";
 import MovieBar from "../../components/movieBar";
 import MovieBarSuspense from "@/app/components/movieBarSuspense";
+import { baseURL } from "@/app/lib/bases";
 
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }) {
 
   const ogImage1 = [
     {
-      url: `https://filmisbest.com/movie/${movie.slug}/opengraph-image`,
+      url: `${baseURL}/movie/${movie.slug}/opengraph-image`,
       width: 1200,
       height: 600,
       alt: movie.filmName,
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }) {
   ];
   return {
     title: `${movie.filmName}`,
-    url: `https://filmisbest.com/movie/${movie.slug}`,
+    url: `${baseURL}/movie/${movie.slug}`,
     description: movie.description,
     keywords: [
       "FilmİsBest",
@@ -76,8 +77,7 @@ export async function generateMetadata({ params }) {
     ],
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,
-      images: ogImage1,
-      url: `https://filmisbest.com/movie/${movie.slug}`,
+      url: `${baseURL}/movie/${movie.slug}`,
       description: movie.description,
       type: "website",
     },

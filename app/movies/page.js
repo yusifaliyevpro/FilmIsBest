@@ -5,8 +5,9 @@ import PaginationUI from "../components/pagination";
 import Search from "../components/search";
 import SearchSkeleton from "../components/searchSkeleton";
 import PaginationSkeleton from "../components/paginationSkeleton";
+import { baseURL } from "../lib/bases";
 const ogImage = {
-  url: "https://filmisbest.com/FilmIsBest.png",
+  url: `${baseURL}/FilmIsBest.png`,
   width: 1080,
   height: 1080,
   alt: "FilmIsBest",
@@ -15,7 +16,7 @@ const ogImage = {
 
 export const metadata = {
   title: "Filmlər",
-  url: "https://filmisbest.com/movies",
+  url: `${baseURL}/movies`,
   description:
     "FilmIsBest.com YusifAliyevPro tərəfindən yaradılmışdır. İstədiyiniz bütün filmləri İngiliscə, Türkçə və hər iki dildə altyazı seçimləri ilə izləyə bilərsiz. Həmçinin Film Fraqmanlarınada baxmaq mümkündür.",
   openGraph: {
@@ -23,7 +24,7 @@ export const metadata = {
       "FilmIsBest.com YusifAliyevPro tərəfindən yaradılmışdır. İstədiyiniz bütün filmləri İngiliscə, Türkçə və hər iki dildə altyazı seçimləri ilə izləyə bilərsiz. Həmçinin Film Fraqmanlarınada baxmaq mümkündür.",
     images: [ogImage],
     title: "FilmIsBest | Filmlər",
-    url: "https://filmisbest.com/movies",
+    url: `${baseURL}/movies`,
   },
 };
 

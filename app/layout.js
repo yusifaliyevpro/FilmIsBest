@@ -16,12 +16,12 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   category: "movie",
   icons: {
-    icon: "https://filmisbest.com/icon.png",
-    shortcut: "https://filmisbest.com/icon.png",
-    apple: "https://filmisbest.com/icon.png",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
     other: {
       rel: "apple-touch-icon-precomposed",
-      url: "https://filmisbest.com/icon.png",
+      url: "/icon.png",
     },
   },
   robots: {
@@ -87,6 +87,10 @@ export default function RootLayout({ children }) {
     <html lang="az" className="bg-gray-100 dark">
       <head>
         <meta name="google-adsense-account" content="ca-pub-7613480628428091" />
+        <meta
+          name="google-site-verification"
+          content="GSSl61QhJ471RU6KIbd2fSzwNN_6KYQsjA1-PumXcPs"
+        />
       </head>
       <body className={inter.className}>
         <ClerkProvider

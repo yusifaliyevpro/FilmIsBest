@@ -6,9 +6,10 @@ import { Suspense } from "react";
 import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
 import { BiLoaderAlt, BiSolidChevronRight } from "react-icons/bi";
 import { ClerkLoaded, ClerkLoading, SignedIn, auth } from "@clerk/nextjs";
+import { baseURL } from "./lib/bases";
 
 const ogImage = {
-  url: "https://filmisbest.com/FilmIsBest.png",
+  url: `${baseURL}/FilmIsBest.png`,
   width: 1080,
   height: 1080,
   alt: "FilmIsBest",
@@ -19,7 +20,7 @@ export const metadata = {
   title: {
     absolute: "FilmIsBest | Ana Səhifə",
   },
-  url: "https://filmisbest.com/",
+  url: `${baseURL}/`,
   description:
     "FilmIsBest.com YusifAliyevPro tərəfindən yaradılmışdır. İstədiyiniz bütün filmləri İngiliscə, Türkçə və hər iki dildə altyazı seçimləri ilə izləyə bilərsiz. Həmçinin Film Fraqmanlarınada baxmaq mümkündür.",
   openGraph: {
@@ -27,7 +28,7 @@ export const metadata = {
       "FilmIsBest.com YusifAliyevPro tərəfindən yaradılmışdır. İstədiyiniz bütün filmləri İngiliscə, Türkçə və hər iki dildə altyazı seçimləri ilə izləyə bilərsiz. Həmçinin Film Fraqmanlarınada baxmaq mümkündür.",
     images: [ogImage],
     title: "FilmIsBest | Ana Səhifə",
-    url: "https://filmisbest.com/",
+    url: `${baseURL}/`,
   },
 };
 

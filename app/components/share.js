@@ -24,6 +24,7 @@ import {
   BiLogoWhatsappSquare,
   BiSolidShareAlt,
 } from "react-icons/bi";
+import { baseURL } from "../lib/bases";
 
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -47,7 +48,7 @@ export default function Share({ movie }) {
     movie.imdbpuan +
     "\n\n *Fraqmanı və ya filmi izləmək üçün linkə keçid edin* ⬇️" +
     "\n\n" +
-    "https://filmisbest.com" +
+    `${baseURL}` +
     pathname;
 
   const telegramBody =
@@ -63,7 +64,7 @@ export default function Share({ movie }) {
     movie.imdbpuan +
     "\n\n **Fraqmanı və ya filmi izləmək üçün linkə keçid edin** ⬇️" +
     "\n\n" +
-    "https://filmisbest.com" +
+    `${baseURL}` +
     pathname;
 
   const copyBody =
@@ -79,7 +80,7 @@ export default function Share({ movie }) {
     movie.imdbpuan +
     "\n\n Fraqmanı və ya filmi izləmək üçün linkə keçid edin ⬇️" +
     "\n\n" +
-    "https://filmisbest.com" +
+    `${baseURL}` +
     pathname;
 
   const handleShare = (platform) => {

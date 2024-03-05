@@ -36,8 +36,6 @@ export default function Header() {
   const { getToken } = useAuth();
   const user = useAuth();
 
-  console.log(pathname);
-
   useEffect(() => {
     if (user.isSignedIn) {
       const signInWithClerk = async () => {
