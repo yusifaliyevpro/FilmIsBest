@@ -97,11 +97,22 @@ export default async function Home() {
           </div>
         </MotionDiv>
         <MotionDiv
-          initial={{ y: 0 }}
-          animate={{ y: [0, 15, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 0.7 }}
+          transition={{
+            duration: 1,
+            type: "spring",
+            stiffness: 110,
+            delay: 0.5,
+          }}
+          className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100"
         >
-          <div className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100">
+          <MotionDiv
+            initial={{ y: 0 }}
+            animate={{ y: [0, 15, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, delay: 1.3 }}
+            className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100"
+          >
             <Suspense
               fallback={
                 <div className="relative mt-12 flex h-74 w-74 animate-pulse rounded-full bg-gray-200 lg:mt-0 lg:h-100 lg:w-100"></div>
@@ -109,7 +120,7 @@ export default async function Home() {
             >
               <LottieComponent animationPath="/Movieanm.lottie" />
             </Suspense>
-          </div>
+          </MotionDiv>
         </MotionDiv>
       </div>
       <h2 className=" mt-20  w-full text-center text-3xl font-bold">
@@ -119,12 +130,11 @@ export default async function Home() {
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
+        className="relative h-auto w-full"
       >
-        <div className="relative h-auto w-full">
-          <Suspense fallback={<RecentlyMoviesSkeleton />}>
-            <RecentlyMovies movies={movies} />
-          </Suspense>
-        </div>
+        <Suspense fallback={<RecentlyMoviesSkeleton />}>
+          <RecentlyMovies movies={movies} />
+        </Suspense>
       </MotionDiv>
     </main>
   );
