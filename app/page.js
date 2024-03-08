@@ -7,6 +7,7 @@ import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
 import { BiLoaderAlt, BiSolidChevronRight } from "react-icons/bi";
 import { ClerkLoaded, ClerkLoading, SignedIn, auth } from "@clerk/nextjs";
 import { baseURL } from "./lib/bases";
+import { MotionDiv } from "./components/motionDiv";
 
 const ogImage = {
   url: `${baseURL}/FilmIsBest.png`,
@@ -48,65 +49,83 @@ export default async function Home() {
   const { userId } = auth();
   return (
     <main>
-      <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
-        <div>
-          <h1 className=" relative mt-6 flex-col  text-nowrap  text-center text-2xl font-bold  no-underline lg:mt-0 lg:text-4xl">
-            Axtardığın bütün filmlər &nbsp;
-            <br />
-            <p className="inline-block bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50%  to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
-              filmisbest.com-da
-            </p>
-          </h1>
-          <ClerkLoading>
-            <div
-              href={"/movies"}
-              className="relative mx-auto mt-7 flex h-[56px] w-[128px] items-center justify-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
-            >
-              <BiLoaderAlt className="animate-spin text-3xl" />
-            </div>
-          </ClerkLoading>
-          <ClerkLoaded>
-            <div className="relative flex flex-row items-center justify-center gap-x-8">
-              <Link
+      <div className="relative mt-6 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
+        <MotionDiv
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 120, delay: 0.5 }}
+        >
+          <div>
+            <h1 className=" relative mt-6 flex-col  text-nowrap  text-center text-2xl font-bold  no-underline lg:mt-0 lg:text-4xl">
+              Axtardığın bütün filmlər &nbsp;
+              <br />
+              <p className="inline-block bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50%  to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
+                filmisbest.com-da
+              </p>
+            </h1>
+            <ClerkLoading>
+              <div
                 href={"/movies"}
-                className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                className="relative mx-auto mt-7 flex h-[56px] w-[128px] items-center justify-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
               >
-                <p>Filmlər</p> <BiSolidChevronRight />
-              </Link>
-              <SignedIn>
-                {userId === process.env.CLERK_ADMIN_DEV_ID ||
-                userId === process.env.CLERK_ADMIN_PROD_ID ? (
-                  <Link
-                    href={"/studio"}
-                    className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
-                  >
-                    <p>Studio</p> <BiSolidChevronRight />
-                  </Link>
-                ) : (
-                  ""
-                )}
-              </SignedIn>
-            </div>
-          </ClerkLoaded>
-        </div>
-        <div className="relative mt-12 flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100">
-          <Suspense
-            fallback={
-              <div className="relative mt-12 flex h-74 w-74 animate-pulse rounded-full bg-gray-200 lg:mt-0 lg:h-100 lg:w-100"></div>
-            }
-          >
-            <LottieComponent animationPath="/Movieanm.lottie" />
-          </Suspense>
-        </div>
+                <BiLoaderAlt className="animate-spin text-3xl" />
+              </div>
+            </ClerkLoading>
+            <ClerkLoaded>
+              <div className="relative flex flex-row items-center justify-center gap-x-8">
+                <Link
+                  href={"/movies"}
+                  className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                >
+                  <p>Filmlər</p> <BiSolidChevronRight />
+                </Link>
+                <SignedIn>
+                  {userId === process.env.CLERK_ADMIN_DEV_ID ||
+                  userId === process.env.CLERK_ADMIN_PROD_ID ? (
+                    <Link
+                      href={"/studio"}
+                      className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                    >
+                      <p>Studio</p> <BiSolidChevronRight />
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+                </SignedIn>
+              </div>
+            </ClerkLoaded>
+          </div>
+        </MotionDiv>
+        <MotionDiv
+          initial={{ y: 0 }}
+          animate={{ y: [0, 15, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+        >
+          <div className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100">
+            <Suspense
+              fallback={
+                <div className="relative mt-12 flex h-74 w-74 animate-pulse rounded-full bg-gray-200 lg:mt-0 lg:h-100 lg:w-100"></div>
+              }
+            >
+              <LottieComponent animationPath="/Movieanm.lottie" />
+            </Suspense>
+          </div>
+        </MotionDiv>
       </div>
-      <h2 className=" mt-10 w-full text-center text-3xl font-bold">
+      <h2 className=" mt-20  w-full text-center text-3xl font-bold">
         Ən Son Əlavə Olunanlar
       </h2>
-      <div className="relative w-full">
-        <Suspense fallback={<RecentlyMoviesSkeleton />}>
-          <RecentlyMovies movies={movies} />
-        </Suspense>
-      </div>
+      <MotionDiv
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="relative h-auto w-full">
+          <Suspense fallback={<RecentlyMoviesSkeleton />}>
+            <RecentlyMovies movies={movies} />
+          </Suspense>
+        </div>
+      </MotionDiv>
     </main>
   );
 }

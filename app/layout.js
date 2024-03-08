@@ -11,7 +11,6 @@ import CookiesConsent from "./components/cookies";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { azAZ } from "./lib/az-AZ";
-import { IconContext } from "react-icons";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   category: "movie",

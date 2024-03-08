@@ -1,5 +1,6 @@
 import Image from "next/image";
 import translationMap from "../lib/translationMap";
+import { MotionDiv } from "./motionDiv";
 
 export default function MovieInfo({ movie }) {
   const translatedGenres = movie.genre.map(
@@ -8,7 +9,12 @@ export default function MovieInfo({ movie }) {
 
   return (
     <div className="relative  mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto  sm:flex-row sm:items-start sm:justify-between">
-      <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start  sm:mx-0 sm:h-76 sm:w-60">
+      <MotionDiv
+        initial={{ scale: 1 }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", duration: 0.1, stiffness: 110 }}
+        className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start  sm:mx-0 sm:h-76 sm:w-60"
+      >
         <Image
           src={movie.poster}
           alt={movie.filmName + " movie poster"}
@@ -19,7 +25,7 @@ export default function MovieInfo({ movie }) {
           blurDataURL="data:..."
           className="relative h-auto w-auto select-none rounded-10  sm:h-76 sm:w-60"
         />
-      </div>
+      </MotionDiv>
       <div className="relative mx-auto w-auto list-none rounded-10 tracking-normal sm:ml-5 sm:w-105">
         <li className="mt-4 w-fit font-bold text-slate-400 ">
           Filmin Adı:{" "}

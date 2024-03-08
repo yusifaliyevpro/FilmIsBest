@@ -1,44 +1,52 @@
 import Link from "next/link";
 import Image from "next/image";
+import { MotionDiv } from "./motionDiv";
 
 export default function Movies({ movies }) {
   return (
     <div className="justify-content-center mx-2.5 flex flex-wrap items-center justify-center gap-x-10">
       {movies.map((movie, index) => (
-        <Link
-          key={index}
-          href={`movie/${movie.slug.current}`}
-          className="justify-content-center relative mt-10 inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
+        <MotionDiv
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.08 }}
+          whileFocus={{ scale: 1.08 }}
+          transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
         >
-          <div>
-            <div className="relative">
-              <Image
-                src={movie.poster}
-                alt={movie.filmName + " movie poster"}
-                width={260}
-                height={380}
-                priority
-                className="h-[380px] rounded-10 transition-transform duration-300 ease-in-out hover:scale-110"
-              />
-              <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">
-                <div className="rounded-3xl bg-rdate px-1 text-center text-xs font-bold text-white">
-                  {movie.releaseDate}
-                </div>
-                <div className="w-8 rounded-3xl bg-imdb text-center text-xs font-bold text-gray-100">
-                  {movie.imdbpuan}
+          <Link
+            key={index}
+            href={`movie/${movie.slug.current}`}
+            className="justify-content-center relative mt-10 inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
+          >
+            <div>
+              <div className="relative">
+                <Image
+                  src={movie.poster}
+                  alt={movie.filmName + " movie poster"}
+                  width={260}
+                  height={380}
+                  priority
+                  className="h-[380px] rounded-10"
+                />
+                <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">
+                  <div className="rounded-3xl bg-rdate px-1 text-center text-xs font-bold text-white">
+                    {movie.releaseDate}
+                  </div>
+                  <div className="w-8 rounded-3xl bg-imdb text-center text-xs font-bold text-gray-100">
+                    {movie.imdbpuan}
+                  </div>
                 </div>
               </div>
+              <div className="justify-content-center relative flex min-h-13 w-[250px] flex-col items-center justify-center text-center">
+                <p
+                  className="w-[200px] truncate text-lg font-bold text-white hover:text-blue-800"
+                  title={movie.filmName}
+                >
+                  {movie.filmName}
+                </p>
+              </div>
             </div>
-            <div className="justify-content-center relative flex min-h-13 w-[250px] flex-col items-center justify-center text-center">
-              <p
-                className="w-[200px] truncate text-lg font-bold text-white hover:text-blue-800"
-                title={movie.filmName}
-              >
-                {movie.filmName}
-              </p>
-            </div>
-          </div>
-        </Link>
+          </Link>
+        </MotionDiv>
       ))}
     </div>
   );

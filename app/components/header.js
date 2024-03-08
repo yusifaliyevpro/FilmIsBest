@@ -27,6 +27,7 @@ import {
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import SuspenseButton from "./suspenseButton";
 import { BiCode, BiSearch, BiSolidMovie } from "react-icons/bi";
+import { MotionDiv } from "./motionDiv";
 
 export default function Header() {
   const pathname = usePathname();
@@ -86,15 +87,21 @@ export default function Header() {
       }}
     >
       <NavbarContent>
-        <NavbarBrand>
-          <Link
-            href="/"
-            className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
-          >
-            <BiSolidMovie className=" text-2xl font-normal text-blue-600" />
-            <p className="font-bold text-inherit">FilmIsBest</p>
-          </Link>
-        </NavbarBrand>
+        <MotionDiv
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 120 }}
+        >
+          <NavbarBrand>
+            <Link
+              href="/"
+              className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
+            >
+              <BiSolidMovie className=" text-2xl font-normal text-blue-600" />
+              <p className="font-bold text-inherit">FilmIsBest</p>
+            </Link>
+          </NavbarBrand>
+        </MotionDiv>
       </NavbarContent>
       <NavbarContent className="hidden gap-16 sm:flex" justify="center">
         <NavbarItem isActive={pathname === "/"}>
@@ -107,6 +114,7 @@ export default function Header() {
             Ana Səhifə
           </Link>
         </NavbarItem>
+
         <NavbarItem isActive={pathname === "/movies"}>
           <Link
             href="/movies"
@@ -118,45 +126,29 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
-          <Input
-            classNames={{
-              base: "max-w-full sm:max-w-full  mb-1 h-10",
-              mainWrapper: "h-full",
-              input: "text-small font-bold",
-              inputWrapper:
-                "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-            }}
-            className="hidden"
-            placeholder="Film adı ilə axtarın"
-            variant="bordered"
-            size="lg"
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value.replace(/['\[\]\/\\()]/g, ""));
-            }}
-            radius="full"
-            startContent={<BiSearch className="text-2xl font-bold" />}
-            type="search"
-          />
-        </NavbarItem>
-        <NavbarItem>
-          <ClerkLoading>
-            <SuspenseButton />
-          </ClerkLoading>
-          <ClerkLoaded>
-            <SignedIn>
-              <UserButton afterSignOutUrl="/movies" />
-            </SignedIn>
-            <SignedOut>
-              <SignInButton>
-                <Button color="primary" className="text-md flex font-bold">
-                  Daxil ol
-                </Button>
-              </SignInButton>
-            </SignedOut>
-          </ClerkLoaded>
-        </NavbarItem>
+        <MotionDiv
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 120 }}
+        >
+          <NavbarItem>
+            <ClerkLoading>
+              <SuspenseButton />
+            </ClerkLoading>
+            <ClerkLoaded>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/movies" />
+              </SignedIn>
+              <SignedOut>
+                <SignInButton>
+                  <Button color="primary" className="text-md flex font-bold">
+                    Daxil ol
+                  </Button>
+                </SignInButton>
+              </SignedOut>
+            </ClerkLoaded>
+          </NavbarItem>
+        </MotionDiv>
       </NavbarContent>
       <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
         <NavbarMenuItem key={1}>

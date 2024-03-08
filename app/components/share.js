@@ -110,7 +110,9 @@ export default function Share({ movie }) {
     toast.loading("Şəkil hazırlanır", {
       duration: 2500,
     });
-    const response = await fetch(movie.poster);
+    const response = await fetch(
+      `https://filmisbest.com/_next/image?url=${encodeURI(movie.poster)}&w=640&q=75`,
+    );
     const blob = await response.blob();
     const filesArray = [
       new File([blob], `poster.jpg`, {
@@ -159,10 +161,10 @@ export default function Share({ movie }) {
                 <BiSolidShareAlt className="mt-1 text-4xl" />
                 <h6 className="text-3xl font-bold">Paylaş</h6>
               </ModalHeader>
-              <ModalBody className=" p-8">
-                <div className="no-scrollbar relative mb-10 flex flex-row items-center gap-4 overflow-x-scroll">
+              <ModalBody className="p-8">
+                <div className="no-scrollbar relative  mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
                   <div
-                    className="relative flex w-fit cursor-pointer flex-col items-center p-2"
+                    className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                     onClick={() => handleShare("whatsapp")}
                   >
                     <BiLogoWhatsapp className=" text-7xl text-blue-600" />
@@ -170,7 +172,7 @@ export default function Share({ movie }) {
                   </div>
                   {window.innerWidth < window.innerHeight ? (
                     <div
-                      className="relative flex w-fit cursor-pointer flex-col items-center p-2"
+                      className="relative flex w-fit cursor-pointer flex-col items-center p-2 hover:shadow-medium"
                       onClick={() => handleShare("telegram")}
                     >
                       <BiLogoTelegram className="text-7xl text-blue-600" />
@@ -180,7 +182,7 @@ export default function Share({ movie }) {
                     ""
                   )}
                   <div
-                    className="relative flex w-fit cursor-pointer flex-col items-center p-2"
+                    className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                     onClick={() => handleShare("copy")}
                   >
                     <BiLink className="text-7xl text-blue-600" />
@@ -188,7 +190,7 @@ export default function Share({ movie }) {
                   </div>
                   {navigator.canShare ? (
                     <div
-                      className="relative flex w-fit cursor-pointer flex-col items-center p-2"
+                      className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                       onClick={handlePoster}
                     >
                       <BiImageAlt className="text-nowrap text-7xl text-blue-600" />
@@ -199,7 +201,7 @@ export default function Share({ movie }) {
                   )}
                   {navigator.share ? (
                     <div
-                      className="relative flex w-fit cursor-pointer flex-col items-center p-2"
+                      className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                       onClick={() => handleShare("other")}
                     >
                       <BiDotsVerticalRounded className="text-7xl text-blue-600" />
