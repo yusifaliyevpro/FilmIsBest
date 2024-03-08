@@ -9,7 +9,6 @@ export default function Movies({ movies }) {
         <MotionDiv
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.08 }}
-          whileFocus={{ scale: 1.08 }}
           transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
         >
           <Link

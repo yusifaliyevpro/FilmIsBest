@@ -32,7 +32,11 @@ export default function RecentlyMovies({ movies }) {
       >
         {movies.map((movie, index) => (
           <SwiperSlide key={index} className="my-5 w-auto">
-            <MotionDiv initial={{ scale: 1 }} whileHover={{ scale: 1.09 }}>
+            <MotionDiv
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 1.08 }}
+              transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
+            >
               <Link
                 href={`movie/${movie.slug}`}
                 className="justify-content-center relative mx-auto inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
