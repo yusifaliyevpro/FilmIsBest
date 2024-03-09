@@ -128,7 +128,7 @@ export default async function Movie({ params, searchParams }) {
         transition={{
           type: "spring",
           delay: 0.5,
-          duration: 0.5,
+          duration: 0.2,
           stiffness: 50,
         }}
       >

@@ -60,17 +60,7 @@ export default async function MoviesPage({ searchParams }) {
   const resultCount = movies.length;
   return (
     <main className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
-      <MotionDiv
-        initial={{ y: -300, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          duration: 1,
-          delay: 0.5,
-          type: "spring",
-          stiffness: 40,
-        }}
-        className="sm:flx-row relative flex w-full flex-col items-center justify-center"
-      >
+      <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
         <Suspense fallback={<SearchSkeleton />}>
           <Search
             searchQuery={search}
@@ -86,8 +76,7 @@ export default async function MoviesPage({ searchParams }) {
             count={count}
           />
         </Suspense>
-      </MotionDiv>
-
+      </div>
       <MotionDiv
         initial={{ y: 600 }}
         animate={{ y: 0 }}
