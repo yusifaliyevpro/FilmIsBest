@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   Navbar,
   NavbarBrand,
@@ -10,7 +10,6 @@ import {
   NavbarMenuItem,
   NavbarMenu,
   NavbarItem,
-  Input,
   Button,
 } from "@nextui-org/react";
 import toast from "react-hot-toast";
@@ -26,14 +25,11 @@ import {
 } from "@clerk/nextjs";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import SuspenseButton from "./suspenseButton";
-import { BiCode, BiSearch, BiSolidMovie } from "react-icons/bi";
-import { MotionDiv } from "./motionDiv";
+import { BiCode, BiSolidMovie } from "react-icons/bi";
 
 export default function Header() {
   const pathname = usePathname();
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [text, setText] = useState("");
   const { getToken } = useAuth();
   const user = useAuth();
 
@@ -55,14 +51,6 @@ export default function Header() {
     toast("Bu özəllik hazırlanma mərhələsindədir", {
       icon: <BiCode className="text-xl font-bold" />,
     });
-
-  const handleClick = () => {
-    if (pathname !== "/movies") {
-      router.push("/movies");
-    } else {
-      return;
-    }
-  };
 
   return (
     <Navbar
@@ -87,21 +75,15 @@ export default function Header() {
       }}
     >
       <NavbarContent>
-        <MotionDiv
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ type: "spring", stiffness: 120 }}
-        >
-          <NavbarBrand>
-            <Link
-              href="/"
-              className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
-            >
-              <BiSolidMovie className=" text-2xl font-normal text-blue-600" />
-              <p className="font-bold text-inherit">FilmIsBest</p>
-            </Link>
-          </NavbarBrand>
-        </MotionDiv>
+        <NavbarBrand>
+          <Link
+            href="/"
+            className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
+          >
+            <BiSolidMovie className=" text-2xl font-normal text-blue-600" />
+            <p className="font-bold text-inherit">FilmIsBest</p>
+          </Link>
+        </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-16 sm:flex" justify="center">
         <NavbarItem isActive={pathname === "/"}>
@@ -126,29 +108,23 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <MotionDiv
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ type: "spring", stiffness: 120 }}
-        >
-          <NavbarItem>
-            <ClerkLoading>
-              <SuspenseButton />
-            </ClerkLoading>
-            <ClerkLoaded>
-              <SignedIn>
-                <UserButton afterSignOutUrl="/movies" />
-              </SignedIn>
-              <SignedOut>
-                <SignInButton>
-                  <Button color="primary" className="text-md flex font-bold">
-                    Daxil ol
-                  </Button>
-                </SignInButton>
-              </SignedOut>
-            </ClerkLoaded>
-          </NavbarItem>
-        </MotionDiv>
+        <NavbarItem>
+          <ClerkLoading>
+            <SuspenseButton />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/movies" />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton>
+                <Button color="primary" className="text-md flex font-bold">
+                  Daxil ol
+                </Button>
+              </SignInButton>
+            </SignedOut>
+          </ClerkLoaded>
+        </NavbarItem>
       </NavbarContent>
       <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
         <NavbarMenuItem key={1}>

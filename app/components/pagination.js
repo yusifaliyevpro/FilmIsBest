@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Pagination } from "@nextui-org/pagination";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function PaginationUI({

@@ -9,7 +9,6 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import React from "react";
 import translationMap from "../lib/translationMap";
 import { toast } from "react-hot-toast";
 import { ClerkLoaded, ClerkLoading, useAuth } from "@clerk/nextjs";
@@ -21,7 +20,6 @@ import {
   BiLogIn,
   BiLogoTelegram,
   BiLogoWhatsapp,
-  BiLogoWhatsappSquare,
   BiSolidShareAlt,
 } from "react-icons/bi";
 import { baseURL } from "../lib/bases";

@@ -9,11 +9,8 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-  Checkbox,
   Input,
-  Link,
 } from "@nextui-org/react";
-import Complete from "./complete";
 import toast from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";

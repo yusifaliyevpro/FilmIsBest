@@ -1,5 +1,4 @@
-"use client";
-import { Button } from "@nextui-org/react";
+import { Button } from "@nextui-org/button";
 import { BiLoaderAlt } from "react-icons/bi";
 
 export default function SuspenseButton() {
