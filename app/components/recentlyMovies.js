@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { MotionDiv } from "./motionDiv";
+import { imageBuilder, urlForImage } from "@/sanity/lib/image";
+import { useNextSanityImage } from "next-sanity-image";
 
 export default function RecentlyMovies({ movies }) {
   return (
@@ -43,13 +45,19 @@ export default function RecentlyMovies({ movies }) {
               >
                 <div className="relative">
                   <Image
-                    src={movie.poster}
+                    src={urlForImage(movie.poster)}
                     alt={movie.filmName + " movie poster"}
                     width={260}
                     height={380}
                     quality={60}
-                    priority={true}
-                    fetchPriority="high"
+                    placeholder="blur"
+                    blurDataURL={imageBuilder
+                      .image(movie.poster)
+                      .auto("format")
+                      .fit("max")
+                      .blur(400)
+                      .url()}
+                    loading="lazy"
                     className="h-[380px] rounded-10"
                   />
                   <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">

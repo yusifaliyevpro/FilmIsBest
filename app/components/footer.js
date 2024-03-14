@@ -1,8 +1,10 @@
 "use client";
 import { Suspense } from "react";
-import FormSubmit from "./formsubmit";
 import SuspenseButton from "./suspenseButton";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const FormSubmit = dynamic(() => import("./formsubmit"));
 
 export default function Footer() {
   const pathname = usePathname();

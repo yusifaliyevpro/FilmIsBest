@@ -34,7 +34,7 @@ export const metadata = {
 
 export async function getData() {
   const query = `*[_type=='Movie-studio']|order(_createdAt desc)
-    {filmName, "poster": poster.asset->url, "slug": slug.current, imdbpuan, releaseDate}[0...10]`;
+    {filmName, poster, "slug": slug.current, imdbpuan, releaseDate}[0...10]`;
   const data = await client.fetch(
     query,
     { cache: "force-cache" },
