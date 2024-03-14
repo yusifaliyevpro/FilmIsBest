@@ -51,7 +51,7 @@ export default async function Home() {
         <MotionDiv
           initial={{ y: -30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 120, delay: 0.5 }}
+          transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
         >
           <div>
             <h1 className=" relative mt-6 flex-col  text-nowrap  text-center text-2xl font-bold  no-underline lg:mt-0 lg:text-4xl">
@@ -78,14 +78,14 @@ export default async function Home() {
             duration: 1,
             type: "spring",
             stiffness: 110,
-            delay: 0.5,
+            delay: 0.2,
           }}
           className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100"
         >
           <MotionDiv
             initial={{ y: 0 }}
             animate={{ y: [0, 15, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, delay: 1.3 }}
+            transition={{ repeat: Infinity, duration: 1.5, delay: 1.1 }}
             className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100"
           >
             <Suspense

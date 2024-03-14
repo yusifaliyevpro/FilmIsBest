@@ -94,11 +94,18 @@ export default function RootLayout({ children }) {
           toastOptions={{
             className: "",
             style: {
-              border: "1px solid #007bff",
-              color: "#000",
+              borderRadius: "30px",
+              border: "2px solid #007bff",
+              color: "#fff",
+              background: "#191e25",
+            },
+            iconTheme: {
+              primary: "#007bff",
+              secondary: "#FFFAEE",
             },
           }}
           position="bottom-right"
+          reverseOrder={false}
         />
         <main className="min-h-screen  text-white dark">{children}</main>
         <SpeedInsights />

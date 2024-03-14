@@ -19,7 +19,9 @@ import {
   BiLogoWhatsapp,
   BiSolidShareAlt,
 } from "react-icons/bi";
+import { Snippet } from "@nextui-org/snippet";
 import { baseURL } from "../lib/bases";
+import { IoLink } from "react-icons/io5";
 
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -101,24 +103,35 @@ export default function Share({ movie }) {
   };
 
   async function handlePoster() {
-    toast.loading("Şəkil hazırlanır", {
-      duration: 2500,
-    });
-    const response = await fetch(
-      `https://filmisbest.com/_next/image?url=${encodeURI(movie.poster)}&w=640&q=75`,
-    );
-    const blob = await response.blob();
-    const filesArray = [
-      new File([blob], `poster.jpg`, {
-        type: "image/jpeg",
-        lastModified: new Date().getTime(),
-      }),
-    ];
-    const shareData = {
-      title: `FilmIsBest | ${movie.filmName}`,
-      files: filesArray,
-    };
-    navigator.share(shareData);
+    try {
+      const posterURL = `https://filmisbest.com/_next/image?url=${encodeURI(movie.poster)}&w=640&q=75`;
+      const response = await fetch(posterURL);
+
+      if (!response.ok) {
+        throw new Error("Şəkil yüklənə bilmədi.");
+      }
+
+      const blob = await response.blob();
+      const filesArray = [
+        new File([blob], `poster.jpg`, {
+          type: "image/jpeg",
+          lastModified: new Date().getTime(),
+        }),
+      ];
+      const shareData = {
+        title: `FilmIsBest | ${movie.filmName}`,
+        files: filesArray,
+      };
+      toast.promise(Promise.resolve(), {
+        // Change to Promise.resolve()
+        loading: "Şəkil hazırlanır",
+        success: "Şəkil hazırdır!",
+        error: "Xəta baş verdi.",
+      });
+      navigator.share(shareData);
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
 
   return (
@@ -194,6 +207,17 @@ export default function Share({ movie }) {
                   ) : (
                     ""
                   )}
+                </div>
+                <div className=" mx-auto ">
+                  <Snippet
+                    symbol=""
+                    variant="bordered"
+                    codeString={`${baseURL}/movie/${movie.slug}`}
+                  >
+                    <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
+                      {`${baseURL}/movie/${movie.slug}`}
+                    </div>
+                  </Snippet>
                 </div>
               </ModalBody>
             </>

@@ -12,7 +12,8 @@ import {
   NavbarItem,
   Button,
 } from "@nextui-org/react";
-import { BiCode, BiSolidMovie } from "react-icons/bi";
+import { BiSolidMovie } from "react-icons/bi";
+import { IoCodeSlash } from "react-icons/io5";
 import toast from "react-hot-toast";
 
 export default function Header() {
@@ -21,7 +22,8 @@ export default function Header() {
 
   const notify = () =>
     toast("Bu özəllik hazırlanma mərhələsindədir", {
-      icon: <BiCode className="text-xl font-bold" />,
+      icon: <IoCodeSlash className="text-xl font-bold" />,
+      id: "preparing",
     });
 
   return (

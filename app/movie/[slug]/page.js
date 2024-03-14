@@ -108,30 +108,19 @@ export default async function Movie({ params, searchParams }) {
           transition={{
             type: "spring",
             delay: 0.5,
-            duration: 1.5,
+            duration: 0.3,
             stiffness: 50,
           }}
         >
           <Suspense fallback={<MovieBarSuspense />}>
             <MovieBar movie={movie} query={activeKey} />
           </Suspense>
-        </MotionDiv>
-        <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
-          <MotionDiv
-            initial={{ y: 600 }}
-            animate={{ y: 0 }}
-            transition={{
-              type: "spring",
-              delay: 0.5,
-              duration: 1.5,
-              stiffness: 50,
-            }}
-          >
+          <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
             <Suspense fallback={<SuspenseButton />}>
               <Share movie={movie} />
             </Suspense>
-          </MotionDiv>
-        </div>
+          </div>
+        </MotionDiv>
       </div>
       <MotionDiv
         initial={{ y: 600 }}
@@ -139,7 +128,7 @@ export default async function Movie({ params, searchParams }) {
         transition={{
           type: "spring",
           delay: 0.5,
-          duration: 0.2,
+          duration: 0.3,
           stiffness: 50,
         }}
       >

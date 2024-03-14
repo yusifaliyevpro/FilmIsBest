@@ -1,50 +1,45 @@
-"use client";
-import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
   useDisclosure,
-  Input,
-} from "@nextui-org/react";
+} from "@nextui-org/modal";
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
 import toast from "react-hot-toast";
+import useForm from "../hooks/useForm";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [movieName, setMovieName] = useState("");
+  const { formData, setFormData } = useForm();
   const submitForm = () => {
-    toast.loading("Göndərilir...", { duration: 3000 });
-    fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+    toast.promise(
+      fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          Name: formData.name,
+          Email: formData.email,
+          Movie_Name: formData.movieName,
+          _subject: "New Movie Request!",
+          _captcha: false,
+          _template: "table",
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error)),
+      {
+        loading: "Göndərilir...",
+        success: "Göndərildi!",
+        error: "Göndərilə bilmədi",
       },
-      body: JSON.stringify({
-        Name: name,
-        Email: email,
-        Movie_Name: movieName,
-        _subject: "New Movie Request!",
-        _captcha: false,
-        _template: "table",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        toast.success("Göndərildi!", {
-          duration: 4000,
-        }),
-      )
-      .catch((error) =>
-        toast.error("Göndərilmə uğursuz oldu", {
-          duration: 4000,
-        }),
-      );
+    );
 
     onClose();
   };
@@ -78,7 +73,7 @@ export default function FormSubmit() {
                   name="Name"
                   autoComplete="off"
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setFormData({ ...formData, name: e.target.value });
                   }}
                   placeholder="Adınızı daxil edin"
                   variant="bordered"
@@ -90,7 +85,7 @@ export default function FormSubmit() {
                   validate="email"
                   autoComplete="email"
                   onChange={(e) => {
-                    setEmail(e.target.value);
+                    setFormData({ ...formData, email: e.target.value });
                   }}
                   name="Email"
                   type="email"
@@ -103,7 +98,7 @@ export default function FormSubmit() {
                   autoComplete="off"
                   required
                   onChange={(e) => {
-                    setMovieName(e.target.value);
+                    setFormData({ ...formData, movieName: e.target.value });
                   }}
                   name="Movie Name"
                   placeholder="Filmin adını daxil edin"
