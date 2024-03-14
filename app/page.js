@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
 import { BiLoaderAlt, BiSolidChevronRight } from "react-icons/bi";
-import { ClerkLoaded, ClerkLoading, SignedIn, auth } from "@clerk/nextjs";
 import { baseURL } from "./lib/bases";
 import { MotionDiv } from "./components/motionDiv";
 
@@ -46,7 +45,6 @@ export async function getData() {
 
 export default async function Home() {
   const movies = await getData();
-  const { userId } = auth();
   return (
     <main>
       <div className="relative mt-6 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
@@ -63,37 +61,14 @@ export default async function Home() {
                 filmisbest.com-da
               </p>
             </h1>
-            <ClerkLoading>
-              <div
+            <div className="relative flex flex-row items-center justify-center gap-x-8">
+              <Link
                 href={"/movies"}
-                className="relative mx-auto mt-7 flex h-[56px] w-[128px] items-center justify-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
               >
-                <BiLoaderAlt className="animate-spin text-3xl" />
-              </div>
-            </ClerkLoading>
-            <ClerkLoaded>
-              <div className="relative flex flex-row items-center justify-center gap-x-8">
-                <Link
-                  href={"/movies"}
-                  className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
-                >
-                  <p>Filmlər</p> <BiSolidChevronRight />
-                </Link>
-                <SignedIn>
-                  {userId === process.env.CLERK_ADMIN_DEV_ID ||
-                  userId === process.env.CLERK_ADMIN_PROD_ID ? (
-                    <Link
-                      href={"/studio"}
-                      className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
-                    >
-                      <p>Studio</p> <BiSolidChevronRight />
-                    </Link>
-                  ) : (
-                    ""
-                  )}
-                </SignedIn>
-              </div>
-            </ClerkLoaded>
+                <p>Filmlər</p> <BiSolidChevronRight />
+              </Link>
+            </div>
           </div>
         </MotionDiv>
         <MotionDiv

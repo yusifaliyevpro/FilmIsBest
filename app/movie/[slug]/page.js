@@ -117,9 +117,20 @@ export default async function Movie({ params, searchParams }) {
           </Suspense>
         </MotionDiv>
         <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
-          <Suspense fallback={<SuspenseButton />}>
-            <Share movie={movie} />
-          </Suspense>
+          <MotionDiv
+            initial={{ y: 600 }}
+            animate={{ y: 0 }}
+            transition={{
+              type: "spring",
+              delay: 0.5,
+              duration: 1.5,
+              stiffness: 50,
+            }}
+          >
+            <Suspense fallback={<SuspenseButton />}>
+              <Share movie={movie} />
+            </Suspense>
+          </MotionDiv>
         </div>
       </div>
       <MotionDiv

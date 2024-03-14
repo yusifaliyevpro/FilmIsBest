@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import {
   Modal,
   ModalContent,
@@ -12,18 +11,12 @@ import {
   Input,
 } from "@nextui-org/react";
 import toast from "react-hot-toast";
-import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import SuspenseButton from "./suspenseButton";
-import { BiLogIn } from "react-icons/bi";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [movieName, setMovieName] = useState("");
-  const user = useAuth();
-  const router = useRouter();
   const submitForm = () => {
     toast.loading("Göndərilir...", { duration: 3000 });
     fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
@@ -56,26 +49,17 @@ export default function FormSubmit() {
 
     onClose();
   };
-  const notify = () =>
-    toast("Bu özəllikdən istifadə etmək üçün hesabınıza daxil olun", {
-      icon: <BiLogIn className="text-4xl font-bold" />,
-    });
 
   return (
     <div className="mt-4 flex text-light sm:absolute sm:right-28 sm:ml-auto sm:mt-auto">
-      <ClerkLoading>
-        <SuspenseButton />
-      </ClerkLoading>
-      <ClerkLoaded>
-        <Button
-          onPress={user.isSignedIn ? onOpen : notify}
-          color="primary"
-          size="lg"
-          className="text-base font-bold"
-        >
-          Film İstəyi
-        </Button>
-      </ClerkLoaded>
+      <Button
+        onPress={onOpen}
+        color="primary"
+        size="lg"
+        className="text-base font-bold"
+      >
+        Film İstəyi
+      </Button>
       <Modal
         isOpen={isOpen}
         placement="center"

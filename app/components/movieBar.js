@@ -1,14 +1,12 @@
 "use client";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { useState } from "react";
-import { useAuth } from "@clerk/nextjs";
 
 export default function MovieBar({ movie }) {
   const englishLink = "https://vidsrc.to/embed/movie/" + movie.imdbID;
   const turkishLink = movie.TurkishLink;
   const turkishSubLink = movie.TurkishSubtitleLink;
   const youtubeLink = "https://www.youtube.com/embed/" + movie.FraqmanLink;
-  const user = useAuth();
   const [activeLink, setActiveLink] = useState(englishLink);
 
   function handleLanguage(key) {

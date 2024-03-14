@@ -12,45 +12,13 @@ import {
   NavbarItem,
   Button,
 } from "@nextui-org/react";
-import toast from "react-hot-toast";
 import { UserButton } from "@clerk/nextjs";
-import firebaseApp from "../lib/firebase";
-import {
-  useAuth,
-  SignedIn,
-  SignInButton,
-  ClerkLoaded,
-  ClerkLoading,
-  SignedOut,
-} from "@clerk/nextjs";
-import { getAuth, signInWithCustomToken } from "firebase/auth";
 import SuspenseButton from "./suspenseButton";
-import { BiCode, BiSolidMovie } from "react-icons/bi";
+import { BiSolidMovie } from "react-icons/bi";
 
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { getToken } = useAuth();
-  const user = useAuth();
-
-  useEffect(() => {
-    if (user.isSignedIn) {
-      const signInWithClerk = async () => {
-        firebaseApp;
-        const auth = getAuth();
-        const token = await getToken({ template: "integration_firebase" });
-        const userCredentials = await signInWithCustomToken(auth, token);
-      };
-      signInWithClerk();
-    } else {
-      return;
-    }
-  }, []);
-
-  const notify = () =>
-    toast("Bu özəllik hazırlanma mərhələsindədir", {
-      icon: <BiCode className="text-xl font-bold" />,
-    });
 
   return (
     <Navbar
@@ -108,23 +76,7 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
-          <ClerkLoading>
-            <SuspenseButton />
-          </ClerkLoading>
-          <ClerkLoaded>
-            <SignedIn>
-              <UserButton afterSignOutUrl="/movies" />
-            </SignedIn>
-            <SignedOut>
-              <SignInButton>
-                <Button color="primary" className="text-md flex font-bold">
-                  Daxil ol
-                </Button>
-              </SignInButton>
-            </SignedOut>
-          </ClerkLoaded>
-        </NavbarItem>
+        <NavbarItem></NavbarItem>
       </NavbarContent>
       <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
         <NavbarMenuItem key={1}>

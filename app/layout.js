@@ -92,37 +92,22 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={inter.className}>
-        <ClerkProvider
-          localization={azAZ}
-          appearance={{
-            layout: {
-              socialButtonsPlacement: "bottom",
-              socialButtonsVariant: "iconButton",
+        <Header />
+        <Toaster
+          toastOptions={{
+            className: "",
+            style: {
+              border: "1px solid #007bff",
+              color: "#000",
             },
-            elements: {
-              logoBox: "justify-center",
-            },
-            baseTheme: dark,
-            variables: { colorPrimary: "#007bff" },
           }}
-        >
-          <Header />
-          <Toaster
-            toastOptions={{
-              className: "",
-              style: {
-                border: "1px solid #007bff",
-                color: "#000",
-              },
-            }}
-            position="bottom-right"
-          />
-          <main className="min-h-screen  text-white dark">{children}</main>
-          <SpeedInsights />
-          <Analytics />
-          <CookiesConsent />
-          <Footer />
-        </ClerkProvider>
+          position="bottom-right"
+        />
+        <main className="min-h-screen  text-white dark">{children}</main>
+        <SpeedInsights />
+        <Analytics />
+        <CookiesConsent />
+        <Footer />
       </body>
     </html>
   );

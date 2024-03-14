@@ -11,13 +11,10 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import translationMap from "../lib/translationMap";
 import { toast } from "react-hot-toast";
-import { ClerkLoaded, ClerkLoading, useAuth } from "@clerk/nextjs";
-import SuspenseButton from "./suspenseButton";
 import {
   BiDotsVerticalRounded,
   BiImageAlt,
   BiLink,
-  BiLogIn,
   BiLogoTelegram,
   BiLogoWhatsapp,
   BiSolidShareAlt,
@@ -27,7 +24,6 @@ import { baseURL } from "../lib/bases";
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
-  const user = useAuth();
   const router = useRouter();
   const translatedGenres = movie.genre.map(
     (genre) => translationMap[genre] || genre,
@@ -125,27 +121,17 @@ export default function Share({ movie }) {
     navigator.share(shareData);
   }
 
-  const notify = () =>
-    toast("Bu özəllikdən istifadə etmək üçün hesabınıza daxil olun", {
-      icon: <BiLogIn className="text-2xl font-bold" />,
-    });
-
   return (
     <div>
-      <ClerkLoading>
-        <SuspenseButton />
-      </ClerkLoading>
-      <ClerkLoaded>
-        <Button
-          size="lg"
-          color="primary"
-          className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
-          onPress={user.isSignedIn ? onOpen : notify}
-        >
-          <BiSolidShareAlt className="mt-1 text-2xl" />
-          <p>Paylaş</p>
-        </Button>
-      </ClerkLoaded>
+      <Button
+        size="lg"
+        color="primary"
+        className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
+        onPress={onOpen}
+      >
+        <BiSolidShareAlt className="mt-1 text-2xl" />
+        <p>Paylaş</p>
+      </Button>
       <Modal
         isOpen={isOpen}
         placement="center"
