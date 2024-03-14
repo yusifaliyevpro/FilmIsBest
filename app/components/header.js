@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   Navbar,
@@ -12,13 +12,17 @@ import {
   NavbarItem,
   Button,
 } from "@nextui-org/react";
-import { UserButton } from "@clerk/nextjs";
-import SuspenseButton from "./suspenseButton";
-import { BiSolidMovie } from "react-icons/bi";
+import { BiCode, BiSolidMovie } from "react-icons/bi";
+import toast from "react-hot-toast";
 
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const notify = () =>
+    toast("Bu özəllik hazırlanma mərhələsindədir", {
+      icon: <BiCode className="text-xl font-bold" />,
+    });
 
   return (
     <Navbar
@@ -76,7 +80,15 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem></NavbarItem>
+        <NavbarItem>
+          <Button
+            color="primary"
+            onPress={notify}
+            className="text-md flex font-bold"
+          >
+            Daxil ol
+          </Button>
+        </NavbarItem>
       </NavbarContent>
       <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
         <NavbarMenuItem key={1}>

@@ -8,9 +8,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookiesConsent from "./components/cookies";
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
-import { azAZ } from "./lib/az-AZ";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   category: "movie",

@@ -20,7 +20,6 @@ export default function FormSubmit() {
   const submitForm = () => {
     toast.loading("Göndərilir...", { duration: 3000 });
     fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
-      cache: "no-store",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
