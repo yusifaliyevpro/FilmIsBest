@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   Navbar,
@@ -19,7 +19,6 @@ import toast from "react-hot-toast";
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const notify = () =>
     toast("Bu özəllik hazırlanma mərhələsindədir", {
       icon: <IoCodeSlash className="text-xl font-bold" />,

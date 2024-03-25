@@ -23,9 +23,9 @@ export default function FormSubmit() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          Name: formData.name,
-          Email: formData.email,
-          Movie_Name: formData.movieName,
+          name: formData.name,
+          email: formData.email,
+          movie_Name: formData.movieName,
           _subject: "New Movie Request!",
           _captcha: false,
           _template: "table",
@@ -71,6 +71,7 @@ export default function FormSubmit() {
                   autoFocus
                   label="Ad (Optional)"
                   name="Name"
+                  required
                   autoComplete="off"
                   onChange={(e) => {
                     setFormData({ ...formData, name: e.target.value });

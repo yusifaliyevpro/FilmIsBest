@@ -21,7 +21,6 @@ import {
 } from "react-icons/bi";
 import { Snippet } from "@nextui-org/snippet";
 import { baseURL } from "../lib/bases";
-import { IoLink } from "react-icons/io5";
 
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();

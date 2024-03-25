@@ -2,7 +2,6 @@ import MovieInfo from "../../components/movieInfo";
 import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Image from "./opengraph-image";
 import Share from "../../components/share";
 import SuspenseButton from "@/app/components/suspenseButton";
 import MovieInfoSuspense from "@/app/components/movieInfoSuspense";
@@ -107,7 +106,6 @@ export default async function Movie({ params, searchParams }) {
           animate={{ y: 0 }}
           transition={{
             type: "spring",
-            delay: 0.5,
             duration: 0.3,
             stiffness: 50,
           }}
@@ -127,7 +125,6 @@ export default async function Movie({ params, searchParams }) {
         animate={{ y: 0 }}
         transition={{
           type: "spring",
-          delay: 0.5,
           duration: 0.3,
           stiffness: 50,
         }}

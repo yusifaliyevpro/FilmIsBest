@@ -81,10 +81,9 @@ export default async function MoviesPage({ searchParams }) {
         initial={{ y: 600 }}
         animate={{ y: 0 }}
         transition={{
-          duration: 2,
-          delay: 0.5,
+          duration: 1.2,
           type: "spring",
-          stiffness: 65,
+          stiffness: 55,
         }}
       >
         <Suspense>

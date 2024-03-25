@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-const useForm = (name, email, movieName) => {
+const useForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",

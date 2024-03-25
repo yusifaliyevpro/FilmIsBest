@@ -6,7 +6,6 @@ import Image from "next/image";
 import React from "react";
 import { MotionDiv } from "./motionDiv";
 import { imageBuilder, urlForImage } from "@/sanity/lib/image";
-import { useNextSanityImage } from "next-sanity-image";
 
 export default function RecentlyMovies({ movies }) {
   return (
