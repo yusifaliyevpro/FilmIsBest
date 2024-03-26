@@ -10,10 +10,14 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import toast from "react-hot-toast";
 import useForm from "../hooks/useForm";
+import { BiSolidMovie } from "react-icons/bi";
+import { IoPerson } from "react-icons/io5";
+import { HiAtSymbol } from "react-icons/hi";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const { formData, setFormData } = useForm();
+
   const submitForm = () => {
     toast.promise(
       fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
@@ -23,9 +27,9 @@ export default function FormSubmit() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          movie_Name: formData.movieName,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          movie_Name: formData.movieName.trim(),
           _subject: "New Movie Request!",
           _captcha: false,
           _template: "table",
@@ -40,18 +44,25 @@ export default function FormSubmit() {
         error: "Göndərilə bilmədi",
       },
     );
+    setFormData({
+      name: "",
+      email: "",
+      movieName: "",
+      isInvalidEmail: false,
+      isInvalidMovieName: false,
+      isInvalid: true,
+    });
 
     onClose();
   };
 
+  const validateEmail = (value) =>
+    value.match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    );
   return (
     <div className="mt-4 flex text-light sm:absolute sm:right-28 sm:ml-auto sm:mt-auto">
-      <Button
-        onPress={onOpen}
-        color="primary"
-        size="lg"
-        className="text-base font-bold"
-      >
+      <Button onPress={onOpen} color="primary" className="text-base font-bold">
         Film İstəyi
       </Button>
       <Modal
@@ -70,44 +81,88 @@ export default function FormSubmit() {
                 <Input
                   autoFocus
                   label="Ad (Optional)"
-                  name="Name"
-                  required
+                  labelPlacement="outside"
                   autoComplete="off"
+                  value={formData.name}
                   onChange={(e) => {
-                    setFormData({ ...formData, name: e.target.value });
+                    setFormData({
+                      ...formData,
+                      name: e.target.value,
+                    });
                   }}
-                  placeholder="Adınızı daxil edin"
                   variant="bordered"
                   type="text"
+                  endContent={
+                    <IoPerson className="pointer-events-none flex-shrink-0 text-xl text-default-500" />
+                  }
                 />
                 <Input
                   label="Email"
-                  placeholder="you@domian.com"
-                  validate="email"
+                  placeholder=""
                   autoComplete="email"
+                  value={formData.email}
+                  isRequired
+                  description="E-poçtunuzu heç vaxt başqası ilə paylaşmayacağıq"
+                  isInvalid={formData.isInvalidEmail}
+                  errorMessage={
+                    formData.isInvalidEmail &&
+                    "Daxil etdiyiniz email düzgün deyil"
+                  }
                   onChange={(e) => {
-                    setFormData({ ...formData, email: e.target.value });
+                    setFormData({
+                      ...formData,
+                      email: e.target.value.toLowerCase(),
+                      isInvalidEmail:
+                        validateEmail(e.target.value.trim()) === null
+                          ? true
+                          : false,
+                      isInvalid: false,
+                    });
                   }}
-                  name="Email"
                   type="email"
-                  required
+                  name="email"
+                  labelPlacement="outside"
+                  endContent={
+                    <HiAtSymbol className="pointer-events-none flex-shrink-0 text-2xl text-default-500" />
+                  }
                   variant="bordered"
                 />
                 <Input
                   label="Filmin Adı"
                   type="text"
                   autoComplete="off"
-                  required
+                  value={formData.movieName}
+                  isRequired
+                  isInvalid={formData.isInvalidMovieName}
+                  errorMessage={
+                    formData.isInvalidMovieName && "Film Adı boş qoyula bilməz"
+                  }
                   onChange={(e) => {
-                    setFormData({ ...formData, movieName: e.target.value });
+                    setFormData({
+                      ...formData,
+                      movieName: e.target.value,
+                      isInvalidMovieName:
+                        e.target.value.trim() === "" ? true : false,
+                    });
                   }}
-                  name="Movie Name"
-                  placeholder="Filmin adını daxil edin"
+                  labelPlacement="outside"
+                  endContent={
+                    <BiSolidMovie className="pointer-events-none flex-shrink-0 text-2xl text-default-500" />
+                  }
                   variant="bordered"
                 />
               </ModalBody>
               <ModalFooter className="relative flex items-center justify-center">
-                <Button color="primary" onPress={submitForm}>
+                <Button
+                  isDisabled={
+                    formData.isInvalidEmail ||
+                    formData.isInvalidMovieName ||
+                    formData.isInvalid
+                  }
+                  color={`${formData.isInvalidEmail || formData.isInvalidMovieName || formData.isInvalid ? "default" : "primary"}`}
+                  type="submit"
+                  onPress={submitForm}
+                >
                   Göndər
                 </Button>
               </ModalFooter>
