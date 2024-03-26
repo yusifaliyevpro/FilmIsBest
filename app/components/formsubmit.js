@@ -50,7 +50,6 @@ export default function FormSubmit() {
       movieName: "",
       isInvalidEmail: false,
       isInvalidMovieName: false,
-      isInvalid: true,
     });
 
     onClose();
@@ -116,7 +115,6 @@ export default function FormSubmit() {
                         validateEmail(e.target.value.trim()) === null
                           ? true
                           : false,
-                      isInvalid: false,
                     });
                   }}
                   type="email"
@@ -155,11 +153,19 @@ export default function FormSubmit() {
               <ModalFooter className="relative flex items-center justify-center">
                 <Button
                   isDisabled={
+                    formData.email.trim() === "" ||
                     formData.isInvalidEmail ||
                     formData.isInvalidMovieName ||
-                    formData.isInvalid
+                    formData.movieName.trim() === ""
                   }
-                  color={`${formData.isInvalidEmail || formData.isInvalidMovieName || formData.isInvalid ? "default" : "primary"}`}
+                  color={
+                    formData.email.trim() === "" ||
+                    formData.isInvalidEmail ||
+                    formData.isInvalidMovieName ||
+                    formData.movieName.trim() === ""
+                      ? "default"
+                      : "primary"
+                  }
                   type="submit"
                   onPress={submitForm}
                 >

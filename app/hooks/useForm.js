@@ -8,7 +8,6 @@ const useForm = () => {
     movieName: "",
     isInvalidEmail: false,
     isInvalidMovieName: false,
-    isInvalid: true,
   });
 
   return { formData, setFormData };
