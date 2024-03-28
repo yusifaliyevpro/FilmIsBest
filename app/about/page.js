@@ -71,7 +71,7 @@ const tools = [
 export default function About() {
   return (
     <main className="relative mx-4 flex items-center justify-center sm:mx-0 ">
-      <div className=" relative flex w-auto flex-col gap-y-6 rounded-lg p-12 sm:w-[800px]">
+      <div className=" relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
         <MotionH2
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ export default function About() {
             delay: 0.5,
             duration: 0.5,
           }}
-          className="text-center text-2xl font-bold"
+          className="mb-5 bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text  text-center text-3xl font-bold text-transparent lg:mb-2"
         >
           Layihə Haqqında
         </MotionH2>
@@ -172,6 +172,7 @@ export default function About() {
         <MotionP
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
+          className="text-center lg:text-left"
           transition={{
             type: "spring",
             stiffness: 100,
@@ -191,6 +192,7 @@ export default function About() {
         <MotionP
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
+          className="text-center lg:text-left"
           transition={{
             type: "spring",
             stiffness: 100,
