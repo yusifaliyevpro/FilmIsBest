@@ -10,7 +10,7 @@ export default function Footer() {
   const pathname = usePathname();
   return (
     <footer
-      className={`relative bottom-0 ${pathname.startsWith("/studio") ? "hidden" : "flex"} left-0 z-50 flex h-auto w-full flex-col items-center justify-center bg-gray-200 fill-current py-5 text-white sm:flex-row`}
+      className={`relative bottom-0 ${pathname.startsWith("/studio") ? "hidden" : "flex"} z-49 left-0 flex h-auto w-full flex-col items-center justify-center bg-gray-200 fill-current py-5 text-white sm:flex-row`}
     >
       <h3 className="select-none text-xl font-bold no-underline">
         👌 Made by{" "}

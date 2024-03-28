@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookiesConsent from "./components/cookies";
+import ScrollTop from "./components/scrollTop";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   category: "movie",
@@ -111,6 +112,7 @@ export default function RootLayout({ children }) {
         <SpeedInsights />
         <Analytics />
         <CookiesConsent />
+        <ScrollTop />
         <Footer />
       </body>
     </html>

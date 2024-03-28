@@ -53,12 +53,12 @@ export default function Header() {
             href="/"
             className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
           >
-            <BiSolidMovie className=" text-2xl font-normal text-blue-600" />
+            <BiSolidMovie className=" text-3xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="hidden gap-16 sm:flex" justify="center">
+      <NavbarContent className="hidden gap-12 sm:flex" justify="center">
         <NavbarItem isActive={pathname === "/"}>
           <Link
             color="foreground"
@@ -69,7 +69,6 @@ export default function Header() {
             Ana Səhifə
           </Link>
         </NavbarItem>
-
         <NavbarItem isActive={pathname === "/movies"}>
           <Link
             href="/movies"
@@ -77,6 +76,15 @@ export default function Header() {
             aria-current="page"
           >
             Filmlər
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive={pathname === "/about"}>
+          <Link
+            href="/about"
+            className="text-lg  text-gray-300 hover:text-white"
+            aria-current="page"
+          >
+            Haqqımda
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -106,6 +114,14 @@ export default function Header() {
             className={`${pathname === "/movies" ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             Filmlər
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem key={2}>
+          <Link
+            href="/about"
+            className={`${pathname === "/about" ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+          >
+            Haqqımda
           </Link>
         </NavbarMenuItem>
       </NavbarMenu>

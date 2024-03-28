@@ -64,7 +64,7 @@ export default async function Home() {
             <div className="relative flex flex-row items-center justify-center gap-x-8">
               <Link
                 href={"/movies"}
-                className="relative mt-7 flex w-fit items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                className="relative mt-7 flex w-fit select-none items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
               >
                 <p>Filmlər</p> <BiSolidChevronRight />
               </Link>
@@ -88,13 +88,7 @@ export default async function Home() {
             transition={{ repeat: Infinity, duration: 1.5, delay: 1.1 }}
             className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100"
           >
-            <Suspense
-              fallback={
-                <div className="relative mt-12 flex h-74 w-74 animate-pulse rounded-full bg-gray-200 lg:mt-0 lg:h-100 lg:w-100"></div>
-              }
-            >
-              <LottieComponent animationPath="/Movieanm.lottie" />
-            </Suspense>
+            <LottieComponent animationPath="/Movieanm.lottie" />
           </MotionDiv>
         </MotionDiv>
       </div>

@@ -15,7 +15,7 @@ export default async function sitemap() {
     lastModified: movie._updatedAt,
   }));
 
-  const routes = ["/", "/movies"].map((route) => ({
+  const routes = ["/", "/movies", "/about"].map((route) => ({
     url: `${baseURL}${route}`,
     lastModified: new Date().toISOString(),
   }));
