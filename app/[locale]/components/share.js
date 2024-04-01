@@ -9,7 +9,6 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import translationMap from "../lib/translationMap";
 import { toast } from "react-hot-toast";
 import {
   BiDotsVerticalRounded,
@@ -29,7 +28,7 @@ export default function Share({ movie }) {
   const router = useRouter();
   const t = useTranslations("Movie");
   const translatedGenres = movie.genre.map(
-    (genre) => translationMap[genre] || genre,
+    (genre) => t(`Genres.${genre.toLowerCase()}`) || genre,
   );
 
   const whatsappBody =

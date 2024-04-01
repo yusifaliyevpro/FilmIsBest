@@ -8,18 +8,9 @@ import { BiLoaderAlt, BiSolidChevronRight } from "react-icons/bi";
 import { baseURL } from "./lib/bases";
 import { MotionDiv } from "./components/motionDiv";
 import { getTranslations } from "next-intl/server";
-import { useLocale } from "next-intl";
 
-const ogImage = {
-  url: `${baseURL}/FilmIsBest.png`,
-  width: 1080,
-  height: 1080,
-  alt: "FilmIsBest",
-  type: "image/png",
-};
-
-export async function generateMetadata() {
-  const locale = useLocale();
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
   const t = await getTranslations({ locale, namespace: "MetaData.Home" });
   return {
     title: {
@@ -37,7 +28,15 @@ export async function generateMetadata() {
     },
     openGraph: {
       description: t("description"),
-      images: [ogImage],
+      images: [
+        {
+          url: `${baseURL}/${locale}/api/og?title=${encodeURI(t("title"))}`,
+          width: 1200,
+          height: 1000,
+          alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
+          type: "image/png",
+        },
+      ],
       title: `FilmIsBest | ${t("title")}`,
       url: `${baseURL}/${locale}`,
     },
@@ -67,10 +66,10 @@ export default async function Home() {
           transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
         >
           <div>
-            <h1 className=" relative mt-6 flex-col  text-nowrap  text-center text-2xl font-bold  no-underline lg:mt-0 lg:text-4xl">
+            <h1 className=" relative mt-6 flex-col text-wrap  text-center  text-2xl font-bold no-underline  lg:mt-0 lg:text-nowrap lg:text-4xl">
               {t("cta")}
               <br />
-              <p className="inline-block bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50%  to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
+              <p className="inline-block text-wrap bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50%  to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
                 {t("ctaUrl", { url: "filmisbest.com" })}
               </p>
             </h1>

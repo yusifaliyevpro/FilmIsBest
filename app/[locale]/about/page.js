@@ -14,8 +14,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { baseURL } from "../lib/bases";
 
-export async function generateMetadata() {
-  const locale = useLocale();
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
   const t = await getTranslations({ locale, namespace: "MetaData.About" });
   return {
     title: t("title"),

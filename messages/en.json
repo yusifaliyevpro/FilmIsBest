@@ -7,8 +7,8 @@
   },
   "MetaData": {
     "Home": {
-    "title": "Home Page",
-    "description": "FilmIsBest.com was created by YusifAliyevPro. You can watch all the movies you want with subtitle options in English, Turkish and both languages. It is also possible to watch Movie Trailers."
+      "title": "Home Page",
+      "description": "FilmIsBest.com was created by YusifAliyevPro. You can watch all the movies you want with subtitle options in English, Turkish and both languages. It is also possible to watch Movie Trailers."
     },
     "Movies": {
       "title": "Movies",
@@ -34,9 +34,7 @@
     "about": "About",
     "signIn": "Sign In",
     "thisFeatureIsUnderDevelopment": "This feature is under development",
-    "LanguageSwitcher": {
-      "language": "Language"
-    }
+    "LanguageSwitcher": {}
   },
   "Footer": {
     "FormSubmit": {
@@ -61,6 +59,11 @@
     }
   },
   "Movie": {
+    "movieName": "Movie Name:",
+    "stars": "Stars:",
+    "category": "Category:",
+    "director": "Director(s):",
+    "imdbScore": "IMDb Score:",
     "MovieBar": {
       "english": "English",
       "englishSubtitle": "English Subtitle",
@@ -78,17 +81,30 @@
       "ctaText": "Follow the link to watch the trailer or movie",
       "other": "Other"
     },
-    "movieName": "Movie Name:",
-    "stars": "Stars:",
-    "category": "Category:",
-    "director": "Director(s):",
-    "imdbScore": "IMDb Score:",
     "MovieInfo": {
       "movieDescription": "Movie Description:",
       "time": "Time",
       "min": "min",
       "year": "Year",
-      "country": "Country"
+      "country": "Country",
+      "createdByChatGPT": "Written by ChatGPT"
+    },
+    "Genres": {
+      "action": "Action",
+      "adventure": "Adventure",
+      "drama": "Drama",
+      "thriller": "Thriller",
+      "animation": "Animation",
+      "comedy": "Comedy",
+      "family": "Family",
+      "sci-fi": "Sci-Fi",
+      "fantasy": "Fantasy",
+      "horror": "Horror",
+      "mystery": "Mystery",
+      "documentary": "Documentary",
+      "war": "War",
+      "crime": "Crime",
+      "historical": "Historical"
     }
   },
   "NotFound": {

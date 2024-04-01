@@ -25,7 +25,7 @@ export async function getData({ params }) {
 
 export async function generateMetadata({ params }) {
   const movie = await getData({ params });
-  const locale = useLocale();
+  const locale = params.locale;
 
   if (!movie) {
     return notFound();

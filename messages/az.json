@@ -9,7 +9,7 @@
     "Home": {
       "title": "Ana Səhifə",
       "description": "FilmIsBest.com YusifAliyevPro tərəfindən yaradılmışdır. İstədiyiniz bütün filmləri İngiliscə, Türkçə və hər iki dildə altyazı seçimləri ilə izləyə bilərsiz. Həmçinin Film Fraqmanlarınada baxmaq mümkündür."
-      },
+    },
     "Movies": {
       "title": "Filmlər",
       "description": "FilmIsBest.com YusifAliyevPro tərəfindən yaradılmışdır. İstədiyiniz bütün filmləri İngiliscə, Türkçə və hər iki dildə altyazı seçimləri ilə izləyə bilərsiz. Həmçinin Film Fraqmanlarınada baxmaq mümkündür."
@@ -34,65 +34,80 @@
     "about": "Haqqımda",
     "signIn": "Daxil ol",
     "thisFeatureIsUnderDevelopment": "Bu özəllik hazırlanma mərhələsindədir",
-    "LanguageSwitcher": {
-      "language": "Dil"
-    }
+    "LanguageSwitcher": {}
   },
   "Footer": {
     "FormSubmit": {
-    "movieRequest": "Film İstəyi",
-    "name": "Ad",
-    "email": "Email",
-    "movieName": "Filmin Adı",
-    "submit": "Göndər",
-    "emailPrivacy": "E-poçtunuzu heç vaxt başqası ilə paylaşmayacağıq",
-    "emailError": "Daxil etdiyiniz email düzgün deyil",
-    "movieNameError": "Film Adı boş qoyula bilməz",
-    "newMovieRequest": "Yeni Film Istəyi!",
-    "sending": "Göndərilir...",
-    "sent": "Göndərildi!",
-    "failedToSend": "Göndərilə bilmədi"
-  }
-},
-"Movies": {
-  "Search": {
-    "placeholder": "Film adı və ya IMDb ID'si ilə axtarın",
-    "noResultMessage": "Axtarışınıza uyğun film tapılmadı"
-  }
-},
-"Movie": {
-  "MovieBar": {
-    "english": "İngiliscə",
-    "englishSubtitle": "İngiliscə Altyazılı",
-    "turkish": "Türkçə",
-    "turkishSubtitle": "Türkçə Altyazılı",
-    "trailer": "Fraqman"
+      "movieRequest": "Film İstəyi",
+      "name": "Ad",
+      "email": "Email",
+      "movieName": "Filmin Adı",
+      "submit": "Göndər",
+      "emailPrivacy": "E-poçtunuzu heç vaxt başqası ilə paylaşmayacağıq",
+      "emailError": "Daxil etdiyiniz email düzgün deyil",
+      "movieNameError": "Film Adı boş qoyula bilməz",
+      "newMovieRequest": "Yeni Film Istəyi!",
+      "sending": "Göndərilir...",
+      "sent": "Göndərildi!",
+      "failedToSend": "Göndərilə bilmədi"
+    }
   },
-  "Share": {
-    "share": "Paylaş",
-    "imageBeingPrepared": "Şəkil hazırlanır...",
-    "pictureIsReady": "Şəkil hazırdır!",
-    "anErrorOccurred": "Xəta baş verdi",
-    "copied": "Kopyalandı!",
-    "inProgress": "Hazırlanır...",
-    "ctaText": "Follow the link to watch the trailer or movie",
-    "other": "Digər"
+  "Movies": {
+    "Search": {
+      "placeholder": "Film adı və ya IMDb ID'si ilə axtarın",
+      "noResultMessage": "Axtarışınıza uyğun film tapılmadı"
+    }
   },
-  "movieName": "Filmin Adı:",
-  "stars": "Ulduzlar:",
-  "category": "Kateqoriya:",
-  "director": "Rejissor(lar):",
-  "imdbScore": "IMDb xalı:",
-  "MovieInfo": {
-    "movieDescription": "Filmin Təsviri:",
-    "time": "Vaxt",
-    "min": "dəq",
-    "year": "İl",
-    "country": "Ölkə"
+  "Movie": {
+    "movieName": "Filmin Adı:",
+    "stars": "Ulduzlar:",
+    "category": "Kateqoriya:",
+    "director": "Rejissor(lar):",
+    "imdbScore": "IMDb xalı:",
+    "MovieBar": {
+      "english": "İngiliscə",
+      "englishSubtitle": "İngiliscə Altyazılı",
+      "turkish": "Türkçə",
+      "turkishSubtitle": "Türkçə Altyazılı",
+      "trailer": "Fraqman"
+    },
+    "Share": {
+      "share": "Paylaş",
+      "imageBeingPrepared": "Şəkil hazırlanır...",
+      "pictureIsReady": "Şəkil hazırdır!",
+      "anErrorOccurred": "Xəta baş verdi",
+      "copied": "Kopyalandı!",
+      "inProgress": "Hazırlanır...",
+      "ctaText": "Fraqmanı və ya filmi izləmək üçün linkə keçid edin",
+      "other": "Digər"
+    },
+    "MovieInfo": {
+      "movieDescription": "Filmin Təsviri:",
+      "time": "Vaxt",
+      "min": "dəq",
+      "year": "İl",
+      "country": "Ölkə",
+      "createdByChatGPT": "ChatGPT tərəfindən yazılmışdır"
+    },
+    "Genres": {
+      "action": "Aksiyon",
+      "adventure": "Macəra",
+      "drama": "Dram",
+      "thriller": "Triller",
+      "animation": "Animasiya",
+      "comedy": "Komediya",
+      "family": "Ailə",
+      "sci-fi": "Sci-Fi",
+      "fantasy": "Fantaziya",
+      "horror": "Qorxu",
+      "mystery": "Sirli",
+      "documentary": "Belgesel",
+      "war": "Müharibə",
+      "crime": "Cinayət",
+      "historical": "Tarixi"
+    }
+  },
+  "NotFound": {
+    "errorMessage": "Axtardığınız səhifə tapılmadı"
   }
-},
-"NotFound": {
-  "errorMessage": "Axtardığınız səhifə tapılmadı"
-}
-
 }

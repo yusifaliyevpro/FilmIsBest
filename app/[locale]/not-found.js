@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import LottieComponent from "./components/LottieAnimation";
 
 export const metadata = {
-  title: "FilmIsBest | 404 Not Found",
+  title: "404 Not Found",
   description: "Axtardığınız səhifə mövcud deyil",
   creator: "Yusif Aliyev",
   siteName: "FilmIsBest",

@@ -1,15 +1,14 @@
 import Image from "next/image";
-import translationMap from "../lib/translationMap";
 import { MotionDiv } from "./motionDiv";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+import { RiOpenaiFill } from "react-icons/ri";
+import Link from "next/link";
 
 export default function MovieInfo({ movie }) {
-  const translatedGenres = movie.genre.map(
-    (genre) => translationMap[genre] || genre,
-  );
-  const locale = useLocale();
   const t = useTranslations("Movie");
-
+  const translatedGenres = movie.genre.map(
+    (genre) => t(`Genres.${genre.toLowerCase()}`) || genre,
+  );
   return (
     <div className="relative  mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto  sm:flex-row sm:items-start sm:justify-between">
       <MotionDiv
@@ -42,11 +41,7 @@ export default function MovieInfo({ movie }) {
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("category")}{" "}
-          <span className="text-white">
-            {locale === "az"
-              ? translatedGenres.join(", ")
-              : movie.genre.join(", ")}
-          </span>
+          <span className="text-white">{translatedGenres.join(", ")}</span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("director")}{" "}
@@ -66,6 +61,18 @@ export default function MovieInfo({ movie }) {
           {t("MovieInfo.movieDescription")}{" "}
           <span className="text-white">{movie.description.trim()}</span>
         </li>
+        <div className="relative flex flex-nowrap items-center justify-end px-3 text-lg">
+          <Link
+            href={"https://chat.openai.com/"}
+            target="_blank"
+            className="relative mt-3 flex items-center gap-x-1 text-nowrap py-2 font-sans font-bold lg:mt-2 "
+          >
+            <span className="bg-gradient-to-r from-sky-400 via-blue-600 to-violet-500 bg-clip-text text-transparent">
+              {t("MovieInfo.createdByChatGPT")}
+            </span>
+            <RiOpenaiFill className="text-3xl text-slate-300" />
+          </Link>
+        </div>
 
         <div className="left-0 mb-9 box-border flex list-none flex-row justify-around pt-12 text-left sm:mb-0 sm:p-12">
           <li className=" box-border text-left font-bold text-slate-400 sm:px-12">

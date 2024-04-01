@@ -7,18 +7,10 @@ import SearchSkeleton from "../components/searchSkeleton";
 import PaginationSkeleton from "../components/paginationSkeleton";
 import { baseURL } from "../lib/bases";
 import { MotionDiv } from "../components/motionDiv";
-import { useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-const ogImage = {
-  url: `${baseURL}/FilmIsBest.png`,
-  width: 1080,
-  height: 1080,
-  alt: "FilmIsBest",
-  type: "image/png",
-};
 
-export async function generateMetadata() {
-  const locale = useLocale();
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
   const t = await getTranslations({ locale, namespace: "MetaData.Movies" });
   return {
     title: t("title"),
@@ -34,7 +26,15 @@ export async function generateMetadata() {
     },
     openGraph: {
       description: t("description"),
-      images: [ogImage],
+      images: [
+        {
+          url: `${baseURL}/${locale}/api/og?title=${encodeURI(t("title"))}`,
+          width: 1200,
+          height: 1000,
+          alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
+          type: "image/png",
+        },
+      ],
       title: `FilmIsBest | ${t("title")}`,
       url: `${baseURL}/${locale}/movies`,
     },
