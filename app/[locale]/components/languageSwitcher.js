@@ -30,6 +30,12 @@ export default function LanguageSwitcher() {
     <Select
       items={languages}
       className="min-w-[110px]"
+      classNames={{
+        trigger: "bg-gray-200",
+        popoverContent: "bg-gray-200",
+        value: "font-bold font-sans",
+        listbox: "font-bold",
+      }}
       aria-label="Language"
       defaultSelectedKeys={[locale]}
       onSelectionChange={setValue}

@@ -26,7 +26,12 @@ export async function GET(request) {
       (
         <div tw="relative flex flex-col w-full bg-white h-full items-center justify-start">
           <div tw="relative flex inset-0 justify-center items-start mt-28">
-            <img src={`${baseURL}/icon.png`} height={550} width={550} />
+            <img
+              src={`${baseURL}/icon.png`}
+              height={550}
+              width={550}
+              alt="FilmIsBest Logo"
+            />
             <div tw="absolute flex inset-0" />
           </div>
           <div tw="relative flex items-start justify-center mt-10 text-black">
