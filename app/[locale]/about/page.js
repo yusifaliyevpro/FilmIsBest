@@ -157,7 +157,7 @@ export default function About() {
         >
           {t("toolsIUsed")}
         </MotionP>
-        <div className="tools relative my-8 flex flex-1 select-none flex-col flex-wrap items-center justify-center gap-x-8 gap-y-8 sm:flex-row">
+        <div className="tools relative my-8 flex select-none flex-wrap items-center justify-center gap-x-8 gap-y-8 sm:flex-row">
           {tools.map((tool, index) => (
             <MotionDiv
               initial={{ opacity: 0, y: -30 }}
