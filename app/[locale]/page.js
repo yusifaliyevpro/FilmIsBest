@@ -4,7 +4,7 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import { Suspense } from "react";
 import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
-import { BiLoaderAlt, BiSolidChevronRight } from "react-icons/bi";
+import { BiSolidChevronRight } from "react-icons/bi";
 import { baseURL } from "./lib/bases";
 import { MotionDiv } from "./components/motionDiv";
 import { getTranslations } from "next-intl/server";
@@ -19,11 +19,12 @@ export async function generateMetadata({ params }) {
     url: `${baseURL}/`,
     description: t("description"),
     alternates: {
-      canonical: `${baseURL}/`,
+      canonical: `${baseURL}`,
       languages: {
         "en-US": `${baseURL}/en`,
         "en-GB": `${baseURL}/en`,
         "az-AZ": `${baseURL}/az`,
+        "tr-TR": `${baseURL}/tr`,
       },
     },
     openGraph: {

@@ -22,6 +22,7 @@ export async function generateMetadata({ params }) {
         "en-US": `${baseURL}/en/movies`,
         "en-GB": `${baseURL}/en/movies`,
         "az-AZ": `${baseURL}/az/movies`,
+        "tr-TR": `${baseURL}/tr/movies`,
       },
     },
     openGraph: {
@@ -61,7 +62,7 @@ export async function getCount() {
   return data;
 }
 
-export default async function MoviesPage({ searchParams }) {
+export default async function MoviesPage({ searchParams, params }) {
   const search =
     typeof searchParams.search === "string" ? searchParams.search : undefined;
   const page =
@@ -70,6 +71,7 @@ export default async function MoviesPage({ searchParams }) {
   const limit = `[${page === 1 ? 0 : (page - 1) * 20}...${page === 1 ? 20 : page * 20}]`;
   const movies = await getData({ search, limit });
   const resultCount = movies.length;
+  const locale = params.locale;
   return (
     <main className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
@@ -78,6 +80,7 @@ export default async function MoviesPage({ searchParams }) {
             searchQuery={search}
             resultCount={resultCount}
             pageQuery={page}
+            locale={locale}
           />
         </Suspense>
         <Suspense fallback={<PaginationSkeleton />}>
@@ -86,6 +89,7 @@ export default async function MoviesPage({ searchParams }) {
             resultCount={resultCount}
             pageQuery={page}
             count={count}
+            locale={locale}
           />
         </Suspense>
       </div>

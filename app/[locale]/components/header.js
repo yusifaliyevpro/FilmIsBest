@@ -15,12 +15,11 @@ import {
 import { BiSolidMovie } from "react-icons/bi";
 import { IoCodeSlash } from "react-icons/io5";
 import toast from "react-hot-toast";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./languageSwitcher";
 
-export default function Header() {
+export default function Header({ locale }) {
   const pathname = usePathname();
-  const locale = useLocale();
   const t = useTranslations("Header");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const notify = () =>
@@ -54,7 +53,7 @@ export default function Header() {
       <NavbarContent>
         <NavbarBrand>
           <Link
-            href="/"
+            href={`/${locale}`}
             className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
           >
             <BiSolidMovie className=" text-3xl font-normal text-blue-600" />
@@ -63,11 +62,11 @@ export default function Header() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-12 sm:flex" justify="center">
-        <NavbarItem isActive={pathname === `/${locale}/`}>
+        <NavbarItem isActive={pathname === `/${locale}`}>
           <Link
             color="foreground"
             className="hover: text-lg text-gray-300 hover:text-white"
-            href="/"
+            href={`/${locale}`}
             aria-current="page"
           >
             {t("homePage")}
@@ -103,14 +102,14 @@ export default function Header() {
           </Button>
         </NavbarItem>
         <NavbarItem className="hidden sm:flex">
-          <LanguageSwitcher />
+          <LanguageSwitcher locale={locale} />
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
         <NavbarMenuItem key={1}>
           <Link
-            href={`/${locale}/`}
-            className={`${pathname === `/${locale}/` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+            href={`/${locale}`}
+            className={`${pathname === `/${locale}` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             {t("homePage")}
           </Link>

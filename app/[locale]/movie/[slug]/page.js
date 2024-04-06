@@ -9,9 +9,6 @@ import MovieBar from "../../components/movieBar";
 import MovieBarSuspense from "../../components/movieBarSuspense";
 import { baseURL } from "../..//lib/bases";
 import { MotionDiv } from "../../components/motionDiv";
-import { useLocale } from "next-intl";
-import { getTranslations } from "next-intl/server";
-
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
     {filmName, "poster": poster.asset->url, "slug": slug.current, imdbpuan, releaseDate, genre, description, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]`;
@@ -30,15 +27,6 @@ export async function generateMetadata({ params }) {
   if (!movie) {
     return notFound();
   }
-
-  const ogImage1 = [
-    {
-      url: `${baseURL}/movie/${movie.slug}/opengraph-image`,
-      width: 1200,
-      height: 600,
-      alt: movie.filmName,
-    },
-  ];
   return {
     title: `${movie.filmName}`,
     url: `${baseURL}/${locale}/movie/${movie.slug}`,
@@ -49,6 +37,7 @@ export async function generateMetadata({ params }) {
         "en-US": `${baseURL}/en/movie/${movie.slug}`,
         "en-GB": `${baseURL}/en/movie/${movie.slug}`,
         "az-AZ": `${baseURL}/az/movie/${movie.slug}`,
+        "tr-TR": `${baseURL}/tr/movie/${movie.slug}`,
       },
     },
     keywords: [
@@ -97,6 +86,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Movie({ params, searchParams }) {
   const movie = await getData({ params });
+  const locale = params.locale;
   const activeKey =
     typeof searchParams.activekey === "string"
       ? searchParams.activekey
@@ -126,7 +116,7 @@ export default async function Movie({ params, searchParams }) {
           </Suspense>
           <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
             <Suspense fallback={<SuspenseButton />}>
-              <Share movie={movie} />
+              <Share movie={movie} locale={locale} />
             </Suspense>
           </div>
         </MotionDiv>

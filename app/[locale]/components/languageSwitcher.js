@@ -1,13 +1,11 @@
 "use client";
 import { Select, SelectItem, Avatar } from "@nextui-org/react";
 import { usePathname, useRouter } from "../../../navigation";
-import { useLocale, useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
-export default function LanguageSwitcher() {
+
+export default function LanguageSwitcher({ locale }) {
   const router = useRouter();
   const pathname = usePathname();
-  const locale = useLocale();
-  const t = useTranslations("Header.LanguageSwitcher");
   const [value, setValue] = useState({ currentKey: locale });
   const [initialRender, setInitialRender] = useState(true);
 
@@ -30,6 +28,7 @@ export default function LanguageSwitcher() {
     <Select
       items={languages}
       className="min-w-[110px]"
+      isRequired
       classNames={{
         trigger: "bg-gray-200",
         popoverContent: "bg-gray-200",
@@ -37,7 +36,7 @@ export default function LanguageSwitcher() {
         listbox: "font-bold",
       }}
       aria-label="Language"
-      defaultSelectedKeys={[locale]}
+      selectedKeys={[locale]}
       onSelectionChange={setValue}
       renderValue={(items) => {
         return items.map((item) => (

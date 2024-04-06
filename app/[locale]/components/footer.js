@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import SuspenseButton from "./suspenseButton";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
 
 const FormSubmit = dynamic(() => import("./formsubmit"));
 

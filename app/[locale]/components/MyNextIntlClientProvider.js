@@ -1,6 +1,6 @@
 "use client";
 
-import { NextIntlClientProvider, useLocale } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 
 export default function MyCustomNextIntlClientProvider({
   locale,

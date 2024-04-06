@@ -5,14 +5,18 @@ import { useRouter } from "next/navigation";
 import { useDebounce } from "use-debounce";
 import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
-export default function Search({ searchQuery, resultCount, pageQuery }) {
+export default function Search({
+  searchQuery,
+  resultCount,
+  pageQuery,
+  locale,
+}) {
   const router = useRouter();
   const [text, setText] = useState(searchQuery);
   const [query] = useDebounce(text, 600);
   const initialRender = useRef(true);
-  const locale = useLocale();
   const t = useTranslations("Movies.Search");
 
   useEffect(() => {

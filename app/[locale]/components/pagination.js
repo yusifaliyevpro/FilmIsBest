@@ -3,16 +3,15 @@ import React from "react";
 import { Pagination } from "@nextui-org/pagination";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
 
 export default function PaginationUI({
   pageQuery,
   resultCount,
   searchQuery,
   count,
+  locale,
 }) {
   const router = useRouter();
-  const locale = useLocale();
   const total = Math.ceil(
     (searchQuery !== undefined ? resultCount : count) / 20,
   );

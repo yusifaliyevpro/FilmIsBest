@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { baseURL } from "./lib/bases";
-
-export default async function Sitemap() {
+export default async function generateSitemap() {
   async function getData() {
     const query = `*[_type=='Movie-studio']
       {"slug": slug.current, _updatedAt}`;
@@ -10,27 +9,15 @@ export default async function Sitemap() {
   }
   const moviess = await getData();
 
-  const enMovies = moviess.map((movie) => ({
-    url: `${baseURL}/en/movie/${movie.slug}`,
+  const Movies = moviess.map((movie) => ({
+    url: `${baseURL}/movie/${movie.slug}`,
     lastModified: movie._updatedAt,
   }));
 
-  const azMovies = moviess.map((movie) => ({
-    url: `${baseURL}/az/movie/${movie.slug}`,
-    lastModified: movie._updatedAt,
-  }));
-
-  const routes = [
-    `/en`,
-    `/en/movies`,
-    `/en/about`,
-    `/az`,
-    `/az/movies`,
-    `/az/about`,
-  ].map((route) => ({
+  const routes = [`/`, `/movies`, `/about`].map((route) => ({
     url: `${baseURL}${route}`,
     lastModified: new Date().toISOString(),
   }));
 
-  return [...routes, ...enMovies, ...azMovies];
+  return [...routes, ...Movies];
 }

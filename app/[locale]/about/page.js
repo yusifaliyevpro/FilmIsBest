@@ -1,16 +1,12 @@
 import Link from "next/link";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
-import {
-  TbApi,
-  TbBrandFramerMotion,
-  TbSquareRoundedLetterF,
-} from "react-icons/tb";
+import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
 import { MotionH2 } from "../components/motionH2";
 import { MotionP } from "../components/motionP";
 import { MotionDiv } from "../components/motionDiv";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { baseURL } from "../lib/bases";
 
@@ -24,13 +20,23 @@ export async function generateMetadata({ params }) {
     alternates: {
       canonical: `${baseURL}/about`,
       languages: {
-        "en-US": `${baseURL}/en`,
-        "en-GB": `${baseURL}/en`,
-        "az-AZ": `${baseURL}/az`,
+        "en-US": `${baseURL}/en/about`,
+        "en-GB": `${baseURL}/en/about`,
+        "az-AZ": `${baseURL}/az/about`,
+        "tr-TR": `${baseURL}/tr/about`,
       },
     },
     openGraph: {
       title: `FilmIsBest | ${t("title")}`,
+      images: [
+        {
+          url: `${baseURL}/${locale}/api/og?title=${encodeURI(t("title"))}`,
+          width: 1200,
+          height: 1000,
+          alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
+          type: "image/png",
+        },
+      ],
       url: `${baseURL}/${locale}/about`,
       description: t("description"),
       type: "website",

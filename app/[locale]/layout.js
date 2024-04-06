@@ -11,7 +11,6 @@ import CookiesConsent from "./components/cookies";
 import ScrollTop from "./components/scrollTop";
 import {
   NextIntlClientProvider,
-  useLocale,
   useMessages,
   useNow,
   useTimeZone,
@@ -85,8 +84,8 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
-  const locale = useLocale();
+export default function RootLayout({ children, params }) {
+  const locale = params.locale;
   const now = useNow();
   const timeZone = useTimeZone();
   const messages = useMessages();
@@ -106,7 +105,7 @@ export default function RootLayout({ children }) {
           now={now}
           timeZone={timeZone}
         >
-          <Header />
+          <Header locale={locale} />
           <Toaster
             toastOptions={{
               className: "",

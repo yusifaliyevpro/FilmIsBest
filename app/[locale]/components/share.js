@@ -22,7 +22,7 @@ import { Snippet } from "@nextui-org/snippet";
 import { baseURL } from "../lib/bases";
 import { useTranslations } from "next-intl";
 
-export default function Share({ movie }) {
+export default function Share({ movie, locale }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
@@ -212,10 +212,10 @@ export default function Share({ movie }) {
                   <Snippet
                     symbol=""
                     variant="bordered"
-                    codeString={`${baseURL}/movie/${movie.slug}`}
+                    codeString={`${baseURL}/${locale}/movie/${movie.slug}`}
                   >
                     <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
-                      {`${baseURL}/movie/${movie.slug}`}
+                      {`${baseURL}/${locale}/movie/${movie.slug}`}
                     </div>
                   </Snippet>
                 </div>
