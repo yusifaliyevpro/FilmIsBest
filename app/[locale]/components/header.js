@@ -131,7 +131,7 @@ export default function Header({ locale }) {
           </Link>
         </NavbarMenuItem>
         <NavbarItem>
-          <LanguageSwitcher />
+          <LanguageSwitcher locale={locale} />
         </NavbarItem>
       </NavbarMenu>
       <NavbarMenuToggle
