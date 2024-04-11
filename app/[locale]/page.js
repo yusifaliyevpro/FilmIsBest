@@ -7,11 +7,18 @@ import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
 import { BiSolidChevronRight } from "react-icons/bi";
 import { baseURL } from "./lib/bases";
 import { MotionDiv } from "./components/motionDiv";
-import { getTranslations } from "next-intl/server";
+import { getScopedI18n } from "@/locales/server";
 
+/**
+ * Generates metadata for the given locale and returns an object containing title, url, description,
+ * alternates, and openGraph information.
+ * @param {Object} params - An object containing parameters.
+ * @param {string} params.locale - The locale for which metadata is generated.
+ * @returns {Object} An object containing metadata information such as title, url, description, alternates, and openGraph.
+ */
 export async function generateMetadata({ params }) {
   const locale = params.locale;
-  const t = await getTranslations({ locale, namespace: "MetaData.Home" });
+  const t = await getScopedI18n("MetaData.Home");
   return {
     title: {
       absolute: `FilmIsBest | ${t("title")}`,
@@ -44,6 +51,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
+/**
+ * Retrieves data from the database for the top 10 movies based on creation date.
+ * @returns {Promise} A promise that resolves to an array of objects containing filmName, poster, slug, imdbpuan, and releaseDate.
+ */
 export async function getData() {
   const query = `*[_type=='Movie-studio']|order(_createdAt desc)
     {filmName, poster, "slug": slug.current, imdbpuan, releaseDate}[0...10]`;
@@ -57,7 +68,7 @@ export async function getData() {
 
 export default async function Home() {
   const movies = await getData();
-  const t = await getTranslations("Home");
+  const t = await getScopedI18n("Home");
   return (
     <main>
       <div className="relative mt-6 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">

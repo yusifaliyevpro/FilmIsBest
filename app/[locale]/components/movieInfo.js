@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { MotionDiv } from "./motionDiv";
-import { useTranslations } from "next-intl";
 import { RiOpenaiFill } from "react-icons/ri";
 import Link from "next/link";
+import { useScopedI18n } from "@/locales/client";
+import { getScopedI18n } from "@/locales/server";
 
-export default function MovieInfo({ movie }) {
-  const t = useTranslations("Movie");
+export default async function MovieInfo({ movie }) {
+  const t = await getScopedI18n("Movie");
   const translatedGenres = movie.genre.map(
     (genre) => t(`Genres.${genre.toLowerCase()}`) || genre,
   );

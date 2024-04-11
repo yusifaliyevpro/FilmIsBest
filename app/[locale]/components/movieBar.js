@@ -1,6 +1,6 @@
 "use client";
+import { useScopedI18n } from "@/locales/client";
 import { Tabs, Tab } from "@nextui-org/tabs";
-import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function MovieBar({ movie }) {
@@ -9,7 +9,7 @@ export default function MovieBar({ movie }) {
   const turkishSubLink = movie.TurkishSubtitleLink;
   const youtubeLink = "https://www.youtube.com/embed/" + movie.FraqmanLink;
   const [activeLink, setActiveLink] = useState(englishLink);
-  const t = useTranslations("Movie.MovieBar");
+  const t = useScopedI18n("Movie.MovieBar");
 
   function handleLanguage(key) {
     if (key === "english" || key === "englishSubtitle") {

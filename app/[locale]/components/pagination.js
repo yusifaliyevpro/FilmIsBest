@@ -20,21 +20,21 @@ export default function PaginationUI({
   useEffect(() => {
     if (page === 1) {
       router.push(
-        `/${locale}/movies${searchQuery !== undefined ? "?search=" + searchQuery : ""}`,
+        `/movies${searchQuery !== undefined ? "?search=" + searchQuery : ""}`,
         {
           scroll: false,
         },
       );
     } else if (page > total) {
       router.push(
-        `/${locale}/movies?${searchQuery !== undefined ? "search=" + searchQuery + "&" : ""}page=${total}`,
+        `/movies?${searchQuery !== undefined ? "search=" + searchQuery + "&" : ""}page=${total}`,
         {
           scroll: false,
         },
       );
     } else {
       router.push(
-        `/${locale}/movies?${searchQuery !== undefined ? "search=" + searchQuery + "&" : ""}page=${page}`,
+        `/movies?${searchQuery !== undefined ? "search=" + searchQuery + "&" : ""}page=${page}`,
         {
           scroll: false,
         },

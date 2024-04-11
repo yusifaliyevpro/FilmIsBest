@@ -9,6 +9,12 @@ import MovieBar from "../../components/movieBar";
 import MovieBarSuspense from "../../components/movieBarSuspense";
 import { baseURL } from "../..//lib/bases";
 import { MotionDiv } from "../../components/motionDiv";
+
+/**
+ * Fetches data for a movie studio based on the provided slug parameter.
+ * @param {Object} params - An object containing parameters for the query.
+ * @returns {Promise<Object>} - A promise that resolves to the fetched data.
+ */
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
     {filmName, "poster": poster.asset->url, "slug": slug.current, imdbpuan, releaseDate, genre, description, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]`;

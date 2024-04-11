@@ -13,12 +13,12 @@ import useForm from "../hooks/useForm";
 import { BiSolidMovie } from "react-icons/bi";
 import { IoPerson } from "react-icons/io5";
 import { HiAtSymbol } from "react-icons/hi";
-import { useTranslations } from "next-intl";
+import { useScopedI18n } from "@/locales/client";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const { formData, setFormData } = useForm();
-  const t = useTranslations("Footer.FormSubmit");
+  const t = useScopedI18n("Footer.FormSubmit");
 
   const submitForm = () => {
     toast.promise(
@@ -85,6 +85,7 @@ export default function FormSubmit() {
                   labelPlacement="outside"
                   autoComplete="off"
                   value={formData.name}
+                  classNames={{ input: "text-white" }}
                   onChange={(e) => {
                     setFormData({
                       ...formData,

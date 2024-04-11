@@ -9,12 +9,9 @@ import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookiesConsent from "./components/cookies";
 import ScrollTop from "./components/scrollTop";
-import {
-  NextIntlClientProvider,
-  useMessages,
-  useNow,
-  useTimeZone,
-} from "next-intl";
+import { I18nProviderClient } from "@/locales/client";
+import { Providers } from "./components/providers";
+
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   category: "movie",
@@ -86,9 +83,6 @@ export const metadata = {
 
 export default function RootLayout({ children, params }) {
   const locale = params.locale;
-  const now = useNow();
-  const timeZone = useTimeZone();
-  const messages = useMessages();
   return (
     <html lang={locale} className="bg-gray-100 dark">
       <head>
@@ -99,37 +93,34 @@ export default function RootLayout({ children, params }) {
         />
       </head>
       <body className={inter.className}>
-        <NextIntlClientProvider
-          locale={locale}
-          messages={messages}
-          now={now}
-          timeZone={timeZone}
-        >
-          <Header locale={locale} />
-          <Toaster
-            toastOptions={{
-              className: "",
-              style: {
-                borderRadius: "30px",
-                border: "2px solid #007bff",
-                color: "#fff",
-                background: "#191e25",
-              },
-              iconTheme: {
-                primary: "#007bff",
-                secondary: "#FFFAEE",
-              },
-            }}
-            position="bottom-right"
-            reverseOrder={false}
-          />
-          <main className="min-h-screen  text-white dark">{children}</main>
-          <SpeedInsights />
-          <Analytics />
-          <CookiesConsent />
-          <ScrollTop />
-          <Footer />
-        </NextIntlClientProvider>
+        <Providers>
+          <I18nProviderClient locale={locale}>
+            <Header locale={locale} />
+            <Toaster
+              toastOptions={{
+                className: "",
+                style: {
+                  borderRadius: "30px",
+                  border: "2px solid #007bff",
+                  color: "#fff",
+                  background: "#191e25",
+                },
+                iconTheme: {
+                  primary: "#007bff",
+                  secondary: "#FFFAEE",
+                },
+              }}
+              position="bottom-right"
+              reverseOrder={false}
+            />
+            <main className="min-h-screen  text-white dark">{children}</main>
+            <SpeedInsights />
+            <Analytics />
+            <CookiesConsent />
+            <ScrollTop />
+            <Footer />
+          </I18nProviderClient>
+        </Providers>
       </body>
     </html>
   );

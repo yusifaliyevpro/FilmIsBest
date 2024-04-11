@@ -20,13 +20,13 @@ import {
 } from "react-icons/bi";
 import { Snippet } from "@nextui-org/snippet";
 import { baseURL } from "../lib/bases";
-import { useTranslations } from "next-intl";
+import { useScopedI18n } from "@/locales/client";
 
 export default function Share({ movie, locale }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
-  const t = useTranslations("Movie");
+  const t = useScopedI18n("Movie");
   const translatedGenres = movie.genre.map(
     (genre) => t(`Genres.${genre.toLowerCase()}`) || genre,
   );

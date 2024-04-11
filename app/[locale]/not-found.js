@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getScopedI18n } from "@/locales/server";
 import LottieComponent from "./components/LottieAnimation";
 
 export const metadata = {
@@ -12,8 +12,8 @@ export const metadata = {
   },
 };
 
-export default function NotFoundPage() {
-  const t = useTranslations("NotFound");
+export default async function NotFoundPage() {
+  const t = await getScopedI18n("NotFound");
   return (
     <div className="relative flex w-full flex-col items-center justify-center">
       <div className="relative mx-3 mt-8 flex h-full flex-col sm:mt-3">

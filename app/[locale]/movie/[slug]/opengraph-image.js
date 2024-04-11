@@ -1,3 +1,8 @@
+/**
+ * Retrieves movie data based on the provided parameters and generates an ImageResponse object.
+ * @param {Object} params - Parameters used to fetch movie data.
+ * @returns {ImageResponse} - An ImageResponse object containing movie information.
+ */
 import { ImageResponse } from "next/og";
 import { client } from "@/sanity/lib/client";
 import { baseURL } from "./../../lib/bases";

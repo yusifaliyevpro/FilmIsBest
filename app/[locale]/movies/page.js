@@ -7,11 +7,11 @@ import SearchSkeleton from "../components/searchSkeleton";
 import PaginationSkeleton from "../components/paginationSkeleton";
 import { baseURL } from "../lib/bases";
 import { MotionDiv } from "../components/motionDiv";
-import { getTranslations } from "next-intl/server";
+import { getScopedI18n } from "@/locales/server";
 
 export async function generateMetadata({ params }) {
   const locale = params.locale;
-  const t = await getTranslations({ locale, namespace: "MetaData.Movies" });
+  const t = await getScopedI18n("MetaData.Movies");
   return {
     title: t("title"),
     url: `${baseURL}/movies`,
@@ -42,6 +42,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
+/**
+ * Asynchronously fetches data based on the search criteria and limit provided.
+ * @param {Object} search - The search criteria object.
+ * @param {string} search - The search term to filter the data.
+ * @param {number} limit - The maximum number of results to return.
+ * @returns {Promise} A promise that resolves to the fetched data.
+ */
 async function getData({ search, limit }) {
   const query = `*[_type=='Movie-studio' ${search !== undefined ? "&& [filmName, imdbID] match " + `'${search}*'` : ""}]|order(_createdAt desc)${limit}{filmName, "poster": poster.asset->url, slug, _id, imdbpuan, releaseDate}`;
   const data = await client.fetch(
@@ -52,6 +59,10 @@ async function getData({ search, limit }) {
   return data;
 }
 
+/**
+ * Retrieves the count of Movie-studio documents from the database.
+ * @returns {Promise<number>} A promise that resolves to the count of Movie-studio documents.
+ */
 export async function getCount() {
   const query = `count(*[_type == "Movie-studio"])`;
   const data = await client.fetch(

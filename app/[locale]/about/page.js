@@ -6,13 +6,12 @@ import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
 import { MotionH2 } from "../components/motionH2";
 import { MotionP } from "../components/motionP";
 import { MotionDiv } from "../components/motionDiv";
-import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
 import { baseURL } from "../lib/bases";
+import { getScopedI18n } from "@/locales/server";
 
 export async function generateMetadata({ params }) {
   const locale = params.locale;
-  const t = await getTranslations({ locale, namespace: "MetaData.About" });
+  const t = await getScopedI18n("MetaData.About");
   return {
     title: t("title"),
     url: `${baseURL}/${locale}/about`,
@@ -87,8 +86,8 @@ const tools = [
   },
 ];
 
-export default function About() {
-  const t = useTranslations("About");
+export default async function About() {
+  const t = await getScopedI18n("About");
   return (
     <main className="relative mx-4 flex items-center justify-center sm:mx-0 ">
       <div className=" relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">

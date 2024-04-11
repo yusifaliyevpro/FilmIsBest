@@ -1,21 +1,9 @@
-"use client";
+import { useChangeLocale, useCurrentLocale } from "@/locales/client";
 import { Select, SelectItem, Avatar } from "@nextui-org/react";
-import { usePathname, useRouter } from "../../../navigation";
-import React, { useEffect, useState } from "react";
 
-export default function LanguageSwitcher({ locale }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [value, setValue] = useState({ currentKey: locale });
-  const [initialRender, setInitialRender] = useState(true);
-
-  useEffect(() => {
-    if (!initialRender) {
-      const key = value.currentKey;
-      router.replace(pathname, { locale: key });
-    }
-    setInitialRender(false);
-  }, [value]);
+export default function LanguageSwitcher() {
+  const locale = useCurrentLocale();
+  const changeLocale = useChangeLocale({ preserveSearchParams: true });
 
   const languages = [
     { key: "az", lang: "Azərbaycanca", flag: "az" },
@@ -33,11 +21,11 @@ export default function LanguageSwitcher({ locale }) {
         trigger: "bg-gray-200",
         popoverContent: "bg-gray-200",
         value: "font-bold font-sans",
-        listbox: "font-bold",
+        listbox: "font-bold text-white",
       }}
       aria-label="Language"
+      onSelectionChange={(value) => changeLocale(value.currentKey)}
       selectedKeys={[locale]}
-      onSelectionChange={setValue}
       renderValue={(items) => {
         return items.map((item) => (
           <div key={item.key} className="flex flex-row items-center gap-x-2">

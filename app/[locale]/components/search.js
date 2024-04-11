@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useDebounce } from "use-debounce";
 import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
-import { useTranslations } from "next-intl";
+import { useScopedI18n } from "@/locales/client";
 
 export default function Search({
   searchQuery,
@@ -17,7 +17,7 @@ export default function Search({
   const [text, setText] = useState(searchQuery);
   const [query] = useDebounce(text, 600);
   const initialRender = useRef(true);
-  const t = useTranslations("Movies.Search");
+  const t = useScopedI18n("Movies.Search");
 
   useEffect(() => {
     if (initialRender.current) {
@@ -25,12 +25,10 @@ export default function Search({
       return;
     }
     if (!query || query.length < 3) {
-      router.push(
-        `/${locale}/movies?${pageQuery !== 1 ? "page=" + pageQuery : ""}`,
-      );
+      router.push(`/movies?${pageQuery !== 1 ? "page=" + pageQuery : ""}`);
     } else {
       router.push(
-        `/${locale}/movies?search=${query}${pageQuery !== 1 ? "" : "&page=" + pageQuery}`,
+        `/movies?search=${query}${pageQuery !== 1 ? "" : "&page=" + pageQuery}`,
       );
     }
   }, [query, router]);
