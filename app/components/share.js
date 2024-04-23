@@ -135,7 +135,7 @@ export default function Share({ movie, locale }) {
   }
 
   return (
-    <div>
+    <>
       <Button
         size="lg"
         color="primary"
@@ -147,6 +147,7 @@ export default function Share({ movie, locale }) {
       </Button>
       <Modal
         isOpen={isOpen}
+        classNames={{ base: "bg-gray-200" }}
         placement="center"
         className="light:text-white dark:text-white"
         onOpenChange={onOpenChange}
@@ -212,10 +213,10 @@ export default function Share({ movie, locale }) {
                   <Snippet
                     symbol=""
                     variant="bordered"
-                    codeString={`${baseURL}/${locale}/movie/${movie.slug}`}
+                    codeString={`${baseURL}/movie/${movie.slug}`}
                   >
                     <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
-                      {`${baseURL}/${locale}/movie/${movie.slug}`}
+                      {`${baseURL}/movie/${movie.slug}`}
                     </div>
                   </Snippet>
                 </div>
@@ -224,6 +225,6 @@ export default function Share({ movie, locale }) {
           )}
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }

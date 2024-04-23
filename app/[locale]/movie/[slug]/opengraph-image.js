@@ -5,7 +5,7 @@
  */
 import { ImageResponse } from "next/og";
 import { client } from "@/sanity/lib/client";
-import { baseURL } from "./../../lib/bases";
+import { baseURL } from "../../../lib/bases";
 
 export const runtime = "edge";
 

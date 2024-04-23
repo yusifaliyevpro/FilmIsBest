@@ -1,5 +1,5 @@
 import { getScopedI18n } from "@/locales/server";
-import LottieComponent from "./components/LottieAnimation";
+import LottieComponent from "@/app/components/LottieAnimation";
 
 export const metadata = {
   title: "404 Not Found",

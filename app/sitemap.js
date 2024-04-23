@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { baseURL } from "./lib/bases";
+
 export default async function generateSitemap() {
   async function getData() {
     const query = `*[_type=='Movie-studio']

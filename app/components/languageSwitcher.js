@@ -18,7 +18,7 @@ export default function LanguageSwitcher() {
       className="min-w-[110px]"
       isRequired
       classNames={{
-        trigger: "bg-gray-200",
+        trigger: "bg-gray-200 hover:bg-gray-100 ",
         popoverContent: "bg-gray-200",
         value: "font-bold font-sans",
         listbox: "font-bold text-white",

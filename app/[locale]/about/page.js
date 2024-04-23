@@ -3,18 +3,19 @@ import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
-import { MotionH2 } from "../components/motionH2";
-import { MotionP } from "../components/motionP";
-import { MotionDiv } from "../components/motionDiv";
-import { baseURL } from "../lib/bases";
-import { getScopedI18n } from "@/locales/server";
+import { MotionH2 } from "../../components/motionH2";
+import { MotionP } from "../../components/motionP";
+import { MotionDiv } from "../../components/motionDiv";
+import { baseURL } from "../../lib/bases";
+import { getScopedI18n, getStaticParams } from "@/locales/server";
+import { useScopedI18n } from "@/locales/client";
+import { setStaticParamsLocale } from "next-international/server";
 
-export async function generateMetadata({ params }) {
-  const locale = params.locale;
+export async function generateMetadata({ params: { locale } }) {
   const t = await getScopedI18n("MetaData.About");
   return {
     title: t("title"),
-    url: `${baseURL}/${locale}/about`,
+    url: `${baseURL}/about`,
     description: t("description"),
     alternates: {
       canonical: `${baseURL}/about`,
@@ -29,14 +30,14 @@ export async function generateMetadata({ params }) {
       title: `FilmIsBest | ${t("title")}`,
       images: [
         {
-          url: `${baseURL}/${locale}/api/og?title=${encodeURI(t("title"))}`,
+          url: `${baseURL}/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
           type: "image/png",
         },
       ],
-      url: `${baseURL}/${locale}/about`,
+      url: `${baseURL}/about`,
       description: t("description"),
       type: "website",
     },
@@ -86,10 +87,15 @@ const tools = [
   },
 ];
 
-export default async function About() {
+export function generateStaticParams() {
+  return getStaticParams();
+}
+
+export default async function About({ params: { locale } }) {
+  setStaticParamsLocale(locale);
   const t = await getScopedI18n("About");
   return (
-    <main className="relative mx-4 flex items-center justify-center sm:mx-0 ">
+    <section className="relative mx-4 flex items-center justify-center sm:mx-0 ">
       <div className=" relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
         <MotionH2
           initial={{ opacity: 0, y: -30 }}
@@ -222,6 +228,6 @@ export default async function About() {
           </Link>
         </MotionP>
       </div>
-    </main>
+    </section>
   );
 }

@@ -1,4 +1,4 @@
-import { baseURL } from "./lib/bases";
+import { baseURL } from "../lib/bases";
 
 /**
  * Generates a robots.txt configuration object with the specified rules.

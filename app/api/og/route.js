@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { baseURL } from "../../lib/bases";
+import { baseURL } from "@/app/lib/bases";
 
 export const runtime = "edge";
 export const alt = "FilmIsBest OpenGraph-Image";

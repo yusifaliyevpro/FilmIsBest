@@ -1,13 +1,15 @@
-import LottieComponent from "./components/LottieAnimation";
-import RecentlyMovies from "./components/recentlyMovies";
+import LottieComponent from "../components/LottieAnimation";
+import RecentlyMovies from "../components/recentlyMovies";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import { Suspense } from "react";
-import RecentlyMoviesSkeleton from "./components/recentlyMoviesSkeleton";
+import RecentlyMoviesSkeleton from "../components/recentlyMoviesSkeleton";
 import { BiSolidChevronRight } from "react-icons/bi";
-import { baseURL } from "./lib/bases";
-import { MotionDiv } from "./components/motionDiv";
-import { getScopedI18n } from "@/locales/server";
+import { baseURL } from "../lib/bases";
+import { MotionDiv } from "../components/motionDiv";
+import { getScopedI18n, getStaticParams } from "@/locales/server";
+import { setStaticParamsLocale } from "next-international/server";
+import AnimatedText from "../components/animatedText";
 
 /**
  * Generates metadata for the given locale and returns an object containing title, url, description,
@@ -38,7 +40,7 @@ export async function generateMetadata({ params }) {
       description: t("description"),
       images: [
         {
-          url: `${baseURL}/${locale}/api/og?title=${encodeURI(t("title"))}`,
+          url: `${baseURL}/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
@@ -46,7 +48,7 @@ export async function generateMetadata({ params }) {
         },
       ],
       title: `FilmIsBest | ${t("title")}`,
-      url: `${baseURL}/${locale}`,
+      url: `${baseURL}/`,
     },
   };
 }
@@ -66,18 +68,23 @@ export async function getData() {
   return data;
 }
 
-export default async function Home() {
+export function generateStaticParams() {
+  return getStaticParams();
+}
+
+export default async function Home({ params: { locale } }) {
+  setStaticParamsLocale(locale);
   const movies = await getData();
   const t = await getScopedI18n("Home");
   return (
-    <main>
-      <div className="relative mt-6 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
+    <>
+      <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
         <MotionDiv
-          initial={{ y: -30, opacity: 0 }}
+          initial={{ y: 30, opacity: 0.1 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
+          transition={{ type: "spring", stiffness: 120 }}
         >
-          <div>
+          <>
             <h1 className=" relative mt-6 flex-col text-wrap  text-center  text-2xl font-bold no-underline  lg:mt-0 lg:text-nowrap lg:text-4xl">
               {t("cta")}
               <br />
@@ -86,49 +93,43 @@ export default async function Home() {
               </p>
             </h1>
             <div className="relative flex flex-row items-center justify-center gap-x-8">
-              <Link
-                href={"/movies"}
-                className="relative mt-7 flex w-fit select-none items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+              <MotionDiv
+                initial={{ scale: 1 }}
+                animate={{ scale: [1, 1.1, 1, 0.9, 1] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 0.8,
+                  delay: 1.5,
+                  repeatDelay: 4,
+                }}
               >
-                <p>{t("movies")}</p> <BiSolidChevronRight />
-              </Link>
+                <Link
+                  href={"/movies"}
+                  className="relative mt-7 flex w-fit select-none items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                >
+                  <p>{t("movies")}</p> <BiSolidChevronRight />
+                </Link>
+              </MotionDiv>
             </div>
-          </div>
+          </>
         </MotionDiv>
         <MotionDiv
-          initial={{ y: -30, opacity: 0 }}
-          animate={{ y: 0, opacity: 0.7 }}
-          transition={{
-            duration: 1,
-            type: "spring",
-            stiffness: 110,
-            delay: 0.2,
-          }}
-          className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100"
+          initial={{ y: 0 }}
+          animate={{ y: [0, 15, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
+          className="relative flex h-76 w-76 lg:mt-0 lg:h-100 lg:w-100"
         >
-          <MotionDiv
-            initial={{ y: 0 }}
-            animate={{ y: [0, 15, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, delay: 1.1 }}
-            className="relative flex h-74 w-74 lg:mt-0 lg:h-100 lg:w-100"
-          >
-            <LottieComponent animationPath="/Movieanm.lottie" />
-          </MotionDiv>
+          <LottieComponent animationPath="/Movieanm.lottie" />
         </MotionDiv>
       </div>
-      <h2 className=" mt-20  w-full text-center text-3xl font-bold">
-        {t("recentlyAdded")}
-      </h2>
-      <MotionDiv
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative h-auto w-full"
-      >
-        <Suspense fallback={<RecentlyMoviesSkeleton />}>
-          <RecentlyMovies movies={movies} />
-        </Suspense>
-      </MotionDiv>
-    </main>
+      <AnimatedText
+        once
+        text={t("recentlyAdded")}
+        className=" mt-48  w-full text-center text-3xl font-bold"
+      />
+      <Suspense fallback={<RecentlyMoviesSkeleton />}>
+        <RecentlyMovies movies={movies} />
+      </Suspense>
+    </>
   );
 }

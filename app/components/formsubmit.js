@@ -9,7 +9,7 @@ import {
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import toast from "react-hot-toast";
-import useForm from "../hooks/useForm";
+import useForm from "@/app/hooks/useForm";
 import { BiSolidMovie } from "react-icons/bi";
 import { IoPerson } from "react-icons/io5";
 import { HiAtSymbol } from "react-icons/hi";
@@ -69,6 +69,7 @@ export default function FormSubmit() {
       <Modal
         isOpen={isOpen}
         placement="center"
+        classNames={{ base: "bg-gray-200" }}
         backdrop="blur"
         onOpenChange={onOpenChange}
       >

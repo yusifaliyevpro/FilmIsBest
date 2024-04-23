@@ -31,6 +31,7 @@ export default function MovieBar({ movie }) {
         size="lg"
         variant="solid"
         onSelectionChange={handleLanguage}
+        classNames={{ tabList: "bg-gray-200" }}
         color="primary"
         fullWidth={true}
         defaultSelectedKey="english"

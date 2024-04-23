@@ -7,12 +7,7 @@ import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
 import { useScopedI18n } from "@/locales/client";
 
-export default function Search({
-  searchQuery,
-  resultCount,
-  pageQuery,
-  locale,
-}) {
+export default function Search({ searchQuery, resultCount, pageQuery }) {
   const router = useRouter();
   const [text, setText] = useState(searchQuery);
   const [query] = useDebounce(text, 600);
@@ -44,7 +39,7 @@ export default function Search({
   }, [resultCount]);
 
   return (
-    <div>
+    <>
       <div className=" mx-auto mb-4 mt-6 w-auto sm:w-[500px]">
         <Input
           classNames={{
@@ -66,6 +61,6 @@ export default function Search({
           type="search"
         />
       </div>
-    </div>
+    </>
   );
 }

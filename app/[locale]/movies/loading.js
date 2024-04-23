@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <main className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
+    <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex h-[140px] w-full flex-col items-center justify-center">
         <div>
           <div className=" mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
@@ -22,7 +22,7 @@ export default function Loading() {
                   <div className=" h-[380px] w-[260px] animate-pulse rounded-10 bg-gray-100 opacity-0"></div>
                 </div>
                 <div className="justify-content-center relative flex min-h-13 w-[250px] flex-col items-center justify-center text-center">
-                  <p className="ml-2 w-[200px] animate-pulse truncate rounded-10 bg-gray-100 text-lg font-bold text-gray-100">
+                  <p className="ml-2 w-[200px] animate-pulse select-none truncate rounded-10 bg-gray-100 text-lg font-bold text-gray-100">
                     Movie Name
                   </p>
                 </div>
@@ -30,6 +30,6 @@ export default function Loading() {
             </div>
           ))}
       </div>
-    </main>
+    </section>
   );
 }

@@ -45,6 +45,7 @@ export default function PaginationUI({
   return (
     <div className="relative mt-5 flex">
       <Pagination
+        classNames={{ item: "bg-gray-200" }}
         total={total !== 0 ? total : 1}
         page={pageQuery < total ? pageQuery : total}
         onChange={(page) => setPage(page)}

@@ -44,7 +44,7 @@ export default {
   },
   Footer: {
     FormSubmit: {
-      movieRequest: "Movie request",
+      movieRequest: "Movie Request",
       name: "Name",
       email: "Email",
       movieName: "Movie Name",

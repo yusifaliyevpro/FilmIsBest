@@ -17,6 +17,7 @@ import { IoCodeSlash } from "react-icons/io5";
 import toast from "react-hot-toast";
 import LanguageSwitcher from "./languageSwitcher";
 import { useScopedI18n } from "@/locales/client";
+import BatteryLevel from "./battery";
 
 export default function Header({ locale }) {
   const pathname = usePathname();
@@ -53,7 +54,7 @@ export default function Header({ locale }) {
       <NavbarContent>
         <NavbarBrand>
           <Link
-            href={``}
+            href={`/`}
             className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
           >
             <BiSolidMovie className=" text-3xl font-normal text-blue-600" />
@@ -110,8 +111,8 @@ export default function Header({ locale }) {
       <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
         <NavbarMenuItem key={1}>
           <Link
-            href={``}
-            className={`${pathname === `` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+            href={`/`}
+            className={`${pathname === `/` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             {t("homePage")}
           </Link>
