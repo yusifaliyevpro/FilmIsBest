@@ -1,14 +1,13 @@
-import MovieInfo from "../../../components/movieInfo";
+import MovieInfo from "@/app/components/movieInfo";
 import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Share from "../../../components/share";
-import SuspenseButton from "../../../components/suspenseButton";
-import MovieInfoSuspense from "../../../components/movieInfoSuspense";
-import MovieBar from "../../../components/movieBar";
-import MovieBarSuspense from "../../../components/movieBarSuspense";
-import { baseURL } from "../../../lib/bases";
-import { MotionDiv } from "../../../components/motionDiv";
+import Share from "@/app/components/share";
+import SuspenseButton from "@/app/components/suspenseButton";
+import MovieInfoSuspense from "@/app/components/movieInfoSuspense";
+import MovieBar from "@/app/components/movieBar";
+import { BASE_URL } from "@/app/lib/constants";
+import { Motion } from "@/app/components/Motion";
 import { I18nProviderClient } from "@/locales/client";
 
 /**
@@ -34,15 +33,15 @@ export async function generateMetadata({ params }) {
   }
   return {
     title: `${movie.filmName}`,
-    url: `${baseURL}/movie/${movie.slug}`,
+    url: `${BASE_URL}/movie/${movie.slug}`,
     description: movie.description,
     alternates: {
-      canonical: `${baseURL}/movie/${movie.slug}`,
+      canonical: `${BASE_URL}/movie/${movie.slug}`,
       languages: {
-        "en-US": `${baseURL}/en/movie/${movie.slug}`,
-        "en-GB": `${baseURL}/en/movie/${movie.slug}`,
-        "az-AZ": `${baseURL}/az/movie/${movie.slug}`,
-        "tr-TR": `${baseURL}/tr/movie/${movie.slug}`,
+        "en-US": `${BASE_URL}/en/movie/${movie.slug}`,
+        "en-GB": `${BASE_URL}/en/movie/${movie.slug}`,
+        "az-AZ": `${BASE_URL}/az/movie/${movie.slug}`,
+        "tr-TR": `${BASE_URL}/tr/movie/${movie.slug}`,
       },
     },
     keywords: [
@@ -82,7 +81,7 @@ export async function generateMetadata({ params }) {
     ],
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,
-      url: `${baseURL}/movie/${movie.slug}`,
+      url: `${BASE_URL}/movie/${movie.slug}`,
       description: movie.description,
       type: "website",
     },
@@ -92,22 +91,18 @@ export async function generateMetadata({ params }) {
 export default async function Movie({ params, searchParams }) {
   const movie = await getData({ params });
   const locale = params.locale;
-  const activeKey =
-    typeof searchParams.activekey === "string"
-      ? searchParams.activekey
-      : "english";
 
   if (!movie) {
     return notFound();
   }
   return (
-    <section>
+    <>
       <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
         <h1 className="relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-namebg p-3 text-center text-2xl font-bold text-white sm:mx-auto sm:w-200">
           {movie.filmName}
         </h1>
         <I18nProviderClient locale={locale}>
-          <MotionDiv
+          <Motion
             initial={{ y: 600 }}
             animate={{ y: 0 }}
             transition={{
@@ -116,18 +111,25 @@ export default async function Movie({ params, searchParams }) {
               stiffness: 50,
             }}
           >
-            <Suspense fallback={<MovieBarSuspense />}>
-              <MovieBar movie={movie} query={activeKey} />
+            <Suspense
+              fallback={
+                <div className="relative mx-auto mt-12 flex h-auto w-auto flex-col rounded-10 px-3 sm:h-[560px] sm:w-200">
+                  <div className="relative mb-1 h-[44px] min-w-max animate-pulse overflow-x-hidden rounded-2xl bg-gray-200 sm:mb-0 sm:w-[812px]"></div>
+                  <div className="z-35 relative bottom-0 left-0 mx-auto mt-0 h-60 w-full animate-pulse select-none rounded-b-10 border-none bg-gray-200 sm:absolute sm:h-102 sm:w-200"></div>
+                </div>
+              }
+            >
+              <MovieBar movie={movie} />
             </Suspense>
             <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
               <Suspense fallback={<SuspenseButton />}>
                 <Share movie={movie} locale={locale} />
               </Suspense>
             </div>
-          </MotionDiv>
+          </Motion>
         </I18nProviderClient>
       </div>
-      <MotionDiv
+      <Motion
         initial={{ y: 600 }}
         animate={{ y: 0 }}
         transition={{
@@ -139,7 +141,7 @@ export default async function Movie({ params, searchParams }) {
         <Suspense fallback={<MovieInfoSuspense />}>
           <MovieInfo movie={movie} />
         </Suspense>
-      </MotionDiv>
-    </section>
+      </Motion>
+    </>
   );
 }

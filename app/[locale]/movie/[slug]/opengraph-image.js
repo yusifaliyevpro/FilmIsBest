@@ -5,7 +5,7 @@
  */
 import { ImageResponse } from "next/og";
 import { client } from "@/sanity/lib/client";
-import { baseURL } from "../../../lib/bases";
+import { BASE_URL } from "../../../lib/constants";
 
 export const runtime = "edge";
 
@@ -38,7 +38,7 @@ export default async function Image({ params }) {
       <div tw="relative flex flex-col bg-[#fff] justify-center w-full h-full items-center">
         <div tw="relative flex flex-row w-full justify-around">
           <img
-            src={`${baseURL}/_next/image?url=${movie.poster}&w=640&q=75`}
+            src={`${BASE_URL}/_next/image?url=${movie.poster}&w=640&q=75`}
             tw="w-[320px} h-[490px] rounded-[10px]"
             width={320}
             height={490}

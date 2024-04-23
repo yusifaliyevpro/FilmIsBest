@@ -3,41 +3,38 @@ import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
-import { MotionH2 } from "../../components/motionH2";
-import { MotionP } from "../../components/motionP";
-import { MotionDiv } from "../../components/motionDiv";
-import { baseURL } from "../../lib/bases";
+import { Motion } from "@/app/components/Motion";
+import { BASE_URL } from "@/app/lib/constants";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
-import { useScopedI18n } from "@/locales/client";
 import { setStaticParamsLocale } from "next-international/server";
 
 export async function generateMetadata({ params: { locale } }) {
   const t = await getScopedI18n("MetaData.About");
   return {
     title: t("title"),
-    url: `${baseURL}/about`,
+    url: `${BASE_URL}/about`,
     description: t("description"),
     alternates: {
-      canonical: `${baseURL}/about`,
+      canonical: `${BASE_URL}/about`,
       languages: {
-        "en-US": `${baseURL}/en/about`,
-        "en-GB": `${baseURL}/en/about`,
-        "az-AZ": `${baseURL}/az/about`,
-        "tr-TR": `${baseURL}/tr/about`,
+        "en-US": `${BASE_URL}/en/about`,
+        "en-GB": `${BASE_URL}/en/about`,
+        "az-AZ": `${BASE_URL}/az/about`,
+        "tr-TR": `${BASE_URL}/tr/about`,
       },
     },
     openGraph: {
       title: `FilmIsBest | ${t("title")}`,
       images: [
         {
-          url: `${baseURL}/api/og?title=${encodeURI(t("title"))}`,
+          url: `${BASE_URL}/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
           type: "image/png",
         },
       ],
-      url: `${baseURL}/about`,
+      url: `${BASE_URL}/about`,
       description: t("description"),
       type: "website",
     },
@@ -86,6 +83,35 @@ const tools = [
     icon: <TbSquareRoundedLetterF className="text-8xl" />,
   },
 ];
+const texts = [
+  {
+    t: "aboutTheProject",
+    type: "h1",
+    className:
+      "mb-5 bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text  text-center text-3xl font-bold text-transparent lg:mb-2",
+  },
+  { t: "text1" },
+  { t: "text2" },
+  { t: "text3" },
+  {
+    t: "toolsIUsed",
+    className:
+      "mx-auto mt-4 w-fit text-center text-2xl font-bold drop-shadow-2xl",
+  },
+];
+
+const links = [
+  {
+    t: "buyACoffee",
+    linkText: "kofe.al/@yusifaliyevpro",
+    link: "https://kofe.al/@yusifaliyevpro",
+  },
+  {
+    t: "myCodes",
+    linkText: "FilmIsBest Repository",
+    link: "https://github.com/YusifAliyevPro/FilmIsBest",
+  },
+];
 
 export function generateStaticParams() {
   return getStaticParams();
@@ -97,81 +123,37 @@ export default async function About({ params: { locale } }) {
   return (
     <section className="relative mx-4 flex items-center justify-center sm:mx-0 ">
       <div className=" relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
-        <MotionH2
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            delay: 0.5,
-            duration: 0.5,
-          }}
-          className="mb-5 bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text  text-center text-3xl font-bold text-transparent lg:mb-2"
-        >
-          {t("aboutTheProject")}
-        </MotionH2>
-        <MotionP
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-y-5 text-base leading-relaxed"
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            delay: 0.9,
-            duration: 0.5,
-          }}
-        >
-          {t("text1")}
-        </MotionP>
-        <MotionP
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col text-base leading-relaxed"
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            delay: 1.4,
-            duration: 0.5,
-          }}
-        >
-          {t("text2")}
-        </MotionP>
-        <MotionP
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-y-5 text-base leading-relaxed"
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            delay: 1.9,
-            duration: 0.5,
-          }}
-        >
-          {t("text3")}
-        </MotionP>
-        <MotionP
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mx-auto mt-4 w-fit text-center text-2xl font-bold drop-shadow-2xl"
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            delay: 2.4,
-            duration: 0.5,
-          }}
-        >
-          {t("toolsIUsed")}
-        </MotionP>
+        {texts.map((text, index) => (
+          <Motion
+            type={text.type ? text.type : "p"}
+            key={index}
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={
+              text.className
+                ? text.className
+                : "flex flex-col text-base leading-relaxed"
+            }
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.5 + index++ * 0.5,
+              duration: 0.5,
+            }}
+          >
+            {t(text.t)}
+          </Motion>
+        ))}
         <div className="tools relative my-8 flex select-none flex-wrap items-center justify-center gap-x-8 gap-y-8 sm:flex-row">
           {tools.map((tool, index) => (
-            <MotionDiv
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
+            <Motion
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
               key={index}
               transition={{
                 type: "spring",
                 duration: 0.3,
-                delay: 2.7 + (index + 1) * 0.3,
+                delay: 2.7 + index++ * 0.3,
                 stiffness: 80,
               }}
             >
@@ -184,49 +166,33 @@ export default async function About({ params: { locale } }) {
                 {tool.icon && tool.icon}
                 {tool.img && tool.img}
               </Link>
-            </MotionDiv>
+            </Motion>
           ))}
         </div>
-        <MotionP
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center lg:text-left"
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            delay: 5.5,
-            duration: 0.6,
-          }}
-        >
-          {t("buyACoffee")}{" "}
-          <Link
-            href={"https://kofe.al/@yusifaliyevpro"}
-            className="text-blue-600 hover:text-blue-800"
-            target="_blank"
+        {links.map((link, index) => (
+          <Motion
+            type="p"
+            key={index}
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center lg:text-left"
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 5.3 + index++ * 0.5,
+              duration: 0.5,
+            }}
           >
-            kofe.al/@yusifaliyevpro
-          </Link>
-        </MotionP>
-        <MotionP
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center lg:text-left"
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            delay: 6,
-            duration: 0.6,
-          }}
-        >
-          {t("myCodes")}{" "}
-          <Link
-            className="text-blue-600 hover:text-blue-800"
-            href={"https://github.com/YusifAliyevPro/FilmIsBest"}
-            target="_blank"
-          >
-            FilmIsBest Repository
-          </Link>
-        </MotionP>
+            {t(link.t)}{" "}
+            <Link
+              href={link.link}
+              className="text-blue-600 hover:text-blue-800"
+              target="_blank"
+            >
+              {link.linkText}
+            </Link>
+          </Motion>
+        ))}
       </div>
     </section>
   );

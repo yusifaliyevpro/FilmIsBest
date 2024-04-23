@@ -10,14 +10,13 @@ import {
   NavbarMenuItem,
   NavbarMenu,
   NavbarItem,
-  Button,
-} from "@nextui-org/react";
+} from "@nextui-org/navbar";
+import { Button } from "@nextui-org/button";
 import { BiSolidMovie } from "react-icons/bi";
 import { IoCodeSlash } from "react-icons/io5";
 import toast from "react-hot-toast";
 import LanguageSwitcher from "./languageSwitcher";
 import { useScopedI18n } from "@/locales/client";
-import BatteryLevel from "./battery";
 
 export default function Header({ locale }) {
   const pathname = usePathname();

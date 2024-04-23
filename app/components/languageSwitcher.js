@@ -1,5 +1,6 @@
 import { useChangeLocale, useCurrentLocale } from "@/locales/client";
-import { Select, SelectItem, Avatar } from "@nextui-org/react";
+import { Select, SelectItem } from "@nextui-org/select";
+import { Avatar } from "@nextui-org/avatar";
 
 export default function LanguageSwitcher() {
   const locale = useCurrentLocale();

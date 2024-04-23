@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MotionDiv } from "./motionDiv";
+import { Motion } from "./Motion";
 
 export default function Movies({ movies }) {
   return (
     <div className="justify-content-center mx-2.5 flex flex-wrap items-center justify-center gap-x-10">
       {movies.map((movie, index) => (
-        <MotionDiv
+        <Motion
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.08 }}
           transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
@@ -45,7 +45,7 @@ export default function Movies({ movies }) {
               </div>
             </div>
           </Link>
-        </MotionDiv>
+        </Motion>
       ))}
     </div>
   );

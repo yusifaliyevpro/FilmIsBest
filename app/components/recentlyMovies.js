@@ -4,7 +4,7 @@ import { Autoplay } from "swiper/modules";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useRef } from "react";
-import { MotionDiv } from "./motionDiv";
+import { M, Motion } from "./Motion";
 import { imageBuilder, urlForImage } from "@/sanity/lib/image";
 import { motion, useInView } from "framer-motion";
 
@@ -55,7 +55,7 @@ export default function RecentlyMovies({ movies }) {
         >
           {movies.map((movie, index) => (
             <SwiperSlide key={index} className="my-5 w-auto">
-              <MotionDiv
+              <motion.div
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.08 }}
                 transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
@@ -99,7 +99,7 @@ export default function RecentlyMovies({ movies }) {
                     </p>
                   </div>
                 </Link>
-              </MotionDiv>
+              </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>

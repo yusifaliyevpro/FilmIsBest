@@ -10,8 +10,8 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  Button,
-} from "@nextui-org/react";
+} from "@nextui-org/modal";
+import { Button } from "@nextui-org/button";
 import { BiCookie } from "react-icons/bi";
 
 export default function CookiesConsent() {

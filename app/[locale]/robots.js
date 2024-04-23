@@ -1,4 +1,4 @@
-import { baseURL } from "../lib/bases";
+import { BASE_URL } from "../lib/constants";
 
 /**
  * Generates a robots.txt configuration object with the specified rules.
@@ -10,6 +10,6 @@ export default function Robots() {
       userAgent: "*",
       disallow: " ",
     },
-    sitemap: `${baseURL}/sitemap.xml`,
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

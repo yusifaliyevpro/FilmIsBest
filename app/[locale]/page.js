@@ -3,44 +3,34 @@ import RecentlyMovies from "../components/recentlyMovies";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import { Suspense } from "react";
-import RecentlyMoviesSkeleton from "../components/recentlyMoviesSkeleton";
 import { BiSolidChevronRight } from "react-icons/bi";
-import { baseURL } from "../lib/bases";
-import { MotionDiv } from "../components/motionDiv";
+import { BASE_URL } from "../lib/constants";
+import { Motion } from "../components/Motion";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
 import AnimatedText from "../components/animatedText";
 
-/**
- * Generates metadata for the given locale and returns an object containing title, url, description,
- * alternates, and openGraph information.
- * @param {Object} params - An object containing parameters.
- * @param {string} params.locale - The locale for which metadata is generated.
- * @returns {Object} An object containing metadata information such as title, url, description, alternates, and openGraph.
- */
-export async function generateMetadata({ params }) {
-  const locale = params.locale;
+export async function generateMetadata({ params: { locale } }) {
   const t = await getScopedI18n("MetaData.Home");
   return {
     title: {
       absolute: `FilmIsBest | ${t("title")}`,
     },
-    url: `${baseURL}/`,
+    url: `${BASE_URL}/`,
     description: t("description"),
     alternates: {
-      canonical: `${baseURL}`,
+      canonical: `${BASE_URL}`,
       languages: {
-        "en-US": `${baseURL}/en`,
-        "en-GB": `${baseURL}/en`,
-        "az-AZ": `${baseURL}/az`,
-        "tr-TR": `${baseURL}/tr`,
+        en: `${BASE_URL}/en`,
+        "az-AZ": `${BASE_URL}/az`,
+        "tr-TR": `${BASE_URL}/tr`,
       },
     },
     openGraph: {
       description: t("description"),
       images: [
         {
-          url: `${baseURL}/api/og?title=${encodeURI(t("title"))}`,
+          url: `${BASE_URL}/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
@@ -48,7 +38,7 @@ export async function generateMetadata({ params }) {
         },
       ],
       title: `FilmIsBest | ${t("title")}`,
-      url: `${baseURL}/`,
+      url: `${BASE_URL}/`,
     },
   };
 }
@@ -79,7 +69,7 @@ export default async function Home({ params: { locale } }) {
   return (
     <>
       <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
-        <MotionDiv
+        <Motion
           initial={{ y: 30, opacity: 0.1 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 120 }}
@@ -93,7 +83,7 @@ export default async function Home({ params: { locale } }) {
               </p>
             </h1>
             <div className="relative flex flex-row items-center justify-center gap-x-8">
-              <MotionDiv
+              <Motion
                 initial={{ scale: 1 }}
                 animate={{ scale: [1, 1.1, 1, 0.9, 1] }}
                 transition={{
@@ -109,25 +99,29 @@ export default async function Home({ params: { locale } }) {
                 >
                   <p>{t("movies")}</p> <BiSolidChevronRight />
                 </Link>
-              </MotionDiv>
+              </Motion>
             </div>
           </>
-        </MotionDiv>
-        <MotionDiv
+        </Motion>
+        <Motion
           initial={{ y: 0 }}
           animate={{ y: [0, 15, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
           className="relative flex h-76 w-76 lg:mt-0 lg:h-100 lg:w-100"
         >
-          <LottieComponent animationPath="/Movieanm.lottie" />
-        </MotionDiv>
+          <Suspense fallback={<p>...Loading</p>}>
+            <LottieComponent animationPath="/Movieanm.lottie" />
+          </Suspense>
+        </Motion>
       </div>
-      <AnimatedText
-        once
-        text={t("recentlyAdded")}
-        className=" mt-48  w-full text-center text-3xl font-bold"
-      />
-      <Suspense fallback={<RecentlyMoviesSkeleton />}>
+      <Suspense fallback={<p>...Loading</p>}>
+        <AnimatedText
+          once
+          text={t("recentlyAdded")}
+          className=" mt-48  w-full text-center text-3xl font-bold"
+        />
+      </Suspense>
+      <Suspense fallback={<p>Loading...</p>}>
         <RecentlyMovies movies={movies} />
       </Suspense>
     </>

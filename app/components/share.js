@@ -4,9 +4,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  Button,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@nextui-org/modal";
+import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -19,7 +19,7 @@ import {
   BiSolidShareAlt,
 } from "react-icons/bi";
 import { Snippet } from "@nextui-org/snippet";
-import { baseURL } from "../lib/bases";
+import { BASE_URL } from "../lib/constants";
 import { useScopedI18n } from "@/locales/client";
 
 export default function Share({ movie, locale }) {
@@ -44,7 +44,7 @@ export default function Share({ movie, locale }) {
     movie.imdbpuan +
     `\n\n *${t("Share.ctaText")}* ⬇️` +
     "\n\n" +
-    `${baseURL}` +
+    `${BASE_URL}` +
     pathname;
 
   const telegramBody =
@@ -60,7 +60,7 @@ export default function Share({ movie, locale }) {
     movie.imdbpuan +
     `\n\n **${t("Share.ctaText")}** ⬇️` +
     "\n\n" +
-    `${baseURL}` +
+    `${BASE_URL}` +
     pathname;
 
   const copyBody =
@@ -76,7 +76,7 @@ export default function Share({ movie, locale }) {
     movie.imdbpuan +
     `\n\n ${t("Share.ctaText")} ⬇️` +
     "\n\n" +
-    `${baseURL}` +
+    `${BASE_URL}` +
     pathname;
 
   const handleShare = (platform) => {
@@ -213,10 +213,10 @@ export default function Share({ movie, locale }) {
                   <Snippet
                     symbol=""
                     variant="bordered"
-                    codeString={`${baseURL}/movie/${movie.slug}`}
+                    codeString={`${BASE_URL}/movie/${movie.slug}`}
                   >
                     <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
-                      {`${baseURL}/movie/${movie.slug}`}
+                      {`${BASE_URL}/movie/${movie.slug}`}
                     </div>
                   </Snippet>
                 </div>

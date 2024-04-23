@@ -1,17 +1,16 @@
 import { Inter } from "next/font/google";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
 import "./globals.css";
-import "react-icons/bi";
 import "swiper/css";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import CookiesConsent from "../components/cookies";
-import ScrollTop from "../components/scrollTop";
+import CookiesConsent from "@/app/components/cookies";
+import ScrollTop from "@/app/components/scrollTop";
 import { I18nProviderClient } from "@/locales/client";
-import { Providers } from "../components/providers";
-import BatteryLevel from "../components/battery";
+import { Providers } from "@/app/components/providers";
+import BatteryLevel from "@/app/components/battery";
 import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });

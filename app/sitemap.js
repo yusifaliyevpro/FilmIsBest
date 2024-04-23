@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { baseURL } from "./lib/bases";
+import { BASE_URL } from "./lib/constants";
 
 export default async function generateSitemap() {
   async function getData() {
@@ -11,12 +11,12 @@ export default async function generateSitemap() {
   const moviess = await getData();
 
   const Movies = moviess.map((movie) => ({
-    url: `${baseURL}/movie/${movie.slug}`,
+    url: `${BASE_URL}/movie/${movie.slug}`,
     lastModified: movie._updatedAt,
   }));
 
   const routes = [`/`, `/movies`, `/about`].map((route) => ({
-    url: `${baseURL}${route}`,
+    url: `${BASE_URL}${route}`,
     lastModified: new Date().toISOString(),
   }));
 

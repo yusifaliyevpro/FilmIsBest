@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { baseURL } from "@/app/lib/bases";
+import { BASE_URL } from "@/app/lib/constants";
 
 export const runtime = "edge";
 export const alt = "FilmIsBest OpenGraph-Image";
@@ -27,7 +27,7 @@ export async function GET(request) {
         <div tw="relative flex flex-col w-full bg-white h-full items-center justify-start">
           <div tw="relative flex inset-0 justify-center items-start mt-28">
             <img
-              src={`${baseURL}/icon.png`}
+              src={`${BASE_URL}/icon.png`}
               height={550}
               width={550}
               alt="FilmIsBest Logo"

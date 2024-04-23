@@ -3,35 +3,31 @@ import { client } from "@/sanity/lib/client";
 import Movies from "@/app/components/movies";
 import PaginationUI from "@/app/components/pagination";
 import Search from "@/app/components/search";
-import SearchSkeleton from "@/app/components/searchSkeleton";
-import PaginationSkeleton from "@/app/components/paginationSkeleton";
-import { baseURL } from "@/app/lib/bases";
-import { MotionDiv } from "@/app/components/motionDiv";
+import { BASE_URL } from "@/app/lib/constants";
+import { Motion } from "@/app/components/Motion";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { I18nProviderClient } from "@/locales/client";
 import { setStaticParamsLocale } from "next-international/server";
 
-export async function generateMetadata({ params }) {
-  const locale = params.locale;
+export async function generateMetadata({ params: { locale } }) {
   const t = await getScopedI18n("MetaData.Movies");
   return {
     title: t("title"),
-    url: `${baseURL}/movies`,
+    url: `${BASE_URL}/movies`,
     description: t("description"),
     alternates: {
-      canonical: `${baseURL}/movies`,
+      canonical: `${BASE_URL}/movies`,
       languages: {
-        "en-US": `${baseURL}/en/movies`,
-        "en-GB": `${baseURL}/en/movies`,
-        "az-AZ": `${baseURL}/az/movies`,
-        "tr-TR": `${baseURL}/tr/movies`,
+        en: `${BASE_URL}/en/movies`,
+        "az-AZ": `${BASE_URL}/az/movies`,
+        "tr-TR": `${BASE_URL}/tr/movies`,
       },
     },
     openGraph: {
       description: t("description"),
       images: [
         {
-          url: `${baseURL}/api/og?title=${encodeURI(t("title"))}`,
+          url: `${BASE_URL}/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
@@ -39,7 +35,7 @@ export async function generateMetadata({ params }) {
         },
       ],
       title: `FilmIsBest | ${t("title")}`,
-      url: `${baseURL}/movies`,
+      url: `${BASE_URL}/movies`,
     },
   };
 }
@@ -93,7 +89,11 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
     <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
         <I18nProviderClient locale={locale}>
-          <Suspense fallback={<SearchSkeleton />}>
+          <Suspense
+            fallback={
+              <div className=" mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
+            }
+          >
             <Search
               searchQuery={search}
               resultCount={resultCount}
@@ -102,7 +102,13 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
             />
           </Suspense>
         </I18nProviderClient>
-        <Suspense fallback={<PaginationSkeleton />}>
+        <Suspense
+          fallback={
+            <div className="relative mt-5 flex animate-pulse rounded-xl bg-gray-200">
+              <div className="h-[36px] w-[76px]"></div>
+            </div>
+          }
+        >
           <PaginationUI
             searchQuery={search}
             resultCount={resultCount}
@@ -112,7 +118,7 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
           />
         </Suspense>
       </div>
-      <MotionDiv
+      <Motion
         initial={{ y: 600 }}
         animate={{ y: 0 }}
         transition={{
@@ -124,7 +130,7 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
         <Suspense>
           <Movies movies={movies} />
         </Suspense>
-      </MotionDiv>
+      </Motion>
     </section>
   );
 }
