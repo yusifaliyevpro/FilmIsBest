@@ -13,16 +13,17 @@ import { toast } from "react-hot-toast";
 import {
   BiDotsVerticalRounded,
   BiImageAlt,
-  BiLink,
   BiLogoTelegram,
   BiLogoWhatsapp,
   BiSolidShareAlt,
 } from "react-icons/bi";
+import { BsCardText } from "react-icons/bs";
 import { Snippet } from "@nextui-org/snippet";
 import { BASE_URL } from "../lib/constants";
 import { useScopedI18n } from "@/locales/client";
+import { isMobileOnly } from "react-device-detect";
 
-export default function Share({ movie, locale }) {
+export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
@@ -168,7 +169,7 @@ export default function Share({ movie, locale }) {
                     <BiLogoWhatsapp className=" text-7xl text-blue-600" />
                     <p className="font-bold">WhatsApp</p>
                   </div>
-                  {window.innerWidth < window.innerHeight ? (
+                  {isMobileOnly ? (
                     <div
                       className="relative flex w-fit cursor-pointer flex-col items-center p-2 hover:shadow-medium"
                       onClick={() => handleShare("telegram")}
@@ -183,7 +184,7 @@ export default function Share({ movie, locale }) {
                     className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                     onClick={() => handleShare("copy")}
                   >
-                    <BiLink className="text-7xl text-blue-600" />
+                    <BsCardText className="text-7xl text-blue-600" />
                     <p className="text-nowrap font-bold">Copy Text</p>
                   </div>
                   {navigator.canShare ? (

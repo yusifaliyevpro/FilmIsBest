@@ -1,6 +1,6 @@
 import LottieComponent from "../components/LottieAnimation";
 import RecentlyMovies from "../components/recentlyMovies";
-import { client } from "@/sanity/lib/client";
+import { getRecentMovies } from "@/sanity/lib/client";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BiSolidChevronRight } from "react-icons/bi";
@@ -10,7 +10,7 @@ import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
 import AnimatedText from "../components/animatedText";
 
-export async function generateMetadata({ params: { locale } }) {
+export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.Home");
   return {
     title: {
@@ -43,28 +43,13 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-/**
- * Retrieves data from the database for the top 10 movies based on creation date.
- * @returns {Promise} A promise that resolves to an array of objects containing filmName, poster, slug, imdbpuan, and releaseDate.
- */
-export async function getData() {
-  const query = `*[_type=='Movie-studio']|order(_createdAt desc)
-    {filmName, poster, "slug": slug.current, imdbpuan, releaseDate}[0...10]`;
-  const data = await client.fetch(
-    query,
-    { cache: "force-cache" },
-    { next: { revalidate: 3600 } },
-  );
-  return data;
-}
-
 export function generateStaticParams() {
   return getStaticParams();
 }
 
 export default async function Home({ params: { locale } }) {
   setStaticParamsLocale(locale);
-  const movies = await getData();
+  const movies = await getRecentMovies();
   const t = await getScopedI18n("Home");
   return (
     <>
@@ -107,7 +92,7 @@ export default async function Home({ params: { locale } }) {
           initial={{ y: 0 }}
           animate={{ y: [0, 15, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
-          className="relative flex h-76 w-76 lg:mt-0 lg:h-100 lg:w-100"
+          className="relative mt-8 flex h-76 w-76 lg:mt-0 lg:h-100 lg:w-100"
         >
           <Suspense fallback={<p>...Loading</p>}>
             <LottieComponent animationPath="/Movieanm.lottie" />

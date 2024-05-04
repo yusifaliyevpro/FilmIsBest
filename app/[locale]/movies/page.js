@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { client } from "@/sanity/lib/client";
+import { getCount, getMovies } from "@/sanity/lib/client";
 import Movies from "@/app/components/movies";
 import PaginationUI from "@/app/components/pagination";
 import Search from "@/app/components/search";
@@ -9,7 +9,7 @@ import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { I18nProviderClient } from "@/locales/client";
 import { setStaticParamsLocale } from "next-international/server";
 
-export async function generateMetadata({ params: { locale } }) {
+export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.Movies");
   return {
     title: t("title"),
@@ -40,37 +40,6 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-/**
- * Asynchronously fetches data based on the search criteria and limit provided.
- * @param {Object} search - The search criteria object.
- * @param {string} search - The search term to filter the data.
- * @param {number} limit - The maximum number of results to return.
- * @returns {Promise} A promise that resolves to the fetched data.
- */
-async function getData({ search, limit }) {
-  const query = `*[_type=='Movie-studio' ${search !== undefined ? "&& [filmName, imdbID] match " + `'${search}*'` : ""}]|order(_createdAt desc)${limit}{filmName, "poster": poster.asset->url, slug, _id, imdbpuan, releaseDate}`;
-  const data = await client.fetch(
-    query,
-    { cache: "force-cache" },
-    { next: { revalidate: 3600 } },
-  );
-  return data;
-}
-
-/**
- * Retrieves the count of Movie-studio documents from the database.
- * @returns {Promise<number>} A promise that resolves to the count of Movie-studio documents.
- */
-export async function getCount() {
-  const query = `count(*[_type == "Movie-studio"])`;
-  const data = await client.fetch(
-    query,
-    { cache: "force-cache" },
-    { next: { revalidate: 3600 } },
-  );
-  return data;
-}
-
 export function generateStaticParams() {
   return getStaticParams();
 }
@@ -83,7 +52,7 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
     typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
   const count = await getCount();
   const limit = `[${page === 1 ? 0 : (page - 1) * 20}...${page === 1 ? 20 : page * 20}]`;
-  const movies = await getData({ search, limit });
+  const movies = await getMovies({ search, limit });
   const resultCount = movies.length;
   return (
     <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">

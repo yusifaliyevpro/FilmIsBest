@@ -10,8 +10,6 @@ import CookiesConsent from "@/app/components/cookies";
 import ScrollTop from "@/app/components/scrollTop";
 import { I18nProviderClient } from "@/locales/client";
 import { Providers } from "@/app/components/providers";
-import BatteryLevel from "@/app/components/battery";
-import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
@@ -98,9 +96,6 @@ export default function RootLayout({ children, params }) {
           <I18nProviderClient locale={locale}>
             <Header locale={locale} />
           </I18nProviderClient>
-          <Suspense>
-            <BatteryLevel />
-          </Suspense>
           <Toaster
             toastOptions={{
               className: "",

@@ -7,12 +7,12 @@ export default function Movies({ movies }) {
     <div className="justify-content-center mx-2.5 flex flex-wrap items-center justify-center gap-x-10">
       {movies.map((movie, index) => (
         <Motion
+          key={index}
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.08 }}
           transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
         >
           <Link
-            key={index}
             href={`movie/${movie.slug.current}`}
             className="justify-content-center relative mt-10 inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
           >

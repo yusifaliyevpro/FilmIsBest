@@ -1,5 +1,5 @@
 import MovieInfo from "@/app/components/movieInfo";
-import { client } from "@/sanity/lib/client";
+import { getMovie } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Share from "@/app/components/share";
@@ -10,24 +10,8 @@ import { BASE_URL } from "@/app/lib/constants";
 import { Motion } from "@/app/components/Motion";
 import { I18nProviderClient } from "@/locales/client";
 
-/**
- * Fetches data for a movie studio based on the provided slug parameter.
- * @param {Object} params - An object containing parameters for the query.
- * @returns {Promise<Object>} - A promise that resolves to the fetched data.
- */
-export async function getData({ params }) {
-  const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
-    {filmName, "poster": poster.asset->url, "slug": slug.current, imdbpuan, releaseDate, genre, description, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]`;
-  const data = await client.fetch(
-    query,
-    { cache: "force-cache" },
-    { next: { revalidate: 3600 } },
-  );
-  return data;
-}
-
 export async function generateMetadata({ params }) {
-  const movie = await getData({ params });
+  const movie = await getMovie({ params });
   if (!movie) {
     return notFound();
   }
@@ -89,7 +73,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Movie({ params, searchParams }) {
-  const movie = await getData({ params });
+  const movie = await getMovie({ params });
   const locale = params.locale;
 
   if (!movie) {
