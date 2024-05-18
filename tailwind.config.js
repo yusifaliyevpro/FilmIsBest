@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import { nextui } from "@nextui-org/react";
+import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -39,18 +40,7 @@ module.exports = {
   },
   darkMode: "class",
   plugins: [
-    {
-      "postcss-preset-mantine": {},
-      "postcss-simple-vars": {
-        variables: {
-          "mantine-breakpoint-xs": "36em",
-          "mantine-breakpoint-sm": "48em",
-          "mantine-breakpoint-md": "62em",
-          "mantine-breakpoint-lg": "75em",
-          "mantine-breakpoint-xl": "88em",
-        },
-      },
-    },
+    addVariablesForColors,
     nextui({
       prefix: "nextui",
       defaultTheme: "dark",
@@ -62,12 +52,18 @@ module.exports = {
             foreground: "#FFFFFF",
           },
         },
-        dark: {
-          layout: {}, // dark theme layout tokens
-          colors: {}, // dark theme colors
-        },
-        // ... custom themes
       },
     }),
   ],
 };
+
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}

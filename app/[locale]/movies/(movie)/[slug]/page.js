@@ -1,11 +1,12 @@
-import MovieInfo from "@/app/components/movieInfo";
+import MovieInfo from "@/app/components/MovieInfo";
 import { getMovie } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Share from "@/app/components/share";
-import SuspenseButton from "@/app/components/suspenseButton";
-import MovieInfoSuspense from "@/app/components/movieInfoSuspense";
-import MovieBar from "@/app/components/movieBar";
+import Share from "@/app/components/Share";
+import SuspenseButton, {
+  MovieInfoSuspense,
+} from "@/app/components/SuspenseLayouts";
+import MovieBar from "@/app/components/MovieBar";
 import { BASE_URL } from "@/app/lib/constants";
 import { Motion } from "@/app/components/Motion";
 import { I18nProviderClient } from "@/locales/client";
@@ -17,15 +18,15 @@ export async function generateMetadata({ params }) {
   }
   return {
     title: `${movie.filmName}`,
-    url: `${BASE_URL}/movie/${movie.slug}`,
+    url: `${BASE_URL}/movies/${movie.slug}`,
     description: movie.description,
     alternates: {
-      canonical: `${BASE_URL}/movie/${movie.slug}`,
+      canonical: `${BASE_URL}/movies/${movie.slug}`,
       languages: {
-        "en-US": `${BASE_URL}/en/movie/${movie.slug}`,
-        "en-GB": `${BASE_URL}/en/movie/${movie.slug}`,
-        "az-AZ": `${BASE_URL}/az/movie/${movie.slug}`,
-        "tr-TR": `${BASE_URL}/tr/movie/${movie.slug}`,
+        "en-US": `${BASE_URL}/en/movies/${movie.slug}`,
+        "en-GB": `${BASE_URL}/en/movies/${movie.slug}`,
+        "az-AZ": `${BASE_URL}/az/movies/${movie.slug}`,
+        "tr-TR": `${BASE_URL}/tr/movies/${movie.slug}`,
       },
     },
     keywords: [
@@ -65,14 +66,14 @@ export async function generateMetadata({ params }) {
     ],
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,
-      url: `${BASE_URL}/movie/${movie.slug}`,
+      url: `${BASE_URL}/movies/${movie.slug}`,
       description: movie.description,
       type: "website",
     },
   };
 }
 
-export default async function Movie({ params, searchParams }) {
+export default async function Movie({ params }) {
   const movie = await getMovie({ params });
   const locale = params.locale;
 

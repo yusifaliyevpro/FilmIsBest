@@ -11,7 +11,7 @@ export default async function generateSitemap() {
   const moviess = await getData();
 
   const Movies = moviess.map((movie) => ({
-    url: `${BASE_URL}/movie/${movie.slug}`,
+    url: `${BASE_URL}/movies/${movie.slug}`,
     lastModified: movie._updatedAt,
   }));
 

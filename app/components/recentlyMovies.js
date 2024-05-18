@@ -31,7 +31,7 @@ export default function RecentlyMovies({ movies }) {
       transition="transition"
       className="relative h-auto w-full"
     >
-      <div className="relative mx-12 h-auto sm:mx-20">
+      <div className="relative mx-12 flex  h-auto sm:mx-16">
         <Swiper
           slidesPerView={1}
           breakpoints={{
@@ -51,17 +51,18 @@ export default function RecentlyMovies({ movies }) {
             disableOnInteraction: false,
           }}
           modules={[Autoplay]}
-          className="mb-32 mt-10"
+          className="mb-32 mt-10 px-10"
         >
           {movies.map((movie, index) => (
-            <SwiperSlide key={index} className="my-5 w-auto">
+            <SwiperSlide key={index} className="my-5 w-auto pl-6">
               <motion.div
+                key={index}
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.08 }}
                 transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
               >
                 <Link
-                  href={`movie/${movie.slug}`}
+                  href={`movies/${movie.slug}`}
                   className="justify-content-center relative mx-auto inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
                 >
                   <div className="relative">

@@ -1,15 +1,15 @@
 import { Inter } from "next/font/google";
-import Header from "@/app/components/header";
-import Footer from "@/app/components/footer";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 import "./globals.css";
 import "swiper/css";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import CookiesConsent from "@/app/components/cookies";
-import ScrollTop from "@/app/components/scrollTop";
+import CookiesConsent from "@/app/components/Cookies";
+import ScrollTop from "@/app/components/ScrollTop";
 import { I18nProviderClient } from "@/locales/client";
-import { Providers } from "@/app/components/providers";
+import { Providers } from "@/app/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
@@ -119,7 +119,7 @@ export default function RootLayout({ children, params }) {
           <CookiesConsent />
           <ScrollTop />
           <I18nProviderClient locale={locale}>
-            <Footer />
+            <Footer locale={locale} />
           </I18nProviderClient>
         </Providers>
       </body>

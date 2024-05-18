@@ -1,5 +1,5 @@
 import LottieComponent from "../components/LottieAnimation";
-import RecentlyMovies from "../components/recentlyMovies";
+import RecentlyMovies from "../components/RecentlyMovies";
 import { getRecentMovies } from "@/sanity/lib/client";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -8,7 +8,7 @@ import { BASE_URL } from "../lib/constants";
 import { Motion } from "../components/Motion";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
-import AnimatedText from "../components/animatedText";
+import AnimatedText from "../components/AnimatedText";
 
 export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.Home");
@@ -60,9 +60,8 @@ export default async function Home({ params: { locale } }) {
           transition={{ type: "spring", stiffness: 120 }}
         >
           <>
-            <h1 className=" relative mt-6 flex-col text-wrap  text-center  text-2xl font-bold no-underline  lg:mt-0 lg:text-nowrap lg:text-4xl">
-              {t("cta")}
-              <br />
+            <h1 className=" relative mt-6 flex-col gap-y-10 text-wrap  text-center  text-2xl font-bold no-underline  lg:mt-0 lg:text-nowrap lg:text-5xl">
+              <p>{t("cta")}</p>
               <p className="inline-block text-wrap bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50%  to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
                 {t("ctaUrl", { url: "filmisbest.com" })}
               </p>

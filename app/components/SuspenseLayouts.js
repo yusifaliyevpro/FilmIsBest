@@ -1,4 +1,15 @@
-export default function MovieInfoSuspense() {
+import { Button } from "@nextui-org/button";
+import { BiLoaderAlt } from "react-icons/bi";
+
+export default function SuspenseButton() {
+  return (
+    <Button color="primary" className="text-md flex font-bold">
+      <BiLoaderAlt className="animate-spin text-2xl" />
+    </Button>
+  );
+}
+
+export function MovieInfoSuspense() {
   return (
     <div className="relative mx-3 mb-20 flex h-auto w-fit select-none flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto  sm:flex-row sm:items-start sm:justify-between">
       <div className="relative mx-16 flex h-auto w-auto animate-pulse items-start justify-between justify-items-start rounded-10 bg-gray-200 sm:mx-0 sm:h-76 sm:w-60"></div>

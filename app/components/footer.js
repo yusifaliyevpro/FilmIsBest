@@ -1,17 +1,13 @@
 "use client";
 import { Suspense } from "react";
-import SuspenseButton from "./suspenseButton";
-import { usePathname } from "next/navigation";
+import SuspenseButton from "./SuspenseLayouts";
 import dynamic from "next/dynamic";
 
-const FormSubmit = dynamic(() => import("./formsubmit"));
+const FormSubmit = dynamic(() => import("./FormSubmit"));
 
 export default function Footer() {
-  const pathname = usePathname();
   return (
-    <footer
-      className={`relative bottom-0 ${pathname.startsWith("/studio") ? "hidden" : "flex"} z-48 left-0 flex h-auto w-full flex-col items-center justify-center bg-gray-200 fill-current py-5 text-white sm:flex-row`}
-    >
+    <footer className="z-48 relative  bottom-0 left-0 flex h-auto w-full flex-col items-center justify-center bg-gray-200 fill-current py-5 text-white sm:flex-row">
       <h3 className="select-none text-xl font-bold no-underline">
         👌 Made by{" "}
         <a

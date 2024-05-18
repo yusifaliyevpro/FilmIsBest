@@ -5,6 +5,7 @@ import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
 import { Motion } from "@/app/components/Motion";
 import { BASE_URL } from "@/app/lib/constants";
+import { GrToast } from "react-icons/gr";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
 
@@ -82,6 +83,11 @@ const tools = [
     link: "https://formsubmit.co/",
     icon: <TbSquareRoundedLetterF className="text-8xl" />,
   },
+  {
+    name: "React Hot Toasts",
+    link: "https://formsubmit.co/",
+    icon: <GrToast className="text-8xl text-[#E1554A]" />,
+  },
 ];
 const texts = [
   {
@@ -121,8 +127,8 @@ export default async function About({ params: { locale } }) {
   setStaticParamsLocale(locale);
   const t = await getScopedI18n("About");
   return (
-    <section className="relative mx-4 flex items-center justify-center sm:mx-0 ">
-      <div className=" relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
+    <section className="relative mx-4 flex flex-wrap items-center justify-center sm:mx-0 ">
+      <div className=" relative mb-5 mt-8 flex  w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
         {texts.map((text, index) => (
           <Motion
             type={text.type ? text.type : "p"}

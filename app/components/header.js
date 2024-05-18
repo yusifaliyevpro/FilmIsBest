@@ -15,7 +15,7 @@ import { Button } from "@nextui-org/button";
 import { BiSolidMovie } from "react-icons/bi";
 import { IoCodeSlash } from "react-icons/io5";
 import toast from "react-hot-toast";
-import LanguageSwitcher from "./languageSwitcher";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { useScopedI18n } from "@/locales/client";
 
 export default function Header({ locale }) {
@@ -31,7 +31,7 @@ export default function Header({ locale }) {
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className={`min-h-10 select-none ${pathname.startsWith("/studio") ? "hidden" : "flex"} bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white`}
+      className="min-h-10 select-none  bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white"
       classNames={{
         item: [
           "flex",
@@ -62,7 +62,7 @@ export default function Header({ locale }) {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-12 sm:flex" justify="center">
-        <NavbarItem isActive={pathname === `/`}>
+        <NavbarItem isActive={pathname === `/${locale}`}>
           <Link
             color="foreground"
             className="hover: text-lg text-gray-300 hover:text-white"
@@ -72,7 +72,7 @@ export default function Header({ locale }) {
             {t("homePage")}
           </Link>
         </NavbarItem>
-        <NavbarItem isActive={pathname === `/movies`}>
+        <NavbarItem isActive={pathname === `/${locale}/movies`}>
           <Link
             href={`/movies`}
             className="text-lg  text-gray-300 hover:text-white"
@@ -81,7 +81,7 @@ export default function Header({ locale }) {
             {t("movies")}
           </Link>
         </NavbarItem>
-        <NavbarItem isActive={pathname === `/about`}>
+        <NavbarItem isActive={pathname === `/${locale}/about`}>
           <Link
             href={`/about`}
             className="text-lg  text-gray-300 hover:text-white"
@@ -111,7 +111,7 @@ export default function Header({ locale }) {
         <NavbarMenuItem key={1}>
           <Link
             href={`/`}
-            className={`${pathname === `/` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+            className={`${pathname === `/${locale}` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             {t("homePage")}
           </Link>
@@ -119,7 +119,7 @@ export default function Header({ locale }) {
         <NavbarMenuItem key={2}>
           <Link
             href={`/movies`}
-            className={`${pathname === `/movies` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+            className={`${pathname === `/${locale}/movies` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             {t("movies")}
           </Link>
@@ -127,7 +127,7 @@ export default function Header({ locale }) {
         <NavbarMenuItem key={2}>
           <Link
             href={`/about`}
-            className={`${pathname === `/about` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
+            className={`${pathname === `/${locale}/about` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
           >
             {t("about")}
           </Link>

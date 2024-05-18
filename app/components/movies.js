@@ -13,7 +13,7 @@ export default function Movies({ movies }) {
           transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
         >
           <Link
-            href={`movie/${movie.slug.current}`}
+            href={`movies/${movie.slug.current}`}
             className="justify-content-center relative mt-10 inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
           >
             <div>

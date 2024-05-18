@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { getCount, getMovies } from "@/sanity/lib/client";
-import Movies from "@/app/components/movies";
-import PaginationUI from "@/app/components/pagination";
-import Search from "@/app/components/search";
+import Movies from "@/app/components/Movies";
+import PaginationUI from "@/app/components/Pagination";
+import Search from "@/app/components/Search";
 import { BASE_URL } from "@/app/lib/constants";
 import { Motion } from "@/app/components/Motion";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
