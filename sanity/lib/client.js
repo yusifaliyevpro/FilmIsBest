@@ -11,6 +11,13 @@ export const client = createClient({
 
 //Utils
 
+export async function getSlugs() {
+  const query = `*[_type=='Movie-studio']|order(_createdAt desc)
+    {"slug": slug.current}`;
+  const data = await client.fetch(query);
+  return data;
+}
+
 export async function getRecentMovies() {
   const query = `*[_type=='Movie-studio']|order(_createdAt desc)
     {filmName, poster, "slug": slug.current, imdbpuan, releaseDate}[0...10]`;

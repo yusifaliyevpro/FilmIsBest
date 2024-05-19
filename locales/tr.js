@@ -21,6 +21,10 @@ export default {
       description:
         "Bu site bir ihtiyaçtan doğmuştur. Mart 2022'de arkadaşlarımızın haftalık sinema kulübüne film getirme sırası bendeydi. Ancak hafıza kartım çalışmadığından film indirmek için 3-4 saatte bu siteyi oluşturdum.",
     },
+    NotFound: {
+      title: "404 Bulunamadı",
+      description: "Aradığınız sayfa bulunamadı",
+    },
   },
   About: {
     aboutTheProject: "Proje hakkında",

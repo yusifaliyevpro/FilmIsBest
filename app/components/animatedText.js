@@ -30,10 +30,11 @@ export default function AnimatedText({ text, className, once }) {
         transition={{ staggerChildren: 0.1 }}
         aria-hidden
       >
-        {text.split(" ").map((word) => (
-          <span className="inline-block">
-            {word.split("").map((char) => (
+        {text.split(" ").map((word, index) => (
+          <span className="inline-block" key={index}>
+            {word.split("").map((char, i) => (
               <motion.span
+                key={i}
                 className="inline-block"
                 variants={defaultAnimations}
               >

@@ -19,7 +19,7 @@ import {
 } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
 import { Snippet } from "@nextui-org/snippet";
-import { BASE_URL } from "../lib/constants";
+import { BASE_URL } from "../../constants";
 import { useScopedI18n } from "@/locales/client";
 import { isMobileOnly } from "react-device-detect";
 

@@ -1,5 +1,5 @@
 import MovieInfo from "@/app/components/MovieInfo";
-import { getMovie } from "@/sanity/lib/client";
+import { getMovie, getSlugs } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Share from "@/app/components/Share";
@@ -7,26 +7,28 @@ import SuspenseButton, {
   MovieInfoSuspense,
 } from "@/app/components/SuspenseLayouts";
 import MovieBar from "@/app/components/MovieBar";
-import { BASE_URL } from "@/app/lib/constants";
 import { Motion } from "@/app/components/Motion";
 import { I18nProviderClient } from "@/locales/client";
+import { setStaticParamsLocale } from "next-international/server";
 
 export async function generateMetadata({ params }) {
+  const { locale } = params;
+  setStaticParamsLocale(locale);
   const movie = await getMovie({ params });
   if (!movie) {
     return notFound();
   }
   return {
     title: `${movie.filmName}`,
-    url: `${BASE_URL}/movies/${movie.slug}`,
+    url: `/movies/${movie.slug}`,
     description: movie.description,
     alternates: {
-      canonical: `${BASE_URL}/movies/${movie.slug}`,
+      canonical: `/movies/${movie.slug}`,
       languages: {
-        "en-US": `${BASE_URL}/en/movies/${movie.slug}`,
-        "en-GB": `${BASE_URL}/en/movies/${movie.slug}`,
-        "az-AZ": `${BASE_URL}/az/movies/${movie.slug}`,
-        "tr-TR": `${BASE_URL}/tr/movies/${movie.slug}`,
+        "en-US": `/en/movies/${movie.slug}`,
+        "en-GB": `/en/movies/${movie.slug}`,
+        "az-AZ": `/az/movies/${movie.slug}`,
+        "tr-TR": `/tr/movies/${movie.slug}`,
       },
     },
     keywords: [
@@ -66,17 +68,27 @@ export async function generateMetadata({ params }) {
     ],
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,
-      url: `${BASE_URL}/movies/${movie.slug}`,
+      url: `/movies/${movie.slug}`,
       description: movie.description,
       type: "website",
     },
   };
 }
 
-export default async function Movie({ params }) {
-  const movie = await getMovie({ params });
-  const locale = params.locale;
+export async function generateStaticParams() {
+  const movieSlugs = await getSlugs();
+  const staticParams = movieSlugs.flatMap((movieSlug) => [
+    { locale: "az", slug: movieSlug.slug },
+    { locale: "en", slug: movieSlug.slug },
+    { locale: "tr", slug: movieSlug.slug },
+  ]);
+  return staticParams;
+}
 
+export default async function Movie({ params }) {
+  const locale = params.locale;
+  setStaticParamsLocale(locale);
+  const movie = await getMovie({ params });
   if (!movie) {
     return notFound();
   }

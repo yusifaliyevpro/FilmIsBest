@@ -10,9 +10,11 @@ import CookiesConsent from "@/app/components/Cookies";
 import ScrollTop from "@/app/components/ScrollTop";
 import { I18nProviderClient } from "@/locales/client";
 import { Providers } from "@/app/components/Providers";
+import { BASE_URL } from "@/constants";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
+  metadataBase: new URL(BASE_URL),
   category: "movie",
   icons: {
     icon: "/icon.png",

@@ -21,6 +21,10 @@ export default {
       description:
         "This website was born out of necessity. In March 2022, it was my turn to bring a movie to our weekly movie club with friends. However, my memory card didn't work, so I spent 3-4 hours creating this website to upload the movies.",
     },
+    NotFound: {
+      title: "404 Not Found",
+      description: "The page you're looking for was not found",
+    },
   },
   About: {
     aboutTheProject: "About the project",

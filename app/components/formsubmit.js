@@ -9,7 +9,7 @@ import {
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import toast from "react-hot-toast";
-import useForm from "@/app/lib/hooks/useForm";
+import useForm from "@/app/hooks/useForm";
 import { BiSolidMovie } from "react-icons/bi";
 import { IoPerson } from "react-icons/io5";
 import { HiAtSymbol } from "react-icons/hi";

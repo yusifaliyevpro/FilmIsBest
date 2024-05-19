@@ -4,7 +4,6 @@ import { getRecentMovies } from "@/sanity/lib/client";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BiSolidChevronRight } from "react-icons/bi";
-import { BASE_URL } from "../lib/constants";
 import { Motion } from "../components/Motion";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
@@ -16,21 +15,21 @@ export async function generateMetadata() {
     title: {
       absolute: `FilmIsBest | ${t("title")}`,
     },
-    url: `${BASE_URL}/`,
+    url: `/`,
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}`,
+      canonical: ``,
       languages: {
-        en: `${BASE_URL}/en`,
-        "az-AZ": `${BASE_URL}/az`,
-        "tr-TR": `${BASE_URL}/tr`,
+        en: `/en`,
+        "az-AZ": `/az`,
+        "tr-TR": `/tr`,
       },
     },
     openGraph: {
       description: t("description"),
       images: [
         {
-          url: `${BASE_URL}/api/og?title=${encodeURI(t("title"))}`,
+          url: `/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
@@ -38,7 +37,7 @@ export async function generateMetadata() {
         },
       ],
       title: `FilmIsBest | ${t("title")}`,
-      url: `${BASE_URL}/`,
+      url: `/`,
     },
   };
 }

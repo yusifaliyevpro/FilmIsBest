@@ -4,7 +4,6 @@ import { FaReact } from "react-icons/fa";
 import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
 import { Motion } from "@/app/components/Motion";
-import { BASE_URL } from "@/app/lib/constants";
 import { GrToast } from "react-icons/gr";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
@@ -13,29 +12,29 @@ export async function generateMetadata({ params: { locale } }) {
   const t = await getScopedI18n("MetaData.About");
   return {
     title: t("title"),
-    url: `${BASE_URL}/about`,
+    url: `/about`,
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/about`,
+      canonical: `/about`,
       languages: {
-        "en-US": `${BASE_URL}/en/about`,
-        "en-GB": `${BASE_URL}/en/about`,
-        "az-AZ": `${BASE_URL}/az/about`,
-        "tr-TR": `${BASE_URL}/tr/about`,
+        "en-US": `/en/about`,
+        "en-GB": `/en/about`,
+        "az-AZ": `/az/about`,
+        "tr-TR": `/tr/about`,
       },
     },
     openGraph: {
       title: `FilmIsBest | ${t("title")}`,
       images: [
         {
-          url: `${BASE_URL}/api/og?title=${encodeURI(t("title"))}`,
+          url: `/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
           type: "image/png",
         },
       ],
-      url: `${BASE_URL}/about`,
+      url: `/about`,
       description: t("description"),
       type: "website",
     },

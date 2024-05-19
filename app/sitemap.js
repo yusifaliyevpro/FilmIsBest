@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { BASE_URL } from "./lib/constants";
+import { BASE_URL } from "../constants";
 
 export default async function generateSitemap() {
   async function getData() {

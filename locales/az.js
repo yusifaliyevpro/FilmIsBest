@@ -21,6 +21,10 @@ export default {
       description:
         "Bu vebsayt bir ehtiyac səbəbindən yaranıb. 2022-ci ilin Mart ayında dostlarımızla birlikdə keçirdiyimiz həftəlik film klubuna film gətirmə növbəsi məndə idi. Lakin yaddaş kartım işləmədiyindən, filmləri yükləmək üçün 3-4 saat ərzində bu vebsaytı yaratdım.",
     },
+    NotFound: {
+      title: "404 Tapılmadı",
+      description: "Axtardığınız səhifə tapılmadı",
+    },
   },
   About: {
     aboutTheProject: "Layihə Haqqında",

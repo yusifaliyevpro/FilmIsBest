@@ -3,7 +3,6 @@ import { getCount, getMovies } from "@/sanity/lib/client";
 import Movies from "@/app/components/Movies";
 import PaginationUI from "@/app/components/Pagination";
 import Search from "@/app/components/Search";
-import { BASE_URL } from "@/app/lib/constants";
 import { Motion } from "@/app/components/Motion";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { I18nProviderClient } from "@/locales/client";
@@ -13,21 +12,21 @@ export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.Movies");
   return {
     title: t("title"),
-    url: `${BASE_URL}/movies`,
+    url: `/movies`,
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/movies`,
+      canonical: `/movies`,
       languages: {
-        en: `${BASE_URL}/en/movies`,
-        "az-AZ": `${BASE_URL}/az/movies`,
-        "tr-TR": `${BASE_URL}/tr/movies`,
+        en: `/en/movies`,
+        "az-AZ": `/az/movies`,
+        "tr-TR": `/tr/movies`,
       },
     },
     openGraph: {
       description: t("description"),
       images: [
         {
-          url: `${BASE_URL}/api/og?title=${encodeURI(t("title"))}`,
+          url: `/api/og?title=${encodeURI(t("title"))}`,
           width: 1200,
           height: 1000,
           alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
@@ -35,7 +34,7 @@ export async function generateMetadata() {
         },
       ],
       title: `FilmIsBest | ${t("title")}`,
-      url: `${BASE_URL}/movies`,
+      url: `/movies`,
     },
   };
 }
