@@ -35,7 +35,7 @@
     "embla-carousel-react": "^7.1.0",
     "framer-motion": "^10.18.0",
     "jquery": "^3.7.1",
-    "next": "^14.2.1",
+    "next": "^14.2.3",
     "next-auth": "^4.24.5",
     "next-connect": "^1.0.0",
     "next-international": "^1.2.4",

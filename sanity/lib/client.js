@@ -18,6 +18,13 @@ export async function getSlugs() {
   return data;
 }
 
+export async function getSitemapData() {
+  const query = `*[_type=='Movie-studio']
+    {"slug": slug.current, _updatedAt}`;
+  const data = await client.fetch(query);
+  return data;
+}
+
 export async function getRecentMovies() {
   const query = `*[_type=='Movie-studio']|order(_createdAt desc)
     {filmName, poster, "slug": slug.current, imdbpuan, releaseDate}[0...10]`;
