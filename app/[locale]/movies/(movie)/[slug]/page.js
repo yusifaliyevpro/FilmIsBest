@@ -1,5 +1,5 @@
 import MovieInfo from "@/app/components/MovieInfo";
-import { getMovie, getSlugs } from "@/sanity/lib/client";
+import { getMovie, getSlugs } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Share from "@/app/components/Share";
@@ -12,8 +12,6 @@ import { I18nProviderClient } from "@/locales/client";
 import { setStaticParamsLocale } from "next-international/server";
 
 export async function generateMetadata({ params }) {
-  const { locale } = params;
-  setStaticParamsLocale(locale);
   const movie = await getMovie({ params });
   if (!movie) {
     return notFound();
@@ -86,7 +84,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Movie({ params }) {
-  const locale = params.locale;
+  const { locale } = params;
   setStaticParamsLocale(locale);
   const movie = await getMovie({ params });
   if (!movie) {
@@ -94,8 +92,8 @@ export default async function Movie({ params }) {
   }
   return (
     <>
-      <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
-        <h1 className="relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-namebg p-3 text-center text-2xl font-bold text-white sm:mx-auto sm:w-200">
+      <div className=" sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
+        <h1 className=" text-shadow relative  top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold  text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-200">
           {movie.filmName}
         </h1>
         <I18nProviderClient locale={locale}>

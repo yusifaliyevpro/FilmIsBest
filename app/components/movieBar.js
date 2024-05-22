@@ -47,7 +47,8 @@ export default function MovieBar({ movie }) {
         onSelectionChange={handleLanguage}
         classNames={{ tabList: "bg-gray-200" }}
         color="primary"
-        fullWidth={true}
+        className="max-sm:mb-4"
+        fullWidth
         defaultSelectedKey="english"
       >
         <Tab
@@ -92,9 +93,7 @@ export default function MovieBar({ movie }) {
             src={activeLink}
             allowFullScreen
             title={movie.filmName}
-            onLoad={() => {
-              setIframeLoading(false);
-            }}
+            onLoad={handleLoading}
           ></iframe>
         </>
       )}

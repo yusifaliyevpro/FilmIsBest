@@ -1,4 +1,4 @@
-import { getSitemapData } from "@/sanity/lib/client";
+import { getSitemapData } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
 
 export default async function sitemap() {

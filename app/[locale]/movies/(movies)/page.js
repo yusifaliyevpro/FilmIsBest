@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getCount, getMovies } from "@/sanity/lib/client";
+import { getCount, getMovies } from "@/lib/utils";
 import Movies from "@/app/components/Movies";
 import PaginationUI from "@/app/components/Pagination";
 import Search from "@/app/components/Search";

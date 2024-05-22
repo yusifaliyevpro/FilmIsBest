@@ -1,13 +1,13 @@
-import LottieComponent from "../components/LottieAnimation";
-import RecentlyMovies from "../components/RecentlyMovies";
-import { getRecentMovies } from "@/sanity/lib/client";
+import LottieComponent from "@/app/components/LottieAnimation";
+import RecentlyMovies from "@/app/components/RecentlyMovies";
+import { getRecentMovies } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BiSolidChevronRight } from "react-icons/bi";
-import { Motion } from "../components/Motion";
+import { Motion } from "@/app/components/Motion";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
-import AnimatedText from "../components/AnimatedText";
+import AnimatedText from "@/app/components/AnimatedText";
 
 export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.Home");
