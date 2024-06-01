@@ -59,9 +59,9 @@ export default async function Home({ params: { locale } }) {
           transition={{ type: "spring", stiffness: 120 }}
         >
           <>
-            <h1 className=" relative mt-6 flex-col gap-y-10 text-wrap  text-center  text-2xl font-bold no-underline  lg:mt-0 lg:text-nowrap lg:text-5xl">
+            <h1 className="relative mt-6 flex-col gap-y-10 text-wrap text-center text-2xl font-bold no-underline lg:mt-0 lg:text-nowrap lg:text-5xl">
               <p>{t("cta")}</p>
-              <p className="inline-block text-wrap bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50%  to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
+              <p className="inline-block text-wrap bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
                 {t("ctaUrl", { url: "filmisbest.com" })}
               </p>
             </h1>
@@ -101,7 +101,7 @@ export default async function Home({ params: { locale } }) {
         <AnimatedText
           once
           text={t("recentlyAdded")}
-          className=" mt-48  w-full text-center text-3xl font-bold"
+          className="mt-48 w-full text-center text-3xl font-bold"
         />
       </Suspense>
       <Suspense fallback={<p>Loading...</p>}>

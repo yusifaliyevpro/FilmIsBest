@@ -15,7 +15,6 @@ import { BASE_URL } from "@/lib/constants";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   metadataBase: new URL(BASE_URL),
-  category: "movie",
   icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",
@@ -70,15 +69,20 @@ export const metadata = {
     "yusif",
     "aliyev",
   ],
+  category: "movie",
   creator: "YusifAliyevPro",
   publisher: "YusifAliyevPro",
   applicationName: "FilmIsBest",
   generator: "FilmIsBest",
   authors: [{ name: "YusifAliyevPro", url: "https://yusifaliyevpro.com" }],
-  siteName: "FilmIsBest",
   openGraph: {
     type: "website",
     siteName: "FilmIsBest",
+  },
+  other: {
+    "google-adsense-account": "ca-pub-7613480628428091",
+    "google-site-verification": "GSSl61QhJ471RU6KIbd2fSzwNN_6KYQsjA1-PumXcPs",
+    "og:site_name": "FilmIsBest",
   },
 };
 
@@ -86,13 +90,6 @@ export default function RootLayout({ children, params }) {
   const locale = params.locale;
   return (
     <html lang={locale} className="bg-gray-100 dark">
-      <head>
-        <meta name="google-adsense-account" content="ca-pub-7613480628428091" />
-        <meta
-          name="google-site-verification"
-          content="GSSl61QhJ471RU6KIbd2fSzwNN_6KYQsjA1-PumXcPs"
-        />
-      </head>
       <body className={inter.className}>
         <Providers>
           <I18nProviderClient locale={locale}>
@@ -115,7 +112,7 @@ export default function RootLayout({ children, params }) {
             position="bottom-right"
             reverseOrder={false}
           />
-          <main className="min-h-screen  text-white dark">{children}</main>
+          <main className="min-h-screen text-white dark">{children}</main>
           <SpeedInsights />
           <Analytics />
           <CookiesConsent />
