@@ -31,7 +31,7 @@ export default function RecentlyMovies({ movies }) {
       transition="transition"
       className="relative h-auto w-full"
     >
-      <div className="relative mx-12 flex  h-auto sm:mx-16">
+      <div className="relative mx-12 flex h-auto sm:mx-16">
         <Swiper
           slidesPerView={1}
           breakpoints={{

@@ -1,20 +1,11 @@
 "use client";
-import React from "react";
 import { Pagination } from "@nextui-org/pagination";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function PaginationUI({
-  pageQuery,
-  resultCount,
-  searchQuery,
-  count,
-  locale,
-}) {
+export default function PaginationUI({ pageQuery, searchQuery, count }) {
   const router = useRouter();
-  const total = Math.ceil(
-    (searchQuery !== undefined ? resultCount : count) / 20,
-  );
+  const total = Math.ceil((searchQuery ? 20 : count) / 20);
   const [page, setPage] = useState(pageQuery);
 
   useEffect(() => {

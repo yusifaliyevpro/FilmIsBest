@@ -126,8 +126,8 @@ export default async function About({ params: { locale } }) {
   setStaticParamsLocale(locale);
   const t = await getScopedI18n("About");
   return (
-    <section className="relative mx-4 flex flex-wrap items-center justify-center sm:mx-0 ">
-      <div className=" relative mb-5 mt-8 flex  w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
+    <section className="relative mx-4 flex flex-wrap items-center justify-center sm:mx-0">
+      <div className="relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
         {texts.map((text, index) => (
           <Motion
             type={text.type ? text.type : "p"}
@@ -164,7 +164,7 @@ export default async function About({ params: { locale } }) {
             >
               <Link
                 target="_blank"
-                className="flex flex-col  items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 shadow-large drop-shadow-2xl hover:bg-slate-700"
+                className="flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 shadow-large drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
               >
                 <p>{tool.name}</p>

@@ -161,12 +161,12 @@ export default function Share({ movie }) {
                 <h6 className="text-3xl font-bold">{t("Share.share")}</h6>
               </ModalHeader>
               <ModalBody className="p-8">
-                <div className="no-scrollbar relative  mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
+                <div className="no-scrollbar relative mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
                   <div
                     className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                     onClick={() => handleShare("whatsapp")}
                   >
-                    <BiLogoWhatsapp className=" text-7xl text-blue-600" />
+                    <BiLogoWhatsapp className="text-7xl text-blue-600" />
                     <p className="font-bold">WhatsApp</p>
                   </div>
                   {isMobileOnly ? (
@@ -210,7 +210,7 @@ export default function Share({ movie }) {
                     ""
                   )}
                 </div>
-                <div className=" mx-auto ">
+                <div className="mx-auto">
                   <Snippet
                     symbol=""
                     variant="bordered"

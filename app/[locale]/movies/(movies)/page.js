@@ -50,21 +50,27 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
   const page =
     typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
   const count = await getCount();
-  const limit = `[${page === 1 ? 0 : (page - 1) * 20}...${page === 1 ? 20 : page * 20}]`;
-  const movies = await getMovies({ search, limit });
-  const resultCount = movies.length;
+  const movies = await getMovies();
+  let renderedMovies;
+  if (search) {
+    renderedMovies = movies.filter((movie) =>
+      movie.filmName.toLowerCase().includes(search.toLowerCase()),
+    );
+  } else {
+    renderedMovies = movies.slice((page - 1) * 20, page * 20);
+  }
   return (
     <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
         <I18nProviderClient locale={locale}>
           <Suspense
             fallback={
-              <div className=" mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
+              <div className="mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
             }
           >
             <Search
+              resultCount={renderedMovies.length}
               searchQuery={search}
-              resultCount={resultCount}
               pageQuery={page}
               locale={locale}
             />
@@ -77,13 +83,7 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
             </div>
           }
         >
-          <PaginationUI
-            searchQuery={search}
-            resultCount={resultCount}
-            pageQuery={page}
-            count={count}
-            locale={locale}
-          />
+          <PaginationUI searchQuery={search} pageQuery={page} count={count} />
         </Suspense>
       </div>
       <Motion
@@ -96,7 +96,7 @@ export default async function MoviesPage({ searchParams, params: { locale } }) {
         }}
       >
         <Suspense>
-          <Movies movies={movies} />
+          <Movies movies={renderedMovies} search={search} page={page} />
         </Suspense>
       </Motion>
     </section>

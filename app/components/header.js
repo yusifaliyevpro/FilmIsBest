@@ -17,21 +17,17 @@ import { IoCodeSlash } from "react-icons/io5";
 import toast from "react-hot-toast";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useScopedI18n } from "@/locales/client";
+import SuspenseButton from "./SuspenseLayouts";
 
 export default function Header({ locale }) {
   const pathname = usePathname();
   const t = useScopedI18n("Header");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const notify = () =>
-    toast(t("thisFeatureIsUnderDevelopment"), {
-      icon: <IoCodeSlash className="text-xl font-bold" />,
-      id: "preparing",
-    });
 
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className="min-h-10 select-none  bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white"
+      className="min-h-10 select-none bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white"
       classNames={{
         item: [
           "flex",
@@ -56,7 +52,7 @@ export default function Header({ locale }) {
             href={`/`}
             className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
           >
-            <BiSolidMovie className=" text-3xl font-normal text-blue-600" />
+            <BiSolidMovie className="text-3xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>
           </Link>
         </NavbarBrand>
@@ -75,7 +71,7 @@ export default function Header({ locale }) {
         <NavbarItem isActive={pathname === `/${locale}/movies`}>
           <Link
             href={`/movies`}
-            className="text-lg  text-gray-300 hover:text-white"
+            className="text-lg text-gray-300 hover:text-white"
             aria-current="page"
           >
             {t("movies")}
@@ -84,7 +80,7 @@ export default function Header({ locale }) {
         <NavbarItem isActive={pathname === `/${locale}/about`}>
           <Link
             href={`/about`}
-            className="text-lg  text-gray-300 hover:text-white"
+            className="text-lg text-gray-300 hover:text-white"
             aria-current="page"
           >
             {t("about")}
@@ -92,22 +88,13 @@ export default function Header({ locale }) {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
-          <Button
-            color="primary"
-            onPress={notify}
-            className="text-md flex font-bold"
-          >
-            {t("signIn")}
-          </Button>
-        </NavbarItem>
         <NavbarItem className="hidden sm:flex">
-          <Suspense>
+          <Suspense fallback={<SuspenseButton />}>
             <LanguageSwitcher />
           </Suspense>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md ">
+      <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md">
         <NavbarMenuItem key={1}>
           <Link
             href={`/`}

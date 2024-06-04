@@ -11,10 +11,10 @@ export default function SuspenseButton() {
 
 export function MovieInfoSuspense() {
   return (
-    <div className="relative mx-3 mb-20 flex h-auto w-fit select-none flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto  sm:flex-row sm:items-start sm:justify-between">
+    <div className="relative mx-3 mb-20 flex h-auto w-fit select-none flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
       <div className="relative mx-16 flex h-auto w-auto animate-pulse items-start justify-between justify-items-start rounded-10 bg-gray-200 sm:mx-0 sm:h-76 sm:w-60"></div>
       <div className="relative mx-auto w-auto list-none rounded-10 tracking-normal sm:ml-5 sm:w-105">
-        <li className="mt-4 w-fit font-bold text-slate-400 ">
+        <li className="mt-4 w-fit font-bold text-slate-400">
           Filmin Adı:{" "}
           <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -57,21 +57,21 @@ export function MovieInfoSuspense() {
         </li>
 
         <div className="left-0 mb-9 box-border flex list-none flex-row justify-around pt-12 text-left sm:mb-0 sm:p-12">
-          <li className=" box-border text-left font-bold text-slate-400 sm:px-12">
+          <li className="box-border text-left font-bold text-slate-400 sm:px-12">
             Vaxt
             <br />
             <span className="animate-pulse text-nowrap rounded-10 bg-gray-200 text-gray-200">
               120 dəq
             </span>
           </li>
-          <li className=" box-border w-max text-left font-bold text-slate-400 sm:px-12">
+          <li className="box-border w-max text-left font-bold text-slate-400 sm:px-12">
             İl
             <br />
             <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
               2024
             </span>
           </li>
-          <li className=" box-border w-max text-balance text-left font-bold text-slate-400 sm:px-8">
+          <li className="box-border w-max text-balance text-left font-bold text-slate-400 sm:px-8">
             Ölkə
             <br />
             <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">

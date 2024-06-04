@@ -7,12 +7,22 @@ import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
 import { useScopedI18n } from "@/locales/client";
 
-export default function Search({ searchQuery, resultCount, pageQuery }) {
+export default function Search({ searchQuery, pageQuery, resultCount }) {
   const router = useRouter();
   const [text, setText] = useState(searchQuery);
   const [query] = useDebounce(text, 600);
   const initialRender = useRef(true);
   const t = useScopedI18n("Movies.Search");
+
+  useEffect(() => {
+    if (resultCount === 0) {
+      toast(t("noResultMessage"), {
+        position:
+          window.innerHeight > window.innerWidth ? "top-right" : "bottom-right",
+        icon: <BiSearch className="text-2xl font-bold" />,
+      });
+    }
+  }, [resultCount]);
 
   useEffect(() => {
     if (initialRender.current) {
@@ -28,19 +38,9 @@ export default function Search({ searchQuery, resultCount, pageQuery }) {
     }
   }, [query, router]);
 
-  useEffect(() => {
-    if (resultCount === 0) {
-      toast(t("noResultMessage"), {
-        position:
-          window.innerHeight > window.innerWidth ? "top-right" : "bottom-right",
-        icon: <BiSearch className="text-2xl font-bold" />,
-      });
-    }
-  }, [resultCount]);
-
   return (
     <>
-      <div className=" mx-auto mb-4 mt-6 w-auto sm:w-[500px]">
+      <div className="mx-auto mb-4 mt-6 w-auto sm:w-[500px]">
         <Input
           classNames={{
             base: "sm:max-w-[100rem] h-11 bg-gray-100",
