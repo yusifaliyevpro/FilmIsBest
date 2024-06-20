@@ -1,8 +1,6 @@
 "use client";
-import { setCookie } from "cookies-next";
-import { Cookies } from "react-cookie-consent";
-import { useEffect } from "react";
-import React from "react";
+
+import { Button } from "@nextui-org/button";
 import {
   Modal,
   ModalContent,
@@ -11,7 +9,10 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
+import { setCookie } from "cookies-next";
+import { useEffect } from "react";
+import React from "react";
+import { Cookies } from "react-cookie-consent";
 import { BiCookie } from "react-icons/bi";
 
 export default function CookiesConsent() {

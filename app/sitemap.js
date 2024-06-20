@@ -1,5 +1,5 @@
-import { getSitemapData } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
+import { getSitemapData } from "@/lib/utils";
 
 export default async function sitemap() {
   const moviess = await getSitemapData();

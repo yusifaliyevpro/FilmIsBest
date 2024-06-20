@@ -1,11 +1,12 @@
 "use client";
+
+import { useScopedI18n } from "@/locales/client";
 import { Input } from "@nextui-org/input";
-import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useDebounce } from "use-debounce";
+import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
-import { useScopedI18n } from "@/locales/client";
+import { useDebounce } from "use-debounce";
 
 export default function Search({ searchQuery, pageQuery, resultCount }) {
   const router = useRouter();

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import { nextui } from "@nextui-org/react";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",

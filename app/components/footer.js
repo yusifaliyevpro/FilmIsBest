@@ -1,7 +1,8 @@
 "use client";
-import { Suspense } from "react";
+
 import SuspenseButton from "./SuspenseLayouts";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 const FormSubmit = dynamic(() => import("./FormSubmit"));
 

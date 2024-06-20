@@ -8,9 +8,8 @@
  * You can learn more about the next-sanity package here:
  * https://github.com/sanity-io/next-sanity
  */
-
-import { NextStudio } from "next-sanity/studio";
 import config from "@/sanity.config";
+import { NextStudio } from "next-sanity/studio";
 
 export default function StudioPage() {
   return <NextStudio config={config} />;

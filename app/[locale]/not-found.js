@@ -1,5 +1,5 @@
-import { getScopedI18n } from "@/locales/server";
 import LottieComponent from "@/app/components/LottieAnimation";
+import { getScopedI18n } from "@/locales/server";
 
 export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.NotFound");

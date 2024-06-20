@@ -1,13 +1,13 @@
+import AnimatedText from "@/app/components/AnimatedText";
 import LottieComponent from "@/app/components/LottieAnimation";
+import { Motion } from "@/app/components/Motion";
 import RecentlyMovies from "@/app/components/RecentlyMovies";
 import { getRecentMovies } from "@/lib/utils";
+import { getScopedI18n, getStaticParams } from "@/locales/server";
+import { setStaticParamsLocale } from "next-international/server";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BiSolidChevronRight } from "react-icons/bi";
-import { Motion } from "@/app/components/Motion";
-import { getScopedI18n, getStaticParams } from "@/locales/server";
-import { setStaticParamsLocale } from "next-international/server";
-import AnimatedText from "@/app/components/AnimatedText";
 
 export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.Home");
@@ -92,18 +92,14 @@ export default async function Home({ params: { locale } }) {
           transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
           className="relative mt-8 flex h-76 w-76 lg:mt-0 lg:h-100 lg:w-100"
         >
-          <Suspense fallback={<p>...Loading</p>}>
-            <LottieComponent animationPath="/Movieanm.lottie" />
-          </Suspense>
+          <LottieComponent animationPath="/Movieanm.lottie" />
         </Motion>
       </div>
-      <Suspense fallback={<p>...Loading</p>}>
-        <AnimatedText
-          once
-          text={t("recentlyAdded")}
-          className="mt-48 w-full text-center text-3xl font-bold"
-        />
-      </Suspense>
+      <AnimatedText
+        once
+        text={t("recentlyAdded")}
+        className="mt-72 w-full text-center text-3xl font-bold"
+      />
       <Suspense fallback={<p>Loading...</p>}>
         <RecentlyMovies movies={movies} />
       </Suspense>

@@ -1,6 +1,9 @@
 //app/Motion.js
 "use client";
+
 import { motion } from "framer-motion";
+
+//app/Motion.js
 
 export const Motion = ({ type, children, ...props }) => {
   if (type === undefined) {

@@ -1,15 +1,15 @@
+import { Motion } from "@/app/components/Motion";
+import MovieBar from "@/app/components/MovieBar";
 import MovieInfo from "@/app/components/MovieInfo";
-import { getMovie, getSlugs } from "@/lib/utils";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import Share from "@/app/components/Share";
 import SuspenseButton, {
   MovieInfoSuspense,
 } from "@/app/components/SuspenseLayouts";
-import MovieBar from "@/app/components/MovieBar";
-import { Motion } from "@/app/components/Motion";
+import { getMovie, getSlugs } from "@/lib/utils";
 import { I18nProviderClient } from "@/locales/client";
 import { setStaticParamsLocale } from "next-international/server";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params }) {
   const movie = await getMovie({ params });

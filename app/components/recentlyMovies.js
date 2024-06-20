@@ -1,12 +1,13 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import Link from "next/link";
-import Image from "next/image";
-import React, { useRef } from "react";
+
 import { M, Motion } from "./Motion";
 import { imageBuilder, urlForImage } from "@/sanity/lib/image";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useRef } from "react";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function RecentlyMovies({ movies }) {
   const ref = useRef(null);

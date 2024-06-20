@@ -1,6 +1,6 @@
-import { BASE_URL } from "../../lib/constants";
+import { BASE_URL } from "../lib/constants";
 
-export default function Robots() {
+export default function robots() {
   return {
     rules: {
       userAgent: "*",

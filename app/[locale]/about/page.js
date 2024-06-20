@@ -1,12 +1,12 @@
+import { Motion } from "@/app/components/Motion";
+import { getScopedI18n, getStaticParams } from "@/locales/server";
+import { setStaticParamsLocale } from "next-international/server";
 import Link from "next/link";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
-import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
-import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
-import { Motion } from "@/app/components/Motion";
 import { GrToast } from "react-icons/gr";
-import { getScopedI18n, getStaticParams } from "@/locales/server";
-import { setStaticParamsLocale } from "next-international/server";
+import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
+import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
 
 export async function generateMetadata({ params: { locale } }) {
   const t = await getScopedI18n("MetaData.About");

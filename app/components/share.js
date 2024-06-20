@@ -1,4 +1,8 @@
 "use client";
+
+import { BASE_URL } from "../../lib/constants";
+import { useScopedI18n } from "@/locales/client";
+import { Button } from "@nextui-org/button";
 import {
   Modal,
   ModalContent,
@@ -6,9 +10,10 @@ import {
   ModalBody,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
+import { Snippet } from "@nextui-org/snippet";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import { isMobileOnly } from "react-device-detect";
 import { toast } from "react-hot-toast";
 import {
   BiDotsVerticalRounded,
@@ -18,10 +23,6 @@ import {
   BiSolidShareAlt,
 } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
-import { Snippet } from "@nextui-org/snippet";
-import { BASE_URL } from "../../lib/constants";
-import { useScopedI18n } from "@/locales/client";
-import { isMobileOnly } from "react-device-detect";
 
 export default function Share({ movie }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();

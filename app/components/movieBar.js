@@ -1,8 +1,9 @@
 "use client";
+
+import PlayerCover from "./PlayerCover";
 import { useScopedI18n } from "@/locales/client";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { useState } from "react";
-import PlayerCover from "./PlayerCover";
 import { AiOutlineLoading } from "react-icons/ai";
 
 export default function MovieBar({ movie }) {

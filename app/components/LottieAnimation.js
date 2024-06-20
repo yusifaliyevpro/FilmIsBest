@@ -1,4 +1,5 @@
 "use client";
+
 import { DotLottiePlayer } from "@dotlottie/react-player";
 
 const LottieComponent = ({ animationPath }) => {

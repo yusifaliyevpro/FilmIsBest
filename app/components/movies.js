@@ -1,13 +1,13 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Motion } from "./Motion";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function Movies({ movies }) {
+export default function Movies({ movies, page }) {
   return (
     <div className="justify-content-center mx-2.5 flex flex-wrap items-center justify-center gap-x-10">
       {movies.map((movie, index) => (
         <Motion
-          key={index}
+          key={index + 20 * (page - 1)}
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.08 }}
           transition={{ duration: 0.2, type: "spring", stiffness: 110 }}

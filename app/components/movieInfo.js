@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { Motion } from "./Motion";
-import { RiOpenaiFill } from "react-icons/ri";
-import Link from "next/link";
 import { getScopedI18n } from "@/locales/server";
+import Image from "next/image";
+import Link from "next/link";
+import { RiOpenaiFill } from "react-icons/ri";
 
 export default async function MovieInfo({ movie }) {
   const t = await getScopedI18n("Movie");

@@ -1,16 +1,16 @@
-import { Inter } from "next/font/google";
-import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
 import "./globals.css";
-import "swiper/css";
-import { Analytics } from "@vercel/analytics/react";
-import { Toaster } from "react-hot-toast";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookiesConsent from "@/app/components/Cookies";
-import ScrollTop from "@/app/components/ScrollTop";
-import { I18nProviderClient } from "@/locales/client";
+import Footer from "@/app/components/Footer";
+import Header from "@/app/components/Header";
 import { Providers } from "@/app/components/Providers";
+import ScrollTop from "@/app/components/ScrollTop";
 import { BASE_URL } from "@/lib/constants";
+import { I18nProviderClient } from "@/locales/client";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+import "swiper/css";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {

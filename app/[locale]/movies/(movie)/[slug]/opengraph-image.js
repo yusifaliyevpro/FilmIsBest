@@ -1,17 +1,12 @@
-/**
- * Retrieves movie data based on the provided parameters and generates an ImageResponse object.
- * @param {Object} params - Parameters used to fetch movie data.
- * @returns {ImageResponse} - An ImageResponse object containing movie information.
- */
-import { ImageResponse } from "next/og";
+import { BASE_URL } from "@/lib/constants";
 import { client } from "@/sanity/lib/client";
-import { BASE_URL } from "../../../../../lib/constants";
+import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
-      {filmName, "poster": poster.asset->url, "slug": slug.current, imdbpuan, releaseDate, genre, description, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]`;
+      {filmName, "poster": poster.asset->url, "slug": slug.current}[0]`;
   const data = await client.fetch(
     query,
     { cache: "force-cache" },

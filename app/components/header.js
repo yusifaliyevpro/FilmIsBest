@@ -1,7 +1,9 @@
 "use client";
-import Link from "next/link";
-import { Suspense, useState } from "react";
-import { usePathname } from "next/navigation";
+
+import LanguageSwitcher from "./LanguageSwitcher";
+import SuspenseButton from "./SuspenseLayouts";
+import { useScopedI18n } from "@/locales/client";
+import { Button } from "@nextui-org/button";
 import {
   Navbar,
   NavbarBrand,
@@ -11,13 +13,12 @@ import {
   NavbarMenu,
   NavbarItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Suspense, useState } from "react";
+import toast from "react-hot-toast";
 import { BiSolidMovie } from "react-icons/bi";
 import { IoCodeSlash } from "react-icons/io5";
-import toast from "react-hot-toast";
-import LanguageSwitcher from "./LanguageSwitcher";
-import { useScopedI18n } from "@/locales/client";
-import SuspenseButton from "./SuspenseLayouts";
 
 export default function Header({ locale }) {
   const pathname = usePathname();

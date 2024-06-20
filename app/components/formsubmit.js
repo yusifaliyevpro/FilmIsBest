@@ -1,3 +1,7 @@
+import useForm from "@/app/hooks/useForm";
+import { useScopedI18n } from "@/locales/client";
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
 import {
   Modal,
   ModalContent,
@@ -6,14 +10,10 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
 import toast from "react-hot-toast";
-import useForm from "@/app/hooks/useForm";
 import { BiSolidMovie } from "react-icons/bi";
-import { IoPerson } from "react-icons/io5";
 import { HiAtSymbol } from "react-icons/hi";
-import { useScopedI18n } from "@/locales/client";
+import { IoPerson } from "react-icons/io5";
 
 export default function FormSubmit() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();

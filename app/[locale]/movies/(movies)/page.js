@@ -1,12 +1,12 @@
-import { Suspense } from "react";
-import { getCount, getMovies } from "@/lib/utils";
+import { Motion } from "@/app/components/Motion";
 import Movies from "@/app/components/Movies";
 import PaginationUI from "@/app/components/Pagination";
 import Search from "@/app/components/Search";
-import { Motion } from "@/app/components/Motion";
-import { getScopedI18n, getStaticParams } from "@/locales/server";
+import { getCount, getMovies } from "@/lib/utils";
 import { I18nProviderClient } from "@/locales/client";
+import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
+import { Suspense } from "react";
 
 export async function generateMetadata() {
   const t = await getScopedI18n("MetaData.Movies");

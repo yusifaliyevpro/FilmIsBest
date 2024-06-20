@@ -1,7 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+
 import { cn } from "@/lib/cn";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+
 let interval;
 
 export const FlipWords = ({ words, duration = 3000, className }) => {
