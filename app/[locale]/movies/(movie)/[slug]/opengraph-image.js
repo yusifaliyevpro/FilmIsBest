@@ -1,8 +1,12 @@
 import { BASE_URL } from "@/lib/constants";
+import { getSlugs } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
+import { setStaticParamsLocale } from "next-international/server";
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']
@@ -22,7 +26,19 @@ export const size = {
 };
 export const contentType = "image/png";
 
+export async function generateStaticParams() {
+  const movieSlugs = await getSlugs();
+  const staticParams = movieSlugs.flatMap((movieSlug) => [
+    { locale: "az", slug: movieSlug.slug },
+    { locale: "en", slug: movieSlug.slug },
+    { locale: "tr", slug: movieSlug.slug },
+  ]);
+  return staticParams;
+}
+
 export default async function Image({ params }) {
+  const { locale } = params;
+  setStaticParamsLocale(locale);
   const movie = await getData({ params });
   const interSemiBold = fetch(
     new URL("/public/fonts/Inter-Bold.ttf", import.meta.url),

@@ -1,20 +1,23 @@
 "use client";
 
+import useStore from "@/lib/store";
 import { useScopedI18n } from "@/locales/client";
 import { Input } from "@nextui-org/input";
-import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
 import { useDebounce } from "use-debounce";
 
-export default function Search({ searchQuery, pageQuery, resultCount }) {
-  const router = useRouter();
-  const [text, setText] = useState(searchQuery);
-  const [query] = useDebounce(text, 600);
-  const initialRender = useRef(true);
+export default function Search() {
   const t = useScopedI18n("Movies.Search");
+  const [text, setText] = useState("");
+  const [query] = useDebounce(text, 600);
+  const setSearch = useStore((state) => state.setSearch);
+  const resultCount = useStore((state) => state.resultCount);
 
+  useEffect(() => {
+    setSearch(query);
+  }, [query]);
   useEffect(() => {
     if (resultCount === 0) {
       toast(t("noResultMessage"), {
@@ -24,20 +27,6 @@ export default function Search({ searchQuery, pageQuery, resultCount }) {
       });
     }
   }, [resultCount]);
-
-  useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-      return;
-    }
-    if (!query || query.length < 3) {
-      router.push(`/movies?${pageQuery !== 1 ? "page=" + pageQuery : ""}`);
-    } else {
-      router.push(
-        `/movies?search=${query}${pageQuery !== 1 ? "" : "&page=" + pageQuery}`,
-      );
-    }
-  }, [query, router]);
 
   return (
     <>

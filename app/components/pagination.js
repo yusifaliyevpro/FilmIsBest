@@ -1,45 +1,20 @@
 "use client";
 
+import useStore from "@/lib/store";
 import { Pagination } from "@nextui-org/pagination";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 
-export default function PaginationUI({ pageQuery, searchQuery, count }) {
-  const router = useRouter();
-  const total = Math.ceil((searchQuery ? 20 : count) / 20);
-  const [page, setPage] = useState(pageQuery);
-
-  useEffect(() => {
-    if (page === 1) {
-      router.push(
-        `/movies${searchQuery !== undefined ? "?search=" + searchQuery : ""}`,
-        {
-          scroll: false,
-        },
-      );
-    } else if (page > total) {
-      router.push(
-        `/movies?${searchQuery !== undefined ? "search=" + searchQuery + "&" : ""}page=${total}`,
-        {
-          scroll: false,
-        },
-      );
-    } else {
-      router.push(
-        `/movies?${searchQuery !== undefined ? "search=" + searchQuery + "&" : ""}page=${page}`,
-        {
-          scroll: false,
-        },
-      );
-    }
-  }, [page, router]);
+export default function PaginationUI({ count }) {
+  const setPage = useStore((state) => state.setPage);
+  const page = useStore((state) => state.page);
+  const search = useStore((state) => state.search);
+  const total = Math.ceil((search ? 20 : count) / 20);
 
   return (
     <div className="relative mt-5 flex">
       <Pagination
         classNames={{ item: "bg-gray-200" }}
         total={total !== 0 ? total : 1}
-        page={pageQuery < total ? pageQuery : total}
+        page={page < total ? page : total}
         onChange={(page) => setPage(page)}
       />
     </div>
