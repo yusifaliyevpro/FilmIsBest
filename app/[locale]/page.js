@@ -2,8 +2,10 @@ import AnimatedText from "@/app/components/AnimatedText";
 import LottieComponent from "@/app/components/LottieAnimation";
 import { Motion } from "@/app/components/Motion";
 import RecentlyMovies from "@/app/components/RecentlyMovies";
+import connectMongoDB from "@/lib/database";
 import { getRecentMovies } from "@/lib/utils";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
+import MovieRequestModel from "@/models/MovieRequestModel";
 import { setStaticParamsLocale } from "next-international/server";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -50,6 +52,9 @@ export default async function Home({ params: { locale } }) {
   setStaticParamsLocale(locale);
   const movies = await getRecentMovies();
   const t = await getScopedI18n("Home");
+  // await connectMongoDB();
+  // const requests = await MovieRequestModel.find();
+  // console.log(requests);
   return (
     <>
       <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">

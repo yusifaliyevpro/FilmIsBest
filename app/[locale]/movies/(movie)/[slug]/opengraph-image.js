@@ -5,8 +5,6 @@ import { setStaticParamsLocale } from "next-international/server";
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const dynamic = "force-static";
-export const revalidate = 3600;
 
 export async function getData({ params }) {
   const query = `*[_type=='Movie-studio' && slug.current=='${params.slug}']

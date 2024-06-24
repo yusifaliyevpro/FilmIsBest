@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
-export default async function Movies({ movies }) {
+export default function Movies({ movies }) {
   const search = useStore((state) => state.search);
   const page = useStore((state) => state.page);
   const setResultCount = useStore((state) => state.setResultCount);

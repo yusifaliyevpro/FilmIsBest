@@ -1,10 +1,9 @@
 "use client";
 
+import FormSubmit from "./FormSubmit";
 import SuspenseButton from "./SuspenseLayouts";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-
-const FormSubmit = dynamic(() => import("./FormSubmit"));
 
 export default function Footer() {
   return (

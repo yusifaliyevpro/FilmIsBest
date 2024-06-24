@@ -20,41 +20,37 @@ export default function FormSubmit() {
   const { formData, setFormData } = useForm();
   const t = useScopedI18n("Footer.FormSubmit");
 
-  const submitForm = () => {
-    toast.promise(
-      fetch("https://formsubmit.co/ajax/filmisbest.official@gmail.com", {
+  const submitForm = async () => {
+    try {
+      toast.loading("Submiting...", { duration: Infinity, id: "form" });
+      onClose();
+      const res = await fetch("http://localhost:3000/api/movierequests", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          "Content-type": "application/json",
         },
         body: JSON.stringify({
-          name: formData.name.trim(),
+          fullName: formData.name.trim(),
           email: formData.email.trim(),
-          movie_Name: formData.movieName.trim(),
-          _subject: t("newMovieRequest"),
-          _captcha: false,
-          _template: "table",
+          movieName: formData.movieName.trim(),
         }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.log(error)),
-      {
-        loading: t("sending"),
-        success: t("sent"),
-        error: t("failedToSend"),
-      },
-    );
-    setFormData({
-      name: "",
-      email: "",
-      movieName: "",
-      isInvalidEmail: false,
-      isInvalidMovieName: false,
-    });
-
-    onClose();
+      });
+      if (res.ok) {
+        toast.success("Recorded!", { id: "form", duration: 3000 });
+        setFormData({
+          name: "",
+          email: "",
+          movieName: "",
+          isInvalidEmail: false,
+          isInvalidMovieName: false,
+        });
+      } else {
+        throw new Error("Failed to create a");
+      }
+    } catch (err) {
+      toast.error("An error occured", { id: "form", duration: 3000 });
+      console.log(err);
+    }
   };
 
   const validateEmail = (value) =>
