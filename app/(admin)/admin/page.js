@@ -10,10 +10,11 @@ export default async function AdminPage({ searchParams }) {
       ? searchParams.password
       : undefined;
   const requests = await getRequests({ password });
-  function title(string) {
+
+  const title = (string) => {
     if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
+  };
 
   if (password !== process.env.ADMIN_PASSWORD)
     return (

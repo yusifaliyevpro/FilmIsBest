@@ -15,7 +15,7 @@ export async function GET(request) {
     const results = await collection.find({}).toArray();
 
     if (!checkPassword(request))
-      return NextResponse.json({ message: "Enter Password" }, { status: 4040 });
+      return NextResponse.json({ message: "Enter Password" }, { status: 400 });
     return NextResponse.json({ results }, { status: 200 });
   } catch (error) {
     console.log(error);

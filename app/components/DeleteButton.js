@@ -1,6 +1,7 @@
 "use client";
 
 import RefreshRequests from "../actions";
+import { BASE_URL } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -9,16 +10,13 @@ export function DeleteButton({ id }) {
   const router = useRouter();
   const deleteRequest = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/movierequests?id=${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-type": "application/json",
-            password: process.env.ADMIN_PASSWORD,
-          },
+      const res = await fetch(`${BASE_URL}/api/movierequests?id=${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          password: process.env.ADMIN_PASSWORD,
         },
-      );
+      });
       if (res.ok) {
         toast.success("Uğurla Silindi");
         RefreshRequests();
