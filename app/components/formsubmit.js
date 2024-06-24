@@ -22,7 +22,7 @@ export default function FormSubmit() {
 
   const submitForm = async () => {
     try {
-      toast.loading("Submiting...", { duration: Infinity, id: "form" });
+      toast.loading(t("sending"), { duration: Infinity, id: "form" });
       onClose();
       const res = await fetch("http://localhost:3000/api/movierequests", {
         method: "POST",
@@ -36,7 +36,7 @@ export default function FormSubmit() {
         }),
       });
       if (res.ok) {
-        toast.success("Recorded!", { id: "form", duration: 3000 });
+        toast.success(t("sent"), { id: "form", duration: 3000 });
         setFormData({
           name: "",
           email: "",
@@ -48,7 +48,7 @@ export default function FormSubmit() {
         throw new Error("Failed to create a");
       }
     } catch (err) {
-      toast.error("An error occured", { id: "form", duration: 3000 });
+      toast.error(t("failedToSend"), { id: "form", duration: 3000 });
       console.log(err);
     }
   };
