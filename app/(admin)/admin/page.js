@@ -9,7 +9,7 @@ export default async function AdminPage({ searchParams }) {
     typeof searchParams.password === "string"
       ? searchParams.password
       : undefined;
-  const requests = await getRequests();
+  const requests = await getRequests({ password });
   function title(string) {
     if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
