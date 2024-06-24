@@ -13,6 +13,10 @@ export function DeleteButton({ id }) {
         `http://localhost:3000/api/movierequests?id=${id}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+            password: process.env.ADMIN_PASSWORD,
+          },
         },
       );
       if (res.ok) {

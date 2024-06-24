@@ -9,13 +9,18 @@ export function UpdateButton({ id, added }) {
   const router = useRouter();
   const UpdateRequest = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/movierequest/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
+      const res = await fetch(
+        `http://localhost:3000/api/movierequests?id=${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+            password: process.env.ADMIN_PASSWORD,
+          },
+          body: JSON.stringify({ added }),
         },
-        body: JSON.stringify({ added }),
-      });
+      );
+      console.log(res);
       if (res.ok) {
         toast.success("Uğurla Güncəlləndi");
         RefreshRequests();
@@ -23,8 +28,8 @@ export function UpdateButton({ id, added }) {
         throw new Error("Failed to Update");
       }
     } catch (err) {
-      toast.error("Güncəllənən zaman problem yaşandı");
       console.log(err);
+      toast.error("Güncəllənən zaman problem yaşandı");
     }
   };
   return (

@@ -28,6 +28,7 @@ export default function FormSubmit() {
         method: "POST",
         headers: {
           "Content-type": "application/json",
+          password: process.env.ADMIN_PASSWORD,
         },
         body: JSON.stringify({
           fullName: formData.name.trim(),
@@ -35,6 +36,7 @@ export default function FormSubmit() {
           movieName: formData.movieName.trim(),
         }),
       });
+      console.log(res);
       if (res.ok) {
         toast.success(t("sent"), { id: "form", duration: 3000 });
         setFormData({

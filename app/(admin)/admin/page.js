@@ -26,11 +26,11 @@ export default async function AdminPage({ searchParams }) {
     <main className="relative flex min-h-screen flex-col items-center justify-start bg-white">
       <h1 className="mt-12 text-3xl font-bold">All Movie Requests</h1>
       <div className="flex flex-col gap-y-4 py-12">
-        <div className="flex flex-row items-center justify-end">
+        <div className="flex w-[65rem] flex-row items-center justify-end">
           <RefreshButton />
         </div>
         {requests &&
-          requests.movieRequests.map((request) => (
+          requests.results.map((request) => (
             <div
               key={request._id}
               className={`flex w-[65rem] flex-row gap-x-10 rounded-xl p-4 py-5 shadow-medium ${request.added && "text-gray-300"}`}
