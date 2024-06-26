@@ -1,4 +1,5 @@
 import useForm from "@/app/hooks/useForm";
+import { BASE_URL } from "@/lib/constants";
 import { useScopedI18n } from "@/locales/client";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
@@ -24,7 +25,7 @@ export default function FormSubmit() {
     try {
       toast.loading(t("sending"), { duration: Infinity, id: "form" });
       onClose();
-      const res = await fetch("http://localhost:3000/api/movierequests", {
+      const res = await fetch(`${BASE_URL}/api/movierequests`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

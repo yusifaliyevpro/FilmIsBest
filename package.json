@@ -1,6 +1,6 @@
 {
-  "name": "filmisbest-next",
-  "version": "0.1.0",
+  "name": "filmisbest",
+  "version": "1.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

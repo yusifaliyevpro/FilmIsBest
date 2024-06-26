@@ -3,10 +3,11 @@ import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
 import Link from "next/link";
 import { BiLogoTailwindCss } from "react-icons/bi";
+import { BiLogoMongodb } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { GrToast } from "react-icons/gr";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
-import { TbBrandFramerMotion, TbSquareRoundedLetterF } from "react-icons/tb";
+import { TbBrandFramerMotion } from "react-icons/tb";
 
 export async function generateMetadata({ params: { locale } }) {
   const t = await getScopedI18n("MetaData.About");
@@ -78,13 +79,13 @@ const tools = [
     icon: <TbBrandFramerMotion className="text-8xl" />,
   },
   {
-    name: "FormSubmit",
-    link: "https://formsubmit.co/",
-    icon: <TbSquareRoundedLetterF className="text-8xl" />,
+    name: "MongoDB",
+    link: "https://www.mongodb.com/",
+    icon: <BiLogoMongodb className="text-8xl text-green-600" />,
   },
   {
     name: "React Hot Toasts",
-    link: "https://formsubmit.co/",
+    link: "https://react-hot-toast.com/",
     icon: <GrToast className="text-8xl text-[#E1554A]" />,
   },
 ];
