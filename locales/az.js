@@ -95,7 +95,8 @@ export default {
     MovieInfo: {
       movieDescription: "Filmin Təsviri:",
       time: "Vaxt",
-      min: "dəq",
+      hour: "s",
+      min: "d",
       year: "İl",
       country: "Ölkə",
       createdByChatGPT: "ChatGPT tərəfindən yazılmışdır",

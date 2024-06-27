@@ -49,7 +49,7 @@ export default function Movies({ movies }) {
                     {movie.releaseDate}
                   </div>
                   <div className="w-8 rounded-3xl bg-imdb text-center text-xs font-bold text-gray-100">
-                    {movie.imdbpuan}
+                    {parseFloat(movie.imdbpuan).toFixed(1)}
                   </div>
                 </div>
               </div>

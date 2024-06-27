@@ -9,6 +9,9 @@ export default async function MovieInfo({ movie }) {
   const translatedGenres = movie.genre.map(
     (genre) => t(`Genres.${genre.toLowerCase()}`) || genre,
   );
+  const hours = movie.movieTime >= 60 ? Math.floor(movie.movieTime / 60) : 0;
+  const minutes =
+    hours * 60 !== movie.movieTime ? movie.movieTime - hours * 60 : 0;
   return (
     <div className="relative mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
       <Motion
@@ -33,9 +36,12 @@ export default async function MovieInfo({ movie }) {
           {t("movieName")}{" "}
           <span className="text-white">{movie.filmName.trim()}</span>
         </li>
-        <li className="mt-4 w-fit font-bold text-slate-400">
+        <li className="mt-4 line-clamp-1 w-fit font-bold text-slate-400">
           {t("stars")}{" "}
-          <span className="text-white">
+          <span
+            className="text-white"
+            title={movie.actors.trim().replace(/!/g, "•")}
+          >
             {movie.actors.trim().replace(/!/g, "•")}
           </span>
         </li>
@@ -55,7 +61,9 @@ export default async function MovieInfo({ movie }) {
             alt="Imdb Logo"
             className="select-none"
           />
-          <span className="font-bold text-white">{movie.imdbpuan}</span>
+          <span className="font-bold text-white">
+            {parseFloat(movie.imdbpuan).toFixed(1)}
+          </span>
         </div>
         <li className="mt-4 w-auto font-bold text-slate-400 sm:w-fit">
           {t("MovieInfo.movieDescription")}{" "}
@@ -75,22 +83,28 @@ export default async function MovieInfo({ movie }) {
         </div>
 
         <div className="left-0 mb-9 box-border flex list-none flex-row justify-around pt-12 text-left sm:mb-0 sm:p-12">
-          <li className="box-border text-left font-bold text-slate-400 sm:px-12">
+          <li className="text-left font-bold text-slate-400">
             {t("MovieInfo.time")}
             <br />
             <span className="text-nowrap text-white">
-              {movie.movieTime} {t("MovieInfo.min")}
+              {hours !== 0 && hours + t("MovieInfo.hour")}
+              {minutes !== 0 && " " + minutes + t("MovieInfo.min")}
             </span>
           </li>
-          <li className="box-border w-max text-left font-bold text-slate-400 sm:px-12">
+          <li className="text-left font-bold text-slate-400">
             {t("MovieInfo.year")}
             <br />
             <span className="text-white">{movie.releaseDate}</span>
           </li>
-          <li className="box-border w-max text-balance text-left font-bold text-slate-400 sm:px-8">
+          <li className="text-balance text-left font-bold text-slate-400">
             {t("MovieInfo.country")}
             <br />
-            <span className="text-white">{movie.country}</span>
+            <span
+              className="line-clamp-1 w-[5rem] text-white"
+              title={movie.country}
+            >
+              {movie.country}
+            </span>
           </li>
         </div>
       </div>

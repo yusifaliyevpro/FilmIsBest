@@ -95,7 +95,8 @@ export default {
     MovieInfo: {
       movieDescription: "Film Açıklaması:",
       time: "Süre",
-      min: "dk",
+      hour: "s",
+      min: "d",
       year: "Yıl",
       country: "Ülke",
       createdByChatGPT: "ChatGPT tarafından yazıldı",

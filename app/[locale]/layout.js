@@ -6,6 +6,7 @@ import { Providers } from "@/app/components/Providers";
 import ScrollTop from "@/app/components/ScrollTop";
 import { BASE_URL } from "@/lib/constants";
 import { I18nProviderClient } from "@/locales/client";
+import { getCurrentLocale } from "@/locales/server";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
@@ -86,8 +87,8 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children, params }) {
-  const locale = params.locale;
+export default function RootLayout({ children }) {
+  const locale = getCurrentLocale();
   return (
     <html lang={locale} className="bg-gray-100 dark">
       <body className={inter.className}>

@@ -94,7 +94,8 @@ export default {
     MovieInfo: {
       movieDescription: "Movie Description:",
       time: "Time",
-      min: "min",
+      hour: "h",
+      min: "m",
       year: "Year",
       country: "Country",
       createdByChatGPT: "Written by ChatGPT",

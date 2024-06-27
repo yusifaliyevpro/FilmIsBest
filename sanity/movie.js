@@ -1,3 +1,5 @@
+import CustomCheckboxGrid from "./CustomCheckboxGrid";
+
 export default {
   name: "Movie-studio",
   title: "Movies",
@@ -12,6 +14,7 @@ export default {
       name: "slug",
       title: "Slug",
       type: "slug",
+      validation: (rule) => rule.required(),
       options: {
         source: "filmName",
         maxLength: 50,
@@ -39,11 +42,13 @@ export default {
       name: "imdbpuan",
       title: "IMDb Rate",
       type: "number",
+      validation: (rule) => rule.min(0).max(10).precision(1),
     },
     {
       name: "releaseDate",
       title: "Release Date",
       type: "number",
+      validation: (rule) => rule.min(1895).max(new Date().getFullYear()),
     },
     {
       name: "directed",
@@ -78,6 +83,7 @@ export default {
           { title: "Cinayət", value: "Crime" },
           { title: "Tarixi", value: "Historical" },
         ],
+        layout: "grid",
       },
     },
     {
@@ -94,11 +100,13 @@ export default {
       title: "Has an English version?",
       name: "EnglishLink",
       type: "boolean",
+      initialValue: true,
     },
     {
       title: "Has an English subtitle version?",
       name: "EnglishSubtitleLink",
       type: "boolean",
+      initialValue: true,
     },
     {
       name: "TurkishLink",
