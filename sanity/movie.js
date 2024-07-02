@@ -1,5 +1,3 @@
-import CustomCheckboxGrid from "./CustomCheckboxGrid";
-
 export default {
   name: "Movie-studio",
   title: "Movies",

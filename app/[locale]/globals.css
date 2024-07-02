@@ -46,6 +46,19 @@ html::-webkit-scrollbar-thumb:hover {
   background: #0b4cd6;
 }
 
+.custom-scroolbar::-webkit-scrollbar {
+  height: 0.3rem;
+}
+
+.custom-scroolbar::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 5rem;
+}
+
+.custom-scroolbar::-webkit-scrollbar-thumb:hover {
+  background: #0b4cd6;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

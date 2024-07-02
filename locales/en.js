@@ -74,6 +74,9 @@ export default {
     category: "Category:",
     director: "Director(s):",
     imdbScore: "IMDb Score:",
+    Sequels: {
+      name: "Series",
+    },
     MovieBar: {
       english: "English",
       englishSubtitle: "English Subtitle",

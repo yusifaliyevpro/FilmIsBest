@@ -75,6 +75,9 @@ export default {
     category: "Kateqoriya:",
     director: "Rejissor(lar):",
     imdbScore: "IMDb xalı:",
+    Sequels: {
+      name: "Seriyası",
+    },
     MovieBar: {
       english: "İngiliscə",
       englishSubtitle: "İngiliscə Altyazılı",

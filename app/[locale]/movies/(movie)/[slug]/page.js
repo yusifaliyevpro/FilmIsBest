@@ -1,11 +1,12 @@
 import { Motion } from "@/app/components/Motion";
 import MovieBar from "@/app/components/MovieBar";
 import MovieInfo from "@/app/components/MovieInfo";
+import Sequels from "@/app/components/Sequels";
 import Share from "@/app/components/Share";
 import SuspenseButton, {
   MovieInfoSuspense,
 } from "@/app/components/SuspenseLayouts";
-import { getMovie, getSlugs } from "@/lib/utils";
+import { getMovie, getSequel, getSlugs } from "@/lib/utils";
 import { I18nProviderClient } from "@/locales/client";
 import { setStaticParamsLocale } from "next-international/server";
 import { notFound } from "next/navigation";
@@ -133,6 +134,9 @@ export default async function Movie({ params }) {
           stiffness: 50,
         }}
       >
+        <Suspense fallback={<p>Loading...</p>}>
+          <Sequels movieID={movie._id} currentSlug={movie.slug} />
+        </Suspense>
         <Suspense fallback={<MovieInfoSuspense />}>
           <MovieInfo movie={movie} />
         </Suspense>
