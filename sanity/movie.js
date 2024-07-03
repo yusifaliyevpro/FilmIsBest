@@ -1,3 +1,7 @@
+import GenerateDescription from "./components/ChatGPT";
+import SearchOnYoutube from "./components/SearchOnYoutube";
+import SearchPoster from "./components/SearchPoster";
+
 export default {
   name: "Movie-studio",
   title: "Movies",
@@ -29,6 +33,14 @@ export default {
       type: "image",
       options: {
         hotspot: true,
+      },
+    },
+    {
+      name: "posterSearch",
+      title: "Search Poster",
+      type: "string",
+      components: {
+        field: SearchPoster,
       },
     },
     {
@@ -95,6 +107,14 @@ export default {
       type: "string",
     },
     {
+      name: "generateDescription",
+      title: "Generate Description",
+      type: "string",
+      components: {
+        field: GenerateDescription,
+      },
+    },
+    {
       title: "Has an English version?",
       name: "EnglishLink",
       type: "boolean",
@@ -123,6 +143,14 @@ export default {
       title: "Fraqman Link",
       type: "string",
       initialValue: "Empty",
+    },
+    {
+      name: "youtubeSearchLink",
+      title: "YouTube Search Link",
+      type: "string",
+      components: {
+        field: SearchOnYoutube,
+      },
     },
   ],
 };

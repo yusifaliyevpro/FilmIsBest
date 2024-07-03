@@ -24,7 +24,7 @@ import {
 } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
 
-export default function Share({ movie }) {
+export default function Share({ movie, locale }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
@@ -215,10 +215,10 @@ export default function Share({ movie }) {
                   <Snippet
                     symbol=""
                     variant="bordered"
-                    codeString={`${BASE_URL}/movies/${movie.slug}`}
+                    codeString={`${BASE_URL}/${locale}/movies/${movie.slug}`}
                   >
                     <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
-                      {`${BASE_URL}/movies/${movie.slug}`}
+                      {`${BASE_URL}/${locale}/movies/${movie.slug}`}
                     </div>
                   </Snippet>
                 </div>

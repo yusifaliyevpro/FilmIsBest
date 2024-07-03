@@ -23,6 +23,7 @@ export default function LanguageSwitcher() {
         popoverContent: "bg-gray-200",
         value: "font-bold font-sans",
         listbox: "font-bold text-white",
+        selectorIcon: "text-white",
       }}
       aria-label="Language"
       onSelectionChange={(value) => changeLocale(value.currentKey)}

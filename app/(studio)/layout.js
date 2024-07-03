@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export const metadata = {
   title: "Sanity & NextJS",
   description: "FilmIsBest Sanity Studio",

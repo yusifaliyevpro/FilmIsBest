@@ -118,9 +118,7 @@ export default async function Movie({ params }) {
               <MovieBar movie={movie} />
             </Suspense>
             <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
-              <Suspense fallback={<SuspenseButton />}>
-                <Share movie={movie} locale={locale} />
-              </Suspense>
+              <Share movie={movie} locale={locale} />
             </div>
           </Motion>
         </I18nProviderClient>

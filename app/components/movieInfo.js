@@ -1,4 +1,3 @@
-import { Motion } from "./Motion";
 import { getScopedI18n } from "@/locales/server";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,23 +13,15 @@ export default async function MovieInfo({ movie }) {
     hours * 60 !== movie.movieTime ? movie.movieTime - hours * 60 : 0;
   return (
     <div className="relative mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
-      <Motion
-        initial={{ scale: 1 }}
-        whileHover={{ scale: 1.05 }}
-        transition={{ type: "spring", duration: 0.1, stiffness: 110 }}
-        className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-76 sm:w-60"
-      >
+      <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-76 sm:w-60">
         <Image
           src={movie.poster}
           alt={movie.filmName + " movie poster"}
           width={240}
           height={360}
-          priority
-          placeholder="blur"
-          blurDataURL="data:..."
           className="relative h-auto w-auto select-none rounded-10 sm:h-76 sm:w-60"
         />
-      </Motion>
+      </div>
       <div className="relative mx-auto w-auto list-none rounded-10 tracking-normal sm:ml-5 sm:w-105">
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("movieName")}{" "}
@@ -100,7 +91,7 @@ export default async function MovieInfo({ movie }) {
             {t("MovieInfo.country")}
             <br />
             <span
-              className="line-clamp-1 w-[5rem] text-white"
+              className="line-clamp-1 max-w-[7rem] text-white"
               title={movie.country}
             >
               {movie.country}

@@ -46,7 +46,7 @@ export default function MovieBar({ movie }) {
         size="lg"
         variant="solid"
         onSelectionChange={handleLanguage}
-        classNames={{ tabList: "bg-gray-200" }}
+        classNames={{ tabList: "bg-gray-200 select-none" }}
         color="primary"
         className="max-sm:mb-4"
         fullWidth
