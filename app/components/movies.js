@@ -2,6 +2,7 @@
 
 import { Motion } from "./Motion";
 import useStore from "@/lib/store";
+import Fuse from "fuse.js";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -10,11 +11,24 @@ export default function Movies({ movies }) {
   const search = useStore((state) => state.search);
   const page = useStore((state) => state.page);
   const setResultCount = useStore((state) => state.setResultCount);
+  const imdbIDPattern = /^tt\d+$/;
   let renderedMovies;
+  let options;
   if (search) {
-    renderedMovies = movies.filter((movie) =>
-      movie.filmName.toLowerCase().includes(search.toLowerCase()),
-    );
+    if (imdbIDPattern.test(search)) {
+      options = {
+        keys: ["imdbID"],
+        threshold: 0.0, // IMDb ID'si tam eşleşme gerektirir
+      };
+    } else {
+      options = {
+        keys: ["filmName"],
+        threshold: 0.4, // Film adı için daha esnek eşleşme
+      };
+    }
+    const fuse = new Fuse(movies, options);
+    const result = fuse.search(search);
+    renderedMovies = result.map(({ item }) => item);
   } else {
     renderedMovies = movies.slice((page - 1) * 20, page * 20);
   }
@@ -55,7 +69,7 @@ export default function Movies({ movies }) {
               </div>
               <div className="justify-content-center relative flex min-h-13 w-[250px] flex-col items-center justify-center text-center">
                 <p
-                  className="w-[200px] truncate text-lg font-bold text-white hover:text-blue-800"
+                  className="w-fit max-w-[210px] truncate text-lg font-bold text-white hover:text-blue-800"
                   title={movie.filmName}
                 >
                   {movie.filmName}

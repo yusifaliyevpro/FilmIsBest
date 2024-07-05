@@ -38,7 +38,7 @@ export default async function MovieInfo({ movie }) {
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("category")}{" "}
-          <span className="text-white">{translatedGenres.join(", ")}</span>
+          <span className="text-white">{translatedGenres.join(" • ")}</span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("director")}{" "}

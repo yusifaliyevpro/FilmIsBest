@@ -11,7 +11,7 @@ import { useDebounce } from "use-debounce";
 export default function Search() {
   const t = useScopedI18n("Movies.Search");
   const [text, setText] = useState("");
-  const [query] = useDebounce(text, 600);
+  const [query] = useDebounce(text.trim(), 600);
   const setSearch = useStore((state) => state.setSearch);
   const resultCount = useStore((state) => state.resultCount);
 
@@ -44,7 +44,7 @@ export default function Search() {
           size="lg"
           value={text}
           onChange={(e) => {
-            setText(e.target.value.replace(/['\[\]\/\\()]/g, ""));
+            setText(e.target.value);
           }}
           radius="full"
           startContent={<BiSearch className="text-[1.7rem] font-bold" />}
