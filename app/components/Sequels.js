@@ -32,8 +32,8 @@ export default async function Sequels({ movieID, currentSlug }) {
                       <Image
                         src={movie.poster}
                         alt={movie.filmName + " movie poster"}
-                        width={260}
-                        height={300}
+                        width={160}
+                        height={240}
                         priority
                         className="h-[240px] rounded-10"
                       />

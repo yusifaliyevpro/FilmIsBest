@@ -2,10 +2,11 @@
 
 import { Motion } from "./Motion";
 import useStore from "@/lib/store";
+import { Skeleton } from "@nextui-org/react";
 import Fuse from "fuse.js";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Movies({ movies }) {
   const search = useStore((state) => state.search);
@@ -59,10 +60,10 @@ export default function Movies({ movies }) {
                   className="h-[380px] rounded-10"
                 />
                 <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">
-                  <div className="rounded-3xl bg-rdate px-1 text-center text-xs font-bold text-white">
+                  <div className="rounded-3xl bg-gray-200 p-[3px] text-center text-xs font-bold text-white opacity-80">
                     {movie.releaseDate}
                   </div>
-                  <div className="w-8 rounded-3xl bg-imdb text-center text-xs font-bold text-gray-100">
+                  <div className="flex w-8 items-center justify-center rounded-3xl bg-imdb text-center text-xs font-bold text-gray-100">
                     {parseFloat(movie.imdbpuan).toFixed(1)}
                   </div>
                 </div>

@@ -47,6 +47,7 @@ module.exports = {
       defaultTheme: "dark",
       defaultExtendTheme: "dark",
       themes: {
+        dark: {},
         light: {
           layout: {}, // light theme layout tokens
           colors: {
