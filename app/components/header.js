@@ -89,47 +89,12 @@ export default function Header({ locale }) {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden sm:flex">
+        <NavbarItem>
           <Suspense fallback={<SuspenseButton />}>
             <LanguageSwitcher />
           </Suspense>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu className="max-h-[200px] items-center justify-center gap-3 overflow-hidden bg-gray-100/90 backdrop-blur-md">
-        <NavbarMenuItem key={1}>
-          <Link
-            href={`/`}
-            className={`${pathname === `/${locale}` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
-          >
-            {t("homePage")}
-          </Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem key={2}>
-          <Link
-            href={`/movies`}
-            className={`${pathname === `/${locale}/movies` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
-          >
-            {t("movies")}
-          </Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem key={2}>
-          <Link
-            href={`/about`}
-            className={`${pathname === `/${locale}/about` ? "text-blue-600" : "text-white"} w-full text-xl font-bold`}
-          >
-            {t("about")}
-          </Link>
-        </NavbarMenuItem>
-        <NavbarItem>
-          <Suspense>
-            <LanguageSwitcher />
-          </Suspense>
-        </NavbarItem>
-      </NavbarMenu>
-      <NavbarMenuToggle
-        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        className="sm:hidden"
-      />
     </Navbar>
   );
 }

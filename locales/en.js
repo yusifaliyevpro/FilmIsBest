@@ -7,7 +7,7 @@ export default {
   },
   MetaData: {
     Home: {
-      title: "Home Page",
+      title: "Home",
       description:
         "FilmIsBest.com was created by YusifAliyevPro. You can watch all the movies you want with subtitle options in English, Turkish and both languages. It is also possible to watch Movie Trailers.",
     },
@@ -39,7 +39,7 @@ export default {
     myCodes: "My codes are in my GitHub account😺:",
   },
   Header: {
-    homePage: "Home Page",
+    homePage: "Home",
     movies: "Movies",
     about: "About",
     signIn: "Sign In",

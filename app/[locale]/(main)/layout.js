@@ -2,6 +2,7 @@ import "./globals.css";
 import CookiesConsent from "@/app/components/Cookies";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
+import MobileNavbar from "@/app/components/MobileNavbar";
 import { Providers } from "@/app/components/Providers";
 import ScrollTop from "@/app/components/ScrollTop";
 import { BASE_URL } from "@/lib/constants";
@@ -119,6 +120,7 @@ export default function RootLayout({ children }) {
           <CookiesConsent />
           <ScrollTop />
           <I18nProviderClient locale={locale}>
+            <MobileNavbar locale={locale} />
             <Footer locale={locale} />
           </I18nProviderClient>
         </Providers>
