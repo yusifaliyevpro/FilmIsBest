@@ -3,22 +3,16 @@
 import LanguageSwitcher from "./LanguageSwitcher";
 import SuspenseButton from "./SuspenseLayouts";
 import { useScopedI18n } from "@/locales/client";
-import { Button } from "@nextui-org/button";
 import {
   Navbar,
   NavbarBrand,
-  NavbarMenuToggle,
   NavbarContent,
-  NavbarMenuItem,
-  NavbarMenu,
   NavbarItem,
 } from "@nextui-org/navbar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense, useState } from "react";
-import toast from "react-hot-toast";
 import { BiSolidMovie } from "react-icons/bi";
-import { IoCodeSlash } from "react-icons/io5";
 
 export default function Header({ locale }) {
   const pathname = usePathname();
@@ -90,7 +84,7 @@ export default function Header({ locale }) {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Suspense fallback={<SuspenseButton />}>
+          <Suspense fallback={<SuspenseButton color={"bg-gray-200"} />}>
             <LanguageSwitcher />
           </Suspense>
         </NavbarItem>

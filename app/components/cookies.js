@@ -45,8 +45,10 @@ export default function CookiesConsent() {
       hideCloseButton={true}
       isDismissable={false}
       backdrop="blur"
-      className="light:text-white dark:text-white"
+      placement="center"
+      className="z-[9999] light:text-white dark:text-white"
       onOpenChange={onOpenChange}
+      classNames={{ base: "bg-gray-200 m-3" }}
     >
       <ModalContent>
         {(onClose) => (

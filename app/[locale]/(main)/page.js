@@ -2,6 +2,7 @@ import AnimatedText from "@/app/components/AnimatedText";
 import LottieComponent from "@/app/components/LottieAnimation";
 import { Motion } from "@/app/components/Motion";
 import RecentlyMovies from "@/app/components/RecentlyMovies";
+import SuspenseButton from "@/app/components/SuspenseLayouts";
 import { getRecentMovies } from "@/lib/utils";
 import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
