@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="az" className="bg-gray-100 dark">
+    <html lang="az" className="a bg-gray-100 dark">
       <body className={inter.className}>
         <Providers>
           <Toaster
