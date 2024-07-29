@@ -1,15 +1,12 @@
+import CookiesConsent from "../../components/Cookies";
 import "./globals.css";
-import CookiesConsent from "@/app/components/Cookies";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 import MobileNavbar from "@/app/components/MobileNavbar";
 import { Providers } from "@/app/components/Providers";
-import ScrollTop from "@/app/components/ScrollTop";
 import { BASE_URL } from "@/lib/constants";
 import { I18nProviderClient } from "@/locales/client";
 import { getCurrentLocale } from "@/locales/server";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "swiper/css";
@@ -91,7 +88,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const locale = getCurrentLocale();
   return (
-    <html lang={locale} className="bg-gray-100 dark">
+    <html lang={locale} className="min-h-screen bg-gray-100 text-white dark">
       <body className={inter.className}>
         <Providers>
           <I18nProviderClient locale={locale}>
@@ -114,11 +111,8 @@ export default function RootLayout({ children }) {
             position="bottom-right"
             reverseOrder={false}
           />
-          <main className="min-h-screen text-white dark">{children}</main>
-          <SpeedInsights />
-          <Analytics />
+          {children}
           <CookiesConsent />
-          <ScrollTop />
           <I18nProviderClient locale={locale}>
             <MobileNavbar locale={locale} />
             <Footer locale={locale} />

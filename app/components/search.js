@@ -18,15 +18,6 @@ export default function Search() {
   useEffect(() => {
     setSearch(query);
   }, [query]);
-  useEffect(() => {
-    if (resultCount === 0) {
-      toast(t("noResultMessage"), {
-        position:
-          window.innerHeight > window.innerWidth ? "top-right" : "bottom-right",
-        icon: <BiSearch className="text-2xl font-bold" />,
-      });
-    }
-  }, [resultCount]);
 
   return (
     <>
