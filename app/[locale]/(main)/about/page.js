@@ -127,7 +127,7 @@ export default async function About({ params: { locale } }) {
   setStaticParamsLocale(locale);
   const t = await getScopedI18n("About");
   return (
-    <section className="relative mx-4 flex flex-wrap items-center justify-center sm:mx-0">
+    <section className="relative mx-4 flex flex-wrap items-center justify-center text-white sm:mx-0">
       <div className="relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
         {texts.map((text, index) => (
           <Motion

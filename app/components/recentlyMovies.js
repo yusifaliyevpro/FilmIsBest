@@ -30,7 +30,7 @@ export default function RecentlyMovies({ movies }) {
       initial="hidden"
       animate={isInView ? "whileInView" : "hidden"}
       transition="transition"
-      className="relative h-auto w-full"
+      className="relative h-auto w-full text-white"
     >
       <div className="relative mx-12 flex h-auto sm:mx-16">
         <Swiper

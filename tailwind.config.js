@@ -1,8 +1,8 @@
-/** @type {import('tailwindcss').Config} */
 import { nextui } from "@nextui-org/react";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 
-module.exports = {
+/**  @type {import("tailwindcss/tailwind-config").Config}*/
+const config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -69,3 +69,5 @@ function addVariablesForColors({ addBase, theme }) {
     ":root": newVars,
   });
 }
+
+export default config;

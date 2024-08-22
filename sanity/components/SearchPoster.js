@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@nextui-org/react";
-import copy from "copy-to-clipboard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFormValue } from "sanity";

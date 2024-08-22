@@ -8,6 +8,7 @@ import { getScopedI18n, getStaticParams } from "@/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
 import Link from "next/link";
 import { Suspense } from "react";
+import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
 export async function generateMetadata() {
@@ -53,9 +54,9 @@ export default async function Home({ params: { locale } }) {
   const t = await getScopedI18n("Home");
   return (
     <>
-      <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 lg:flex-row">
+      <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 text-white lg:flex-row">
         <Motion
-          initial={{ y: 30, opacity: 0.1 }}
+          initial={isMobile ?? { y: 30, opacity: 0.1 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 120 }}
         >
@@ -99,11 +100,9 @@ export default async function Home({ params: { locale } }) {
       <AnimatedText
         once
         text={t("recentlyAdded")}
-        className="mt-72 w-full text-center text-3xl font-bold"
+        className="mt-72 w-full text-center text-3xl font-bold text-white"
       />
-      <Suspense fallback={<p>Loading...</p>}>
-        <RecentlyMovies movies={movies} />
-      </Suspense>
+      <RecentlyMovies movies={movies} />
     </>
   );
 }

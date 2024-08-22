@@ -112,7 +112,6 @@ export default function RootLayout({ children }) {
             reverseOrder={false}
           />
           {children}
-          <CookiesConsent />
           <I18nProviderClient locale={locale}>
             <MobileNavbar locale={locale} />
             <Footer locale={locale} />

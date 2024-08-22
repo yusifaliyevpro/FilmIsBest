@@ -2,7 +2,6 @@
 
 import FormSubmit from "./FormSubmit";
 import SuspenseButton from "./SuspenseLayouts";
-import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 export default function Footer() {

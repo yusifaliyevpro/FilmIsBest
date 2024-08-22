@@ -75,7 +75,7 @@ export default function FormSubmit() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold light:text-white dark:text-white">
+              <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold text-white light:text-white dark:text-white">
                 {t("movieRequest")}
               </ModalHeader>
               <ModalBody>
@@ -103,6 +103,7 @@ export default function FormSubmit() {
                   placeholder=""
                   autoComplete="email"
                   value={formData.email}
+                  classNames={{ input: "text-white" }}
                   isRequired
                   description={t("emailPrivacy")}
                   isInvalid={formData.isInvalidEmail}
@@ -131,6 +132,8 @@ export default function FormSubmit() {
                   autoComplete="off"
                   value={formData.movieName}
                   isRequired
+                  classNames={{ input: "dark:text-white light:text-white" }}
+                  className="text-white"
                   isInvalid={formData.isInvalidMovieName}
                   errorMessage={
                     formData.isInvalidMovieName && t("movieNameError")
