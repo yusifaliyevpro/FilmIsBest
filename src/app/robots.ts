@@ -1,5 +1,5 @@
 import { BASE_URL } from "../lib/constants";
-
+// Robots
 export default function robots() {
   return {
     rules: {
