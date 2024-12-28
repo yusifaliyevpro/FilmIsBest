@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
-import SuspenseButton from "./SuspenseLayouts";
 import {
   Navbar,
   NavbarBrand,
@@ -11,7 +10,6 @@ import {
 } from "@nextui-org/navbar";
 import { Link } from "@/i18n/routing";
 import { usePathname } from "next/navigation";
-import { Suspense } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 
 type Locales = "az" | "en" | "tr";
@@ -83,9 +81,7 @@ export default function Header({ locale }: { locale: Locales }) {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Suspense fallback={<SuspenseButton color="primary" />}>
-            <LanguageSwitcher />
-          </Suspense>
+          <LanguageSwitcher locale={locale} />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

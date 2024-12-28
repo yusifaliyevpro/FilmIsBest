@@ -4,7 +4,6 @@ import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
 import { routing } from "@/i18n/routing";
 import { getCount, getMovies } from "@/lib/utils";
-import { I18nProviderClient } from "@/locales/client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -53,23 +52,21 @@ export default async function MoviesPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  setRequestLocale((await params).locale);
   const { locale } = await params;
+  setRequestLocale(locale);
 
   const movies = await getMovies();
   const count = await getCount();
   return (
     <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
-        <I18nProviderClient locale={locale}>
-          <Suspense
-            fallback={
-              <div className="mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
-            }
-          >
-            <Search />
-          </Suspense>
-        </I18nProviderClient>
+        <Suspense
+          fallback={
+            <div className="mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
+          }
+        >
+          <Search />
+        </Suspense>
         <Suspense
           fallback={
             <div className="relative mt-5 flex animate-pulse rounded-xl bg-gray-200">

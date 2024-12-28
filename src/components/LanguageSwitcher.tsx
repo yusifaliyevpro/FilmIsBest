@@ -1,16 +1,22 @@
-import { useChangeLocale, useCurrentLocale } from "@/locales/client";
+"use client";
+import { redirect } from "@/i18n/routing";
+import { Locales } from "@/lib/constants";
 import { Avatar } from "@nextui-org/avatar";
 import { Select, SelectItem } from "@nextui-org/select";
+import { usePathname } from "next/navigation";
 
-export default function LanguageSwitcher() {
-  const locale = useCurrentLocale();
-  const changeLocale = useChangeLocale({ preserveSearchParams: true });
-
+export default function LanguageSwitcher({ locale }: { locale: string }) {
+  const pathname = usePathname()
+    .replace("az", "")
+    .replace("en", "")
+    .replace("tr", "");
+  const changeLocale = (lang: Locales) => {
+    redirect({ locale: lang, href: pathname });
+  };
   const languages = [
     { key: "az", lang: "Azərbaycanca", flag: "az" },
     { key: "en", lang: "English", flag: "gb" },
     { key: "tr", lang: "Türkçə", flag: "tr" },
-    /*{ key: "ru", lang: "Russian", flag: "ru" },*/
   ];
 
   return (
@@ -26,9 +32,7 @@ export default function LanguageSwitcher() {
         selectorIcon: "text-white",
       }}
       aria-label="Language"
-      onSelectionChange={(value) =>
-        changeLocale((value.currentKey as "en") || "tr" || "az")
-      }
+      onSelectionChange={(value) => changeLocale(value.currentKey as Locales)}
       selectedKeys={[locale]}
       renderValue={(items) => {
         return items.map((item) => (
