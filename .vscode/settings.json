@@ -1,3 +1,8 @@
 {
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "i18n-ally.localesPaths": ["messages", "src/i18n", "src/locales"],
+  "i18n-ally.keystyle": "nested"
 }

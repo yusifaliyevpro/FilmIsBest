@@ -4,6 +4,14 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("MONGODB_URI")
+  url      = env("DATABASE_URL")
 }
 
+model MovieRequests {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  added     Boolean
+  fullName  String
+  email     String
+  movieName String
+  createdAt DateTime @default(now())
+}
