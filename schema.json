@@ -365,7 +365,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "movies": {
         "type": "objectAttribute",
@@ -409,7 +409,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -453,7 +453,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -461,14 +461,14 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "imdbID": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "poster": {
         "type": "objectAttribute",
@@ -503,7 +503,7 @@
                 },
                 "dereferencesTo": "sanity.imageAsset"
               },
-              "optional": true
+              "optional": false
             },
             "hotspot": {
               "type": "objectAttribute",
@@ -530,49 +530,49 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "posterSearch": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "movieTime": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
         },
-        "optional": true
+        "optional": false
       },
       "imdbpuan": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
         },
-        "optional": true
+        "optional": false
       },
       "releaseDate": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
         },
-        "optional": true
+        "optional": false
       },
       "directed": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "actors": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "genre": {
         "type": "objectAttribute",
@@ -582,70 +582,70 @@
             "type": "string"
           }
         },
-        "optional": true
+        "optional": false
       },
       "country": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "description": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "generateDescription": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "EnglishLink": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "EnglishSubtitleLink": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "TurkishLink": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "TurkishSubtitleLink": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "FraqmanLink": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "youtubeSearchLink": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -1004,7 +1004,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "source": {
           "type": "objectAttribute",

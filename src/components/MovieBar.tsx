@@ -17,25 +17,28 @@ export default function MovieBar({ movie }: { movie: MOVIE_QUERYResult }) {
   const [iframeLoading, setIframeLoading] = useState(true);
   const [selectedKey, setSelectedKey] = useState("english");
   const t = useTranslations("Movie.MovieBar");
-
+  if (!movie) return null;
   const handleLanguage = (key: string | number) => {
-    setIframeLoading(true);
-    if (
-      (selectedKey === "english" && key == "englishSubtitle") ||
-      (selectedKey === "englishSubtitle" && key == "english")
-    ) {
-      setIframeLoading(false);
-    } else if (key === "english" || key === "englishSubtitle") {
-      setActiveLink(englishLink);
-    } else if (key === "turkish") {
-      setActiveLink(movie?.TurkishLink || englishLink);
-    } else if (key === "turkishSubtitle") {
-      setActiveLink(movie?.TurkishSubtitleLink || englishLink);
-    } else if (key === "trailer") {
-      setIsTrailer(true);
-      setIframeLoading(false);
+    key = String(key);
+    if (key !== selectedKey) {
+      setIframeLoading(true);
+      if (
+        (selectedKey === "english" && key == "englishSubtitle") ||
+        (selectedKey === "englishSubtitle" && key == "english")
+      ) {
+        setIframeLoading(false);
+      } else if (key === "english" || key === "englishSubtitle") {
+        setActiveLink(englishLink);
+      } else if (key === "turkish") {
+        setActiveLink(movie.TurkishLink || englishLink);
+      } else if (key === "turkishSubtitle") {
+        setActiveLink(movie.TurkishSubtitleLink || englishLink);
+      } else if (key === "trailer") {
+        setIsTrailer(true);
+        setIframeLoading(false);
+      }
+      setSelectedKey(key);
     }
-    setSelectedKey(key as string);
   };
   const onOpenChange = () => {
     setIsTrailer(false);
@@ -62,13 +65,13 @@ export default function MovieBar({ movie }: { movie: MOVIE_QUERYResult }) {
       >
         <Tab
           key="english"
-          isDisabled={!movie?.EnglishLink}
+          isDisabled={!movie.EnglishLink}
           className="font-bold"
           title={t("english")}
         ></Tab>
         <Tab
           key="englishSubtitle"
-          isDisabled={!movie?.EnglishSubtitleLink}
+          isDisabled={!movie.EnglishSubtitleLink}
           className="font-bold"
           title={t("englishSubtitle")}
         ></Tab>
@@ -97,7 +100,7 @@ export default function MovieBar({ movie }: { movie: MOVIE_QUERYResult }) {
         className={`z-35 relative bottom-0 left-0 mx-auto mt-0 h-60 w-full select-none rounded-b-10 border-none bg-black sm:absolute sm:h-102 sm:w-200 ${iframeLoading ? "hidden" : "block"}`}
         src={activeLink}
         allowFullScreen
-        title={movie?.filmName || "Movie Video"}
+        title={movie.filmName || "Movie Video"}
         onLoad={handleLoading}
       />
       <Modal
@@ -110,11 +113,11 @@ export default function MovieBar({ movie }: { movie: MOVIE_QUERYResult }) {
       >
         <ModalContent>
           <ModalHeader className="mt-1 flex flex-row items-center justify-center text-2xl font-bold">
-            {movie?.filmName} - Trailer
+            {movie.filmName} - Trailer
           </ModalHeader>
           <ModalBody className="mb-5">
             <YouTubeEmbed
-              videoid={movie?.FraqmanLink as string}
+              videoid={movie.FraqmanLink}
               style="margin-right: auto; margin-left: auto; border-radius: 10px;"
             />
           </ModalBody>

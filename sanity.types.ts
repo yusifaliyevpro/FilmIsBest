@@ -74,8 +74,8 @@ export type Sequel = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
-  movies?: Array<{
+  name: string;
+  movies: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
@@ -90,11 +90,11 @@ export type MovieStudio = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  filmName?: string;
-  slug?: Slug;
-  imdbID?: string;
-  poster?: {
-    asset?: {
+  filmName: string;
+  slug: Slug;
+  imdbID: string;
+  poster: {
+    asset: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -104,22 +104,22 @@ export type MovieStudio = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  posterSearch?: string;
-  movieTime?: number;
-  imdbpuan?: number;
-  releaseDate?: number;
-  directed?: string;
-  actors?: string;
-  genre?: Array<string>;
-  country?: string;
-  description?: string;
-  generateDescription?: string;
-  EnglishLink?: boolean;
-  EnglishSubtitleLink?: boolean;
-  TurkishLink?: string;
-  TurkishSubtitleLink?: string;
-  FraqmanLink?: string;
-  youtubeSearchLink?: string;
+  posterSearch: string;
+  movieTime: number;
+  imdbpuan: number;
+  releaseDate: number;
+  directed: string;
+  actors: string;
+  genre: Array<string>;
+  country: string;
+  description: string;
+  generateDescription: string;
+  EnglishLink: boolean;
+  EnglishSubtitleLink: boolean;
+  TurkishLink: string;
+  TurkishSubtitleLink: string;
+  FraqmanLink: string;
+  youtubeSearchLink: string;
 };
 
 export type SanityImageCrop = {
@@ -181,7 +181,7 @@ export type SanityImageMetadata = {
 
 export type Slug = {
   _type: "slug";
-  current?: string;
+  current: string;
   source?: string;
 };
 
@@ -201,93 +201,71 @@ export type AllSanitySchemaTypes =
   | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/utils.ts
-// Variable: SLUGS_QUERY
-// Query: *[_type=='Movie-studio']|order(_createdAt desc)      {"slug": slug.current}
-export type SLUGS_QUERYResult = Array<{
-  slug: string | null;
-}>;
-// Variable: SITEMAP_DATA_QUERY
-// Query: *[_type=='Movie-studio']      {"slug": slug.current, _updatedAt}
-export type SITEMAP_DATA_QUERYResult = Array<{
-  slug: string | null;
-  _updatedAt: string;
-}>;
 // Variable: RECENT_MOVIES_QUERY
-// Query: *[_type=='Movie-studio']|order(_createdAt desc)      {filmName, poster, "slug": slug.current, imdbpuan, releaseDate}[0...10]
+// Query: *[_type=='Movie-studio']|order(_createdAt desc)      {filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, imdbpuan, releaseDate}[0...10]
 export type RECENT_MOVIES_QUERYResult = Array<{
-  filmName: string | null;
-  poster: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  slug: string | null;
-  imdbpuan: number | null;
-  releaseDate: number | null;
-}>;
-// Variable: COUNT_QUERY
-// Query: count(*[_type == "Movie-studio"])
-export type COUNT_QUERYResult = number;
-// Variable: MOVIES_QUERY
-// Query: *[_type=='Movie-studio']|order(_createdAt desc){filmName, "poster": poster.asset->url, slug, _id, imdbpuan, imdbID, releaseDate}
-export type MOVIES_QUERYResult = Array<{
-  filmName: string | null;
+  filmName: string;
   poster: string | null;
-  slug: Slug | null;
+  posterlqip: string | null;
+  slug: string;
+  imdbpuan: number;
+  releaseDate: number;
+}>;
+// Variable: MOVIES_QUERY
+// Query: *[_type=='Movie-studio']|order(_createdAt desc){filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, _id, imdbpuan,_updatedAt, imdbID, releaseDate}
+export type MOVIES_QUERYResult = Array<{
+  filmName: string;
+  poster: string | null;
+  posterlqip: string | null;
+  slug: string;
   _id: string;
-  imdbpuan: number | null;
-  imdbID: string | null;
-  releaseDate: number | null;
+  imdbpuan: number;
+  _updatedAt: string;
+  imdbID: string;
+  releaseDate: number;
 }>;
 // Variable: MOVIE_QUERY
-// Query: *[_type=='Movie-studio' && slug.current==$slug]      {filmName, "poster": poster.asset->url, "slug": slug.current, imdbpuan, releaseDate, genre, description, _id, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]
+// Query: *[_type=='Movie-studio' && slug.current==$slug]      {filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, imdbpuan, releaseDate, genre, description, _id, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]
 export type MOVIE_QUERYResult = {
-  filmName: string | null;
+  filmName: string;
   poster: string | null;
-  slug: string | null;
-  imdbpuan: number | null;
-  releaseDate: number | null;
-  genre: Array<string> | null;
-  description: string | null;
+  posterlqip: string | null;
+  slug: string;
+  imdbpuan: number;
+  releaseDate: number;
+  genre: Array<string>;
+  description: string;
   _id: string;
-  directed: string | null;
-  country: string | null;
-  movieTime: number | null;
-  imdbID: string | null;
-  EnglishLink: boolean | null;
-  EnglishSubtitleLink: boolean | null;
-  FraqmanLink: string | null;
-  TurkishLink: string | null;
-  TurkishSubtitleLink: string | null;
-  actors: string | null;
+  directed: string;
+  country: string;
+  movieTime: number;
+  imdbID: string;
+  EnglishLink: boolean;
+  EnglishSubtitleLink: boolean;
+  FraqmanLink: string;
+  TurkishLink: string;
+  TurkishSubtitleLink: string;
+  actors: string;
 } | null;
 // Variable: SEQUEL_QUERY
-// Query: *[_type == "sequel" && references($movieID)] {          name,          "movies": movies[]->{            filmName,            "slug": slug.current,            "poster": poster.asset->url,          }        }
-export type SEQUEL_QUERYResult = Array<{
-  name: string | null;
+// Query: *[_type == "sequel" && references($movieID)] {          name,          "movies": movies[]->{            filmName,            "slug": slug.current,            "poster": poster.asset->url,            "posterlqip": (poster.asset->metadata).lqip          }        }[0]
+export type SEQUEL_QUERYResult = {
+  name: string;
   movies: Array<{
-    filmName: string | null;
-    slug: string | null;
+    filmName: string;
+    slug: string;
     poster: string | null;
-  }> | null;
-}>;
+    posterlqip: string | null;
+  }>;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type=='Movie-studio']|order(_createdAt desc)\n      {\"slug\": slug.current}": SLUGS_QUERYResult;
-    "*[_type=='Movie-studio']\n      {\"slug\": slug.current, _updatedAt}": SITEMAP_DATA_QUERYResult;
-    "*[_type=='Movie-studio']|order(_createdAt desc)\n      {filmName, poster, \"slug\": slug.current, imdbpuan, releaseDate}[0...10]": RECENT_MOVIES_QUERYResult;
-    'count(*[_type == "Movie-studio"])': COUNT_QUERYResult;
-    "*[_type=='Movie-studio']|order(_createdAt desc){filmName, \"poster\": poster.asset->url, slug, _id, imdbpuan, imdbID, releaseDate}": MOVIES_QUERYResult;
-    '*[_type==\'Movie-studio\' && slug.current==$slug]\n      {filmName, "poster": poster.asset->url, "slug": slug.current, imdbpuan, releaseDate, genre, description, _id, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]': MOVIE_QUERYResult;
-    '*[_type == "sequel" && references($movieID)] {\n          name,\n          "movies": movies[]->{\n            filmName,\n            "slug": slug.current,\n            "poster": poster.asset->url,\n          }\n        }': SEQUEL_QUERYResult;
+    '*[_type==\'Movie-studio\']|order(_createdAt desc)\n      {filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, imdbpuan, releaseDate}[0...10]': RECENT_MOVIES_QUERYResult;
+    '*[_type==\'Movie-studio\']|order(_createdAt desc){filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, _id, imdbpuan,_updatedAt, imdbID, releaseDate}': MOVIES_QUERYResult;
+    '*[_type==\'Movie-studio\' && slug.current==$slug]\n      {filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, imdbpuan, releaseDate, genre, description, _id, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]': MOVIE_QUERYResult;
+    '*[_type == "sequel" && references($movieID)] {\n          name,\n          "movies": movies[]->{\n            filmName,\n            "slug": slug.current,\n            "poster": poster.asset->url,\n            "posterlqip": (poster.asset->metadata).lqip\n          }\n        }[0]': SEQUEL_QUERYResult;
   }
 }

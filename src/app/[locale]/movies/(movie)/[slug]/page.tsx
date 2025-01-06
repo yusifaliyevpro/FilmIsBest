@@ -3,9 +3,13 @@ import MovieBar from "@/components/MovieBar";
 import MovieInfo from "@/components/MovieInfo";
 import Sequels from "@/components/Sequels";
 import Share from "@/components/Share";
-import { MovieInfoSuspense } from "@/components/SuspenseLayouts";
+import SuspenseButton, {
+  LoadingMovieBar,
+  LoadingSequel,
+  MovieInfoSuspense,
+} from "@/components/SuspenseLayouts";
 import { Locales } from "@/lib/constants";
-import { getMovie, getSlugs } from "@/lib/utils";
+import { getMovie, getMovies } from "@/lib/utils";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -78,11 +82,11 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const movieSlugs = await getSlugs();
-  const staticParams = movieSlugs.flatMap((movieSlug) => [
-    { locale: "az", slug: movieSlug.slug },
-    { locale: "en", slug: movieSlug.slug },
-    { locale: "tr", slug: movieSlug.slug },
+  const movies = await getMovies();
+  const staticParams = movies.flatMap((movie) => [
+    { locale: "az", slug: movie.slug },
+    { locale: "en", slug: movie.slug },
+    { locale: "tr", slug: movie.slug },
   ]);
   return staticParams;
 }
@@ -113,19 +117,12 @@ export default async function Movie({
             stiffness: 50,
           }}
         >
-          <Suspense
-            fallback={
-              <div className="relative mx-auto mt-12 flex h-auto w-auto flex-col rounded-10 px-3 sm:h-[560px] sm:w-200">
-                <div className="relative mb-1 h-[44px] min-w-max animate-pulse overflow-x-hidden rounded-2xl bg-gray-200 sm:mb-0 sm:w-[812px]"></div>
-                <div className="z-35 relative bottom-0 left-0 mx-auto mt-0 h-60 w-full animate-pulse select-none rounded-b-10 border-none bg-gray-200 sm:absolute sm:h-102 sm:w-200"></div>
-              </div>
-            }
-          >
+          <Suspense fallback={<LoadingMovieBar />}>
             <MovieBar movie={movie} />
           </Suspense>
-          <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
+          <Suspense fallback={<SuspenseButton color="primary" />}>
             <Share movie={movie} locale={locale} />
-          </div>
+          </Suspense>
         </Motion>
       </div>
       <Motion
@@ -137,7 +134,7 @@ export default async function Movie({
           stiffness: 50,
         }}
       >
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<LoadingSequel />}>
           <Sequels movieID={movie._id} currentSlug={movie.slug} />
         </Suspense>
         <Suspense fallback={<MovieInfoSuspense />}>

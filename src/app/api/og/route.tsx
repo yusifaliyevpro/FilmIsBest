@@ -1,5 +1,4 @@
 import { BASE_URL } from "@/lib/constants";
-import Image from "next/image";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
@@ -22,7 +21,7 @@ export async function GET(request: NextRequest) {
       (
         <div tw="relative flex flex-col w-full bg-white h-full items-center justify-start">
           <div tw="relative flex inset-0 justify-center items-start mt-28">
-            <Image
+            <img
               src={`${BASE_URL}/icon.png`}
               height={550}
               width={550}

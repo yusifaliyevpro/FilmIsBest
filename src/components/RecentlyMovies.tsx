@@ -1,14 +1,12 @@
 "use client";
 
-import { urlForImage } from "@/sanity/lib/image";
 import { motion, useInView } from "motion/react";
-import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import React, { useRef } from "react";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { RECENT_MOVIES_QUERYResult } from "../../sanity.types";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import SanityImage from "./SanityImage";
 
 export default function RecentlyMovies({
   movies,
@@ -74,13 +72,14 @@ export default function RecentlyMovies({
                   className="justify-content-center relative mx-auto inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
                 >
                   <div className="relative">
-                    <Image
-                      src={urlForImage(movie.poster as SanityImageSource)}
+                    <SanityImage
+                      src={movie.poster as string}
                       alt={movie.filmName + " movie poster"}
                       width={260}
                       height={380}
                       quality={60}
-                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL={movie.posterlqip as string}
                       className="h-[380px] rounded-10"
                     />
                     <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">

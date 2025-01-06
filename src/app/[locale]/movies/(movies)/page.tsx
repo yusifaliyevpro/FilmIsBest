@@ -2,8 +2,13 @@ import { Motion } from "@/components/Motion";
 import Movies from "@/components/Movies";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
+import {
+  LoadingMovies,
+  LoadingPagination,
+  LoadingSearch,
+} from "@/components/SuspenseLayouts";
 import { routing } from "@/i18n/routing";
-import { getCount, getMovies } from "@/lib/utils";
+import { getMovies } from "@/lib/utils";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -56,24 +61,14 @@ export default async function MoviesPage({
   setRequestLocale(locale);
 
   const movies = await getMovies();
-  const count = await getCount();
+  const count = movies.length;
   return (
     <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
-        <Suspense
-          fallback={
-            <div className="mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
-          }
-        >
+        <Suspense fallback={<LoadingSearch />}>
           <Search />
         </Suspense>
-        <Suspense
-          fallback={
-            <div className="relative mt-5 flex animate-pulse rounded-xl bg-gray-200">
-              <div className="h-[36px] w-[76px]"></div>
-            </div>
-          }
-        >
+        <Suspense fallback={<LoadingPagination />}>
           <PaginationUI count={count} />
         </Suspense>
       </div>
@@ -86,7 +81,7 @@ export default async function MoviesPage({
           stiffness: 55,
         }}
       >
-        <Suspense>
+        <Suspense fallback={<LoadingMovies />}>
           <Movies movies={movies} />
         </Suspense>
       </Motion>

@@ -28,11 +28,13 @@ const movieSchema = {
       name: "imdbID",
       title: "Imdb ID",
       type: "string",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       title: "Poster",
       name: "poster",
       type: "image",
+      validation: (rule) => rule.assetRequired().required(),
       options: {
         hotspot: true,
       },
@@ -41,6 +43,7 @@ const movieSchema = {
       name: "posterSearch",
       title: "Search Poster",
       type: "string",
+      validation: (rule) => rule.required(),
       components: {
         field: SearchPoster,
       },
@@ -49,33 +52,38 @@ const movieSchema = {
       name: "movieTime",
       title: "Movie Time",
       type: "number",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "imdbpuan",
       title: "IMDb Rate",
       type: "number",
-      validation: (rule) => rule.min(0).max(10).precision(1),
+      validation: (rule) => rule.min(0).max(10).precision(1).required(),
     }),
     defineField({
       name: "releaseDate",
       title: "Release Date",
       type: "number",
-      validation: (rule) => rule.min(1895).max(new Date().getFullYear()),
+      validation: (rule) =>
+        rule.min(1895).max(new Date().getFullYear()).required(),
     }),
     defineField({
       name: "directed",
       title: "Director",
       type: "string",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "actors",
       title: "Actors",
       type: "string",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "genre",
       title: "Genre",
       type: "array",
+      validation: (rule) => rule.required(),
       of: [defineArrayMember({ type: "string" })],
       options: {
         list: [
@@ -102,16 +110,19 @@ const movieSchema = {
       name: "country",
       title: "Country",
       type: "string",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "description",
       title: "Description",
       type: "string",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "generateDescription",
       title: "Generate Description",
       type: "string",
+      validation: (rule) => rule.required(),
       components: {
         field: GenerateDescription,
       },
@@ -121,35 +132,41 @@ const movieSchema = {
       name: "EnglishLink",
       type: "boolean",
       initialValue: true,
+      validation: (rule) => rule.required(),
     }),
     defineField({
       title: "Has an English subtitle version?",
       name: "EnglishSubtitleLink",
       type: "boolean",
       initialValue: true,
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "TurkishLink",
       title: "Turkish Link",
       type: "string",
       initialValue: "Empty",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "TurkishSubtitleLink",
       title: "Turkish Subtitle Link",
       type: "string",
       initialValue: "Empty",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "FraqmanLink",
       title: "Fraqman Link",
       type: "string",
       initialValue: "Empty",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "youtubeSearchLink",
       title: "YouTube Search Link",
       type: "string",
+      validation: (rule) => rule.required(),
       components: {
         field: SearchOnYoutube,
       },

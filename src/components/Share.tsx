@@ -37,7 +37,7 @@ export default function Share({
   const router = useRouter();
   const t = useTranslations("Movie");
   if (!movie) return null;
-  const translatedGenres = movie?.genre?.map(
+  const translatedGenres = movie.genre.map(
     (genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre,
   );
 
@@ -45,7 +45,7 @@ export default function Share({
     `🍿 *${t("movieName")}* ` +
     movie.filmName +
     `\n\n⭐ *${t("stars")}* ` +
-    movie?.actors?.trim().replace(/!/g, "•") +
+    movie.actors.trim().replace(/!/g, "•") +
     `\n\n🎭 *${t("category")}* ` +
     translatedGenres?.join(", ") +
     `\n\n🎬 *${t("director")}* ` +
@@ -114,9 +114,7 @@ export default function Share({
 
   async function handlePoster() {
     try {
-      const posterURL = `https://filmisbest.com/_next/image?url=${encodeURI(movie?.poster as string)}&w=640&q=75`;
-      console.log(posterURL);
-      const response = await fetch(posterURL);
+      const response = await fetch(movie?.poster as string);
 
       if (!response.ok) {
         throw new Error("Şəkil yüklənə bilmədi.");
@@ -146,7 +144,7 @@ export default function Share({
   }
 
   return (
-    <>
+    <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
       <Button
         size="lg"
         color="primary"
@@ -234,6 +232,6 @@ export default function Share({
           )}
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }

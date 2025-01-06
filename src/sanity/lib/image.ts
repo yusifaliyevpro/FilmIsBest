@@ -1,3 +1,4 @@
+"use client";
 import { dataset, projectId } from "../env";
 import createImageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";

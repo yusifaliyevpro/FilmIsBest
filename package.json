@@ -7,7 +7,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "typegen": "sanity schema extract && sanity typegen generate"
+    "typegen": "sanity schema extract --enforce-required-fields && sanity typegen generate"
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.12.0",

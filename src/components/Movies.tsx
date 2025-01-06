@@ -1,14 +1,12 @@
 "use client";
-
-import LottieComponent from "./LottieAnimation";
 import { Motion } from "./Motion";
 import useStore from "@/lib/store";
 import { AnimatePresence } from "motion/react";
 import Fuse from "fuse.js";
-import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useEffect } from "react";
 import { MOVIES_QUERYResult } from "../../sanity.types";
+import SanityImage from "./SanityImage";
 
 export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
   const search = useStore((state) => state.search);
@@ -41,10 +39,8 @@ export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
 
   if (renderedMovies.length === 0) {
     return (
-      <div className="justify-content-center mx-2.5 flex min-h-[60dvh] flex-wrap items-center justify-center gap-x-10">
-        <div className="max-w-[30rem]">
-          <LottieComponent animationPath={"/noResult.lottie"} />
-        </div>
+      <div className="justify-content-center mx-2.5 flex min-h-[60dvh] flex-wrap items-center justify-center gap-x-10 text-3xl">
+        There is no match for your search
       </div>
     );
   }
@@ -68,17 +64,18 @@ export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
               transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
             >
               <Link
-                href={`movies/${movie.slug?.current}`}
+                href={`movies/${movie.slug}`}
                 className="justify-content-center relative mt-10 inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
               >
                 <div>
                   <div className="relative">
-                    <Image
+                    <SanityImage
                       src={movie.poster as string}
-                      alt={movie.filmName + " movie poster"}
+                      alt={`${movie.filmName} movie poster`}
                       width={260}
                       height={380}
-                      priority
+                      placeholder="blur"
+                      blurDataURL={movie.posterlqip as string}
                       className="h-[380px] rounded-10"
                     />
                     <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">
@@ -93,7 +90,7 @@ export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
                   <div className="justify-content-center relative flex min-h-13 w-[250px] flex-col items-center justify-center text-center">
                     <p
                       className="w-fit max-w-[210px] truncate text-lg font-bold text-white hover:text-blue-800"
-                      title={movie.filmName as string}
+                      title={movie.filmName}
                     >
                       {movie.filmName}
                     </p>

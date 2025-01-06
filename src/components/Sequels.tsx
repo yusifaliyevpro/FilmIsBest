@@ -1,26 +1,27 @@
 import { Motion } from "./Motion";
+import { Link } from "@/i18n/routing";
+import SanityImage from "./SanityImage";
 import { getSequel } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
-import { Link } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 export default async function Sequels({
   movieID,
   currentSlug,
 }: {
-  movieID: string;
   currentSlug: string | null;
+  movieID: string;
 }) {
-  const sequel = await getSequel({ movieID });
-  if (!sequel) return null;
+  const sequel = await getSequel(movieID);
   const t = await getTranslations("Movie.Sequels");
+  if (!sequel) return notFound();
   return (
     <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-[836px]">
       <p className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">
         {sequel.name + " " + t("name")}
       </p>
       <div className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
-        {sequel?.movies?.reverse().map((movie, index) => (
+        {sequel.movies.map((movie, index) => (
           <Motion
             key={index}
             className="mx-3 my-5"
@@ -34,12 +35,13 @@ export default async function Sequels({
             >
               <div>
                 <div className="relative">
-                  <Image
+                  <SanityImage
                     src={movie.poster as string}
                     alt={movie.filmName + " movie poster"}
                     width={160}
                     height={240}
-                    priority
+                    placeholder="blur"
+                    blurDataURL={movie.posterlqip as string}
                     className="h-[240px] rounded-10"
                   />
                 </div>

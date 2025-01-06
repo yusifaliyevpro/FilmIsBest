@@ -1,8 +1,8 @@
 import { BASE_URL } from "@/lib/constants";
-import { getSitemapData } from "@/lib/utils";
+import { getMovies } from "@/lib/utils";
 
 export default async function sitemap() {
-  const moviess = await getSitemapData();
+  const moviess = await getMovies();
 
   const Movies = moviess.map((movie) => ({
     url: `${BASE_URL}/en/movies/${movie.slug}`,
