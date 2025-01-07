@@ -1,4 +1,3 @@
-import LottieComponent from "@/components/LottieAnimation";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata() {
@@ -26,13 +25,10 @@ export default async function NotFoundPage() {
   const t = await getTranslations("NotFound");
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center">
-      <div className="relative mx-3 mt-8 flex h-full flex-col sm:mt-3">
-        <LottieComponent animationPath="/404Error.lottie" />
-      </div>
-      <h1 className="relative mx-7 mt-4 text-center text-2xl font-bold sm:text-3xl">
+    <main className="relative flex min-h-svh w-full flex-col items-center justify-center">
+      <h1 className="relative mx-7 text-center text-2xl font-bold sm:text-3xl">
         {t("errorMessage")}
       </h1>
-    </div>
+    </main>
   );
 }

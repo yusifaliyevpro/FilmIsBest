@@ -3,7 +3,6 @@ import { Link } from "@/i18n/routing";
 import SanityImage from "./SanityImage";
 import { getSequel } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
-import { notFound } from "next/navigation";
 
 export default async function Sequels({
   movieID,
@@ -14,7 +13,7 @@ export default async function Sequels({
 }) {
   const sequel = await getSequel(movieID);
   const t = await getTranslations("Movie.Sequels");
-  if (!sequel) return notFound();
+  if (!sequel) return null;
   return (
     <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-[836px]">
       <p className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">
