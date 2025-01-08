@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { RiOpenaiFill } from "react-icons/ri";
 import type { MOVIE_QUERYResult } from "../../sanity.types";
 import { getTranslations } from "next-intl/server";
+import SanityImage from "./SanityImage";
+import Image from "next/image";
 
 export default async function MovieInfo({
   movie,
@@ -22,7 +23,7 @@ export default async function MovieInfo({
   return (
     <div className="relative mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
       <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-76 sm:w-60">
-        <Image
+        <SanityImage
           src={movie.poster as string}
           alt={`${movie.filmName} movie poster`}
           width={240}
