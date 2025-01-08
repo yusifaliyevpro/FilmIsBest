@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { ReactNode } from "react";
-import "./../globals.css";
+import "./studio.css";
 export default async function RootLayout({
   children,
 }: {

@@ -2,12 +2,28 @@ import { defineArrayMember, defineField } from "sanity";
 import GenerateDescription from "./components/ChatGPT";
 import SearchOnYoutube from "./components/SearchOnYoutube";
 import SearchPoster from "./components/SearchPoster";
+import GetMovieData from "./components/GetMovieData";
 
-const movieSchema = {
+const movieSchema = defineField({
   name: "Movie-studio",
   title: "Movies",
   type: "document",
+  preview: { select: { title: "filmName", media: "poster" } },
   fields: [
+    defineField({
+      name: "imdbID",
+      title: "Imdb ID",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "getFilmData",
+      title: "Get Film Data",
+      type: "string",
+      components: {
+        field: GetMovieData,
+      },
+    }),
     defineField({
       name: "filmName",
       title: "Movie Name",
@@ -22,30 +38,6 @@ const movieSchema = {
       options: {
         source: "filmName",
         maxLength: 50,
-      },
-    }),
-    defineField({
-      name: "imdbID",
-      title: "Imdb ID",
-      type: "string",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      title: "Poster",
-      name: "poster",
-      type: "image",
-      validation: (rule) => rule.assetRequired().required(),
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
-      name: "posterSearch",
-      title: "Search Poster",
-      type: "string",
-      validation: (rule) => rule.required(),
-      components: {
-        field: SearchPoster,
       },
     }),
     defineField({
@@ -113,16 +105,32 @@ const movieSchema = {
       validation: (rule) => rule.required(),
     }),
     defineField({
+      title: "Poster",
+      name: "poster",
+      type: "image",
+      validation: (rule) => rule.assetRequired().required(),
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: "posterSearch",
+      title: "Search Poster",
+      type: "string",
+      components: {
+        field: SearchPoster,
+      },
+    }),
+    defineField({
       name: "description",
       title: "Description",
-      type: "string",
+      type: "text",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "generateDescription",
       title: "Generate Description",
       type: "string",
-      validation: (rule) => rule.required(),
       components: {
         field: GenerateDescription,
       },
@@ -166,12 +174,11 @@ const movieSchema = {
       name: "youtubeSearchLink",
       title: "YouTube Search Link",
       type: "string",
-      validation: (rule) => rule.required(),
       components: {
         field: SearchOnYoutube,
       },
     }),
   ],
-};
+});
 
 export default movieSchema;
