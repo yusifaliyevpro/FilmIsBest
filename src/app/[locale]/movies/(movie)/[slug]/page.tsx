@@ -8,7 +8,7 @@ import SuspenseButton, {
   LoadingSequel,
   MovieInfoSuspense,
 } from "@/components/SuspenseLayouts";
-import { Locales } from "@/lib/constants";
+import { BASE_URL, Locales } from "@/lib/constants";
 import { getMovie, getMovies } from "@/lib/utils";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -26,6 +26,7 @@ export async function generateMetadata({
     return notFound();
   }
   return {
+    metadataBase: new URL(BASE_URL),
     title: movie.filmName,
     description: movie.description,
     alternates: {

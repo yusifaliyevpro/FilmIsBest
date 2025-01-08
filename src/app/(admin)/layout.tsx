@@ -1,6 +1,8 @@
 import "./admin.css";
 import { Providers } from "@/components/Providers";
 import { BASE_URL } from "@/lib/constants";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
@@ -14,11 +16,12 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: Readonly<ReactNode>;
 }) {
+  const messages = await getMessages();
   return (
     <html lang="az" className="a bg-gray-100 dark">
       <body className={inter.className}>
@@ -40,7 +43,9 @@ export default function RootLayout({
             position="bottom-right"
             reverseOrder={false}
           />
-          <main className="min-h-screen bg-white text-black">{children}</main>
+          <NextIntlClientProvider messages={messages}>
+            <main className="min-h-screen bg-white text-black">{children}</main>
+          </NextIntlClientProvider>
         </Providers>
       </body>
     </html>

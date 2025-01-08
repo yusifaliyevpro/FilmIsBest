@@ -1,4 +1,4 @@
-import useForm from "@/hooks/useForm";
+import useForm from "@/lib/useForm";
 import { newMovieRequest } from "@/lib/actions";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";

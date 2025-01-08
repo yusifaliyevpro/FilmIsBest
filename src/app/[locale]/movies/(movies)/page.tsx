@@ -8,6 +8,7 @@ import {
   LoadingSearch,
 } from "@/components/SuspenseLayouts";
 import { routing } from "@/i18n/routing";
+import { BASE_URL } from "@/lib/constants";
 import { getMovies } from "@/lib/utils";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -21,6 +22,7 @@ export async function generateMetadata({
   setRequestLocale((await params).locale);
   const t = await getTranslations("MetaData.Movies");
   return {
+    metadataBase: new URL(BASE_URL),
     title: t("title"),
     description: t("description"),
     alternates: {

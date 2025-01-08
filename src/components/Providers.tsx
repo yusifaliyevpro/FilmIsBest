@@ -6,13 +6,8 @@ import { MotionConfig } from "motion/react";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
-// app/providers.js
-
-// app/providers.js
-
 export function Providers({ children }: { children: Readonly<ReactNode> }) {
   const router = useRouter();
-  // const reducedMotion = isMobile ? "always" : "never";
   return (
     <NextUIProvider navigate={router.push}>
       <MotionConfig>{children}</MotionConfig>
