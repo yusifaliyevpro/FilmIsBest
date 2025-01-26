@@ -46,7 +46,7 @@ export default function MovieBar({ movie }: { movie: MOVIE_QUERYResult }) {
   };
 
   const handleLoading = () => {
-    setIframeLoading(false); // Hide the cover and show the video
+    setIframeLoading(false);
   };
 
   return (
@@ -115,7 +115,7 @@ export default function MovieBar({ movie }: { movie: MOVIE_QUERYResult }) {
           <ModalHeader className="mt-1 flex flex-row items-center justify-center text-2xl font-bold">
             {movie.filmName} - Trailer
           </ModalHeader>
-          <ModalBody className="mb-5">
+          <ModalBody className="mb-5 h-full w-full">
             <YouTubeEmbed
               videoid={movie.FraqmanLink}
               style="margin-right: auto; margin-left: auto; border-radius: 10px;"

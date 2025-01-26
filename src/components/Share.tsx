@@ -132,7 +132,6 @@ export default function Share({
         files: filesArray,
       };
       toast.promise(Promise.resolve(), {
-        // Change to Promise.resolve()
         loading: t("Share.imageBeingPrepared"),
         success: t("Share.pictureIsReady"),
         error: t("Share.anErrorOccurred"),

@@ -225,7 +225,7 @@ export type MOVIES_QUERYResult = Array<{
   releaseDate: number;
 }>;
 // Variable: MOVIE_QUERY
-// Query: *[_type=='Movie-studio' && slug.current==$slug]      {filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, imdbpuan, releaseDate, genre, description, _id, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]
+// Query: *[_type=='Movie-studio' && slug.current==$slug]       {filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, imdbpuan, releaseDate, genre, description, _id, directed, country, movieTime, imdbID, EnglishLink, EnglishSubtitleLink, FraqmanLink, TurkishLink, TurkishSubtitleLink, actors}[0]
 export type MOVIE_QUERYResult = {
   filmName: string;
   poster: string | null;

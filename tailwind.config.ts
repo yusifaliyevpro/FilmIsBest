@@ -11,8 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       textColor: {
-        light: "#FFFFFF", // light mod için metin rengi
-        dark: "#FFFFFF", // dark mod için metin rengi
+        light: "#FFFFFF",
+        dark: "#FFFFFF",
       },
       colors: {
         "gray-100": "#222831",
@@ -46,7 +46,7 @@ const config: Config = {
       themes: {
         dark: {},
         light: {
-          layout: {}, // light theme layout tokens
+          layout: {},
           colors: {
             foreground: "#FFFFFF",
           },
