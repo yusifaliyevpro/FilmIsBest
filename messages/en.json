@@ -68,7 +68,7 @@
     "stars": "Stars:",
     "category": "Category:",
     "director": "Director(s):",
-    "imdbScore": "IMDb Score:",
+    "imdbScore": "IMDb Score: ",
     "Sequels": {
       "name": "Series"
     },
