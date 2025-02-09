@@ -3,7 +3,7 @@ import { useFormValue, useClient } from "sanity";
 import { useState } from "react";
 import { apiVersion } from "../env";
 import { availableGenres } from "../lib/client";
-import { OMDB_API_KEY } from "@/lib/constants";
+import { getOMDB_Data } from "@/lib/actions";
 
 type OMDbData = {
   title: string;
@@ -32,21 +32,12 @@ export default function GetMovieData() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`,
-      );
-      if (!response.ok) throw new Error("OMDb API'den veri alınamadı!");
-
-      const data = await response.json();
+      const data = await getOMDB_Data(imdbID);
       if (data.Response === "False") {
         throw new Error(data.Error || "Film bulunamadı!");
       }
-      const genreList = (data.Genre as string)
-        .split(", ")
-        .map((genre: string) => genre.trim());
-      const validGenres = genreList.filter((genre: string) =>
-        availableGenres.includes(genre),
-      );
+      const genreList = (data.Genre as string).split(", ").map((genre: string) => genre.trim());
+      const validGenres = genreList.filter((genre: string) => availableGenres.includes(genre));
       const filmData: OMDbData = {
         title: data.Title.trim(),
         rating: parseFloat(data.imdbRating),
@@ -82,12 +73,7 @@ export default function GetMovieData() {
   return (
     <div className="relative my-0 flex w-full flex-row justify-end">
       <div className="gap-y-2y flex flex-col">
-        <Button
-          color="primary"
-          onPress={fetchFilmData}
-          className="font-bold"
-          isDisabled={loading}
-        >
+        <Button color="primary" onPress={fetchFilmData} className="font-bold" isDisabled={loading}>
           {loading ? "Yükleniyor..." : "Get Movie Data"}
         </Button>
         {error && <p className="text-red-500">{error}</p>}

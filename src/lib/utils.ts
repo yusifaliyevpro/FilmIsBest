@@ -1,3 +1,4 @@
+"use server";
 import { groq } from "next-sanity";
 import prisma from "./prisma";
 import { client } from "@/sanity/lib/client";
