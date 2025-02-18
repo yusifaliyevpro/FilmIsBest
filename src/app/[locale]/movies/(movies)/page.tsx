@@ -2,23 +2,15 @@ import { Motion } from "@/components/Motion";
 import Movies from "@/components/Movies";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
-import {
-  LoadingMovies,
-  LoadingPagination,
-  LoadingSearch,
-} from "@/components/SuspenseLayouts";
-import { routing } from "@/i18n/routing";
+import { LoadingMovies, LoadingPagination, LoadingSearch } from "@/components/SuspenseLayouts";
+import { Locales, locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getMovies } from "@/lib/utils";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }): Promise<Metadata> {
   setRequestLocale((await params).locale);
   const t = await getTranslations("MetaData.Movies");
   return {
@@ -26,9 +18,8 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `/movies`,
+      canonical: `/en/movies`,
       languages: {
-        en: `/en/movies`,
         "az-AZ": `/az/movies`,
         "tr-TR": `/tr/movies`,
       },
@@ -51,14 +42,10 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ locale }));
 }
 
-export default async function MoviesPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function MoviesPage({ params }: { params: Promise<{ locale: Locales }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 

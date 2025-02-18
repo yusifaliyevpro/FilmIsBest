@@ -1,9 +1,7 @@
 import { Motion } from "@/components/Motion";
-import { routing } from "@/i18n/routing";
-import { Locales } from "@/lib/constants";
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link, Locales, locales } from "@/i18n/routing";
 import React from "react";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { BiLogoMongodb } from "react-icons/bi";
@@ -12,11 +10,7 @@ import { GrToast } from "react-icons/gr";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locales }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }): Promise<Metadata> {
   setRequestLocale((await params).locale);
   const t = await getTranslations("MetaData.About");
   return {
@@ -50,14 +44,10 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ locale }));
 }
 
-export default async function About({
-  params,
-}: {
-  params: Promise<{ locale: Locales }>;
-}) {
+export default async function About({ params }: { params: Promise<{ locale: Locales }> }) {
   setRequestLocale((await params).locale);
   const t = await getTranslations("About");
   const texts: {
@@ -76,8 +66,7 @@ export default async function About({
     { t: "text3" },
     {
       t: "toolsIUsed",
-      className:
-        "mx-auto mt-4 w-fit text-center text-2xl font-bold drop-shadow-2xl",
+      className: "mx-auto mt-4 w-fit text-center text-2xl font-bold drop-shadow-2xl",
     },
   ];
   return (
@@ -89,11 +78,7 @@ export default async function About({
             key={index}
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
-            className={
-              text.className
-                ? text.className
-                : "flex flex-col text-base leading-relaxed"
-            }
+            className={text.className ? text.className : "flex flex-col text-base leading-relaxed"}
             transition={{
               type: "spring",
               stiffness: 100,
@@ -143,11 +128,7 @@ export default async function About({
             }}
           >
             {t(link.t as "text1")}{" "}
-            <Link
-              href={link.link}
-              className="text-blue-600 hover:text-blue-800"
-              target="_blank"
-            >
+            <Link href={link.link} className="text-blue-600 hover:text-blue-800" target="_blank">
               {link.linkText}
             </Link>
           </Motion>

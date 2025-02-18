@@ -3,12 +3,9 @@ import MovieBar from "@/components/MovieBar";
 import MovieInfo from "@/components/MovieInfo";
 import Sequels from "@/components/Sequels";
 import Share from "@/components/Share";
-import SuspenseButton, {
-  LoadingMovieBar,
-  LoadingSequel,
-  MovieInfoSuspense,
-} from "@/components/SuspenseLayouts";
-import { BASE_URL, Locales } from "@/lib/constants";
+import SuspenseButton, { LoadingMovieBar, LoadingSequel, MovieInfoSuspense } from "@/components/SuspenseLayouts";
+import { Locales } from "@/i18n/routing";
+import { BASE_URL } from "@/lib/constants";
 import { getMovie, getMovies } from "@/lib/utils";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -92,11 +89,7 @@ export async function generateStaticParams() {
   return staticParams;
 }
 
-export default async function Movie({
-  params,
-}: {
-  params: Promise<{ locale: Locales; slug: string }>;
-}) {
+export default async function Movie({ params }: { params: Promise<{ locale: Locales; slug: string }> }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);

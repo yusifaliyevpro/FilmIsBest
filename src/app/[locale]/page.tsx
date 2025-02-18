@@ -2,8 +2,8 @@ import AnimatedText from "@/components/AnimatedText";
 import LottieComponent from "@/components/LottieAnimation";
 import { Motion } from "@/components/Motion";
 import RecentlyMovies from "@/components/RecentlyMovies";
-import { routing } from "@/i18n/routing";
-import { BASE_URL, Locales } from "@/lib/constants";
+import { locales, Locales } from "@/i18n/routing";
+import { BASE_URL } from "@/lib/constants";
 import { getRecentMovies } from "@/lib/utils";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -11,11 +11,7 @@ import { Link } from "@/i18n/routing";
 import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locales }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }): Promise<Metadata> {
   setRequestLocale((await params).locale);
   const t = await getTranslations("MetaData.Home");
   return {
@@ -50,14 +46,10 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ locale }));
 }
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: Locales }>;
-}) {
+export default async function Home({ params }: { params: Promise<{ locale: Locales }> }) {
   setRequestLocale((await params).locale);
   const movies = await getRecentMovies();
   const t = await getTranslations("Home");
@@ -106,11 +98,7 @@ export default async function Home({
           <LottieComponent animationPath="/Movieanm.lottie" />
         </Motion>
       </div>
-      <AnimatedText
-        once
-        text={t("recentlyAdded")}
-        className="mt-72 w-full text-center text-3xl font-bold text-white"
-      />
+      <AnimatedText once text={t("recentlyAdded")} className="mt-72 w-full text-center text-3xl font-bold text-white" />
       <RecentlyMovies movies={movies} />
     </>
   );

@@ -1,15 +1,11 @@
 "use client";
-import { redirect } from "@/i18n/routing";
-import { Locales } from "@/lib/constants";
+import { Locales, redirect } from "@/i18n/routing";
 import { Avatar } from "@nextui-org/avatar";
 import { Select, SelectItem } from "@nextui-org/select";
 import { usePathname } from "next/navigation";
 
-export default function LanguageSwitcher({ locale }: { locale: string }) {
-  const pathname = usePathname()
-    .replace("az", "")
-    .replace("en", "")
-    .replace("tr", "");
+export default function LanguageSwitcher({ locale }: { locale: Locales }) {
+  const pathname = usePathname().replace("az", "").replace("en", "").replace("tr", "");
   const changeLocale = (lang: Locales) => {
     redirect({ locale: lang, href: pathname });
   };
@@ -51,11 +47,7 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
         <SelectItem
           key={language.key}
           startContent={
-            <Avatar
-              alt={language.lang}
-              className="h-6 w-6"
-              src={`https://flagcdn.com/${language.flag}.svg`}
-            />
+            <Avatar alt={language.lang} className="h-6 w-6" src={`https://flagcdn.com/${language.flag}.svg`} />
           }
         >
           {language.key.toUpperCase()}

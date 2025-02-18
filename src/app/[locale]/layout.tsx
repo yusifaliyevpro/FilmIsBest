@@ -3,14 +3,14 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileNavbar from "@/components/MobileNavbar";
 import { Providers } from "@/components/Providers";
-import { BASE_URL, Locales } from "@/lib/constants";
+import { BASE_URL } from "@/lib/constants";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import { locales, Locales } from "@/i18n/routing";
 import "swiper/css";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +22,7 @@ export default async function RootLayout({
   params: Promise<{ locale: Locales }>;
 }) {
   const { locale } = await params;
-  if (!routing.locales.includes(locale)) {
+  if (!locales.includes(locale)) {
     notFound();
   }
   setRequestLocale(locale);

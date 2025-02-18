@@ -1,8 +1,7 @@
 "use client";
 
-import { Locales } from "@/lib/constants";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link, Locales } from "@/i18n/routing";
 import { usePathname } from "next/navigation";
 import { FaHome } from "react-icons/fa";
 import { MdMovieFilter } from "react-icons/md";

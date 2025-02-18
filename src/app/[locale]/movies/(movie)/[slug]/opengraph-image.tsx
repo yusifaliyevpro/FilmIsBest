@@ -1,3 +1,4 @@
+import { Locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getMovie } from "@/lib/utils";
 import { setRequestLocale } from "next-intl/server";
@@ -10,11 +11,7 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}) {
+export default async function Image({ params }: { params: Promise<{ locale: Locales; slug: string }> }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);
@@ -33,9 +30,7 @@ export default async function Image({
             alt={movie.filmName || ""}
           />
           <div tw="relative w-[600px] flex flex-col mr-10 items-center justify-around text-xl font-bold">
-            <h1 tw="relative flex h-auto w-auto font-bold text-5xl text-center">
-              {movie.filmName}
-            </h1>
+            <h1 tw="relative flex h-auto w-auto font-bold text-5xl text-center">{movie.filmName}</h1>
             <div tw="relative flex bg-blue-600 p-7 text-3xl rounded-[10px] text-white font-bold">
               İndi İzləməyə Başla!
             </div>

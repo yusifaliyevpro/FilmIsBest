@@ -1,7 +1,13 @@
-import { routing } from "./i18n/routing";
+import { NextRequest } from "next/server";
+import { locales, routing } from "./i18n/routing";
 import createMiddleware from "next-intl/middleware";
-export default createMiddleware(routing);
 
-export const config = {
-  matcher: ["/", "/(az|en|tr)/:path*"],
-};
+const handleI18nRouting = createMiddleware(routing);
+
+export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const shouldHandle = pathname === "/" || new RegExp(`^/(${locales.join("|")})/:path`).test(request.nextUrl.pathname);
+  if (!shouldHandle) return;
+
+  return handleI18nRouting(request);
+}
