@@ -46,7 +46,7 @@ export async function getSequel(movieID: string) {
   const data = await client.fetch<SEQUEL_QUERYResult>(
     SEQUEL_QUERY,
     { movieID },
-    { next: { revalidate: 3600 }, cache: "force-cache" },
+    { next: { revalidate: 3600 * 24 }, cache: "force-cache" },
   );
   return data;
 }
