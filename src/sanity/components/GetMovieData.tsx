@@ -1,9 +1,9 @@
-import { Button } from "@nextui-org/react";
-import { useFormValue, useClient } from "sanity";
-import { useState } from "react";
 import { apiVersion } from "../env";
 import { availableGenres } from "../lib/client";
 import { getOMDB_Data } from "@/lib/actions";
+import { Button } from "@heroui/button";
+import { useState } from "react";
+import { useFormValue, useClient } from "sanity";
 
 type OMDbData = {
   title: string;
@@ -62,9 +62,9 @@ export default function GetMovieData() {
         })
         .setIfMissing({ description: "" })
         .commit();
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message || "Bir hata oluştu.");
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) setError(error.message || "Bir hata oluştu.");
     } finally {
       setLoading(false);
     }
@@ -73,7 +73,7 @@ export default function GetMovieData() {
   return (
     <div className="relative my-0 flex w-full flex-row justify-end">
       <div className="gap-y-2y flex flex-col">
-        <Button color="primary" onPress={fetchFilmData} className="font-bold" isDisabled={loading}>
+        <Button className="font-bold" color="primary" isDisabled={loading} onPress={fetchFilmData}>
           {loading ? "Yükleniyor..." : "Get Movie Data"}
         </Button>
         {error && <p className="text-red-500">{error}</p>}

@@ -1,45 +1,26 @@
 "use client";
 
 import { BASE_URL } from "../lib/constants";
-import { Button } from "@nextui-org/button";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  useDisclosure,
-} from "@nextui-org/modal";
-import { Snippet } from "@nextui-org/snippet";
+import { Locales } from "@/i18n/routing";
+import type { MOVIE_QUERYResult } from "@/sanity/types";
+import { Button } from "@heroui/button";
+import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure } from "@heroui/modal";
+import { Snippet } from "@heroui/snippet";
+import { addToast, closeAll } from "@heroui/toast";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { isMobileOnly } from "react-device-detect";
-import { toast } from "react-hot-toast";
-import {
-  BiDotsVerticalRounded,
-  BiImageAlt,
-  BiLogoTelegram,
-  BiLogoWhatsapp,
-  BiSolidShareAlt,
-} from "react-icons/bi";
+import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
-import { MOVIE_QUERYResult } from "../../sanity.types";
-import { useTranslations } from "next-intl";
 
-export default function Share({
-  movie,
-  locale,
-}: {
-  movie: MOVIE_QUERYResult;
-  locale: "az" | "tr" | "en";
-}) {
+export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; locale: Locales }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("Movie");
   if (!movie) return null;
-  const translatedGenres = movie.genre.map(
-    (genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre,
-  );
+  const translatedGenres = movie.genre.map((genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre);
 
   const whatsappBody =
     `🍿 *${t("movieName")}* ` +
@@ -96,7 +77,8 @@ export default function Share({
       router.push(`tg://msg?text=${encodeURIComponent(telegramBody)}`);
     } else if (platform === "copy") {
       navigator.clipboard.writeText(copyBody);
-      toast.success(t("Share.copied"));
+      closeAll();
+      addToast({ title: t("Share.copied"), color: "success" });
       if (navigator.vibrate) {
         navigator.vibrate(200);
       }
@@ -105,9 +87,8 @@ export default function Share({
         title: `FilmIsBest | ${movie.filmName}`,
         text: copyBody,
       };
-      toast.loading(t("Share.inProgress"), {
-        duration: 1000,
-      });
+      closeAll();
+      addToast({ title: t("Share.inProgress"), timeout: 1000 });
       navigator.share(shareData);
     }
   };
@@ -131,33 +112,38 @@ export default function Share({
         title: `FilmIsBest | ${movie?.filmName}`,
         files: filesArray,
       };
-      toast.promise(Promise.resolve(), {
-        loading: t("Share.imageBeingPrepared"),
-        success: t("Share.pictureIsReady"),
-        error: t("Share.anErrorOccurred"),
-      });
-      navigator.share(shareData);
+      closeAll();
+      addToast({ title: t("Share.imageBeingPrepared") });
+      return navigator
+        .share(shareData)
+        .then(() => {
+          closeAll();
+          addToast({ title: t("Share.pictureIsReady"), color: "success" });
+        })
+        .catch(() => {
+          throw new Error(t("Share.anErrorOccurred"));
+        });
     } catch (error) {
-      toast.error((error as Error).message);
+      addToast({ title: (error as Error).message, color: "danger" });
     }
   }
 
   return (
     <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
       <Button
-        size="lg"
-        color="primary"
         className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
+        color="primary"
+        size="lg"
         onPress={onOpen}
       >
         <BiSolidShareAlt className="mt-1 text-3xl" />
         <p>{t("Share.share")}</p>
       </Button>
       <Modal
-        isOpen={isOpen}
-        classNames={{ base: "bg-gray-200" }}
-        placement="center"
         className="light:text-white dark:text-white"
+        classNames={{ base: "bg-gray-200" }}
+        isOpen={isOpen}
+        placement="center"
         onOpenChange={onOpenChange}
       >
         <ModalContent>
@@ -216,11 +202,7 @@ export default function Share({
                   )}
                 </div>
                 <div className="mx-auto">
-                  <Snippet
-                    symbol=""
-                    variant="bordered"
-                    codeString={`${BASE_URL}/${locale}/movies/${movie.slug}`}
-                  >
+                  <Snippet codeString={`${BASE_URL}/${locale}/movies/${movie.slug}`} symbol="" variant="bordered">
                     <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
                       {`${BASE_URL}/${locale}/movies/${movie.slug}`}
                     </div>

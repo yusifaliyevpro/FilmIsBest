@@ -1,18 +1,12 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-} from "@nextui-org/navbar";
-import { Link } from "@/i18n/routing";
+import { Link, Locales } from "@/i18n/routing";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { BiSolidMovie } from "react-icons/bi";
 
-type Locales = "az" | "en" | "tr";
 export default function Header({ locale }: { locale: Locales }) {
   const pathname = usePathname();
   const t = useTranslations("Header");
@@ -40,10 +34,7 @@ export default function Header({ locale }: { locale: Locales }) {
     >
       <NavbarContent>
         <NavbarBrand>
-          <Link
-            href={`/`}
-            className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold"
-          >
+          <Link className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold" href={`/`}>
             <BiSolidMovie className="text-3xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>
           </Link>
@@ -51,30 +42,17 @@ export default function Header({ locale }: { locale: Locales }) {
       </NavbarContent>
       <NavbarContent className="hidden gap-12 sm:flex" justify="center">
         <NavbarItem isActive={pathname === `/${locale}`}>
-          <Link
-            color="foreground"
-            className="hover: text-lg text-gray-300 hover:text-white"
-            href={`/`}
-            aria-current="page"
-          >
+          <Link aria-current="page" className="hover: text-lg text-gray-300 hover:text-white" color="foreground" href={`/`}>
             {t("homePage")}
           </Link>
         </NavbarItem>
         <NavbarItem isActive={pathname === `/${locale}/movies`}>
-          <Link
-            href={`/movies`}
-            className="text-lg text-gray-300 hover:text-white"
-            aria-current="page"
-          >
+          <Link aria-current="page" className="text-lg text-gray-300 hover:text-white" href={`/movies`}>
             {t("movies")}
           </Link>
         </NavbarItem>
         <NavbarItem isActive={pathname === `/${locale}/about`}>
-          <Link
-            href={`/about`}
-            className="text-lg text-gray-300 hover:text-white"
-            aria-current="page"
-          >
+          <Link aria-current="page" className="text-lg text-gray-300 hover:text-white" href={`/about`}>
             {t("about")}
           </Link>
         </NavbarItem>

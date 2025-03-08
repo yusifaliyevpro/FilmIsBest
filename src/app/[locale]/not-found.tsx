@@ -26,9 +26,7 @@ export default async function NotFoundPage() {
 
   return (
     <main className="relative flex min-h-svh w-full flex-col items-center justify-center">
-      <h1 className="relative mx-7 text-center text-2xl font-bold sm:text-3xl">
-        {t("errorMessage")}
-      </h1>
+      <h1 className="relative mx-7 text-center text-2xl font-bold sm:text-3xl">{t("errorMessage")}</h1>
     </main>
   );
 }

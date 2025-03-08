@@ -3,15 +3,15 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileNavbar from "@/components/MobileNavbar";
 import { Providers } from "@/components/Providers";
+import { locales, Locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { Inter } from "next/font/google";
-import { ReactNode } from "react";
-import { Toaster } from "react-hot-toast";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
-import { locales, Locales } from "@/i18n/routing";
+import { ReactNode } from "react";
 import "swiper/css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
@@ -22,34 +22,15 @@ export default async function RootLayout({
   params: Promise<{ locale: Locales }>;
 }) {
   const { locale } = await params;
-  if (!locales.includes(locale)) {
-    notFound();
-  }
+  if (!locales.includes(locale)) notFound();
   setRequestLocale(locale);
   const messages = await getMessages();
   return (
-    <html lang={locale} className="min-h-screen bg-gray-100 text-white dark">
+    <html className="min-h-screen bg-gray-100 text-white dark" lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <Header locale={locale} />
-            <Toaster
-              toastOptions={{
-                className: "",
-                style: {
-                  borderRadius: "30px",
-                  border: "2px solid #007bff",
-                  color: "#fff",
-                  background: "#191e25",
-                },
-                iconTheme: {
-                  primary: "#007bff",
-                  secondary: "#FFFAEE",
-                },
-              }}
-              position="bottom-right"
-              reverseOrder={false}
-            />
             {children}
             <MobileNavbar locale={locale} />
             <Footer />

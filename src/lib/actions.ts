@@ -8,13 +8,7 @@ export async function getOMDB_Data(imdbID: string) {
   return await response.json();
 }
 
-export async function newMovieRequest(
-  fullName: string,
-  email: string,
-  added: boolean,
-  movieName: string,
-  createdAt?: Date,
-) {
+export async function newMovieRequest(fullName: string, email: string, added: boolean, movieName: string, createdAt?: Date) {
   try {
     const res = await prisma?.movieRequests.create({
       data: { fullName, email, added, movieName, createdAt },

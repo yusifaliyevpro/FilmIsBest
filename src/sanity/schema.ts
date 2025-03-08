@@ -1,6 +1,4 @@
-import movieSchema from "./movie";
-import sequelSchema from "./sequel";
+import movieSchema from "./schemaTypes/movie";
+import sequelSchema from "./schemaTypes/sequel";
 
-export const schema = {
-  types: [movieSchema, sequelSchema],
-};
+export const schema = { types: [movieSchema, sequelSchema] };

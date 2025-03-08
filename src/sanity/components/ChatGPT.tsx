@@ -1,6 +1,6 @@
-import { Button } from "@nextui-org/react";
-import copy from "copy-to-clipboard";
 import { Link } from "@/i18n/routing";
+import { Button } from "@heroui/button";
+import copy from "copy-to-clipboard";
 import { useFormValue } from "sanity";
 
 export default function GenerateDescription() {
@@ -10,7 +10,7 @@ export default function GenerateDescription() {
   return (
     <div className="relative my-0 flex w-full flex-row justify-end">
       <Link href={link} target="_blank">
-        <Button onPress={() => copy(filmName + " üçündə")} color="primary">
+        <Button color="primary" onPress={() => copy(filmName + " üçündə")}>
           Generate Description
         </Button>
       </Link>

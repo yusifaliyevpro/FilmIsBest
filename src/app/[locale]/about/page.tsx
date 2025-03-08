@@ -1,7 +1,7 @@
-import { Motion } from "@/components/Motion";
+import { Link, Locales, locales } from "@/i18n/routing";
+import * as motion from "motion/react-client";
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link, Locales, locales } from "@/i18n/routing";
 import React from "react";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { BiLogoMongodb } from "react-icons/bi";
@@ -9,6 +9,17 @@ import { FaReact } from "react-icons/fa";
 import { GrToast } from "react-icons/gr";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
+
+const ulVariants = { hidden: {}, visible: { transition: { staggerChildren: 0.5 } } };
+const textVariants = {
+  hidden: { opacity: 0, y: -30 },
+  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, duration: 0.5 } },
+};
+const olVariants = { hidden: {}, visible: { transition: { staggerChildren: 0.3, delayChildren: 2 } } };
+const itemVariants = {
+  hidden: { scale: 0, opacity: 0 },
+  visible: { scale: 1, opacity: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }): Promise<Metadata> {
   setRequestLocale((await params).locale);
@@ -71,55 +82,48 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
   ];
   return (
     <section className="relative mx-4 flex flex-wrap items-center justify-center text-white sm:mx-0">
-      <div className="relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12">
-        {texts.map((text, index) => (
-          <Motion
-            type={text.type ? text.type : "p"}
-            key={index}
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
+      <motion.ul
+        className="relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12"
+        initial="hidden"
+        variants={ulVariants}
+        viewport={{ once: true }}
+        whileInView="visible"
+      >
+        {texts.map((text, i) => (
+          <motion.p
+            key={i}
             className={text.className ? text.className : "flex flex-col text-base leading-relaxed"}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              delay: 0.5 + index++ * 0.5,
-              duration: 0.5,
-            }}
+            variants={textVariants}
           >
             {t(text.t as "text1")}
-          </Motion>
+          </motion.p>
         ))}
-        <div className="tools relative my-8 flex select-none flex-wrap items-center justify-center gap-x-8 gap-y-8 sm:flex-row">
-          {tools.map((tool, index) => (
-            <Motion
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              key={index}
-              transition={{
-                type: "spring",
-                duration: 0.3,
-                delay: 2.7 + index++ * 0.3,
-                stiffness: 80,
-              }}
-            >
+        <motion.ol
+          className="tools relative my-8 flex select-none flex-wrap items-center justify-center gap-x-8 gap-y-8 sm:flex-row"
+          initial="hidden"
+          variants={olVariants}
+          viewport={{ once: true }}
+          whileInView="visible"
+        >
+          {tools.map((tool, i) => (
+            <motion.li key={i} variants={itemVariants}>
               <Link
-                target="_blank"
                 className="flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 shadow-large drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
+                target="_blank"
               >
                 <p>{tool.name}</p>
                 {tool.icon && tool.icon}
               </Link>
-            </Motion>
+            </motion.li>
           ))}
-        </div>
+        </motion.ol>
         {links.map((link, index) => (
-          <Motion
-            type="p"
+          <motion.p
             key={index}
-            initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center lg:text-left"
+            initial={{ opacity: 0, y: -30 }}
             transition={{
               type: "spring",
               stiffness: 100,
@@ -128,12 +132,12 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
             }}
           >
             {t(link.t as "text1")}{" "}
-            <Link href={link.link} className="text-blue-600 hover:text-blue-800" target="_blank">
+            <Link className="text-blue-600 hover:text-blue-800" href={link.link} target="_blank">
               {link.linkText}
             </Link>
-          </Motion>
+          </motion.p>
         ))}
-      </div>
+      </motion.ul>
     </section>
   );
 }

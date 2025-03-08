@@ -3,15 +3,7 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
-export default function AnimatedText({
-  text,
-  className,
-  once,
-}: {
-  text: string;
-  className: string;
-  once: boolean;
-}) {
+export default function AnimatedText({ text, className, once }: { text: string; className: string; once: boolean }) {
   const defaultAnimations = {
     hidden: {
       opacity: 0,
@@ -34,19 +26,15 @@ export default function AnimatedText({
       <span className="sr-only">{text}</span>
       <motion.span
         ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        transition={{ staggerChildren: 0.1 }}
         aria-hidden
+        animate={isInView ? "visible" : "hidden"}
+        initial="hidden"
+        transition={{ staggerChildren: 0.1 }}
       >
         {text.split(" ").map((word, index) => (
-          <span className="inline-block" key={index}>
+          <span key={index} className="inline-block">
             {word.split("").map((char, i) => (
-              <motion.span
-                key={i}
-                className="inline-block"
-                variants={defaultAnimations}
-              >
+              <motion.span key={i} className="inline-block" variants={defaultAnimations}>
                 {char}
               </motion.span>
             ))}

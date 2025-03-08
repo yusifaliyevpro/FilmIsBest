@@ -10,23 +10,16 @@ export async function GET(request: NextRequest) {
 
     // ?title=<title>
     const hasTitle = searchParams.has("title");
-    const title = hasTitle
-      ? searchParams.get("title")?.slice(0, 100)
-      : "Default title";
-    const interSemiBold = fetch(
-      new URL("./../../../../public/fonts/Inter-Bold.ttf", import.meta.url),
-    ).then((res) => res.arrayBuffer());
+    const title = hasTitle ? searchParams.get("title")?.slice(0, 100) : "Default title";
+    const interSemiBold = fetch(new URL("./../../../../public/fonts/Inter-Bold.ttf", import.meta.url)).then((res) =>
+      res.arrayBuffer(),
+    );
 
     return new ImageResponse(
       (
         <div tw="relative flex flex-col w-full bg-white h-full items-center justify-start">
           <div tw="relative flex inset-0 justify-center items-start mt-28">
-            <img
-              src={`${BASE_URL}/icon.png`}
-              height={550}
-              width={550}
-              alt="FilmIsBest Logo"
-            />
+            <img alt="FilmIsBest Logo" height={550} src={`${BASE_URL}/icon.png`} width={550} />
             <div tw="absolute flex inset-0" />
           </div>
           <div tw="relative flex items-start justify-center mt-10 text-black">
@@ -49,8 +42,6 @@ export async function GET(request: NextRequest) {
     );
   } catch (e) {
     console.log(e);
-    return new Response(`Failed to generate the image`, {
-      status: 500,
-    });
+    return new Response(`Failed to generate the image`, { status: 500 });
   }
 }

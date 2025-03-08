@@ -1,5 +1,5 @@
-import { Button } from "@nextui-org/react";
 import { Link } from "@/i18n/routing";
+import { Button } from "@heroui/button";
 import { useFormValue } from "sanity";
 
 export default function SearchPoster() {

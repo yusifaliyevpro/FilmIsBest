@@ -1,18 +1,13 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/button";
 import { useRouter } from "next/navigation";
 
 export default function RefreshButton() {
   const router = useRouter();
   const refresh = () => router.refresh();
   return (
-    <Button
-      onPress={refresh}
-      color="primary"
-      size="lg"
-      className="w-[7rem] font-bold"
-    >
+    <Button className="w-[7rem] font-bold" color="primary" size="lg" onPress={refresh}>
       Refresh
     </Button>
   );

@@ -1,16 +1,9 @@
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { BiLoaderAlt } from "react-icons/bi";
 
-export default function SuspenseButton({
-  color,
-}: {
-  color: "primary" | "default";
-}) {
+export default function SuspenseButton({ color }: { color: "primary" | "default" }) {
   return (
-    <Button
-      color={color}
-      className={`text-md flex h-[2.5rem] w-[6.9rem] font-bold ${color}`}
-    >
+    <Button className={`text-md flex h-[2.5rem] w-[6.9rem] font-bold ${color}`} color={color}>
       <BiLoaderAlt className="animate-spin text-2xl" />
     </Button>
   );
@@ -25,17 +18,13 @@ export function LoadingPagination() {
 }
 
 export function LoadingSearch() {
-  return (
-    <div className="mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>
-  );
+  return <div className="mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-200 sm:w-[500px]"></div>;
 }
 export function LoadingSequel() {
   return (
     <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-[836px]">
       <div className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">
-        <p className="w-fit animate-pulse rounded-10 bg-gray-100 text-gray-100">
-          Avengers Seriyası
-        </p>
+        <p className="w-fit animate-pulse rounded-10 bg-gray-100 text-gray-100">Avengers Seriyası</p>
       </div>
       <div className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
         {Array(4)
@@ -110,32 +99,22 @@ export function MovieInfoSuspense() {
           </span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
-          Kateqoriya:{" "}
-          <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
-            Lorem ipsum dolor sit amet
-          </span>
+          Kateqoriya: <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">Lorem ipsum dolor sit amet</span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
-          Rejissor(lar):{" "}
-          <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
-            Lorem İpsum
-          </span>
+          Rejissor(lar): <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">Lorem İpsum</span>
         </li>
         <div className="relative mt-4 flex w-fit flex-row items-center gap-4">
           <div className="h-[43px] w-[43px] animate-pulse rounded-10 bg-gray-200"></div>
-          <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
-            5.5
-          </span>
+          <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">5.5</span>
         </div>
         <li className="mt-4 w-auto font-bold text-slate-400 sm:w-fit">
           Filmin Təsviri:{" "}
           <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-            volutpat ullamcor urna a aliquam. Pellentesque habitant morbi
-            tristique senectus et alsaune bornda debe alesuada fames ac turpis
-            egestas. Praesent et urna aliquet, dapibus diam ac, faucibus elit.
-            Vivamus id tortor risus. Suspendisse potenti. Nullam elementum ex id
-            augue varius eros.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat ullamcor urna a aliquam. Pellentesque
+            habitant morbi tristique senectus et alsaune bornda debe alesuada fames ac turpis egestas. Praesent et urna aliquet,
+            dapibus diam ac, faucibus elit. Vivamus id tortor risus. Suspendisse potenti. Nullam elementum ex id augue varius
+            eros.
           </span>
         </li>
 
@@ -143,23 +122,17 @@ export function MovieInfoSuspense() {
           <li className="box-border text-left font-bold text-slate-400 sm:px-12">
             Vaxt
             <br />
-            <span className="animate-pulse text-nowrap rounded-10 bg-gray-200 text-gray-200">
-              120 dəq
-            </span>
+            <span className="animate-pulse text-nowrap rounded-10 bg-gray-200 text-gray-200">120 dəq</span>
           </li>
           <li className="box-border w-max text-left font-bold text-slate-400 sm:px-12">
             İl
             <br />
-            <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
-              2024
-            </span>
+            <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">2024</span>
           </li>
           <li className="box-border w-max text-balance text-left font-bold text-slate-400 sm:px-8">
             Ölkə
             <br />
-            <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
-              Birləşmiş Krallıq
-            </span>
+            <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">Birləşmiş Krallıq</span>
           </li>
         </div>
       </div>

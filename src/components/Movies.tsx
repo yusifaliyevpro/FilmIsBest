@@ -1,12 +1,13 @@
 "use client";
-import { Motion } from "./Motion";
-import useStore from "@/lib/store";
-import { AnimatePresence } from "motion/react";
-import Fuse from "fuse.js";
-import { Link } from "@/i18n/routing";
-import { useEffect } from "react";
-import { MOVIES_QUERYResult } from "../../sanity.types";
+
 import SanityImage from "./SanityImage";
+import { Link } from "@/i18n/routing";
+import useStore from "@/lib/store";
+import type { MOVIES_QUERYResult } from "@/sanity/types";
+import Fuse from "fuse.js";
+import { AnimatePresence } from "motion/react";
+import * as motion from "motion/react-client";
+import { useEffect } from "react";
 
 export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
   const search = useStore((state) => state.search);
@@ -48,35 +49,35 @@ export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
     <div className="justify-content-center mx-2.5 flex min-h-[60dvh] flex-wrap items-center justify-center gap-x-10">
       <AnimatePresence mode="wait">
         {renderedMovies.map((movie) => (
-          <Motion
+          <motion.div
             key={movie._id}
-            initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 100 }}
             transition={{
               duration: 0.3,
               ease: "easeOut",
             }}
           >
-            <Motion
+            <motion.div
               initial={{ scale: 1 }}
-              whileHover={{ scale: 1.08 }}
               transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
+              whileHover={{ scale: 1.08 }}
             >
               <Link
-                href={`movies/${movie.slug}`}
                 className="justify-content-center relative mt-10 inline-block min-h-10 w-[260px] select-none items-center justify-center rounded-xl bg-gray-200 text-center"
+                href={`movies/${movie.slug}`}
               >
                 <div>
                   <div className="relative">
                     <SanityImage
-                      src={movie.poster as string}
                       alt={`${movie.filmName} movie poster`}
-                      width={260}
-                      height={380}
-                      placeholder="blur"
                       blurDataURL={movie.posterlqip as string}
                       className="h-[380px] rounded-10"
+                      height={380}
+                      placeholder="blur"
+                      src={movie.poster as string}
+                      width={260}
                     />
                     <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">
                       <div className="rounded-3xl bg-gray-200 p-[3px] text-center text-xs font-bold text-white opacity-80">
@@ -97,8 +98,8 @@ export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
                   </div>
                 </div>
               </Link>
-            </Motion>
-          </Motion>
+            </motion.div>
+          </motion.div>
         ))}
       </AnimatePresence>
     </div>

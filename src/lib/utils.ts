@@ -1,13 +1,9 @@
 "use server";
-import { groq } from "next-sanity";
+
 import prisma from "./prisma";
 import { client } from "@/sanity/lib/client";
-import {
-  RECENT_MOVIES_QUERYResult,
-  MOVIES_QUERYResult,
-  SEQUEL_QUERYResult,
-  MOVIE_QUERYResult,
-} from "./../../sanity.types";
+import type { RECENT_MOVIES_QUERYResult, MOVIES_QUERYResult, SEQUEL_QUERYResult, MOVIE_QUERYResult } from "@/sanity/types";
+import { groq } from "next-sanity";
 
 export async function getRecentMovies() {
   const RECENT_MOVIES_QUERY = groq`*[_type=='Movie-studio']|order(_createdAt desc)
@@ -22,11 +18,7 @@ export async function getRecentMovies() {
 
 export async function getMovies() {
   const MOVIES_QUERY = groq`*[_type=='Movie-studio']|order(_createdAt desc){filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, _id, imdbpuan,_updatedAt, imdbID, releaseDate}`;
-  const data = await client.fetch<MOVIES_QUERYResult>(
-    MOVIES_QUERY,
-    {},
-    { next: { revalidate: 3600 }, cache: "force-cache" },
-  );
+  const data = await client.fetch<MOVIES_QUERYResult>(MOVIES_QUERY, {}, { next: { revalidate: 3600 }, cache: "force-cache" });
   return data;
 }
 
@@ -36,7 +28,7 @@ export async function getMovie(slug: string) {
   const data = await client.fetch<MOVIE_QUERYResult>(
     MOVIE_QUERY,
     { slug },
-    { next: { revalidate: 3600 }, cache: "force-cache" },
+    { next: { revalidate: 3600 * 24 }, cache: "force-cache" },
   );
   return data;
 }

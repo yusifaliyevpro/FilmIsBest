@@ -1,8 +1,8 @@
 "use client";
 
 import { updateMovieRequest } from "@/lib/actions";
+import { addToast } from "@heroui/toast";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import { SiTicktick } from "react-icons/si";
 
 export function UpdateButton({ id, added }: { id: string; added: boolean }) {
@@ -11,20 +11,20 @@ export function UpdateButton({ id, added }: { id: string; added: boolean }) {
     try {
       const { res, e } = await updateMovieRequest(id, added);
       if (res && !e) {
-        toast.success("Uğurla Güncəlləndi");
+        addToast({ title: "Uğurla Güncəlləndi", color: "success" });
         router.refresh();
       } else {
         throw new Error("Failed to Update");
       }
     } catch (err) {
       console.log(err);
-      toast.error("Güncəllənən zaman problem yaşandı");
+      addToast({ title: "Güncəllənən zaman problem yaşandı", color: "danger" });
     }
   };
   return (
     <SiTicktick
-      onClick={UpdateRequest}
       className={`cursor-pointer text-2xl ${!added ? "text-red-500 hover:text-red-600" : "text-blue-500 hover:text-blue-700"}`}
+      onClick={UpdateRequest}
     />
   );
 }

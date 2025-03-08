@@ -1,4 +1,3 @@
-import { Motion } from "@/components/Motion";
 import Movies from "@/components/Movies";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
@@ -6,6 +5,7 @@ import { LoadingMovies, LoadingPagination, LoadingSearch } from "@/components/Su
 import { Locales, locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getMovies } from "@/lib/utils";
+import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -61,9 +61,9 @@ export default async function MoviesPage({ params }: { params: Promise<{ locale:
           <PaginationUI count={count} />
         </Suspense>
       </div>
-      <Motion
-        initial={{ y: 600 }}
+      <motion.div
         animate={{ y: 0 }}
+        initial={{ y: 600 }}
         transition={{
           duration: 1.2,
           type: "spring",
@@ -73,7 +73,7 @@ export default async function MoviesPage({ params }: { params: Promise<{ locale:
         <Suspense fallback={<LoadingMovies />}>
           <Movies movies={movies} />
         </Suspense>
-      </Motion>
+      </motion.div>
     </section>
   );
 }

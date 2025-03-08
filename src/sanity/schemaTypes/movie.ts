@@ -1,8 +1,8 @@
+import GenerateDescription from "@/sanity/components/ChatGPT";
+import GetMovieData from "@/sanity/components/GetMovieData";
+import SearchOnYoutube from "@/sanity/components/SearchOnYoutube";
+import SearchPoster from "@/sanity/components/SearchPoster";
 import { defineArrayMember, defineField } from "sanity";
-import GenerateDescription from "./components/ChatGPT";
-import SearchOnYoutube from "./components/SearchOnYoutube";
-import SearchPoster from "./components/SearchPoster";
-import GetMovieData from "./components/GetMovieData";
 
 const movieSchema = defineField({
   name: "Movie-studio",
@@ -56,8 +56,7 @@ const movieSchema = defineField({
       name: "releaseDate",
       title: "Release Date",
       type: "number",
-      validation: (rule) =>
-        rule.min(1895).max(new Date().getFullYear()).required(),
+      validation: (rule) => rule.min(1895).max(new Date().getFullYear()).required(),
     }),
     defineField({
       name: "directed",

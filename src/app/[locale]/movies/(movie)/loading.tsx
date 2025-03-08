@@ -17,16 +17,10 @@ export default function Loading() {
         <div className="relative mx-16 flex h-auto w-auto animate-pulse items-start justify-between justify-items-start rounded-10 bg-gray-200 sm:mx-0 sm:h-76 sm:w-60"></div>
         <div className="relative mx-auto w-auto list-none rounded-10 tracking-normal sm:ml-5 sm:w-105">
           <li className="mt-4 w-fit animate-pulse rounded-10 bg-gray-200 font-bold text-gray-200">
-            Filmin Adı:{" "}
-            <span className="">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-            </span>
+            Filmin Adı: <span className="">Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
           </li>
           <li className="mt-4 w-fit animate-pulse rounded-10 bg-gray-200 font-bold text-gray-200">
-            Ulduzlar:{" "}
-            <span className="">
-              Lorem ipsum dolor sit amet, consectetur adipiscing
-            </span>
+            Ulduzlar: <span className="">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
           </li>
           <li className="mt-4 w-fit animate-pulse rounded-10 bg-gray-200 font-bold text-gray-200">
             Kateqoriya: <span className="">Lorem ipsum dolor sit amet</span>
@@ -41,12 +35,10 @@ export default function Loading() {
           <li className="mt-4 w-auto animate-pulse rounded-10 bg-gray-200 font-bold text-gray-200 sm:w-fit">
             Filmin Təsviri:{" "}
             <span className="">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              volutpat ullamcor urna a aliquam. Pellentesque habitant morbi
-              tristique senectus et alsaune bornda debe alesuada fames ac turpis
-              egestas. Praesent et urna aliquet, dapibus diam ac, faucibus elit.
-              Vivamus id tortor risus. Suspendisse potenti. Nullam elementum ex
-              id augue varius eros.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat ullamcor urna a aliquam. Pellentesque
+              habitant morbi tristique senectus et alsaune bornda debe alesuada fames ac turpis egestas. Praesent et urna aliquet,
+              dapibus diam ac, faucibus elit. Vivamus id tortor risus. Suspendisse potenti. Nullam elementum ex id augue varius
+              eros.
             </span>
           </li>
 

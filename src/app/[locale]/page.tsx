@@ -1,13 +1,13 @@
 import AnimatedText from "@/components/AnimatedText";
 import LottieComponent from "@/components/LottieAnimation";
-import { Motion } from "@/components/Motion";
 import RecentlyMovies from "@/components/RecentlyMovies";
 import { locales, Locales } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getRecentMovies } from "@/lib/utils";
+import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/routing";
 import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
@@ -56,9 +56,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   return (
     <>
       <div className="relative mt-8 flex flex-col items-center justify-between pl-20 pr-20 text-white lg:flex-row">
-        <Motion
-          initial={isMobile ?? { y: 30, opacity: 0.1 }}
+        <motion.div
           animate={{ y: 0, opacity: 1 }}
+          initial={isMobile ?? { y: 30, opacity: 0.1 }}
           transition={{ type: "spring", stiffness: 120 }}
         >
           <>
@@ -69,9 +69,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               </p>
             </h1>
             <div className="relative flex flex-row items-center justify-center gap-x-8">
-              <Motion
-                initial={{ scale: 1 }}
+              <motion.div
                 animate={{ scale: [1, 1.1, 1, 0.9, 1] }}
+                initial={{ scale: 1 }}
                 transition={{
                   repeat: Infinity,
                   duration: 0.8,
@@ -80,25 +80,25 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 }}
               >
                 <Link
-                  href={"/movies"}
                   className="relative mt-7 flex w-fit select-none items-center rounded-[15px] bg-blue-600 p-3 text-center text-2xl font-bold hover:bg-blue-700"
+                  href={"/movies"}
                 >
                   <p>{t("movies")}</p> <BiSolidChevronRight />
                 </Link>
-              </Motion>
+              </motion.div>
             </div>
           </>
-        </Motion>
-        <Motion
-          initial={{ y: 0 }}
+        </motion.div>
+        <motion.div
           animate={{ y: [0, 15, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
           className="relative mt-8 flex h-76 w-76 lg:mt-0 lg:h-100 lg:w-100"
+          initial={{ y: 0 }}
+          transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
         >
           <LottieComponent animationPath="/Movieanm.lottie" />
-        </Motion>
+        </motion.div>
       </div>
-      <AnimatedText once text={t("recentlyAdded")} className="mt-72 w-full text-center text-3xl font-bold text-white" />
+      <AnimatedText once className="mt-72 w-full text-center text-3xl font-bold text-white" text={t("recentlyAdded")} />
       <RecentlyMovies movies={movies} />
     </>
   );

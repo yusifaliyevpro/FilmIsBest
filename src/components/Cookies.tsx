@@ -1,6 +1,6 @@
 // "use client";
 
-// import { Button } from "@nextui-org/button";
+// import { Button } from "@heroui/button";
 // import {
 //   Modal,
 //   ModalContent,
@@ -8,7 +8,7 @@
 //   ModalBody,
 //   ModalFooter,
 //   useDisclosure,
-// } from "@nextui-org/modal";
+// } from "@heroui/modal";
 // import { setCookie } from "cookies-next";
 // import { useEffect } from "react";
 // import React from "react";

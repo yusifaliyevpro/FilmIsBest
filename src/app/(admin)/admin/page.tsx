@@ -1,17 +1,12 @@
 import { DeleteButton } from "@/components/DeleteButton";
 import RefreshButton from "@/components/RefreshButton";
 import { UpdateButton } from "@/components/UpdateButton";
-import { getAllMovieRequests } from "@/lib/utils";
 import { Link } from "@/i18n/routing";
+import { getAllMovieRequests } from "@/lib/utils";
 
-export default async function AdminPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ password?: string }>;
-}) {
+export default async function AdminPage({ searchParams }: { searchParams: Promise<{ password?: string }> }) {
   const searchParamss = await searchParams;
-  const password =
-    typeof searchParamss.password === "string" ? searchParamss.password : "";
+  const password = typeof searchParamss.password === "string" ? searchParamss.password : "";
 
   const title = (string: string) => {
     if (!string) return "";
@@ -47,23 +42,23 @@ export default async function AdminPage({
               <div className="line-clamp-1 flex w-[20rem] flex-row gap-x-2 text-nowrap">
                 <p className="font-bold">Email:</p>
                 <Link
+                  className={`truncate text-blue-600 ${request.added && "text-gray-300"}`}
                   href={encodeURI(
                     `mailto:${request.email.toLowerCase()}?subject=${title(request.movieName)} filmi FilmIsBest-ə əlavə edildi!&body=Salam Hörmətli ${request.fullName !== "" ? title(request.fullName) : "FilmIsBest istifadəçisi"},\n\n${String(request.createdAt).slice(0, 10)} tarixində ${title(request.movieName)} filmi üçün göndərdiyiniz sorğu emal olunaraq, FilmIsBest-ə əlavə olunmuşdur. Saytımız sizin soğrulanırızı daima dəyərləndirir. Keyifli izləmələr!\n\nHörmətlə,\nFilmIsBest CEO-su`,
                   )}
                   target="_blank"
-                  className={`truncate text-blue-600 ${request.added && "text-gray-300"}`}
                 >
                   {request.email.toLowerCase()}
                 </Link>
               </div>
               <div className="line-clamp-1 flex w-[17rem] flex-row gap-x-2 text-nowrap">
                 <p className="font-bold">Movie Name:</p>
-                <p title={title(request.movieName)} className="truncate">
+                <p className="truncate" title={title(request.movieName)}>
                   {title(request.movieName)}
                 </p>
               </div>
               <div className="flex w-[5rem] flex-row items-center gap-x-3">
-                <UpdateButton id={request.id} added={!request.added} />
+                <UpdateButton added={!request.added} id={request.id} />
                 <DeleteButton id={request.id} />
               </div>
             </div>

@@ -1,6 +1,7 @@
+import movieSchema from "./movie";
+import sequelSchema from "./sequel";
 import { type SchemaTypeDefinition } from "sanity";
-import sequelSchema from "@/sanity/sequel";
-import movieSchema from "@/sanity/movie";
+
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [movieSchema, sequelSchema],
 };

@@ -1,4 +1,3 @@
-import { Motion } from "@/components/Motion";
 import MovieBar from "@/components/MovieBar";
 import MovieInfo from "@/components/MovieInfo";
 import Sequels from "@/components/Sequels";
@@ -7,15 +6,13 @@ import SuspenseButton, { LoadingMovieBar, LoadingSequel, MovieInfoSuspense } fro
 import { Locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getMovie, getMovies } from "@/lib/utils";
+import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locales; slug: string }>;
-}): Promise<Metadata> {
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locales; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);
@@ -102,9 +99,9 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
         <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-200">
           {movie.filmName}
         </h1>
-        <Motion
-          initial={{ y: 600 }}
+        <motion.div
           animate={{ y: 0 }}
+          initial={{ y: 600 }}
           transition={{
             type: "spring",
             duration: 0.3,
@@ -115,13 +112,13 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
             <MovieBar movie={movie} />
           </Suspense>
           <Suspense fallback={<SuspenseButton color="primary" />}>
-            <Share movie={movie} locale={locale} />
+            <Share locale={locale} movie={movie} />
           </Suspense>
-        </Motion>
+        </motion.div>
       </div>
-      <Motion
-        initial={{ y: 600 }}
+      <motion.div
         animate={{ y: 0 }}
+        initial={{ y: 600 }}
         transition={{
           type: "spring",
           duration: 0.3,
@@ -129,12 +126,12 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
         }}
       >
         <Suspense fallback={<LoadingSequel />}>
-          <Sequels movieID={movie._id} currentSlug={movie.slug} />
+          <Sequels currentSlug={movie.slug} movieID={movie._id} />
         </Suspense>
         <Suspense fallback={<MovieInfoSuspense />}>
           <MovieInfo movie={movie} />
         </Suspense>
-      </Motion>
+      </motion.div>
     </>
   );
 }

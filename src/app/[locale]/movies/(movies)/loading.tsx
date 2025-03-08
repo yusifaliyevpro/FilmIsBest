@@ -1,8 +1,4 @@
-import {
-  LoadingMovies,
-  LoadingPagination,
-  LoadingSearch,
-} from "@/components/SuspenseLayouts";
+import { LoadingMovies, LoadingPagination, LoadingSearch } from "@/components/SuspenseLayouts";
 
 export default function Loading() {
   return (
