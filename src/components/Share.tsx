@@ -10,12 +10,22 @@ import { addToast, closeAll } from "@heroui/toast";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
 
 export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; locale: Locales }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [canShareFiles, setCanShareFiles] = useState(false);
+  const [canShareText, setCanShareText] = useState(false);
+
+  useEffect(() => {
+    if (typeof navigator !== "undefined" && navigator.canShare) {
+      setCanShareFiles(navigator.canShare({ files: [new File([], "test.png", { type: "image/png" })] }));
+      setCanShareText(navigator.canShare({ text: "Test" }));
+    }
+  }, []);
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("Movie");
@@ -176,9 +186,7 @@ export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; loc
                 <BsCardText className="text-7xl text-blue-600" />
                 <p className="text-nowrap font-bold">Copy Text</p>
               </div>
-              {navigator.canShare({
-                files: [new File([], "test.png", { type: "image/png" })],
-              }) && (
+              {canShareFiles && (
                 <div
                   className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                   onClick={handlePoster}
@@ -187,7 +195,7 @@ export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; loc
                   <p className="font-bold">Poster</p>
                 </div>
               )}
-              {navigator.canShare({ text: "Test" }) ? (
+              {canShareText ? (
                 <div
                   className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
                   onClick={() => handleShare("other")}
