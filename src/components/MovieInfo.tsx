@@ -9,8 +9,8 @@ export default async function MovieInfo({ movie }: { movie: MOVIE_QUERYResult })
   if (!movie) return null;
   const t = await getTranslations("Movie");
   const translatedGenres = movie.genre?.map((genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.historical") || genre);
-  const hours = movie.movieTime || 0 >= 60 ? Math.floor(movie.movieTime || 0 / 60) : 0;
-  const minutes = hours * 60 !== movie.movieTime ? movie.movieTime || 0 - hours * 60 : 0;
+  const hours = (movie.movieTime || 0) >= 60 ? Math.floor((movie.movieTime || 0) / 60) : 0;
+  const minutes = (movie.movieTime || 0) - hours * 60;
   return (
     <div className="relative mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center rounded-10 border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
       <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-76 sm:w-60">

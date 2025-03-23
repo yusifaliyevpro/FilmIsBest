@@ -123,8 +123,8 @@ export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; loc
         .catch(() => {
           throw new Error(t("Share.anErrorOccurred"));
         });
-    } catch (error) {
-      addToast({ title: (error as Error).message, color: "danger" });
+    } catch (error: unknown) {
+      addToast({ title: error instanceof Error ? error.message : (error as string), color: "danger" });
     }
   }
 
@@ -147,70 +147,66 @@ export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; loc
         onOpenChange={onOpenChange}
       >
         <ModalContent>
-          {() => (
-            <>
-              <ModalHeader className="flex w-full flex-row items-center justify-center gap-3 font-bold">
-                <BiSolidShareAlt className="mt-1 text-4xl" />
-                <h6 className="text-3xl font-bold">{t("Share.share")}</h6>
-              </ModalHeader>
-              <ModalBody className="p-8">
-                <div className="no-scrollbar relative mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
-                  <div
-                    className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
-                    onClick={() => handleShare("whatsapp")}
-                  >
-                    <BiLogoWhatsapp className="text-7xl text-blue-600" />
-                    <p className="font-bold">WhatsApp</p>
-                  </div>
-                  {isMobileOnly && (
-                    <div
-                      className="relative flex w-fit cursor-pointer flex-col items-center p-2 hover:shadow-medium"
-                      onClick={() => handleShare("telegram")}
-                    >
-                      <BiLogoTelegram className="text-7xl text-blue-600" />
-                      <p className="font-bold">Telegram</p>
-                    </div>
-                  )}
-                  <div
-                    className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
-                    onClick={() => handleShare("copy")}
-                  >
-                    <BsCardText className="text-7xl text-blue-600" />
-                    <p className="text-nowrap font-bold">Copy Text</p>
-                  </div>
-                  {navigator.canShare({
-                    files: [new File([], "test.png", { type: "image/png" })],
-                  }) && (
-                    <div
-                      className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
-                      onClick={handlePoster}
-                    >
-                      <BiImageAlt className="text-nowrap text-7xl text-blue-600" />
-                      <p className="font-bold">Poster</p>
-                    </div>
-                  )}
-                  {navigator.canShare({ text: "Test" }) ? (
-                    <div
-                      className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
-                      onClick={() => handleShare("other")}
-                    >
-                      <BiDotsVerticalRounded className="text-7xl text-blue-600" />
-                      <p className="font-bold">{t("Share.other")}</p>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+          <ModalHeader className="flex w-full flex-row items-center justify-center gap-3 font-bold">
+            <BiSolidShareAlt className="mt-1 text-4xl" />
+            <h6 className="text-3xl font-bold">{t("Share.share")}</h6>
+          </ModalHeader>
+          <ModalBody className="p-8">
+            <div className="no-scrollbar relative mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
+              <div
+                className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                onClick={() => handleShare("whatsapp")}
+              >
+                <BiLogoWhatsapp className="text-7xl text-blue-600" />
+                <p className="font-bold">WhatsApp</p>
+              </div>
+              {isMobileOnly && (
+                <div
+                  className="relative flex w-fit cursor-pointer flex-col items-center p-2 hover:shadow-medium"
+                  onClick={() => handleShare("telegram")}
+                >
+                  <BiLogoTelegram className="text-7xl text-blue-600" />
+                  <p className="font-bold">Telegram</p>
                 </div>
-                <div className="mx-auto">
-                  <Snippet codeString={`${BASE_URL}/${locale}/movies/${movie.slug}`} symbol="" variant="bordered">
-                    <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
-                      {`${BASE_URL}/${locale}/movies/${movie.slug}`}
-                    </div>
-                  </Snippet>
+              )}
+              <div
+                className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                onClick={() => handleShare("copy")}
+              >
+                <BsCardText className="text-7xl text-blue-600" />
+                <p className="text-nowrap font-bold">Copy Text</p>
+              </div>
+              {navigator.canShare({
+                files: [new File([], "test.png", { type: "image/png" })],
+              }) && (
+                <div
+                  className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                  onClick={handlePoster}
+                >
+                  <BiImageAlt className="text-nowrap text-7xl text-blue-600" />
+                  <p className="font-bold">Poster</p>
                 </div>
-              </ModalBody>
-            </>
-          )}
+              )}
+              {navigator.canShare({ text: "Test" }) ? (
+                <div
+                  className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                  onClick={() => handleShare("other")}
+                >
+                  <BiDotsVerticalRounded className="text-7xl text-blue-600" />
+                  <p className="font-bold">{t("Share.other")}</p>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="mx-auto">
+              <Snippet codeString={`${BASE_URL}/${locale}/movies/${movie.slug}`} symbol="" variant="bordered">
+                <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
+                  {`${BASE_URL}/${locale}/movies/${movie.slug}`}
+                </div>
+              </Snippet>
+            </div>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </div>
