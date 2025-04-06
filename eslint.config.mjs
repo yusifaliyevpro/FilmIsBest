@@ -15,6 +15,8 @@ const eslintConfig = [
       "react-hooks/exhaustive-deps": "off",
       "no-var": "off",
       "@next/next/no-img-element": "off",
+      "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
       "react/jsx-sort-props": [
         "error",
         {

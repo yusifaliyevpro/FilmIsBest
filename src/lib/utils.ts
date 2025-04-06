@@ -11,14 +11,18 @@ export async function getRecentMovies() {
   const data = await client.fetch<RECENT_MOVIES_QUERYResult>(
     RECENT_MOVIES_QUERY,
     {},
-    { next: { revalidate: 3600 }, cache: "force-cache" },
+    { next: { revalidate: 3600 * 24 }, cache: "force-cache" },
   );
   return data;
 }
 
 export async function getMovies() {
   const MOVIES_QUERY = groq`*[_type=='Movie-studio']|order(_createdAt desc){filmName, "poster": poster.asset->url, "posterlqip": (poster.asset->metadata).lqip, "slug": slug.current, _id, imdbpuan,_updatedAt, imdbID, releaseDate}`;
-  const data = await client.fetch<MOVIES_QUERYResult>(MOVIES_QUERY, {}, { next: { revalidate: 3600 }, cache: "force-cache" });
+  const data = await client.fetch<MOVIES_QUERYResult>(
+    MOVIES_QUERY,
+    {},
+    { next: { revalidate: 3600 * 24 }, cache: "force-cache" },
+  );
   return data;
 }
 
@@ -46,7 +50,7 @@ export async function getSequel(movieID: string) {
   const data = await client.fetch<SEQUEL_QUERYResult>(
     SEQUEL_QUERY,
     { movieID },
-    { next: { revalidate: 3600 * 24 }, cache: "force-cache" },
+    { next: { revalidate: 3600 * 24 * 24 }, cache: "force-cache" },
   );
   return data;
 }

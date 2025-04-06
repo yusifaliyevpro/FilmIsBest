@@ -12,7 +12,8 @@ import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }): Promise<Metadata> {
-  setRequestLocale((await params).locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("MetaData.Home");
   return {
     metadataBase: new URL(BASE_URL),
