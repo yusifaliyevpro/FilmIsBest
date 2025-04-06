@@ -8,11 +8,11 @@ import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function AdminPage() {
+  const requests = await getAllMovieRequests();
   const { isEnabled } = await draftMode();
-  const title = (string: string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
   if (!isEnabled && !isInDevelopment) redirect("/admin?__vercel_draft=1");
-  const requests = await getAllMovieRequests();
+  const title = (string: string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-start bg-white">
