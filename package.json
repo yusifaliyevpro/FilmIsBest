@@ -37,7 +37,7 @@
     "eslint-plugin-prettier": "^5.2.6",
     "fuse.js": "^7.1.0",
     "jsx": "^0.9.89",
-    "motion": "^12.7.4",
+    "motion": "^12.9.2",
     "next": "^15.3.1",
     "next-intl": "^4.0.3",
     "next-sanity": "^9.10.2",
