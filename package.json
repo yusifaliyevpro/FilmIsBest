@@ -26,7 +26,7 @@
     "@lottiefiles/dotlottie-react": "^0.13.4",
     "@next/third-parties": "^15.3.1",
     "@prisma/client": "^6.6.0",
-    "@sanity/client": "^6.29.0",
+    "@sanity/client": "^6.29.1",
     "@sanity/image-url": "^1.1.0",
     "@sanity/react-loader": "^1.11.6",
     "@sanity/vision": "^3.86.0",
