@@ -15,6 +15,8 @@ export default function RecentlyMovies({ movies }: { movies: RECENT_MOVIES_QUERY
   return (
     <motion.div
       ref={ref}
+      className="relative h-auto w-full text-white"
+      transition={{ duration: 0.6 }}
       animate={
         isInView
           ? {
@@ -26,16 +28,17 @@ export default function RecentlyMovies({ movies }: { movies: RECENT_MOVIES_QUERY
               scale: 0.9,
             }
       }
-      className="relative h-auto w-full text-white"
       initial={{
         opacity: 0,
         scale: 0.9,
       }}
-      transition={{ duration: 0.6 }}
     >
       <div className="relative mx-12 flex h-auto sm:mx-16">
         <Swiper
           loop
+          className="mb-32 mt-10 px-10"
+          modules={[Autoplay]}
+          slidesPerView={1}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
@@ -51,9 +54,6 @@ export default function RecentlyMovies({ movies }: { movies: RECENT_MOVIES_QUERY
               slidesPerView: 4,
             },
           }}
-          className="mb-32 mt-10 px-10"
-          modules={[Autoplay]}
-          slidesPerView={1}
         >
           {movies.map((movie, index) => (
             <SwiperSlide key={index} className="my-5 w-auto pl-6">

@@ -1,6 +1,6 @@
 "use client";
 
-import { updateMovieRequest } from "@/lib/actions";
+import { updateMovieRequest } from "@/lib/prisma/actions";
 import { addToast } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { SiTicktick } from "react-icons/si";

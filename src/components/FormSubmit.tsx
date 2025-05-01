@@ -1,6 +1,6 @@
 "use client";
 
-import { newMovieRequest } from "@/lib/actions";
+import { newMovieRequest } from "@/lib/prisma/actions";
 import useForm from "@/lib/useForm";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
@@ -120,6 +120,7 @@ export default function FormSubmit() {
               </ModalBody>
               <ModalFooter className="relative flex items-center justify-center">
                 <Button
+                  type="submit"
                   color={
                     formData.email.trim() === "" ||
                     formData.isInvalidEmail ||
@@ -134,7 +135,6 @@ export default function FormSubmit() {
                     formData.isInvalidMovieName ||
                     formData.movieName.trim() === ""
                   }
-                  type="submit"
                   onPress={submitForm}
                 >
                   {t("submit")}

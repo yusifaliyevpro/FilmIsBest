@@ -21,6 +21,8 @@ export default function LanguageSwitcher({ locale }: { locale: Locales }) {
       isRequired
       aria-label="Language"
       className="min-w-[110px]"
+      items={languages}
+      selectedKeys={[locale]}
       classNames={{
         trigger: "bg-gray-200 hover:bg-gray-100",
         popoverContent: "bg-gray-200",
@@ -28,7 +30,6 @@ export default function LanguageSwitcher({ locale }: { locale: Locales }) {
         listbox: "font-bold text-white",
         selectorIcon: "text-white",
       }}
-      items={languages}
       renderValue={(items) => {
         return items.map((item) => (
           <div key={item.key} className="flex flex-row items-center gap-x-2">
@@ -37,7 +38,6 @@ export default function LanguageSwitcher({ locale }: { locale: Locales }) {
           </div>
         ));
       }}
-      selectedKeys={[locale]}
       onSelectionChange={(value) => changeLocale(value.currentKey as Locales)}
     >
       {(language) => (

@@ -5,6 +5,7 @@ const EnvSchema = z.object({
   NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().trim().min(3),
   DATABASE_URL: z.string().trim().min(3),
   OMDB_API_KEY: z.string().trim().min(3),
+  OPENROUTER_API_KEY: z.string().trim().min(3),
 });
 
 type EnvSchemaType = z.infer<typeof EnvSchema>;

@@ -1,22 +1,15 @@
 import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({ baseDirectory: __dirname });
+const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
 const eslintConfig = [
   ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript"],
-    plugins: ["prettier"],
+    extends: ["next/core-web-vitals"],
     rules: {
-      "react-hooks/exhaustive-deps": "off",
       "no-var": "off",
-      "@next/next/no-img-element": "off",
-      "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-namespace": "off",
+      "@next/next/no-img-element": "off",
       "react/jsx-sort-props": [
         "error",
         {
@@ -25,6 +18,7 @@ const eslintConfig = [
           shorthandFirst: true,
           noSortAlphabetically: false,
           reservedFirst: true,
+          multiline: "last",
         },
       ],
     },

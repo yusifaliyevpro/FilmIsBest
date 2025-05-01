@@ -1,4 +1,3 @@
-import { Link } from "@/i18n/routing";
 import { Button } from "@heroui/button";
 import { useFormValue } from "sanity";
 
@@ -7,9 +6,9 @@ export default function SearchPoster() {
   const link = `https://www.google.com/search?q=${encodeURIComponent(filmName).trim().replace(/\s+/g, "+")}+poster+imdb&udm=2`;
   return (
     <div className="relative my-0 flex w-full flex-row justify-end">
-      <Link href={link} target="_blank">
+      <a href={link} target="_blank">
         <Button color="primary">Search Poster</Button>
-      </Link>
+      </a>
     </div>
   );
 }
