@@ -1,6 +1,6 @@
 "use client";
 
-import { removeMovieRequest } from "@/lib/actions";
+import { removeMovieRequest } from "@/lib/prisma/actions";
 import { addToast, closeAll } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { MdOutlineDeleteOutline } from "react-icons/md";

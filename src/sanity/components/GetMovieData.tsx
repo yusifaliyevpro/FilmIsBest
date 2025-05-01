@@ -1,6 +1,8 @@
+"use client";
+
 import { apiVersion } from "../env";
 import { availableGenres } from "../lib/client";
-import { getOMDB_Data } from "@/lib/actions";
+import { getOMDB_Data } from "@/lib/omdb/actions";
 import { Button } from "@heroui/button";
 import { useState } from "react";
 import { useFormValue, useClient } from "sanity";
@@ -14,6 +16,7 @@ type OMDbData = {
   year: number;
   time: number;
   genres: string[];
+  description: string;
 };
 
 export default function GetMovieData() {
@@ -47,7 +50,9 @@ export default function GetMovieData() {
         year: Number(data.Year),
         time: parseInt(data.Runtime.match(/\d+/)?.[0] || "0", 10),
         genres: validGenres,
+        description: "data.P",
       };
+      console.log(data);
       await client
         .patch(documentId)
         .set({

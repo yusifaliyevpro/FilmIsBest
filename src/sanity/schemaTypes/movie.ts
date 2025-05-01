@@ -1,4 +1,4 @@
-import GenerateDescription from "@/sanity/components/ChatGPT";
+import GenerateDescription from "../components/GenerateDescription";
 import GetMovieData from "@/sanity/components/GetMovieData";
 import SearchOnYoutube from "@/sanity/components/SearchOnYoutube";
 import SearchPoster from "@/sanity/components/SearchPoster";

@@ -34,10 +34,10 @@ export default async function AdminPage() {
               <p className="font-bold">Email:</p>
               <Link
                 className={`truncate text-blue-600 ${request.added && "text-gray-300"}`}
+                target="_blank"
                 href={encodeURI(
                   `mailto:${request.email.toLowerCase()}?subject=${title(request.movieName)} filmi FilmIsBest-ə əlavə edildi!&body=Salam Hörmətli ${request.fullName !== "" ? title(request.fullName) : "FilmIsBest istifadəçisi"},\n\n${String(request.createdAt).slice(0, 10)} tarixində ${title(request.movieName)} filmi üçün göndərdiyiniz sorğu emal olunaraq, FilmIsBest-ə əlavə olunmuşdur. Saytımız sizin soğrulanırızı daima dəyərləndirir. Keyifli izləmələr!\n\nHörmətlə,\nFilmIsBest CEO-su`,
                 )}
-                target="_blank"
               >
                 {request.email.toLowerCase()}
               </Link>
