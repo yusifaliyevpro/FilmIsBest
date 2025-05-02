@@ -1,7 +1,7 @@
 "use client";
 
 import { BASE_URL } from "../lib/constants";
-import { Locales } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 import type { MOVIE_QUERYResult } from "@/sanity/types";
 import { Button } from "@heroui/button";
 import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure } from "@heroui/modal";
@@ -15,7 +15,7 @@ import { isMobileOnly } from "react-device-detect";
 import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
 
-export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; locale: Locales }) {
+export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; locale: Locale }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [canShareFiles, setCanShareFiles] = useState(false);
   const [canShareText, setCanShareText] = useState(false);

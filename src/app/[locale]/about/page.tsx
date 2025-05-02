@@ -1,4 +1,4 @@
-import { Link, Locales, locales } from "@/i18n/routing";
+import { Link, Locale, locales } from "@/i18n/routing";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -21,7 +21,7 @@ const itemVariants = {
   visible: { scale: 1, opacity: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   setRequestLocale((await params).locale);
   const t = await getTranslations("MetaData.About");
   return {
@@ -58,7 +58,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function About({ params }: { params: Promise<{ locale: Locales }> }) {
+export default async function About({ params }: { params: Promise<{ locale: Locale }> }) {
   setRequestLocale((await params).locale);
   const t = await getTranslations("About");
   const texts: {

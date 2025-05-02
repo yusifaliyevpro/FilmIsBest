@@ -1,13 +1,13 @@
 "use client";
 
-import { Link, Locales } from "@/i18n/routing";
+import { Link, Locale } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { FaHome } from "react-icons/fa";
 import { MdMovieFilter } from "react-icons/md";
 import { MdOutlineInfo } from "react-icons/md";
 
-export default function MobileNavbar({ locale }: { locale: Locales }) {
+export default function MobileNavbar({ locale }: { locale: Locale }) {
   const t = useTranslations("Header");
   const pathname = usePathname();
   return (

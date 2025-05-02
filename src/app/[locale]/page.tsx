@@ -1,7 +1,7 @@
 import AnimatedText from "@/components/AnimatedText";
 import LottieComponent from "@/components/LottieAnimation";
 import RecentlyMovies from "@/components/RecentlyMovies";
-import { locales, Locales } from "@/i18n/routing";
+import { locales, Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getRecentMovies } from "@/lib/utils";
@@ -11,7 +11,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("MetaData.Home");
@@ -50,7 +50,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function Home({ params }: { params: Promise<{ locale: Locales }> }) {
+export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   setRequestLocale((await params).locale);
   const movies = await getRecentMovies();
   const t = await getTranslations("Home");

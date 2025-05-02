@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileNavbar from "@/components/MobileNavbar";
 import { Providers } from "@/components/Providers";
-import { locales, Locales } from "@/i18n/routing";
+import { locales, Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -19,7 +19,7 @@ export default async function RootLayout({
   params,
 }: {
   children: Readonly<ReactNode>;
-  params: Promise<{ locale: Locales }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   if (!locales.includes(locale)) notFound();

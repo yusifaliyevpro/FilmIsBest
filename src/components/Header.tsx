@@ -1,13 +1,13 @@
 "use client";
 
 import LanguageSwitcher from "./LanguageSwitcher";
-import { Link, Locales } from "@/i18n/routing";
+import { Link, Locale } from "@/i18n/routing";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { BiSolidMovie } from "react-icons/bi";
 
-export default function Header({ locale }: { locale: Locales }) {
+export default function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const t = useTranslations("Header");
 
