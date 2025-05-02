@@ -48,16 +48,12 @@ export default async function MovieInfo({ movie }: { movie: MOVIE_QUERYResult })
           {t("MovieInfo.movieDescription")} <span className="text-white">{movie.description?.trim()}</span>
         </li>
         <div className="relative flex flex-nowrap items-center justify-end px-3 text-lg">
-          <Link
-            className="relative mt-3 flex items-center gap-x-1 text-nowrap py-2 font-sans font-bold lg:mt-2"
-            href={"https://chat.openai.com/"}
-            target="_blank"
-          >
+          <div className="relative mt-3 flex items-center gap-x-1 text-nowrap py-2 font-sans font-bold lg:mt-2">
             <span className="bg-gradient-to-r from-sky-400 via-blue-600 to-violet-500 bg-clip-text text-transparent">
               {t("MovieInfo.createdByChatGPT")}
             </span>
-            <RiOpenaiFill className="text-3xl text-slate-300" />
-          </Link>
+            <Image unoptimized alt="DeepSeek Logo" className="rounded-xl bg-white" height={40} src={"/DeepSeek.png"} width={40} />
+          </div>
         </div>
 
         <div className="left-0 mb-9 box-border flex list-none flex-row justify-around pt-12 text-left sm:mb-0 sm:p-12">

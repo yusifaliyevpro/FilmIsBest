@@ -1,4 +1,4 @@
-import { Locales } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getMovie } from "@/lib/utils";
 import { setRequestLocale } from "next-intl/server";
@@ -11,7 +11,7 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: Promise<{ locale: Locales; slug: string }> }) {
+export default async function Image({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);

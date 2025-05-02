@@ -1,13 +1,13 @@
 "use client";
 
-import { Locales, redirect } from "@/i18n/routing";
+import { Locale, redirect } from "@/i18n/routing";
 import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
 import { usePathname } from "next/navigation";
 
-export default function LanguageSwitcher({ locale }: { locale: Locales }) {
+export default function LanguageSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname().replace("az", "").replace("en", "").replace("tr", "");
-  const changeLocale = (lang: Locales) => {
+  const changeLocale = (lang: Locale) => {
     redirect({ locale: lang, href: pathname });
   };
   const languages = [
@@ -38,7 +38,7 @@ export default function LanguageSwitcher({ locale }: { locale: Locales }) {
           </div>
         ));
       }}
-      onSelectionChange={(value) => changeLocale(value.currentKey as Locales)}
+      onSelectionChange={(value) => changeLocale(value.currentKey as Locale)}
     >
       {(language) => (
         <SelectItem
