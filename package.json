@@ -30,7 +30,7 @@
     "@sanity/client": "^7.0.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/react-loader": "^1.11.8",
-    "@sanity/vision": "^3.87.0",
+    "@sanity/vision": "^3.88.2",
     "@sanity/visual-editing": "^2.13.20",
     "ai": "^4.3.13",
     "clsx": "^2.1.1",
