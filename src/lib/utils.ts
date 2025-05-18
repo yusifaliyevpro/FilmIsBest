@@ -13,9 +13,8 @@ export async function getRecentlyAddedMovies() {
   const data = await client.fetch<RECENT_MOVIES_QUERYResult>(
     RECENT_MOVIES_QUERY,
     {},
-    { next: { revalidate: 3600 * 24 }, cache: "force-cache" },
+    { next: { revalidate: 3600 }, cache: "force-cache" },
   );
-  await new Promise((resolve) => setTimeout(resolve, 5000));
   return data;
 }
 
