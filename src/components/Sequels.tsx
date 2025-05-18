@@ -1,12 +1,21 @@
+"use client";
+
 import SanityImage from "./SanityImage";
 import { Link } from "@/i18n/routing";
-import { getSequel } from "@/lib/utils";
-import * as motion from "motion/react-client";
-import { getTranslations } from "next-intl/server";
+import { SEQUEL_QUERYResult } from "@/sanity/types";
+import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
+import { use } from "react";
 
-export default async function Sequels({ movieID, currentSlug }: { currentSlug: string | null; movieID: string }) {
-  const sequel = await getSequel(movieID);
-  const t = await getTranslations("Movie.Sequels");
+export default function Sequels({
+  currentSlug,
+  sequelPromise,
+}: {
+  currentSlug: string | null;
+  sequelPromise: Promise<SEQUEL_QUERYResult>;
+}) {
+  const sequel = use(sequelPromise);
+  const t = useTranslations("Movie.Sequels");
   if (!sequel) return null;
   return (
     <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-[836px]">
