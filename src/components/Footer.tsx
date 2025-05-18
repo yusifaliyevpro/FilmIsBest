@@ -1,5 +1,5 @@
 import FormSubmit from "./FormSubmit";
-import SuspenseButton from "./SuspenseLayouts";
+import { LoadingButton } from "./SuspenseFallBacks/LoadingButton";
 import { Suspense } from "react";
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
           YusifAliyevPro
         </a>
       </h3>
-      <Suspense fallback={<SuspenseButton color="primary" />}>
+      <Suspense fallback={<LoadingButton color="primary" />}>
         <FormSubmit />
       </Suspense>
     </footer>

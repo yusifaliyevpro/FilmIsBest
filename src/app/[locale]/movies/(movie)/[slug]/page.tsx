@@ -2,15 +2,52 @@ import MovieBar from "@/components/MovieBar";
 import MovieInfo from "@/components/MovieInfo";
 import Sequels from "@/components/Sequels";
 import Share from "@/components/Share";
-import SuspenseButton, { LoadingMovieBar, LoadingSequel, MovieInfoSuspense } from "@/components/SuspenseLayouts";
+import { LoadingButton } from "@/components/SuspenseFallBacks/LoadingButton";
+import { LoadingMovieBar } from "@/components/SuspenseFallBacks/LoadingMovieBar";
+import { LoadingMovieInfo } from "@/components/SuspenseFallBacks/LoadingMovieInfo";
+import { LoadingSequel } from "@/components/SuspenseFallBacks/LoadingSequel";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { getMovie, getMovies } from "@/lib/utils";
+import { getMovie, getMovies, getSequel } from "@/lib/utils";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+
+export default async function Movie({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const movie = await getMovie(slug);
+  if (!movie) return notFound();
+  const sequelPromise = getSequel(movie._id);
+
+  return (
+    <>
+      <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
+        <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-200">
+          {movie.filmName}
+        </h1>
+        <motion.div animate={{ y: 0 }} initial={{ y: 600 }} transition={{ type: "spring", duration: 0.3, stiffness: 50 }}>
+          <Suspense fallback={<LoadingMovieBar />}>
+            <MovieBar movie={movie} />
+          </Suspense>
+          <Suspense fallback={<LoadingButton color="primary" />}>
+            <Share locale={locale} movie={movie} />
+          </Suspense>
+        </motion.div>
+      </div>
+      <motion.div animate={{ y: 0 }} initial={{ y: 600 }} transition={{ type: "spring", duration: 0.3, stiffness: 50 }}>
+        <Suspense fallback={<LoadingSequel />}>
+          <Sequels currentSlug={movie.slug} sequelPromise={sequelPromise} />
+        </Suspense>
+        <Suspense fallback={<LoadingMovieInfo />}>
+          <MovieInfo movie={movie} />
+        </Suspense>
+      </motion.div>
+    </>
+  );
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -74,64 +111,4 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
       type: "website",
     },
   };
-}
-
-export async function generateStaticParams() {
-  const movies = await getMovies();
-  const staticParams = movies.flatMap((movie) => [
-    { locale: "az", slug: movie.slug },
-    { locale: "en", slug: movie.slug },
-    { locale: "tr", slug: movie.slug },
-  ]);
-  return staticParams;
-}
-
-export default async function Movie({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
-  const movie = await getMovie(slug);
-  if (!movie) {
-    return notFound();
-  }
-  return (
-    <>
-      <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
-        <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-200">
-          {movie.filmName}
-        </h1>
-        <motion.div
-          animate={{ y: 0 }}
-          initial={{ y: 600 }}
-          transition={{
-            type: "spring",
-            duration: 0.3,
-            stiffness: 50,
-          }}
-        >
-          <Suspense fallback={<LoadingMovieBar />}>
-            <MovieBar movie={movie} />
-          </Suspense>
-          <Suspense fallback={<SuspenseButton color="primary" />}>
-            <Share locale={locale} movie={movie} />
-          </Suspense>
-        </motion.div>
-      </div>
-      <motion.div
-        animate={{ y: 0 }}
-        initial={{ y: 600 }}
-        transition={{
-          type: "spring",
-          duration: 0.3,
-          stiffness: 50,
-        }}
-      >
-        <Suspense fallback={<LoadingSequel />}>
-          <Sequels currentSlug={movie.slug} movieID={movie._id} />
-        </Suspense>
-        <Suspense fallback={<MovieInfoSuspense />}>
-          <MovieInfo movie={movie} />
-        </Suspense>
-      </motion.div>
-    </>
-  );
 }

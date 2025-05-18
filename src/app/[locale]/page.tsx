@@ -1,13 +1,15 @@
 import AnimatedText from "@/components/AnimatedText";
 import LottieComponent from "@/components/LottieAnimation";
-import RecentlyMovies from "@/components/RecentlyMovies";
+import RecentlyAddedMovies from "@/components/RecentlyAddedMovies";
+import LoadingRecentlyAddedMovies from "@/components/SuspenseFallBacks/LoadingRecentlyAddedMovies";
 import { locales, Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { getRecentMovies } from "@/lib/utils";
+import { getRecentlyAddedMovies } from "@/lib/utils";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
@@ -52,7 +54,7 @@ export function generateStaticParams() {
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   setRequestLocale((await params).locale);
-  const movies = await getRecentMovies();
+  const recentlyAddedMoviesPromise = getRecentlyAddedMovies();
   const t = await getTranslations("Home");
   return (
     <>
@@ -100,7 +102,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </motion.div>
       </div>
       <AnimatedText once className="mt-72 w-full text-center text-3xl font-bold text-white" text={t("recentlyAdded")} />
-      <RecentlyMovies movies={movies} />
+      <Suspense fallback={<LoadingRecentlyAddedMovies />}>
+        <RecentlyAddedMovies recentlyAddedMoviesPromise={recentlyAddedMoviesPromise} />
+      </Suspense>
     </>
   );
 }

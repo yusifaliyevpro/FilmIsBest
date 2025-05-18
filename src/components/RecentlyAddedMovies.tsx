@@ -4,34 +4,25 @@ import SanityImage from "./SanityImage";
 import { Link } from "@/i18n/routing";
 import type { RECENT_MOVIES_QUERYResult } from "@/sanity/types";
 import { motion, useInView } from "motion/react";
-import React, { useRef } from "react";
+import React, { use, useRef } from "react";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function RecentlyMovies({ movies }: { movies: RECENT_MOVIES_QUERYResult }) {
+export default function RecentlyAddedMovies({
+  recentlyAddedMoviesPromise,
+}: {
+  recentlyAddedMoviesPromise: Promise<RECENT_MOVIES_QUERYResult>;
+}) {
+  const movies = use(recentlyAddedMoviesPromise);
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.5, once: true });
-  if (!movies) return null;
   return (
     <motion.div
       ref={ref}
       className="relative h-auto w-full text-white"
       transition={{ duration: 0.6 }}
-      animate={
-        isInView
-          ? {
-              opacity: 1,
-              scale: 1,
-            }
-          : {
-              opacity: 0,
-              scale: 0.9,
-            }
-      }
-      initial={{
-        opacity: 0,
-        scale: 0.9,
-      }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.9 }}
     >
       <div className="relative mx-12 flex h-auto sm:mx-16">
         <Swiper
@@ -39,20 +30,11 @@ export default function RecentlyMovies({ movies }: { movies: RECENT_MOVIES_QUERY
           className="mb-32 mt-10 px-10"
           modules={[Autoplay]}
           slidesPerView={1}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
           breakpoints={{
-            650: {
-              slidesPerView: 2,
-            },
-            770: {
-              slidesPerView: 3,
-            },
-            1100: {
-              slidesPerView: 4,
-            },
+            650: { slidesPerView: 2 },
+            770: { slidesPerView: 3 },
+            1100: { slidesPerView: 4 },
           }}
         >
           {movies.map((movie, index) => (

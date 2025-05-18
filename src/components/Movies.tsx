@@ -7,9 +7,10 @@ import type { MOVIES_QUERYResult } from "@/sanity/types";
 import Fuse from "fuse.js";
 import { AnimatePresence } from "motion/react";
 import * as motion from "motion/react-client";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 
-export default function Movies({ movies }: { movies: MOVIES_QUERYResult }) {
+export default function Movies({ moviesPromise }: { moviesPromise: Promise<MOVIES_QUERYResult> }) {
+  const movies = use(moviesPromise);
   const search = useStore((state) => state.search);
   const page = useStore((state) => state.page);
   const setResultCount = useStore((state) => state.setResultCount);

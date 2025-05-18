@@ -1,7 +1,7 @@
 import Movies from "@/components/Movies";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
-import { LoadingMovies, LoadingPagination, LoadingSearch } from "@/components/SuspenseLayouts";
+import { LoadingMovies } from "@/components/SuspenseFallBacks/LoadingMovies";
 import { Locale, locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getMovies } from "@/lib/utils";
@@ -48,17 +48,19 @@ export function generateStaticParams() {
 export default async function MoviesPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-
-  const movies = await getMovies();
-  const count = movies.length;
+  const moviesPromise = getMovies();
   return (
     <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
-        <Suspense fallback={<LoadingSearch />}>
-          <Search />
-        </Suspense>
-        <Suspense fallback={<LoadingPagination />}>
-          <PaginationUI count={count} />
+        <Search />
+        <Suspense
+          fallback={
+            <div className="relative mt-5 flex animate-pulse rounded-xl bg-gray-200">
+              <div className="h-9 w-48"></div>
+            </div>
+          }
+        >
+          <PaginationUI moviesPromise={moviesPromise} />
         </Suspense>
       </div>
       <motion.div
@@ -71,7 +73,7 @@ export default async function MoviesPage({ params }: { params: Promise<{ locale:
         }}
       >
         <Suspense fallback={<LoadingMovies />}>
-          <Movies movies={movies} />
+          <Movies moviesPromise={moviesPromise} />
         </Suspense>
       </motion.div>
     </section>
