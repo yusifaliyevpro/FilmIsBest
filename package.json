@@ -22,7 +22,7 @@
     "@heroui/system": "^2.4.15",
     "@heroui/tabs": "^2.2.16",
     "@heroui/theme": "^2.4.15",
-    "@heroui/toast": "^2.0.9",
+    "@heroui/toast": "^2.0.10",
     "@lottiefiles/dotlottie-react": "^0.13.5",
     "@next/third-parties": "^15.3.2",
     "@openrouter/ai-sdk-provider": "^0.4.6",
