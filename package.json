@@ -29,7 +29,7 @@
     "@prisma/client": "^6.8.2",
     "@sanity/client": "^7.2.1",
     "@sanity/image-url": "^1.1.0",
-    "@sanity/react-loader": "^1.11.9",
+    "@sanity/react-loader": "^1.11.10",
     "@sanity/vision": "^3.88.3",
     "@sanity/visual-editing": "^2.13.21",
     "ai": "^4.3.16",
@@ -52,12 +52,12 @@
     "tailwind-merge": "^3.3.0",
     "typescript": "^5.8.3",
     "use-debounce": "^10.0.4",
-    "zod": "^3.24.4",
+    "zod": "^3.25.28",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "@types/node": "^22.15.18",
+    "@types/node": "^22.15.21",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.21",
