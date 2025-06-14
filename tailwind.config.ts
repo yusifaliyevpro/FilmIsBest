@@ -6,7 +6,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/components/(avatar|button|input|modal|navbar|pagination|select|snippet|tabs|toast|ripple|spinner|form|listbox|divider|popover|scroll-shadow).js",
+    "./node_modules/@heroui/theme/dist/components/(avatar|button|card|dropdown|input|modal|navbar|pagination|select|snippet|tabs|toast|ripple|spinner|menu|divider|popover|form|listbox|scroll-shadow).js",
   ],
   theme: {
     extend: {

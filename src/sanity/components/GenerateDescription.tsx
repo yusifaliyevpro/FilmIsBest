@@ -1,7 +1,7 @@
 "use client";
 
 import { apiVersion } from "../env";
-import { generateDescription } from "@/lib/ai/actions";
+import { generateDescription } from "@/data-access/ai/actions";
 import { Button } from "@heroui/button";
 import { useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
@@ -15,22 +15,11 @@ export default function GenerateDescription() {
   const [error, setError] = useState("");
   const handleGenerate = async () => {
     setIsLoading(true);
-    try {
-      const response = await generateDescription(filmName);
-      if (response.error) {
-        return setError(response.error);
-      }
-      console.log(response);
-      await client
-        .patch(documentId)
-        .set({
-          description: response.text,
-        })
-        .commit();
+    const { text, error } = await generateDescription(filmName);
+    if (error) return setError(error);
+    else {
+      await client.patch(documentId).set({ description: text }).commit();
       setError("");
-    } catch (error) {
-      setError("Failed to assign description.");
-      console.error("Error assigning description:", error);
     }
     setIsLoading(false);
   };

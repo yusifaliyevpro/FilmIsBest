@@ -38,4 +38,4 @@ next-env.d.ts
 .vercel
 .env*.local
 
-/src/prisma
+/prisma/client

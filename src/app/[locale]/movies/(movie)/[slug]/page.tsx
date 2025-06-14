@@ -8,7 +8,7 @@ import { LoadingMovieInfo } from "@/components/SuspenseFallBacks/LoadingMovieInf
 import { LoadingSequel } from "@/components/SuspenseFallBacks/LoadingSequel";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { getMovie, getMovies, getSequel } from "@/lib/utils";
+import { getMovie, getSequel } from "@/lib/utils";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";

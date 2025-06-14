@@ -1,9 +1,7 @@
 import SanityImage from "./SanityImage";
-import { Link } from "@/i18n/routing";
 import { type MOVIE_QUERYResult } from "@/sanity/types";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { RiOpenaiFill } from "react-icons/ri";
 
 export default async function MovieInfo({ movie }: { movie: MOVIE_QUERYResult }) {
   if (!movie) return null;
