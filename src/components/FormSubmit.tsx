@@ -1,6 +1,10 @@
 "use client";
 
-import { newMovieRequest } from "@/lib/prisma/actions";
+// This code is quite old. When I wrote it, server actions were not available and i didn't know about FormData,
+// so I implemented it this way. I don't want to change it now because it works.
+// However, if I were to refactor it, I would use Zod for validation and handle submission
+// with a server action and the useActionState hook.
+import { createMovieRequest } from "@/data-access/requests/actions";
 import useForm from "@/lib/useForm";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
@@ -20,12 +24,16 @@ export default function FormSubmit() {
     addToast({ title: t("sending"), timeout: Infinity });
     try {
       onClose();
-      const { res, e } = await newMovieRequest(formData.name, formData.email, false, formData.movieName);
-      if (res && !e) {
+      const { data } = await createMovieRequest({
+        fullName: formData.fullName,
+        email: formData.email,
+        movieName: formData.movieName,
+      });
+      if (data) {
         closeAll();
         addToast({ title: t("sent"), color: "success", timeout: 3000 });
         return setFormData({
-          name: "",
+          fullName: "",
           email: "",
           movieName: "",
           isInvalidEmail: false,
@@ -64,12 +72,12 @@ export default function FormSubmit() {
                   label={`${t("name")} (Optional)`}
                   labelPlacement="outside"
                   type="text"
-                  value={formData.name}
+                  value={formData.fullName}
                   variant="bordered"
                   onChange={(e) => {
                     setFormData({
                       ...formData,
-                      name: e.target.value,
+                      fullName: e.target.value,
                     });
                   }}
                 />

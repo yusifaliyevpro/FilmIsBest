@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../prisma/client"
 }
 
 // DB Configuration
@@ -11,7 +10,7 @@ datasource db {
 
 model MovieRequests {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  added     Boolean
+  isAdded   Boolean  @default(false)
   fullName  String
   email     String
   movieName String

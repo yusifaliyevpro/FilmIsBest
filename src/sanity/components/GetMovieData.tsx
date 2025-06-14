@@ -2,7 +2,7 @@
 
 import { apiVersion } from "../env";
 import { availableGenres } from "../lib/client";
-import { getOMDB_Data } from "@/lib/omdb/actions";
+import { getOMDBDataById } from "@/data-access/omdb/actions";
 import { Button } from "@heroui/button";
 import { useState } from "react";
 import { useFormValue, useClient } from "sanity";
@@ -35,7 +35,7 @@ export default function GetMovieData() {
     setLoading(true);
     setError(null);
     try {
-      const data = await getOMDB_Data(imdbID);
+      const data = await getOMDBDataById(imdbID);
       if (data.Response === "False") {
         throw new Error(data.Error || "Film bulunamadı!");
       }
