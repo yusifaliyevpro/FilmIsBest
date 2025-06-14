@@ -1,6 +1,5 @@
 "use server";
 
-import prisma from "./prisma";
 import { client } from "@/sanity/lib/client";
 import type { RECENT_MOVIES_QUERYResult, MOVIES_QUERYResult, SEQUEL_QUERYResult, MOVIE_QUERYResult } from "@/sanity/types";
 import { groq } from "next-sanity";
@@ -48,8 +47,4 @@ export async function getSequel(movieID: string) {
         }[0]`;
 
   return await client.fetch<SEQUEL_QUERYResult>(SEQUEL_QUERY, { movieID });
-}
-
-export async function getAllMovieRequests() {
-  return await prisma.movieRequests.findMany();
 }

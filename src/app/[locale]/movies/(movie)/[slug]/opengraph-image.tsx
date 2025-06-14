@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { getMovie } from "@/lib/utils";

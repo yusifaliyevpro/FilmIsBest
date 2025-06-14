@@ -24,7 +24,7 @@ export async function generateDescription(filmName: string) {
     });
 
     return { text: text.trim() || "No description generated." };
-  } catch (err: unknown) {
-    return { error: "Failed to generate description." };
+  } catch (error: unknown) {
+    return { error: "Failed to generate description.", fullError: error };
   }
 }

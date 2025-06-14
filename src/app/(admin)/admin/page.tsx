@@ -3,7 +3,7 @@ import RefreshButton from "@/components/RefreshButton";
 import { UpdateButton } from "@/components/UpdateButton";
 import { Link } from "@/i18n/routing";
 import { isInDevelopment } from "@/lib/constants";
-import { getAllMovieRequests } from "@/lib/utils";
+import { getAllMovieRequests } from "@/lib/prisma/actions";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 

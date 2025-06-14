@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "../prisma";
+import { prisma } from "../prisma";
 
 export async function newMovieRequest(fullName: string, email: string, added: boolean, movieName: string, createdAt?: Date) {
   try {
@@ -34,4 +34,8 @@ export async function updateMovieRequest(id: string, added: boolean) {
   } catch (e) {
     return { e };
   }
+}
+
+export async function getAllMovieRequests() {
+  return await prisma.movieRequests.findMany();
 }

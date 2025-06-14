@@ -1,4 +1,5 @@
 import { Link, Locale, locales } from "@/i18n/routing";
+import { Variants } from "motion";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -10,13 +11,13 @@ import { GrToast } from "react-icons/gr";
 import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
 
-const ulVariants = { hidden: {}, visible: { transition: { staggerChildren: 0.5 } } };
-const textVariants = {
+const ulVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.5 } } };
+const textVariants: Variants = {
   hidden: { opacity: 0, y: -30 },
   visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, duration: 0.5 } },
 };
-const olVariants = { hidden: {}, visible: { transition: { staggerChildren: 0.3, delayChildren: 2 } } };
-const itemVariants = {
+const olVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.3, delayChildren: 2 } } };
+const itemVariants: Variants = {
   hidden: { scale: 0, opacity: 0 },
   visible: { scale: 1, opacity: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
 };
