@@ -30,7 +30,7 @@ export async function updateMovieRequest(id: string, isAdded: boolean) {
 export async function getAllMovieRequests() {
   const session = await auth();
   if (!session || session.user?.email !== "yusifaliyevpro@gmail.com")
-    return { error: "You are not authorized to get movie requests!" };
+    return { error: "You are not authorized to see movie requests!" };
   const requests = await prisma.movieRequests.findMany();
 
   return { requests };

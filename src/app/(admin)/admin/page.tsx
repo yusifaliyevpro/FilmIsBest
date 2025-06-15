@@ -11,10 +11,11 @@ const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.s
 
 export default async function AdminPage() {
   const session = await auth();
-  if (!session || session.user?.email !== "yusifaliyevpro@gmail.com") return <AdminSignIn />;
+  if (!session) return <AdminSignIn />;
 
   const { requests, error } = await getAllMovieRequests();
-  if (error)
+
+  if (error || session.user?.email !== "yusifaliyevpro@gmail.com")
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
         <p>{error}</p>
