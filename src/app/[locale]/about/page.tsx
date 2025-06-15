@@ -5,10 +5,8 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import React from "react";
 import { BiLogoTailwindCss } from "react-icons/bi";
-import { BiLogoMongodb } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
-import { GrToast } from "react-icons/gr";
-import { SiNextdotjs, SiNextui, SiSanity, SiVercel } from "react-icons/si";
+import { SiNextdotjs, SiNextui, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
 
 const ulVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.5 } } };
@@ -145,14 +143,14 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
 
 const tools: { name: string; link: string; icon: React.JSX.Element }[] = [
   {
-    name: "NextJS 14.1.0",
+    name: "NextJS 15.3.3",
     link: "https://nextjs.org/",
-    icon: <SiNextdotjs className="text-7xl text-black" />,
+    icon: <SiNextdotjs className="text-7xl text-white" />,
   },
   {
     name: "Vercel Hosting",
     link: "https://vercel.com/",
-    icon: <SiVercel className="text-7xl text-[black]" />,
+    icon: <SiVercel className="text-7xl text-white" />,
   },
   {
     name: "Sanity CMS",
@@ -180,14 +178,9 @@ const tools: { name: string; link: string; icon: React.JSX.Element }[] = [
     icon: <TbBrandFramerMotion className="text-8xl" />,
   },
   {
-    name: "MongoDB",
+    name: "Prisma",
     link: "https://www.mongodb.com/",
-    icon: <BiLogoMongodb className="text-8xl text-green-600" />,
-  },
-  {
-    name: "React Hot Toasts",
-    link: "https://react-hot-toast.com/",
-    icon: <GrToast className="text-8xl text-[#E1554A]" />,
+    icon: <SiPrisma className="text-8xl text-white" />,
   },
 ];
 
