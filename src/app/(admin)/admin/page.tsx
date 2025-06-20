@@ -25,7 +25,7 @@ export default async function AdminPage() {
   return (
     <>
       <div className="mb-3 mt-12 flex w-full flex-row items-center justify-center">
-        <h1 className="text-3xl font-bold">All Movie Requests</h1>
+        <h1 className="text-3xl font-bold">Movie Requests</h1>
         <div className="absolute right-16">
           <AvatarMenu image={session.user.image || "/account_image_placeholder.jpg"} email={session.user.email} />
         </div>
