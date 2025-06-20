@@ -10,7 +10,7 @@ type ActionState = {
   errors?: Partial<Record<keyof MovieRequestFormData, string>>;
 };
 
-export async function submitMovieRequest(prevState: ActionState, formData: FormData): Promise<ActionState> {
+export async function submitMovieRequest(_: ActionState, formData: FormData): Promise<ActionState> {
   const formDataObject = Object.fromEntries(formData);
   const result = movieRequestSchema.safeParse(formDataObject);
 
