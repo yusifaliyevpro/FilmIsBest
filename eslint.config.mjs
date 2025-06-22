@@ -6,6 +6,7 @@ const eslintConfig = [
   ...compat.config({
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
     rules: {},
+    ignorePatterns: ["/src/generated"],
   }),
 ];
 
