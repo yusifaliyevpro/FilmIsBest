@@ -10,6 +10,7 @@ const EnvSchema = z.object({
   AUTH_GITHUB_ID: z.string().trim().min(3),
   AUTH_GITHUB_SECRET: z.string().trim().min(3),
   ADMIN_EMAIL: z.string().trim().min(3),
+  AUTH_TRUST_HOST: z.literal("true"),
 });
 
 type EnvSchemaType = z.infer<typeof EnvSchema>;
