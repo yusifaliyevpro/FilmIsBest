@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@/lib/auth";
+import { AdminEmail } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { MovieRequestFormData, movieRequestSchema } from "@/lib/validation";
 
@@ -30,8 +31,7 @@ export async function submitMovieRequest(_: ActionState, formData: FormData): Pr
 
 export async function removeMovieRequest(id: string) {
   const session = await auth();
-  if (!session || session.user?.email !== "yusifaliyevpro@gmail.com")
-    return { error: "You are not authorized to remove movie request!" };
+  if (!session || session.user?.email !== AdminEmail) return { error: "You are not authorized to remove movie request!" };
 
   const data = await prisma?.movieRequests.delete({ where: { id } });
   return { data };
@@ -39,8 +39,7 @@ export async function removeMovieRequest(id: string) {
 
 export async function updateMovieRequest(id: string, isAdded: boolean) {
   const session = await auth();
-  if (!session || session.user?.email !== "yusifaliyevpro@gmail.com")
-    return { error: "You are not authorized to update movie request!" };
+  if (!session || session.user?.email !== AdminEmail) return { error: "You are not authorized to update movie request!" };
 
   const data = await prisma?.movieRequests.update({ where: { id }, data: { isAdded } });
   return { data };
@@ -48,8 +47,7 @@ export async function updateMovieRequest(id: string, isAdded: boolean) {
 
 export async function getAllMovieRequests() {
   const session = await auth();
-  if (!session || session.user?.email !== "yusifaliyevpro@gmail.com")
-    return { error: "You are not authorized to see movie requests!" };
+  if (!session || session.user?.email !== AdminEmail) return { error: "You are not authorized to see movie requests!" };
   const requests = await prisma.movieRequests.findMany();
 
   return { requests };

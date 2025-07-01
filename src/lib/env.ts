@@ -6,6 +6,10 @@ const EnvSchema = z.object({
   DATABASE_URL: z.string().trim().min(3),
   OMDB_API_KEY: z.string().trim().min(3),
   OPENROUTER_API_KEY: z.string().trim().min(3),
+  AUTH_SECRET: z.string().trim().min(3),
+  AUTH_GITHUB_ID: z.string().trim().min(3),
+  AUTH_GITHUB_SECRET: z.string().trim().min(3),
+  ADMIN_EMAIL: z.string().trim().min(3),
 });
 
 type EnvSchemaType = z.infer<typeof EnvSchema>;

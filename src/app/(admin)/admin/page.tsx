@@ -6,6 +6,13 @@ import { UpdateButton } from "@/components/UpdateButton";
 import { getAllMovieRequests } from "@/data-access/requests/actions";
 import { Link } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
+import { AdminEmail } from "@/lib/constants";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Console",
+  robots: { follow: false, index: false },
+};
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
@@ -15,7 +22,7 @@ export default async function AdminPage() {
 
   const { requests, error } = await getAllMovieRequests();
 
-  if (error || session.user?.email !== "yusifaliyevpro@gmail.com")
+  if (error || session.user?.email !== AdminEmail)
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
         <p>{error}</p>
