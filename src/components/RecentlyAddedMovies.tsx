@@ -2,7 +2,7 @@
 
 import SanityImage from "./SanityImage";
 import { Link } from "@/i18n/routing";
-import type { RECENT_MOVIES_QUERYResult } from "@/sanity/types";
+import { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 import { motion, useInView } from "motion/react";
 import React, { use, useRef } from "react";
 import { Autoplay } from "swiper/modules";
@@ -11,7 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 export default function RecentlyAddedMovies({
   recentlyAddedMoviesPromise,
 }: {
-  recentlyAddedMoviesPromise: Promise<RECENT_MOVIES_QUERYResult>;
+  recentlyAddedMoviesPromise: Promise<RecentlyAddedMoviesQueryResult>;
 }) {
   const movies = use(recentlyAddedMoviesPromise);
   const ref = useRef(null);
@@ -64,7 +64,9 @@ export default function RecentlyAddedMovies({
                       <div className="rounded-3xl bg-rdate px-1 text-center text-xs font-bold text-white">
                         {movie.releaseDate}
                       </div>
-                      <div className="w-8 rounded-3xl bg-imdb text-center text-xs font-bold text-gray-100">{movie.imdbpuan}</div>
+                      <div className="w-8 rounded-3xl bg-imdb text-center text-xs font-bold text-gray-100">
+                        {movie.imdbpuan}
+                      </div>
                     </div>
                   </div>
                   <div className="justify-content-center relative flex min-h-13 w-[250px] flex-col items-center justify-center text-center">

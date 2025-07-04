@@ -1,25 +1,12 @@
 "use client";
 
 import { apiVersion } from "../env";
-import { availableGenres } from "../lib/client";
-import { getOMDBDataById } from "@/data-access/omdb/actions";
+import { getOMDBDataById } from "@/data-access/omdb/get";
 import { Button } from "@heroui/button";
 import { useState } from "react";
 import { useFormValue, useClient } from "sanity";
 
-type OMDbData = {
-  title: string;
-  rating: number;
-  stars: string[];
-  country: string;
-  director: string;
-  year: number;
-  time: number;
-  genres: string[];
-  description: string;
-};
-
-export default function GetMovieData() {
+export function GetMovieData() {
   const imdbID = useFormValue(["imdbID"]) as string | undefined;
   const documentId = useFormValue(["_id"]) as string;
   const [loading, setLoading] = useState(false);
@@ -35,24 +22,25 @@ export default function GetMovieData() {
     setLoading(true);
     setError(null);
     try {
-      const data = await getOMDBDataById(imdbID);
-      if (data.Response === "False") {
-        throw new Error(data.Error || "Film bulunamadı!");
+      const OMDbMovie = await getOMDBDataById(imdbID);
+
+      if (OMDbMovie.Response === "False") {
+        throw new Error("Film bulunamadı!");
       }
-      const genreList = (data.Genre as string).split(", ").map((genre: string) => genre.trim());
+
+      const genreList = (OMDbMovie.Genre as string).split(", ").map((genre: string) => genre.trim());
       const validGenres = genreList.filter((genre: string) => availableGenres.includes(genre));
-      const filmData: OMDbData = {
-        title: data.Title.trim(),
-        rating: parseFloat(data.imdbRating),
-        stars: data.Actors.split(", ").slice(0, 3).join(" ! ").trim(),
-        country: data.Country.trim(),
-        director: data.Director.split(", ").join(" ! ").trim(),
-        year: Number(data.Year),
-        time: parseInt(data.Runtime.match(/\d+/)?.[0] || "0", 10),
+      const filmData = {
+        title: OMDbMovie.Title.trim(),
+        rating: parseFloat(OMDbMovie.imdbRating),
+        stars: OMDbMovie.Actors.split(", ").slice(0, 3).join(" ! ").trim(),
+        country: OMDbMovie.Country.trim(),
+        director: OMDbMovie.Director.split(", ").join(" ! ").trim(),
+        year: Number(OMDbMovie.Year),
+        time: parseInt(OMDbMovie.Runtime.match(/\d+/)?.[0] || "0", 10),
         genres: validGenres,
-        description: "data.P",
       };
-      console.log(data);
+
       await client
         .patch(documentId)
         .set({
@@ -86,3 +74,21 @@ export default function GetMovieData() {
     </div>
   );
 }
+
+const availableGenres = [
+  "Action",
+  "Adventure",
+  "Drama",
+  "Thriller",
+  "Animation",
+  "Comedy",
+  "Family",
+  "Sci-Fi",
+  "Fantasy",
+  "Horror",
+  "Mystery",
+  "Documentary",
+  "War",
+  "Crime",
+  "Historical",
+];

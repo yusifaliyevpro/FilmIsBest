@@ -15,7 +15,13 @@ export function AdminSignIn() {
           <p className="text-sm text-default-500">Access restricted to authorized personnel only</p>
         </CardHeader>
         <CardBody>
-          <Button onPress={() => signIn("github")} startContent={<BsGithub />} className="w-full" color="default" variant="flat">
+          <Button
+            onPress={() => signIn("github")}
+            startContent={<BsGithub />}
+            className="w-full"
+            color="default"
+            variant="flat"
+          >
             Sign up with GitHub
           </Button>
         </CardBody>

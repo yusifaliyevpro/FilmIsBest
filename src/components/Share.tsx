@@ -2,7 +2,7 @@
 
 import { BASE_URL } from "../lib/constants";
 import { Locale } from "@/i18n/routing";
-import type { MOVIE_QUERYResult } from "@/sanity/types";
+import { MovieQueryResult } from "@/sanity/types";
 import { Button } from "@heroui/button";
 import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure } from "@heroui/modal";
 import { Snippet } from "@heroui/snippet";
@@ -12,10 +12,16 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
-import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
+import {
+  BiDotsVerticalRounded,
+  BiImageAlt,
+  BiLogoTelegram,
+  BiLogoWhatsapp,
+  BiSolidShareAlt,
+} from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
 
-export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; locale: Locale }) {
+export default function Share({ movie, locale }: { movie: MovieQueryResult; locale: Locale }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [canShareFiles, setCanShareFiles] = useState(false);
   const [canShareText, setCanShareText] = useState(false);
@@ -30,7 +36,9 @@ export default function Share({ movie, locale }: { movie: MOVIE_QUERYResult; loc
   const router = useRouter();
   const t = useTranslations("Movie");
   if (!movie) return null;
-  const translatedGenres = movie.genre.map((genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre);
+  const translatedGenres = movie.genre.map(
+    (genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre,
+  );
 
   const whatsappBody =
     `🍿 *${t("movieName")}* ` +

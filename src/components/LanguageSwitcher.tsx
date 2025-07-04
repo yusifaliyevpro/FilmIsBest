@@ -33,7 +33,11 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
       renderValue={(items) => {
         return items.map((item) => (
           <div key={item.key} className="flex flex-row items-center gap-x-2">
-            <Avatar alt={item?.data?.lang || ""} className="h-6 w-6" src={`https://flagcdn.com/${item?.data?.flag}.svg`} />
+            <Avatar
+              alt={item?.data?.lang || ""}
+              className="h-6 w-6"
+              src={`https://flagcdn.com/${item?.data?.flag}.svg`}
+            />
             <p>{item?.data?.key.toUpperCase()}</p>
           </div>
         ));
@@ -43,7 +47,13 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
       {(language) => (
         <SelectItem
           key={language.key}
-          startContent={<Avatar alt={language.lang} className="h-6 w-6" src={`https://flagcdn.com/${language.flag}.svg`} />}
+          startContent={
+            <Avatar
+              alt={language.lang}
+              className="h-6 w-6"
+              src={`https://flagcdn.com/${language.flag}.svg`}
+            />
+          }
         >
           {language.key.toUpperCase()}
         </SelectItem>

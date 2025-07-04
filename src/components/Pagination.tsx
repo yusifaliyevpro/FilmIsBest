@@ -1,11 +1,11 @@
 "use client";
 
 import useStore from "@/lib/store";
-import { MOVIES_QUERYResult } from "@/sanity/types";
+import { MoviesQueryResult } from "@/sanity/types";
 import { Pagination } from "@heroui/pagination";
 import { use } from "react";
 
-export default function PaginationUI({ moviesPromise }: { moviesPromise: Promise<MOVIES_QUERYResult> }) {
+export default function PaginationUI({ moviesPromise }: { moviesPromise: Promise<MoviesQueryResult> }) {
   const count = use(moviesPromise).length;
   const setPage = useStore((state) => state.setPage);
   const page = useStore((state) => state.page);

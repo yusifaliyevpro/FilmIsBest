@@ -1,6 +1,6 @@
 "use client";
 
-import { removeMovieRequest } from "@/data-access/requests/actions";
+import { removeMovieRequest } from "@/data-access/prisma/requests/actions";
 import { addToast, closeAll } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -16,5 +16,10 @@ export function DeleteButton({ id }: { id: string }) {
     }
     addToast({ title: error, color: "danger" });
   };
-  return <MdOutlineDeleteOutline className={`cursor-pointer text-2xl text-red-500 hover:text-red-700`} onClick={deleteRequest} />;
+  return (
+    <MdOutlineDeleteOutline
+      className={`cursor-pointer text-2xl text-red-500 hover:text-red-700`}
+      onClick={deleteRequest}
+    />
+  );
 }

@@ -16,10 +16,14 @@ export function LoadingMovieInfo() {
           </span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
-          Kateqoriya: <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">Lorem ipsum dolor sit amet</span>
+          Kateqoriya:{" "}
+          <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
+            Lorem ipsum dolor sit amet
+          </span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
-          Rejissor(lar): <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">Lorem İpsum</span>
+          Rejissor(lar):{" "}
+          <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">Lorem İpsum</span>
         </li>
         <div className="relative mt-4 flex w-fit flex-row items-center gap-4">
           <div className="h-[43px] w-[43px] animate-pulse rounded-10 bg-gray-200"></div>
@@ -28,10 +32,10 @@ export function LoadingMovieInfo() {
         <li className="mt-4 w-auto font-bold text-slate-400 sm:w-fit">
           Filmin Təsviri:{" "}
           <span className="animate-pulse rounded-10 bg-gray-200 text-gray-200">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat ullamcor urna a aliquam. Pellentesque
-            habitant morbi tristique senectus et alsaune bornda debe alesuada fames ac turpis egestas. Praesent et urna aliquet,
-            dapibus diam ac, faucibus elit. Vivamus id tortor risus. Suspendisse potenti. Nullam elementum ex id augue varius
-            eros.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat ullamcor urna a aliquam.
+            Pellentesque habitant morbi tristique senectus et alsaune bornda debe alesuada fames ac turpis
+            egestas. Praesent et urna aliquet, dapibus diam ac, faucibus elit. Vivamus id tortor risus.
+            Suspendisse potenti. Nullam elementum ex id augue varius eros.
           </span>
         </li>
 

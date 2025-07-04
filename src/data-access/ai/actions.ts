@@ -1,16 +1,11 @@
 "use server";
 
-import { auth, signIn } from "../../lib/auth";
-import { AdminEmail } from "@/lib/constants";
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { generateText } from "ai";
 
 const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY });
 
 export async function generateDescription(filmName: string) {
-  const session = await auth();
-  if (!session || session.user?.email !== AdminEmail) await signIn("github");
-
   if (typeof filmName !== "string") return { error: "Invalid film name" };
   const prompt =
     `${filmName} filmi haqqında 60-70 sözdən ibarət Azərbaycan dilində description yaz.` +

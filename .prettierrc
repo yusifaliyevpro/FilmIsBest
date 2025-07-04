@@ -1,6 +1,6 @@
 {
   "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
-  "printWidth": 130,
+  "printWidth": 110,
   "tailwindFunctions": ["clsx", "cn"],
   "tailwindAttributes": ["classNames"]
 }

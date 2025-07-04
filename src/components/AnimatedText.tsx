@@ -3,7 +3,15 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
-export default function AnimatedText({ text, className, once }: { text: string; className: string; once: boolean }) {
+export default function AnimatedText({
+  text,
+  className,
+  once,
+}: {
+  text: string;
+  className: string;
+  once: boolean;
+}) {
   const defaultAnimations = {
     hidden: {
       opacity: 0,
