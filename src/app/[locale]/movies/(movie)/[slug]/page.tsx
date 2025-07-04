@@ -6,9 +6,10 @@ import { LoadingButton } from "@/components/SuspenseFallBacks/LoadingButton";
 import { LoadingMovieBar } from "@/components/SuspenseFallBacks/LoadingMovieBar";
 import { LoadingMovieInfo } from "@/components/SuspenseFallBacks/LoadingMovieInfo";
 import { LoadingSequel } from "@/components/SuspenseFallBacks/LoadingSequel";
+import { getMovie } from "@/data-access/sanity/movies/get";
+import { getSequel } from "@/data-access/sanity/sequel/get";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { getMovie, getSequel } from "@/lib/utils";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -28,7 +29,11 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
         <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-200">
           {movie.filmName}
         </h1>
-        <motion.div animate={{ y: 0 }} initial={{ y: 600 }} transition={{ type: "spring", duration: 0.3, stiffness: 50 }}>
+        <motion.div
+          animate={{ y: 0 }}
+          initial={{ y: 600 }}
+          transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
+        >
           <Suspense fallback={<LoadingMovieBar />}>
             <MovieBar movie={movie} />
           </Suspense>
@@ -37,7 +42,11 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
           </Suspense>
         </motion.div>
       </div>
-      <motion.div animate={{ y: 0 }} initial={{ y: 600 }} transition={{ type: "spring", duration: 0.3, stiffness: 50 }}>
+      <motion.div
+        animate={{ y: 0 }}
+        initial={{ y: 600 }}
+        transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
+      >
         <Suspense fallback={<LoadingSequel />}>
           <Sequels currentSlug={movie.slug} sequelPromise={sequelPromise} />
         </Suspense>
@@ -49,7 +58,11 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
   );
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale; slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);

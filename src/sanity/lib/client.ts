@@ -7,21 +7,3 @@ export const client = createClient({
   apiVersion,
   useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
 });
-
-export const availableGenres = [
-  "Action",
-  "Adventure",
-  "Drama",
-  "Thriller",
-  "Animation",
-  "Comedy",
-  "Family",
-  "Sci-Fi",
-  "Fantasy",
-  "Horror",
-  "Mystery",
-  "Documentary",
-  "War",
-  "Crime",
-  "Historical",
-];

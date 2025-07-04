@@ -1,12 +1,14 @@
 import SanityImage from "./SanityImage";
-import { type MOVIE_QUERYResult } from "@/sanity/types";
+import { MovieQueryResult } from "@/sanity/types";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
-export default async function MovieInfo({ movie }: { movie: MOVIE_QUERYResult }) {
+export default async function MovieInfo({ movie }: { movie: MovieQueryResult }) {
   if (!movie) return null;
   const t = await getTranslations("Movie");
-  const translatedGenres = movie.genre?.map((genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.historical") || genre);
+  const translatedGenres = movie.genre?.map(
+    (genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.historical") || genre,
+  );
   const hours = (movie.movieTime || 0) >= 60 ? Math.floor((movie.movieTime || 0) / 60) : 0;
   const minutes = (movie.movieTime || 0) - hours * 60;
   return (
@@ -50,7 +52,14 @@ export default async function MovieInfo({ movie }: { movie: MOVIE_QUERYResult })
             <span className="bg-gradient-to-r from-sky-400 via-blue-600 to-violet-500 bg-clip-text text-transparent">
               {t("MovieInfo.createdByChatGPT")}
             </span>
-            <Image unoptimized alt="DeepSeek Logo" className="rounded-xl bg-white" height={40} src={"/DeepSeek.png"} width={40} />
+            <Image
+              unoptimized
+              alt="DeepSeek Logo"
+              className="rounded-xl bg-white"
+              height={40}
+              src={"/DeepSeek.png"}
+              width={40}
+            />
           </div>
         </div>
 

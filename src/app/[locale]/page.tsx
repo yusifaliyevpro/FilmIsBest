@@ -2,10 +2,10 @@ import AnimatedText from "@/components/AnimatedText";
 import LottieComponent from "@/components/LottieAnimation";
 import RecentlyAddedMovies from "@/components/RecentlyAddedMovies";
 import LoadingRecentlyAddedMovies from "@/components/SuspenseFallBacks/LoadingRecentlyAddedMovies";
+import { getRecentlyAddedMovies } from "@/data-access/sanity/movies/get";
 import { locales, Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { getRecentlyAddedMovies } from "@/lib/utils";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -13,7 +13,11 @@ import { Suspense } from "react";
 import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("MetaData.Home");
@@ -101,7 +105,11 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <LottieComponent animationPath="/Movieanm.lottie" />
         </motion.div>
       </div>
-      <AnimatedText once className="mt-72 w-full text-center text-3xl font-bold text-white" text={t("recentlyAdded")} />
+      <AnimatedText
+        once
+        className="mt-72 w-full text-center text-3xl font-bold text-white"
+        text={t("recentlyAdded")}
+      />
       <Suspense fallback={<LoadingRecentlyAddedMovies />}>
         <RecentlyAddedMovies recentlyAddedMoviesPromise={recentlyAddedMoviesPromise} />
       </Suspense>

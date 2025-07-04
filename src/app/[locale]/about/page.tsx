@@ -14,13 +14,20 @@ const textVariants: Variants = {
   hidden: { opacity: 0, y: -30 },
   visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, duration: 0.5 } },
 };
-const olVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.3, delayChildren: 2 } } };
+const olVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.3, delayChildren: 2 } },
+};
 const itemVariants: Variants = {
   hidden: { scale: 0, opacity: 0 },
   visible: { scale: 1, opacity: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
   setRequestLocale((await params).locale);
   const t = await getTranslations("MetaData.About");
   return {

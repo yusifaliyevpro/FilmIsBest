@@ -3,13 +3,13 @@
 import SanityImage from "./SanityImage";
 import { Link } from "@/i18n/routing";
 import useStore from "@/lib/store";
-import type { MOVIES_QUERYResult } from "@/sanity/types";
+import { MoviesQueryResult } from "@/sanity/types";
 import Fuse from "fuse.js";
 import { AnimatePresence } from "motion/react";
 import * as motion from "motion/react-client";
 import { use, useEffect } from "react";
 
-export default function Movies({ moviesPromise }: { moviesPromise: Promise<MOVIES_QUERYResult> }) {
+export default function Movies({ moviesPromise }: { moviesPromise: Promise<MoviesQueryResult> }) {
   const movies = use(moviesPromise);
   const search = useStore((state) => state.search);
   const page = useStore((state) => state.page);

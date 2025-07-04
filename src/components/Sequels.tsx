@@ -2,7 +2,7 @@
 
 import SanityImage from "./SanityImage";
 import { Link } from "@/i18n/routing";
-import { SEQUEL_QUERYResult } from "@/sanity/types";
+import { SequelQueryResult } from "@/sanity/types";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { use } from "react";
@@ -12,14 +12,16 @@ export default function Sequels({
   sequelPromise,
 }: {
   currentSlug: string | null;
-  sequelPromise: Promise<SEQUEL_QUERYResult>;
+  sequelPromise: Promise<SequelQueryResult>;
 }) {
   const sequel = use(sequelPromise);
   const t = useTranslations("Movie.Sequels");
   if (!sequel) return null;
   return (
     <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-[836px]">
-      <p className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">{sequel.name + " " + t("name")}</p>
+      <p className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">
+        {sequel.name + " " + t("name")}
+      </p>
       <ol className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
         {sequel.movies.map((movie, index) => (
           <motion.li

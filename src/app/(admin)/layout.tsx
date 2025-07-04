@@ -22,7 +22,9 @@ export default async function RootLayout({ children }: { children: Readonly<Reac
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <main className="relative flex min-h-screen flex-col items-center justify-start bg-white text-black">{children}</main>
+            <main className="relative flex min-h-screen flex-col items-center justify-start bg-white text-black">
+              {children}
+            </main>
           </Providers>
         </NextIntlClientProvider>
       </body>

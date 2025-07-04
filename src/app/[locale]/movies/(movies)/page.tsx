@@ -2,15 +2,19 @@ import Movies from "@/components/Movies";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
 import { LoadingMovies } from "@/components/SuspenseFallBacks/LoadingMovies";
+import { getMovies } from "@/data-access/sanity/movies/get";
 import { Locale, locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { getMovies } from "@/lib/utils";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
   setRequestLocale((await params).locale);
   const t = await getTranslations("MetaData.Movies");
   return {

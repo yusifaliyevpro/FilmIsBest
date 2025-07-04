@@ -1,7 +1,7 @@
 import { Button } from "@heroui/button";
 import { useFormValue } from "sanity";
 
-export default function SearchPoster() {
+export function SearchPoster() {
   const filmName = useFormValue(["filmName"]) as string;
   const link = `https://www.google.com/search?q=${encodeURIComponent(filmName).trim().replace(/\s+/g, "+")}+poster+imdb&udm=2`;
   return (

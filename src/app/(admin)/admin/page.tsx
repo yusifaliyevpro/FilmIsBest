@@ -3,7 +3,7 @@ import { AvatarMenu } from "@/components/AvatarMenu";
 import { DeleteButton } from "@/components/DeleteButton";
 import RefreshButton from "@/components/RefreshButton";
 import { UpdateButton } from "@/components/UpdateButton";
-import { getAllMovieRequests } from "@/data-access/requests/actions";
+import { getAllMovieRequests } from "@/data-access/prisma/requests/get";
 import { Link } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import { AdminEmail } from "@/lib/constants";
@@ -34,7 +34,10 @@ export default async function AdminPage() {
       <div className="mb-3 mt-12 flex w-full flex-row items-center justify-center">
         <h1 className="text-3xl font-bold">Movie Requests</h1>
         <div className="absolute right-16">
-          <AvatarMenu image={session.user.image || "/account_image_placeholder.jpg"} email={session.user.email} />
+          <AvatarMenu
+            image={session.user.image || "/account_image_placeholder.jpg"}
+            email={session.user.email}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-y-4 py-12">

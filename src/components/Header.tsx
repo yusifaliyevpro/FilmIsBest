@@ -42,7 +42,12 @@ export default function Header({ locale }: { locale: Locale }) {
       </NavbarContent>
       <NavbarContent className="hidden gap-12 sm:flex" justify="center">
         <NavbarItem isActive={pathname === `/${locale}`}>
-          <Link aria-current="page" className="hover: text-lg text-gray-300 hover:text-white" color="foreground" href={`/`}>
+          <Link
+            aria-current="page"
+            className="hover: text-lg text-gray-300 hover:text-white"
+            color="foreground"
+            href={`/`}
+          >
             {t("homePage")}
           </Link>
         </NavbarItem>

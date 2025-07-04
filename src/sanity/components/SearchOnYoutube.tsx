@@ -1,7 +1,7 @@
 import { Button } from "@heroui/button";
 import { useFormValue } from "sanity";
 
-export default function SearchOnYoutube() {
+export function SearchOnYoutube() {
   const filmName = useFormValue(["filmName"]) as string;
   const link = `https://www.youtube.com/results?search_query=${encodeURIComponent(filmName).trim().replace(/\s+/g, "+")}+official+trailer`;
 

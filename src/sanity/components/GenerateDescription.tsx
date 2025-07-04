@@ -7,7 +7,7 @@ import { useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { useFormValue, useClient } from "sanity";
 
-export default function GenerateDescription() {
+export function GenerateDescription() {
   const filmName = useFormValue(["filmName"]) as string;
   const documentId = useFormValue(["_id"]) as string;
   const client = useClient({ apiVersion: apiVersion });

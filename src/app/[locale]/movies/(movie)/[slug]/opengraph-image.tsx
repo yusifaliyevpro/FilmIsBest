@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
+import { getMovie } from "@/data-access/sanity/movies/get";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { getMovie } from "@/lib/utils";
 import { setRequestLocale } from "next-intl/server";
 import { ImageResponse } from "next/og";
 
@@ -32,7 +32,9 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
           />
           <div tw="relative w-[600px] flex flex-col mr-10 items-center justify-around text-xl font-bold">
             <h1 tw="relative flex h-auto w-auto font-bold text-5xl text-center">{movie.filmName}</h1>
-            <div tw="relative flex bg-blue-600 p-7 text-3xl rounded-[10px] text-white font-bold">İndi İzləməyə Başla!</div>
+            <div tw="relative flex bg-blue-600 p-7 text-3xl rounded-[10px] text-white font-bold">
+              İndi İzləməyə Başla!
+            </div>
             <div tw="relative flex flex-row items-center right-0 justify-around">
               <img
                 alt="FilmIsBest Logo"

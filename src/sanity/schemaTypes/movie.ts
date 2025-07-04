@@ -1,7 +1,7 @@
-import GenerateDescription from "../components/GenerateDescription";
-import GetMovieData from "@/sanity/components/GetMovieData";
-import SearchOnYoutube from "@/sanity/components/SearchOnYoutube";
-import SearchPoster from "@/sanity/components/SearchPoster";
+import { GenerateDescription } from "../components/GenerateDescription";
+import { GetMovieData } from "../components/GetMovieData";
+import { SearchOnYoutube } from "../components/SearchOnYoutube";
+import { SearchPoster } from "../components/SearchPoster";
 import { defineArrayMember, defineField } from "sanity";
 
 const movieSchema = defineField({
