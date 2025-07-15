@@ -19,7 +19,7 @@ export default function Search() {
 
   return (
     <>
-      <div className="mx-auto mb-4 mt-6 w-auto sm:w-[500px]">
+      <div className="mx-auto mb-4 mt-6 w-auto sm:w-102">
         <Input
           placeholder={t("placeholder")}
           radius="full"
@@ -29,7 +29,7 @@ export default function Search() {
           value={text}
           variant="bordered"
           classNames={{
-            base: "h-11 bg-gray-100 sm:max-w-[100rem]",
+            base: "h-11 bg-gray-100 sm:max-w-400",
             mainWrapper: "h-full bg-gray-100",
             input: "text-md bg-gray-100 text-small font-bold",
             inputWrapper: "h-full bg-gray-100 font-normal text-white dark:bg-gray-100",

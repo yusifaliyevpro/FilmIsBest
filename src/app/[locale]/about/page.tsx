@@ -76,7 +76,7 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
       t: "aboutTheProject",
       type: "h1",
       className:
-        "mb-5 bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text  text-center text-3xl font-bold text-transparent lg:mb-2",
+        "mb-5 bg-linear-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text  text-center text-3xl font-bold text-transparent lg:mb-2",
     },
     { t: "text1" },
     { t: "text2" },

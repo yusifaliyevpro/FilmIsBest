@@ -1,4 +1,3 @@
-import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileNavbar from "@/components/MobileNavbar";
@@ -7,12 +6,9 @@ import { locales, Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 import "swiper/css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
   children,
@@ -26,18 +22,14 @@ export default async function RootLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   return (
-    <html className="min-h-screen bg-gray-100 text-white dark" lang={locale}>
-      <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
-          <Providers>
-            <Header locale={locale} />
-            {children}
-            <MobileNavbar locale={locale} />
-            <Footer />
-          </Providers>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Providers>
+        <Header locale={locale} />
+        {children}
+        <MobileNavbar locale={locale} />
+        <Footer />
+      </Providers>
+    </NextIntlClientProvider>
   );
 }
 

@@ -71,7 +71,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <>
             <h1 className="relative mt-6 flex-col gap-y-10 text-wrap text-center text-2xl font-bold no-underline lg:mt-0 lg:text-nowrap lg:text-5xl">
               <p>{t("cta")}</p>
-              <p className="inline-block text-wrap bg-gradient-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
+              <p className="inline-block text-wrap bg-linear-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text text-transparent">
                 {t("ctaUrl", { url: "filmisbest.com" })}
               </p>
             </h1>

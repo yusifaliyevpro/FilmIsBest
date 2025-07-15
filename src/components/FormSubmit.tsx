@@ -68,7 +68,7 @@ export default function FormSubmit() {
                 name="fullName"
                 classNames={{ input: "text-white" }}
                 endContent={
-                  <IoPerson className="pointer-events-none flex-shrink-0 text-xl text-default-500" />
+                  <IoPerson className="pointer-events-none shrink-0 text-xl text-default-500" />
                 }
                 label={`${t("name")} (Optional)`}
                 labelPlacement="outside"
@@ -82,7 +82,7 @@ export default function FormSubmit() {
                 classNames={{ input: "text-white" }}
                 description={t("emailPrivacy")}
                 endContent={
-                  <HiAtSymbol className="pointer-events-none flex-shrink-0 text-2xl text-default-500" />
+                  <HiAtSymbol className="pointer-events-none shrink-0 text-2xl text-default-500" />
                 }
                 errorMessage={!!state.errors?.email && t("emailError")}
                 isInvalid={!!state.errors?.email}
@@ -100,7 +100,7 @@ export default function FormSubmit() {
                 className="text-white"
                 classNames={{ input: "light:text-white dark:text-white" }}
                 endContent={
-                  <BiSolidMovie className="pointer-events-none flex-shrink-0 text-2xl text-default-500" />
+                  <BiSolidMovie className="pointer-events-none shrink-0 text-2xl text-default-500" />
                 }
                 errorMessage={!!state.errors?.movieName && t("movieNameError")}
                 isInvalid={!!state.errors?.movieName}
