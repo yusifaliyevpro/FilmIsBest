@@ -49,7 +49,7 @@ export default async function MovieInfo({ movie }: { movie: MovieQueryResult }) 
         </li>
         <div className="relative flex flex-nowrap items-center justify-end px-3 text-lg">
           <div className="relative mt-3 flex items-center gap-x-1 text-nowrap py-2 font-sans font-bold lg:mt-2">
-            <span className="bg-gradient-to-r from-sky-400 via-blue-600 to-violet-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-sky-400 via-blue-600 to-violet-500 bg-clip-text text-transparent">
               {t("MovieInfo.createdByChatGPT")}
             </span>
             <Image
@@ -80,7 +80,7 @@ export default async function MovieInfo({ movie }: { movie: MovieQueryResult }) 
           <li className="text-balance text-left font-bold text-slate-400">
             {t("MovieInfo.country")}
             <br />
-            <span className="line-clamp-1 max-w-[7rem] text-white" title={movie.country || "None"}>
+            <span className="line-clamp-1 max-w-28 text-white" title={movie.country || "None"}>
               {movie.country}
             </span>
           </li>

@@ -22,18 +22,14 @@ export default async function RootLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider messages={messages}>
-          <Providers>
-            <Header locale={locale} />
-            {children}
-            <MobileNavbar locale={locale} />
-            <Footer />
-          </Providers>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Providers>
+        <Header locale={locale} />
+        {children}
+        <MobileNavbar locale={locale} />
+        <Footer />
+      </Providers>
+    </NextIntlClientProvider>
   );
 }
 

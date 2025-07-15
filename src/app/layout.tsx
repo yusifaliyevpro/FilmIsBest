@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: Readonly<ReactNode> }) {
   return (
-    <html className="min-h-screen bg-gray-100 text-white dark">
+    <html className="dark min-h-screen bg-gray-100 text-white">
       <body className={inter.className}>{children}</body>
     </html>
   );

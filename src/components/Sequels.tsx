@@ -18,7 +18,7 @@ export default function Sequels({
   const t = useTranslations("Movie.Sequels");
   if (!sequel) return null;
   return (
-    <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-[836px]">
+    <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-200">
       <p className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">
         {sequel.name + " " + t("name")}
       </p>

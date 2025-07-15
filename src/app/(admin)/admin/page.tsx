@@ -41,15 +41,15 @@ export default async function AdminPage() {
         </div>
       </div>
       <div className="flex flex-col gap-y-4 py-12">
-        <div className="flex w-[65rem] flex-row items-center justify-end">
+        <div className="flex w-260 flex-row items-center justify-end">
           <RefreshButton />
         </div>
         {requests?.map((request) => (
           <div
             key={request.id}
-            className={`flex w-[65rem] flex-row gap-x-10 rounded-xl p-4 py-5 shadow-medium ${request.isAdded && "text-gray-300"}`}
+            className={`flex w-260 flex-row gap-x-10 rounded-xl p-4 py-5 shadow-medium ${request.isAdded && "text-gray-300"}`}
           >
-            <div className="line-clamp-1 flex w-[14rem] flex-row gap-x-2 text-nowrap">
+            <div className="line-clamp-1 flex w-56 flex-row gap-x-2 text-nowrap">
               <p className="font-bold">Requester:</p>
               <p className="flex truncate">{capitalize(request.fullName)}</p>
             </div>
@@ -65,13 +65,13 @@ export default async function AdminPage() {
                 {request.email.toLowerCase()}
               </Link>
             </div>
-            <div className="line-clamp-1 flex w-[17rem] flex-row gap-x-2 text-nowrap">
+            <div className="line-clamp-1 flex w-68 flex-row gap-x-2 text-nowrap">
               <p className="font-bold">Movie Name:</p>
               <p className="truncate" title={capitalize(request.movieName)}>
                 {capitalize(request.movieName)}
               </p>
             </div>
-            <div className="flex w-[5rem] flex-row items-center gap-x-3">
+            <div className="flex w-20 flex-row items-center gap-x-3">
               <UpdateButton added={!request.isAdded} id={request.id} />
               <DeleteButton id={request.id} />
             </div>

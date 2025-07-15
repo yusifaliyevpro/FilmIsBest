@@ -21,18 +21,18 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
   if (!!movie)
     return new ImageResponse(
       (
-        <div tw="relative flex flex-col bg-[#fff] justify-center w-full h-full items-center">
+        <div tw="relative flex flex-col bg-white justify-center w-full h-full items-center">
           <div tw="relative flex flex-row w-full justify-around">
             <img
               alt={movie.filmName || ""}
               height={490}
               src={`${BASE_URL}/_next/image?url=${movie.poster}&w=640&q=75`}
-              tw="w-[320px} h-[490px] rounded-[10px]"
+              tw="w-[320px} h-[490px] rounded-10"
               width={320}
             />
             <div tw="relative w-[600px] flex flex-col mr-10 items-center justify-around text-xl font-bold">
               <h1 tw="relative flex h-auto w-auto font-bold text-5xl text-center">{movie.filmName}</h1>
-              <div tw="relative flex bg-blue-600 p-7 text-3xl rounded-[10px] text-white font-bold">
+              <div tw="relative flex bg-blue-600 p-7 text-3xl rounded-10 text-white font-bold">
                 İndi İzləməyə Başla!
               </div>
               <div tw="relative flex flex-row items-center right-0 justify-around">
