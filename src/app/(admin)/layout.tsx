@@ -1,4 +1,3 @@
-import "./admin.css";
 import { Providers } from "@/components/Providers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
