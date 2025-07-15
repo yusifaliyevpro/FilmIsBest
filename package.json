@@ -36,7 +36,7 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/react-loader": "^1.11.13",
     "@sanity/vision": "^3.99.0",
-    "ai": "^4.3.18",
+    "ai": "^4.3.19",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.5",
     "fuse.js": "^7.1.0",
@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "@types/node": "^22.16.3",
+    "@types/node": "^22.16.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "autoprefixer": "^10.4.21",
