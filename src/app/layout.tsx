@@ -1,14 +1,12 @@
 import "./globals.css";
 import "@/lib/env";
-import { Inter } from "next/font/google";
+import { inter, poppins } from "@/lib/fonts";
 import { ReactNode } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: Readonly<ReactNode> }) {
   return (
-    <html className="dark min-h-screen bg-gray-100 text-white">
-      <body className={inter.className}>{children}</body>
+    <html className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}>
+      <body className="font-inter">{children}</body>
     </html>
   );
 }

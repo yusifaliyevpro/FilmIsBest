@@ -2,11 +2,10 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileNavbar from "@/components/MobileNavbar";
 import { Providers } from "@/components/Providers";
-import { locales, Locale } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
-import { notFound } from "next/navigation";
+import { getMessages } from "next-intl/server";
 import { ReactNode } from "react";
 import "swiper/css";
 
@@ -18,8 +17,6 @@ export default async function RootLayout({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-  if (!locales.includes(locale)) notFound();
-  setRequestLocale(locale);
   const messages = await getMessages();
   return (
     <NextIntlClientProvider messages={messages}>

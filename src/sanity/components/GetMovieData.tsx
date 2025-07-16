@@ -25,7 +25,7 @@ export function GetMovieData() {
       const OMDbMovie = await getOMDBDataById(imdbID);
 
       if (OMDbMovie.Response === "False") {
-        throw new Error("Film bulunamadı!");
+        throw new Error("Couldn't find the movie!");
       }
 
       const genreList = (OMDbMovie.Genre as string).split(", ").map((genre: string) => genre.trim());
@@ -67,7 +67,7 @@ export function GetMovieData() {
     <div className="relative my-0 flex w-full flex-row justify-end">
       <div className="gap-y-2y flex flex-col">
         <Button className="font-bold" color="primary" isDisabled={loading} onPress={fetchFilmData}>
-          {loading ? "Yükleniyor..." : "Get Movie Data"}
+          {loading ? "Loading..." : "Get Movie Data"}
         </Button>
         {error && <p className="text-red-500">{error}</p>}
       </div>

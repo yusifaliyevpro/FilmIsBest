@@ -3,7 +3,7 @@
 export async function getOMDBDataById(imdbID: string) {
   const OMDB_API_KEY = process.env.OMDB_API_KEY;
   const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);
-  const data = (await response.json()) as OMDbMovieData;
+  const data: OMDbMovieData = await response.json();
   return data;
 }
 
@@ -22,10 +22,7 @@ type OMDbMovieData = {
   Country: string;
   Awards: string;
   Poster: string;
-  Ratings: {
-    Source: string;
-    Value: string;
-  }[];
+  Ratings: { Source: string; Value: string }[];
   Metascore: string;
   imdbRating: string;
   imdbVotes: string;

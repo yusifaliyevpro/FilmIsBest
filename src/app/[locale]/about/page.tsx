@@ -28,7 +28,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
-  setRequestLocale((await params).locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("MetaData.About");
   return {
     title: t("title"),
@@ -89,7 +90,7 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
   return (
     <section className="relative mx-4 flex flex-wrap items-center justify-center text-white sm:mx-0">
       <motion.ul
-        className="relative mb-5 mt-8 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12"
+        className="relative mt-8 mb-5 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12"
         initial="hidden"
         variants={ulVariants}
         viewport={{ once: true }}
@@ -105,7 +106,7 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
           </motion.p>
         ))}
         <motion.ol
-          className="tools relative my-8 flex select-none flex-wrap items-center justify-center gap-x-8 gap-y-8 sm:flex-row"
+          className="tools relative my-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-8 select-none sm:flex-row"
           initial="hidden"
           variants={olVariants}
           viewport={{ once: true }}
@@ -114,7 +115,7 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
           {tools.map((tool, i) => (
             <motion.li key={i} variants={itemVariants}>
               <Link
-                className="flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 shadow-large drop-shadow-2xl hover:bg-slate-700"
+                className="shadow-large flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
                 target="_blank"
               >
