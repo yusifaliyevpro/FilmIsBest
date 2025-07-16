@@ -102,7 +102,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           initial={{ y: 0 }}
           transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
         >
-          <LottieComponent animationPath="../../../assets/Movieanm.lottie" />
+          <LottieComponent src="/HomePageAnimation.lottie" />
         </motion.div>
       </div>
       <AnimatedText

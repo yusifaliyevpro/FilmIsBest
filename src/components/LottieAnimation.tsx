@@ -2,8 +2,8 @@
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-const LottieComponent = ({ animationPath }: { animationPath: string }) => {
-  return <DotLottieReact autoplay loop src={animationPath} />;
+const LottieComponent = ({ src }: { src: string }) => {
+  return <DotLottieReact autoplay loop src={src} />;
 };
 
 export default LottieComponent;
