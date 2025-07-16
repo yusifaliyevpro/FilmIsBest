@@ -3,9 +3,9 @@ import { getMovie } from "@/data-access/sanity/movies/get";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import sanityLoader from "@/lib/imageLoader";
+import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { join } from "path";
 
 export const alt = "Movie Poster";
 export const size = {

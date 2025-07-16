@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { BASE_URL } from "@/lib/constants";
+import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { join } from "path";
 
 export const runtime = "edge";
 
