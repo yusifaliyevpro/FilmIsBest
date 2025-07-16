@@ -2,55 +2,65 @@
 import { getMovie } from "@/data-access/sanity/movies/get";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { setRequestLocale } from "next-intl/server";
+import sanityLoader from "@/lib/imageLoader";
+import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
+import { join } from "path";
 
 export const alt = "Movie Poster";
 export const size = {
   width: 1200,
-  height: 600,
+  height: 630,
 };
 export const contentType = "image/png";
 
 export default async function Image({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
-
+  const { slug } = await params;
   const movie = await getMovie(slug);
+
+  const interSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));
 
   if (!!movie)
     return new ImageResponse(
       (
-        <div tw="relative flex flex-col bg-white justify-center w-full h-full items-center">
-          <div tw="relative flex flex-row w-full justify-around">
-            <img
-              alt={movie.filmName || ""}
-              height={490}
-              src={`${BASE_URL}/_next/image?url=${movie.poster}&w=640&q=75`}
-              tw="w-[320px} h-[490px] rounded-10"
-              width={320}
-            />
-            <div tw="relative w-[600px] flex flex-col mr-10 items-center justify-around text-xl font-bold">
-              <h1 tw="relative flex h-auto w-auto font-bold text-5xl text-center">{movie.filmName}</h1>
-              <div tw="relative flex bg-blue-600 p-7 text-3xl rounded-10 text-white font-bold">
-                İndi İzləməyə Başla!
+        <div tw="relative flex h-full w-full flex-col items-center justify-center bg-white">
+          <div tw="relative flex h-full w-full flex-row justify-between">
+            <div tw="flex py-5">
+              <img
+                src={sanityLoader({ src: movie.poster!, width: 450, quality: 100 })}
+                tw="ml-10 h-full w-95 rounded-2xl shadow-2xl shadow-blue-900"
+                alt={movie.filmName || ""}
+              />
+            </div>
+
+            <div tw="relative flex w-190 flex-col items-center justify-around text-xl font-bold">
+              <h1 tw="relative flex h-auto w-auto text-center text-7xl font-bold text-blue-600">
+                {movie.filmName}
+              </h1>
+              <div tw="rounded-10 relative flex bg-blue-600 p-9 text-5xl font-bold text-white">
+                Watch it Now!
               </div>
-              <div tw="relative flex flex-row items-center right-0 justify-around">
-                <img
-                  alt="FilmIsBest Logo"
-                  height={70}
-                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAf9JREFUaEPtWUsvA1EU/o5WbYQIQz3ikSiWXXZhx7+QeE2j/CGEmRLxM1hhbVOJGIlFPcIoG7tWrwyVTFvpzM090orbZe853znfY3LTKeGPf+iP7w9NoNkOagda0oHx5ad4e4QsQKQA6m3ukqIA0Jkol9LXe4Nu7S51EfKWj0XoXADx5i5eNz0fQyx5YXe/+E/qCCTS7iEEFlps+a91BHacrJFpTMB07wEMtiQBIO/YxmgQAeEvcGyDEqZ7BGDO9/0bFWnm6qDvzl8rUXcCYDYIzztPmG7dPtIEphafh0W7uATQ6Ws+dmxj3g8Wtm7CfB2LopQLwmMjUAHysrddFS1CxrGMnRoXwtWtuusgbIXAU3fge4hERMJGLjBKLBH6JhDWes46VgKfUfrBehJYu8oau1VRClk3mX7eICE2qx5MHx47gcrzEGg9V92vEOCMiEe0EZ4ygVa70Lx7Seoe0ASYFdAOMAsqDacdkJaMuUE7wCyoNJx2QFoy5gbtALOg0nDaAWnJmBu0A8yCSsNpB6QlY274Fw547zuHmIXjgSPcOZYxEvCb+GkfoCWeidwolHXsPrMhgcmVB4MomgOhn3u8It5tpNiRvDzoKjQk4B1Or7pD7wSrDUgJoEdxsGK7KBDotEjlzI018FgLpv+lVJRXuV07oCyhIoB2QFFA5fYPl3tmQEkVff8AAAAASUVORK5CYII="
-                  width={70}
-                />
-                <p tw="font-bold text-inherit text-5xl ml-2">FilmIsBest</p>
+              <div tw="relative right-0 flex flex-row items-center justify-around">
+                <img alt="FilmIsBest Logo" height={70} src={`${BASE_URL}/icon.png`} width={70} />
+                <p tw="ml-2 text-6xl font-bold text-inherit">
+                  Film<span tw="text-blue-600">Is</span>Best
+                </p>
               </div>
             </div>
           </div>
         </div>
       ),
       {
-        height: 600,
-        width: 1200,
+        fonts: [
+          {
+            name: "Inter",
+            data: interSemiBold,
+            style: "normal",
+            weight: 400,
+          },
+        ],
+        height: size.height,
+        width: size.width,
       },
     );
 }

@@ -15,7 +15,9 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
-  setRequestLocale((await params).locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("MetaData.Movies");
   return {
     metadataBase: new URL(BASE_URL),
@@ -54,7 +56,7 @@ export default async function MoviesPage({ params }: { params: Promise<{ locale:
   setRequestLocale(locale);
   const moviesPromise = getMovies();
   return (
-    <section className="justify-content-center relative mx-auto mb-20 mt-6 flex flex-col items-center justify-center">
+    <section className="justify-content-center relative mx-auto mt-6 mb-20 flex flex-col items-center justify-center">
       <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
         <Search />
         <Suspense

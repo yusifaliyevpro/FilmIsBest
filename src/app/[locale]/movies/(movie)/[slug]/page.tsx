@@ -18,15 +18,15 @@ import { Suspense } from "react";
 
 export default async function Movie({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const movie = await getMovie(slug);
   if (!movie) return notFound();
+
   const sequelPromise = getSequel(movie._id);
 
   return (
     <>
       <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
-        <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-10 bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-200">
+        <h1 className="text-shadow rounded-10 shadow-small relative top-0 z-0 m-auto mx-5 mt-14 w-auto bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white drop-shadow-2xl sm:mx-auto sm:w-200">
           {movie.filmName}
         </h1>
         <motion.div

@@ -116,7 +116,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       const response = await fetch(movie?.poster as string);
 
       if (!response.ok) {
-        throw new Error("Şəkil yüklənə bilmədi.");
+        throw new Error("Couldn't load photo!");
       }
 
       const blob = await response.blob();
@@ -172,7 +172,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
           <ModalBody className="p-8">
             <div className="no-scrollbar relative mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
               <div
-                className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
                 onClick={() => handleShare("whatsapp")}
               >
                 <BiLogoWhatsapp className="text-7xl text-blue-600" />
@@ -180,7 +180,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
               </div>
               {isMobileOnly && (
                 <div
-                  className="relative flex w-fit cursor-pointer flex-col items-center p-2 hover:shadow-medium"
+                  className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
                   onClick={() => handleShare("telegram")}
                 >
                   <BiLogoTelegram className="text-7xl text-blue-600" />
@@ -188,24 +188,24 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
                 </div>
               )}
               <div
-                className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
                 onClick={() => handleShare("copy")}
               >
                 <BsCardText className="text-7xl text-blue-600" />
-                <p className="text-nowrap font-bold">Copy Text</p>
+                <p className="font-bold text-nowrap">Copy Text</p>
               </div>
               {canShareFiles && (
                 <div
-                  className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                  className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
                   onClick={handlePoster}
                 >
-                  <BiImageAlt className="text-nowrap text-7xl text-blue-600" />
+                  <BiImageAlt className="text-7xl text-nowrap text-blue-600" />
                   <p className="font-bold">Poster</p>
                 </div>
               )}
               {canShareText ? (
                 <div
-                  className="relative flex w-fit cursor-pointer flex-col items-center rounded-10 p-2 hover:shadow-medium"
+                  className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
                   onClick={() => handleShare("other")}
                 >
                   <BiDotsVerticalRounded className="text-7xl text-blue-600" />

@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { BASE_URL } from "@/lib/constants";
+import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
-
-export const runtime = "edge";
+import { join } from "path";
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,18 +12,16 @@ export async function GET(request: NextRequest) {
     // ?title=<title>
     const hasTitle = searchParams.has("title");
     const title = hasTitle ? searchParams.get("title")?.slice(0, 100) : "Default title";
-    const interSemiBold = fetch(new URL("./../../../../public/fonts/Inter-Bold.ttf", import.meta.url)).then(
-      (res) => res.arrayBuffer(),
-    );
+    const interSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));
 
     return new ImageResponse(
       (
-        <div tw="relative flex flex-col w-full bg-white h-full items-center justify-start">
-          <div tw="relative flex inset-0 justify-center items-start mt-28">
+        <div tw="relative flex h-full w-full flex-col items-center justify-start bg-white">
+          <div tw="relative inset-0 mt-28 flex items-start justify-center">
             <img alt="FilmIsBest Logo" height={550} src={`${BASE_URL}/icon.png`} width={550} />
-            <div tw="absolute flex inset-0" />
+            <div tw="absolute inset-0 flex" />
           </div>
-          <div tw="relative flex items-start justify-center mt-10 text-black">
+          <div tw="relative mt-10 flex items-start justify-center text-black">
             <div tw="text-9xl font-bold">{title}</div>
           </div>
         </div>
@@ -32,9 +30,9 @@ export async function GET(request: NextRequest) {
         fonts: [
           {
             name: "Inter",
-            data: await interSemiBold,
+            data: interSemiBold,
             style: "normal",
-            weight: 700,
+            weight: 400,
           },
         ],
         height: 1000,
