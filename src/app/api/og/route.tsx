@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     // ?title=<title>
     const hasTitle = searchParams.has("title");
     const title = hasTitle ? searchParams.get("title")?.slice(0, 100) : "Default title";
-    const interSemiBold = await readFile(join(process.cwd(), "public/fonts/Poppins-SemiBold.ttf"));
+    const interSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));
 
     return new ImageResponse(
       (

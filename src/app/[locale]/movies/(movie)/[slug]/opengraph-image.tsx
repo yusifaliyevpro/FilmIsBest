@@ -18,7 +18,7 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
   const { slug } = await params;
   const movie = await getMovie(slug);
 
-  const interSemiBold = await readFile(join(process.cwd(), "public/fonts/Poppins-SemiBold.ttf"));
+  const interSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));
 
   if (!!movie)
     return new ImageResponse(
