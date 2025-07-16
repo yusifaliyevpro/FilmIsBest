@@ -9,6 +9,9 @@
     "lint": "next lint",
     "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json"
   },
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
     "@eslint/eslintrc": "^3.3.1",
