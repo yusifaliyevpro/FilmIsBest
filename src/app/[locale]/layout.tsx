@@ -5,7 +5,7 @@ import { Providers } from "@/components/Providers";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { ReactNode } from "react";
 import "swiper/css";
 
@@ -17,6 +17,7 @@ export default async function RootLayout({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const messages = await getMessages();
   return (
     <NextIntlClientProvider messages={messages}>

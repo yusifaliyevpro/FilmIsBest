@@ -12,6 +12,7 @@
   "engines": {
     "node": "22.x"
   },
+  "type": "module",
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
     "@eslint/eslintrc": "^3.3.1",
