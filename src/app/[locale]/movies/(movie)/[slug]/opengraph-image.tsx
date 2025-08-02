@@ -16,9 +16,10 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { slug } = await params;
-  const movie = await getMovie(slug);
-
-  const interSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));
+  const [movie, interSemiBold] = await Promise.all([
+    getMovie(slug),
+    readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf")),
+  ]);
 
   if (!!movie)
     return new ImageResponse(

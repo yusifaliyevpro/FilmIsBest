@@ -55,7 +55,8 @@ export function generateStaticParams() {
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
-  setRequestLocale((await params).locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   const recentlyAddedMovies = await getRecentlyAddedMovies();
   const t = await getTranslations("Home");
   return (

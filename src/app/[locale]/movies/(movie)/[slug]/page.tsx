@@ -1,6 +1,6 @@
 import MovieBar from "@/components/MovieBar";
 import MovieInfo from "@/components/MovieInfo";
-import Sequels from "@/components/Sequels";
+import Sequel from "@/components/Sequels";
 import { getMovie } from "@/data-access/sanity/movies/get";
 import { getSequel } from "@/data-access/sanity/sequel/get";
 import { Locale } from "@/i18n/routing";
@@ -16,12 +16,10 @@ const Share = dynamic(() => import("@/components/Share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
 });
 
-export default async function Movie({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
+export default async function Page({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  const movie = await getMovie(slug);
+  const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
   if (!movie) return notFound();
-
-  const sequel = await getSequel(movie._id);
 
   return (
     <>
@@ -43,7 +41,7 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
         initial={{ y: 600 }}
         transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
       >
-        <Sequels currentSlug={movie.slug} sequel={sequel} />
+        <Sequel currentSlug={movie.slug} sequel={sequel} />
         <MovieInfo movie={movie} />
       </motion.div>
     </>
@@ -58,9 +56,8 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);
-  if (!movie) {
-    return notFound();
-  }
+  if (!movie) return notFound();
+
   return {
     metadataBase: new URL(BASE_URL),
     title: movie.filmName,

@@ -6,7 +6,7 @@ import { SequelQueryResult } from "@/sanity/types";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 
-export default function Sequels({
+export default function Sequel({
   currentSlug,
   sequel,
 }: {

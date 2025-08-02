@@ -1,4 +1,4 @@
-import { defineField } from "sanity";
+import { defineArrayMember, defineField } from "sanity";
 
 const sequelSchema = {
   name: "sequel",
@@ -13,14 +13,16 @@ const sequelSchema = {
     }),
     defineField({
       name: "movies",
+
       title: "Movies",
       type: "array",
       validation: (rule) => rule.required(),
       of: [
-        {
+        defineArrayMember({
           type: "reference",
           to: [{ type: "Movie-studio" }],
-        },
+          options: { disableNew: true },
+        }),
       ],
     }),
   ],
