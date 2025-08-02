@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 import type { ReactNode } from "react";
 
 export default function Template({ children }: { children: Readonly<ReactNode> }) {

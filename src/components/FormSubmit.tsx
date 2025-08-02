@@ -1,6 +1,6 @@
 "use client";
 
-// This component is named FormSubmit as a nod to my early days using formsubmit.co—a simple tool for sending form requests via email.
+// This component is named FormSubmit as a nod to my early days using formsubmit.co, simple tool for sending form requests via email.
 // It was a great starting point for learning about web forms and handling submissions with basic HTML POST methods.
 // Since then, I've explored more advanced technologies like Next.js, UI libraries, Server Actions, Prisma, and useActionState.
 // It's interesting to see how much my approach to building forms has evolved since those first experiments with Formsubmit.co.
@@ -45,7 +45,7 @@ export default function FormSubmit() {
   };
 
   return (
-    <div className="mt-4 flex text-light sm:absolute sm:right-28 sm:ml-auto sm:mt-auto">
+    <div className="text-light mt-4 flex sm:absolute sm:right-28 sm:mt-auto sm:ml-auto">
       <Button className="text-base font-bold" color="primary" onPress={onOpen}>
         {t("movieRequest")}
       </Button>
@@ -57,7 +57,7 @@ export default function FormSubmit() {
         onOpenChange={onOpenChange}
       >
         <ModalContent>
-          <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold text-white light:text-white dark:text-white">
+          <ModalHeader className="light:text-white mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold text-white dark:text-white">
             {t("movieRequest")}
           </ModalHeader>
           <form onSubmit={handleSubmit} noValidate>
@@ -67,9 +67,7 @@ export default function FormSubmit() {
                 autoComplete="off"
                 name="fullName"
                 classNames={{ input: "text-white" }}
-                endContent={
-                  <IoPerson className="pointer-events-none shrink-0 text-xl text-default-500" />
-                }
+                endContent={<IoPerson className="text-default-500 pointer-events-none shrink-0 text-xl" />}
                 label={`${t("name")} (Optional)`}
                 labelPlacement="outside"
                 type="text"
@@ -81,9 +79,7 @@ export default function FormSubmit() {
                 autoComplete="email"
                 classNames={{ input: "text-white" }}
                 description={t("emailPrivacy")}
-                endContent={
-                  <HiAtSymbol className="pointer-events-none shrink-0 text-2xl text-default-500" />
-                }
+                endContent={<HiAtSymbol className="text-default-500 pointer-events-none shrink-0 text-2xl" />}
                 errorMessage={!!state.errors?.email && t("emailError")}
                 isInvalid={!!state.errors?.email}
                 label={t("email")}
@@ -100,7 +96,7 @@ export default function FormSubmit() {
                 className="text-white"
                 classNames={{ input: "light:text-white dark:text-white" }}
                 endContent={
-                  <BiSolidMovie className="pointer-events-none shrink-0 text-2xl text-default-500" />
+                  <BiSolidMovie className="text-default-500 pointer-events-none shrink-0 text-2xl" />
                 }
                 errorMessage={!!state.errors?.movieName && t("movieNameError")}
                 isInvalid={!!state.errors?.movieName}
