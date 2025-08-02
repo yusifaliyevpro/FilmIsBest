@@ -64,7 +64,7 @@ export default async function MoviesPage({ params }: { params: Promise<{ locale:
         animate={{ y: 0 }}
         transition={{ duration: 1.2, type: "spring", stiffness: 55 }}
       >
-        <div className="justify-content-center mx-2.5 flex min-h-[300vh] flex-wrap items-center justify-center gap-x-10">
+        <div className="justify-content-center mx-2.5 flex min-h-[60vh] flex-wrap items-center justify-center gap-x-10">
           <Movies movies={movies} />
         </div>
       </motion.div>

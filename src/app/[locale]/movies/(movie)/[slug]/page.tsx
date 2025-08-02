@@ -1,11 +1,11 @@
 import MovieBar from "@/components/MovieBar";
 import MovieInfo from "@/components/MovieInfo";
 import Sequels from "@/components/Sequels";
-import { LoadingButton } from "@/components/SuspenseFallBacks/LoadingButton";
 import { getMovie } from "@/data-access/sanity/movies/get";
 import { getSequel } from "@/data-access/sanity/sequel/get";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
+import { Button } from "@heroui/button";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 
 const Share = dynamic(() => import("@/components/Share"), {
-  loading: () => <LoadingButton color="primary" />,
+  loading: () => <Button color="primary" className="h-10 w-28" />,
 });
 
 export default async function Movie({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {

@@ -13,22 +13,11 @@ export default function AnimatedText({
   once: boolean;
 }) {
   const defaultAnimations = {
-    hidden: {
-      opacity: 0,
-      x: 20,
-      y: 20,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
+    hidden: { opacity: 0, x: 20, y: 20 },
+    visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.2 } },
   };
   const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.8, once });
+  const isInView = useInView(ref, { amount: "all", once });
   return (
     <p className={className}>
       <span className="sr-only">{text}</span>

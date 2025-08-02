@@ -2,26 +2,38 @@
 
 import { MovieCard } from "./MovieCard";
 import { MoviesQueryResult } from "@/sanity/types";
-import Fuse from "fuse.js";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Movies({ movies }: { movies: MoviesQueryResult }) {
   const searchParams = useSearchParams();
   const search = searchParams.get("search")?.trim();
   const page = Number(searchParams.get("page")) || 1;
-  const options = { keys: ["filmName", "imdbID"], threshold: 0.4 };
 
-  if (search) {
-    const fuse = new Fuse(movies, options);
-    const result = fuse.search(search);
-    movies = result.map(({ item }) => item);
-  } else {
-    movies = movies.slice((page - 1) * 20, page * 20);
-  }
+  const [filteredMovies, setFilteredMovies] = useState(movies);
 
-  if (movies.length === 0) {
+  useEffect(() => {
+    if (!search) {
+      setFilteredMovies(movies.slice((page - 1) * 20, page * 20));
+      return;
+    }
+
+    const filterMovies = async () => {
+      const Fuse = (await import("fuse.js")).default;
+      const fuse = new Fuse(movies, {
+        keys: ["filmName", "imdbID"],
+        threshold: 0.4,
+      });
+      const result = fuse.search(search);
+      setFilteredMovies(result.map((r) => r.item));
+    };
+
+    filterMovies();
+  }, [search, page, movies]);
+
+  if (filteredMovies.length === 0) {
     return (
       <div className="justify-content-center mx-2.5 flex min-h-[60dvh] flex-wrap items-center justify-center gap-x-10 text-3xl">
         There is no match for your search
@@ -31,7 +43,7 @@ export default function Movies({ movies }: { movies: MoviesQueryResult }) {
 
   return (
     <AnimatePresence mode="wait">
-      {movies.map((movie) => (
+      {filteredMovies.map((movie) => (
         <motion.div
           key={movie._id}
           animate={{ opacity: 1, y: 0 }}
