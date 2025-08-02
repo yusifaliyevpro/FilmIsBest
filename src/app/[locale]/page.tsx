@@ -105,7 +105,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       </div>
       <AnimatedText
         once
-        className="mt-72 w-full text-center text-3xl font-bold text-white"
+        className="mt-72 w-full text-center text-4xl font-bold text-white"
         text={t("recentlyAdded")}
       />
       <RecentlyAddedMovies movies={recentlyAddedMovies} />

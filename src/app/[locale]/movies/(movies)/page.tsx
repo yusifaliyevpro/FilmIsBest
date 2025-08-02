@@ -55,7 +55,7 @@ export default async function MoviesPage({ params }: { params: Promise<{ locale:
   const movies = await getMovies();
   return (
     <section className="justify-content-center relative mx-auto mt-6 mb-20 flex flex-col items-center justify-center">
-      <div className="relative flex w-full flex-col items-center justify-center sm:flex-row">
+      <div className="relative flex w-full flex-col items-center justify-center">
         <Search />
         <PaginationUI count={movies.length} />
       </div>
