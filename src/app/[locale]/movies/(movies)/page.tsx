@@ -1,14 +1,12 @@
 import Movies from "@/components/Movies";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
-import { LoadingMovies } from "@/components/SuspenseFallBacks/LoadingMovies";
 import { getMovies } from "@/data-access/sanity/movies/get";
 import { Locale, locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
 
 export async function generateMetadata({
   params,
@@ -54,33 +52,21 @@ export function generateStaticParams() {
 export default async function MoviesPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const moviesPromise = getMovies();
+  const movies = await getMovies();
   return (
     <section className="justify-content-center relative mx-auto mt-6 mb-20 flex flex-col items-center justify-center">
-      <div className="sm:flx-row relative flex w-full flex-col items-center justify-center">
+      <div className="relative flex w-full flex-col items-center justify-center sm:flex-row">
         <Search />
-        <Suspense
-          fallback={
-            <div className="relative mt-5 flex animate-pulse rounded-xl bg-gray-200">
-              <div className="h-9 w-48"></div>
-            </div>
-          }
-        >
-          <PaginationUI moviesPromise={moviesPromise} />
-        </Suspense>
+        <PaginationUI count={movies.length} />
       </div>
       <motion.div
-        animate={{ y: 0 }}
         initial={{ y: 600 }}
-        transition={{
-          duration: 1.2,
-          type: "spring",
-          stiffness: 55,
-        }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1.2, type: "spring", stiffness: 55 }}
       >
-        <Suspense fallback={<LoadingMovies />}>
-          <Movies moviesPromise={moviesPromise} />
-        </Suspense>
+        <div className="justify-content-center mx-2.5 flex min-h-[300vh] flex-wrap items-center justify-center gap-x-10">
+          <Movies movies={movies} />
+        </div>
       </motion.div>
     </section>
   );

@@ -3,8 +3,7 @@ import { MovieQueryResult } from "@/sanity/types";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
-export default async function MovieInfo({ movie }: { movie: MovieQueryResult }) {
-  if (!movie) return null;
+export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQueryResult> }) {
   const t = await getTranslations("Movie");
   const translatedGenres = movie.genre?.map((genre) => t(`Genres.${genre.toLowerCase()}`) || genre);
   const hours = (movie.movieTime || 0) >= 60 ? Math.floor((movie.movieTime || 0) / 60) : 0;
@@ -14,11 +13,11 @@ export default async function MovieInfo({ movie }: { movie: MovieQueryResult }) 
       <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-76 sm:w-60">
         <SanityImage
           alt={`${movie.filmName} movie poster`}
-          blurDataURL={movie.posterlqip as string}
+          blurDataURL={movie.posterlqip!}
           className="rounded-10 relative h-auto w-auto select-none sm:h-76 sm:w-60"
           height={360}
           placeholder="blur"
-          src={movie.poster as string}
+          src={movie.poster!}
           width={240}
         />
       </div>

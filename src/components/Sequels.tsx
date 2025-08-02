@@ -5,20 +5,19 @@ import { Link } from "@/i18n/routing";
 import { SequelQueryResult } from "@/sanity/types";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { use } from "react";
 
 export default function Sequels({
   currentSlug,
-  sequelPromise,
+  sequel,
 }: {
   currentSlug: string | null;
-  sequelPromise: Promise<SequelQueryResult>;
+  sequel: SequelQueryResult;
 }) {
-  const sequel = use(sequelPromise);
   const t = useTranslations("Movie.Sequels");
   if (!sequel) return null;
+
   return (
-    <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-10 shadow-medium sm:mx-auto sm:w-200">
+    <section className="rounded-10 shadow-medium mx-3 mb-8 flex min-h-56 flex-col sm:mx-auto sm:w-200">
       <p className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">
         {sequel.name + " " + t("name")}
       </p>
@@ -32,7 +31,7 @@ export default function Sequels({
             whileHover={{ scale: 1.08 }}
           >
             <Link
-              className={`${movie.slug === currentSlug && "border-3 border-solid border-blue-600"} justify-content-center relative inline-block min-h-[240px] w-[160px] select-none items-center justify-center rounded-xl text-center`}
+              className={`${movie.slug === currentSlug && "border-3 border-solid border-blue-600"} justify-content-center relative inline-block min-h-[240px] w-[160px] items-center justify-center rounded-xl text-center select-none`}
               href={`${movie.slug}`}
             >
               <div>
@@ -40,7 +39,7 @@ export default function Sequels({
                   <SanityImage
                     alt={movie.filmName + " movie poster"}
                     blurDataURL={movie.posterlqip as string}
-                    className="h-[240px] rounded-10"
+                    className="rounded-10 h-[240px]"
                     height={240}
                     placeholder="blur"
                     src={movie.poster as string}

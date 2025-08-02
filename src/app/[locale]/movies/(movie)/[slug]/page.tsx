@@ -1,11 +1,7 @@
 import MovieBar from "@/components/MovieBar";
 import MovieInfo from "@/components/MovieInfo";
 import Sequels from "@/components/Sequels";
-import Share from "@/components/Share";
 import { LoadingButton } from "@/components/SuspenseFallBacks/LoadingButton";
-import { LoadingMovieBar } from "@/components/SuspenseFallBacks/LoadingMovieBar";
-import { LoadingMovieInfo } from "@/components/SuspenseFallBacks/LoadingMovieInfo";
-import { LoadingSequel } from "@/components/SuspenseFallBacks/LoadingSequel";
 import { getMovie } from "@/data-access/sanity/movies/get";
 import { getSequel } from "@/data-access/sanity/sequel/get";
 import { Locale } from "@/i18n/routing";
@@ -13,15 +9,19 @@ import { BASE_URL } from "@/lib/constants";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+
+const Share = dynamic(() => import("@/components/Share"), {
+  loading: () => <LoadingButton color="primary" />,
+});
 
 export default async function Movie({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
   const movie = await getMovie(slug);
   if (!movie) return notFound();
 
-  const sequelPromise = getSequel(movie._id);
+  const sequel = await getSequel(movie._id);
 
   return (
     <>
@@ -34,12 +34,8 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
           initial={{ y: 600 }}
           transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
         >
-          <Suspense fallback={<LoadingMovieBar />}>
-            <MovieBar movie={movie} />
-          </Suspense>
-          <Suspense fallback={<LoadingButton color="primary" />}>
-            <Share locale={locale} movie={movie} />
-          </Suspense>
+          <MovieBar movie={movie} />
+          <Share locale={locale} movie={movie} />
         </motion.div>
       </div>
       <motion.div
@@ -47,12 +43,8 @@ export default async function Movie({ params }: { params: Promise<{ locale: Loca
         initial={{ y: 600 }}
         transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
       >
-        <Suspense fallback={<LoadingSequel />}>
-          <Sequels currentSlug={movie.slug} sequelPromise={sequelPromise} />
-        </Suspense>
-        <Suspense fallback={<LoadingMovieInfo />}>
-          <MovieInfo movie={movie} />
-        </Suspense>
+        <Sequels currentSlug={movie.slug} sequel={sequel} />
+        <MovieInfo movie={movie} />
       </motion.div>
     </>
   );
