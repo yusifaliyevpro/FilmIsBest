@@ -18,11 +18,7 @@ export async function getMovies() {
       }
   `);
 
-  const data = await client.fetch<MoviesQueryResult>(
-    MoviesQuery,
-    {},
-    { next: { revalidate: 3600 }, cache: "force-cache" },
-  );
+  const data = await client.fetch<MoviesQueryResult>(MoviesQuery, {}, { next: { revalidate: 3600 } });
 
   return data;
 }
@@ -52,7 +48,7 @@ export async function getMovie(slug: string) {
     }
   `);
 
-  const data = await client.fetch<MovieQueryResult>(MovieQuery, { slug }, { cache: "force-cache" });
+  const data = await client.fetch<MovieQueryResult>(MovieQuery, { slug }, { next: { revalidate: 3600 } });
 
   return data;
 }
@@ -73,7 +69,7 @@ export async function getRecentlyAddedMovies() {
   const data = await client.fetch<RecentlyAddedMoviesQueryResult>(
     RecentlyAddedMoviesQuery,
     {},
-    { next: { revalidate: 3600 }, cache: "force-cache" },
+    { next: { revalidate: 3600 } },
   );
 
   return data;

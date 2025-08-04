@@ -16,43 +16,7 @@ const Share = dynamic(() => import("@/components/Share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
 });
 
-export default async function Page({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
-  const { locale, slug } = await params;
-  const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
-  if (!movie) return notFound();
-
-  return (
-    <>
-      <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
-        <h1 className="text-shadow rounded-10 shadow-small relative top-0 z-0 m-auto mx-5 mt-14 w-auto bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white drop-shadow-2xl sm:mx-auto sm:w-200">
-          {movie.filmName}
-        </h1>
-        <motion.div
-          animate={{ y: 0 }}
-          initial={{ y: 600 }}
-          transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
-        >
-          <MovieBar movie={movie} />
-          <Share locale={locale} movie={movie} />
-        </motion.div>
-      </div>
-      <motion.div
-        animate={{ y: 0 }}
-        initial={{ y: 600 }}
-        transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
-      >
-        <Sequel currentSlug={movie.slug} sequel={sequel} />
-        <MovieInfo movie={movie} />
-      </motion.div>
-    </>
-  );
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale; slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);
@@ -113,4 +77,37 @@ export async function generateMetadata({
       type: "website",
     },
   };
+}
+
+type MoviePageProps = { params: Promise<{ locale: Locale; slug: string }> };
+export default async function Page({ params }: MoviePageProps) {
+  const { locale, slug } = await params;
+  const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
+  if (!movie) return notFound();
+
+  return (
+    <>
+      <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
+        <h1 className="text-shadow rounded-10 shadow-small relative top-0 z-0 m-auto mx-5 mt-14 w-auto bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white drop-shadow-2xl sm:mx-auto sm:w-200">
+          {movie.filmName}
+        </h1>
+        <motion.div
+          animate={{ y: 0 }}
+          initial={{ y: 600 }}
+          transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
+        >
+          <MovieBar movie={movie} />
+          <Share locale={locale} movie={movie} />
+        </motion.div>
+      </div>
+      <motion.div
+        animate={{ y: 0 }}
+        initial={{ y: 600 }}
+        transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
+      >
+        <Sequel currentSlug={movie.slug} sequel={sequel} />
+        <MovieInfo movie={movie} />
+      </motion.div>
+    </>
+  );
 }

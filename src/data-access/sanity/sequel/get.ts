@@ -16,6 +16,10 @@ export async function getSequel(movieSlug: string) {
     }
   `);
 
-  const data = await client.fetch<SequelQueryResult>(SequelQuery, { slug: movieSlug });
+  const data = await client.fetch<SequelQueryResult>(
+    SequelQuery,
+    { slug: movieSlug },
+    { next: { revalidate: 3600 } },
+  );
   return data;
 }
