@@ -1,7 +1,7 @@
 "use server";
 
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
-import { generateText, LanguageModel } from "ai";
+import { generateText } from "ai";
 
 const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY });
 
@@ -12,7 +12,7 @@ export async function generateDescription(filmName: string) {
     "Filmin adını tərcümə etmə. Heç bir markdown işlətmə sadəcə düz mətni yaz.";
 
   const { text } = await generateText({
-    model: openrouter("deepseek/deepseek-chat-v3-0324:free") as unknown as LanguageModel,
+    model: openrouter("deepseek/deepseek-chat-v3-0324:free"),
     prompt,
     system:
       "Sən sadəcə düz mətn yazmalısan. Heç bir markdown, stil, HTML və ya formatlaşdırma istifadə etmə. " +
