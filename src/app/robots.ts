@@ -1,7 +1,8 @@
 import { BASE_URL } from "../lib/constants";
+import { MetadataRoute } from "next";
 
 // Robots
-export default function robots() {
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
