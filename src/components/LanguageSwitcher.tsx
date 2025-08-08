@@ -8,10 +8,9 @@ import { usePathname } from "next/navigation";
 type Languages = { key: Locale; lang: string; flag: string }[];
 
 export default function LanguageSwitcher({ locale }: { locale: Locale }) {
-  const pathname = usePathname().replace("az", "").replace("en", "").replace("tr", "");
-  const changeLocale = (lang: Locale) => {
-    redirect({ locale: lang, href: pathname });
-  };
+  const pathname = usePathname().slice(3).trim() || "/";
+  const changeLocale = (lang: Locale) => redirect({ locale: lang, href: pathname });
+
   const languages: Languages = [
     { key: "az", lang: "Azərbaycanca", flag: "az" },
     { key: "en", lang: "English", flag: "gb" },
