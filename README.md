@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# <img src="public/icon.png" alt="FilmIsBest Icon" width="48" height="48" style="vertical-align:middle; margin-right:8px;"/> **FilmIsBest**
 
-## Getting Started
+FilmIsBest is a web application designed to make watching and discovering movies easier, especially for group settings like film clubs. The project started as a simple solution to a practical problem and evolved into a full-featured platform, helping me learn web development from scratch.
 
-First, run the development server:
+## Why FilmIsBest?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The idea for FilmIsBest came from a need to quickly share and watch movies with friends during English club sessions. Initially, the project was a static HTML site, but over time, it grew into a dynamic web app using modern technologies.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Browse and search movies
+- View detailed movie information
+- Dynamic routing for individual movie pages
+- SEO-friendly meta tags
+- Multilingual support (Azerbaijani, English, Turkish)
+- Admin panel for managing content
+- Integration with Sanity CMS for movie data
+- Dynamic sitemap generation
+- Responsive design
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies Used
 
-## Learn More
+- **Next.js**: React framework for server-side rendering and routing
+- **TypeScript**: Type safety for scalable development
+- **Sanity CMS**: Headless CMS for managing movie data
+- **Prisma**: ORM for database access
+- **PostCSS**: CSS processing
+- **Lottie**: Animations
+- **Vercel**: Hosting and deployment
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `src/`: Main application code (pages, components, API routes)
+- `prisma/`: Database schema and generated client
+- `public/`: Static assets (images, icons, animations)
+- `assets/`: Fonts and other resources
+- `messages/`: Localization files
+- `sanity/`: Sanity CMS configuration and schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Setup & Installation
 
-## Deploy on Vercel
+1. **Clone the repository:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   git clone https://github.com/yusifaliyevpro/FilmIsBest.git
+   cd FilmIsBest
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. **Install dependencies:**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables:**
+   - Copy `.env.example` to `.env.local` and fill in your credentials for Sanity, database, etc.
+
+4. **Run the development server:**
+
+   ```bash
+   pnpm dev
+   ```
+
+5. **Access the app:**
+   - Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Usage
+
+- Browse movies, view details, and search by title or genre.
+- Admins can sign in to add, update, or delete movies.
+- The site supports multiple languages; use the language switcher in the header.
+
+## Lessons Learned
+
+This project helped me learn:
+
+- Practical web development (HTML, CSS, JavaScript, React, Next.js)
+- Working with APIs and CMS
+- SEO and accessibility best practices
+- Deployment and hosting
+
+## Links
+
+- [Live Site](https://filmisbest.com/)
+- [Blog Post](https://yusifaliyevpro.com/blog/filmisbest-tecrubem)
+- [Author](https://yusifaliyevpro.com/)
+- [GitHub Repo](https://github.com/yusifaliyevpro/FilmIsBest)
