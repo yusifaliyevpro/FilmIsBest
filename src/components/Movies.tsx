@@ -42,7 +42,7 @@ export default function Movies({ movies }: { movies: MoviesQueryResult }) {
   }
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {filteredMovies.map((movie) => (
         <motion.div
           key={movie._id}

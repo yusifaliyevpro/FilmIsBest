@@ -8,7 +8,6 @@ import { BASE_URL } from "@/lib/constants";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { isMobile } from "react-device-detect";
 import { BiSolidChevronRight } from "react-icons/bi";
 
 export async function generateMetadata({
@@ -63,9 +62,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     <>
       <div className="relative mt-8 flex flex-col items-center justify-between px-20 text-white lg:flex-row">
         <motion.div
+          initial={{ y: 10, opacity: 0.6 }}
           animate={{ y: 0, opacity: 1 }}
-          initial={isMobile ?? { y: 30, opacity: 0.1 }}
-          transition={{ type: "spring", stiffness: 120 }}
+          transition={{ type: "spring", stiffness: 120, duration: 0.1 }}
         >
           <h1 className="relative mt-6 flex-col gap-y-10 text-center text-2xl font-bold text-wrap no-underline lg:mt-0 lg:text-5xl lg:text-nowrap">
             <p>{t("cta")}</p>

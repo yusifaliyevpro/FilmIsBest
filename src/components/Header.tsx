@@ -13,13 +13,10 @@ export default function Header({ locale }: { locale: Locale }) {
 
   return (
     <Navbar
-      className="min-h-10 select-none bg-gray-100/90 font-bold text-white backdrop-blur-md light:text-white dark:text-white"
+      className="light:text-white min-h-10 bg-gray-100/90 font-bold text-white backdrop-blur-md select-none dark:text-white"
       classNames={{
         item: [
-          "flex",
-          "relative",
-          "h-full",
-          "items-center",
+          "relative flex h-full items-center",
           "data-[active=true]:after:content-['']",
           "data-[active=true]:after:absolute",
           "data-[active=true]:after:bottom-0",
@@ -33,7 +30,7 @@ export default function Header({ locale }: { locale: Locale }) {
       }}
     >
       <NavbarContent>
-        <NavbarBrand>
+        <NavbarBrand as={"li"}>
           <Link className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold" href={`/`}>
             <BiSolidMovie className="text-3xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>

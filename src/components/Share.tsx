@@ -11,7 +11,6 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
 import {
   BiDotsVerticalRounded,
   BiImageAlt,
@@ -32,6 +31,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       setCanShareText(navigator.canShare({ text: "Test" }));
     }
   }, []);
+
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("Movie");
@@ -178,15 +178,13 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
                 <BiLogoWhatsapp className="text-7xl text-blue-600" />
                 <p className="font-bold">WhatsApp</p>
               </div>
-              {isMobileOnly && (
-                <div
-                  className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
-                  onClick={() => handleShare("telegram")}
-                >
-                  <BiLogoTelegram className="text-7xl text-blue-600" />
-                  <p className="font-bold">Telegram</p>
-                </div>
-              )}
+              <div
+                className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
+                onClick={() => handleShare("telegram")}
+              >
+                <BiLogoTelegram className="text-7xl text-blue-600" />
+                <p className="font-bold">Telegram</p>
+              </div>
               <div
                 className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
                 onClick={() => handleShare("copy")}

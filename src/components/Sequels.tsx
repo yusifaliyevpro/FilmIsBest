@@ -37,13 +37,14 @@ export default function Sequel({
               <div>
                 <div className="relative">
                   <SanityImage
+                    src={movie.poster!}
+                    width={625}
+                    height={910}
+                    quality={90}
                     alt={movie.filmName + " movie poster"}
-                    blurDataURL={movie.posterlqip as string}
-                    className="rounded-10 h-[240px]"
-                    height={240}
                     placeholder="blur"
-                    src={movie.poster as string}
-                    width={160}
+                    blurDataURL={movie.posterlqip!}
+                    className="rounded-10 h-[240px]"
                   />
                 </div>
               </div>

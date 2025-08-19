@@ -28,7 +28,7 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
           <div tw="relative flex h-full w-full flex-row justify-between">
             <div tw="flex py-5">
               <img
-                src={sanityLoader({ src: movie.poster!, width: 450, quality: 100 })}
+                src={sanityLoader({ src: movie.poster!, width: 600, height: 900, quality: 100 })}
                 tw="ml-10 h-full w-95 rounded-2xl shadow-2xl shadow-blue-900"
                 alt={movie.filmName || ""}
               />
