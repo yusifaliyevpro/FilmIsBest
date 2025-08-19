@@ -30,7 +30,7 @@ export default function RecentlyAddedMovies({ movies }: { movies: RecentlyAddedM
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.slug} className="my-5 w-auto pl-6">
-            <MovieCard movie={movie} />
+            <MovieCard movie={movie} isLazyLoad={true} />
           </SwiperSlide>
         ))}
       </Swiper>

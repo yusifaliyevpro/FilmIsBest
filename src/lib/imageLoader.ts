@@ -1,12 +1,20 @@
 import { imageBuilder } from "@/sanity/lib/image";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { ImageLoaderProps } from "next/image";
 
-type ImageLoader = {
-  src: SanityImageSource;
-  width: number;
-  quality?: number;
-};
-export default function sanityLoader({ src, width, quality = 75 }: ImageLoader) {
-  const image = imageBuilder?.image(src).auto("format").fit("max").width(width).quality(quality).url();
+export default function sanityLoader({
+  src,
+  width,
+  height = 200,
+  quality = 75,
+}: ImageLoaderProps & { height?: number }) {
+  const image = imageBuilder
+    ?.image(src)
+    .width(width)
+    .height(height)
+    .auto("format")
+    .fit("max")
+    .quality(quality)
+    .url();
+
   return image;
 }

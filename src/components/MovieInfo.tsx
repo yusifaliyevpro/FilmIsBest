@@ -12,13 +12,14 @@ export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQue
     <div className="rounded-10 relative mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
       <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-76 sm:w-60">
         <SanityImage
+          src={movie.poster!}
+          width={625}
+          height={910}
+          quality={90}
           alt={`${movie.filmName} movie poster`}
+          placeholder="blur"
           blurDataURL={movie.posterlqip!}
           className="rounded-10 relative h-auto w-auto select-none sm:h-76 sm:w-60"
-          height={360}
-          placeholder="blur"
-          src={movie.poster!}
-          width={240}
         />
       </div>
       <div className="rounded-10 relative mx-auto w-auto list-none tracking-normal sm:ml-5 sm:w-105">
