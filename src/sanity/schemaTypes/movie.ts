@@ -1,5 +1,5 @@
-import { GenerateDescription } from "../components/GenerateDescription";
-import { GetMovieData } from "../components/GetMovieData";
+import AITextArea from "../components/AITextArea";
+import { GetMovieDataFromOMDB } from "../components/GetMovieDataFromOMDB";
 import { SearchOnYoutube } from "../components/SearchOnYoutube";
 import { SearchPoster } from "../components/SearchPoster";
 import { defineArrayMember, defineField } from "sanity";
@@ -15,14 +15,7 @@ const movieSchema = defineField({
       title: "Imdb ID",
       type: "string",
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "getFilmData",
-      title: "Get Film Data",
-      type: "string",
-      components: {
-        field: GetMovieData,
-      },
+      components: { input: GetMovieDataFromOMDB },
     }),
     defineField({
       name: "filmName",
@@ -125,15 +118,18 @@ const movieSchema = defineField({
       title: "Description",
       type: "text",
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "generateDescription",
-      title: "Generate Description",
-      type: "string",
       components: {
-        field: GenerateDescription,
+        input: AITextArea,
       },
     }),
+    // defineField({
+    //   name: "generateDescription",
+    //   title: "Generate Description",
+    //   type: "string",
+    //   components: {
+    //     field: GenerateDescription,
+    //   },
+    // }),
     defineField({
       title: "Has an English version?",
       name: "EnglishLink",

@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     ],
     qualities: [75, 100],
   },
+  experimental: { globalNotFound: true },
   typedRoutes: true,
 };
 
