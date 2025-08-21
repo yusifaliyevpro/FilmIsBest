@@ -1,7 +1,6 @@
 import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -11,7 +10,11 @@ const nextConfig: NextConfig = {
         port: "",
       },
     ],
+    qualities: [75, 100],
   },
+  typedRoutes: true,
 };
-// Export Config with NextIntl
+
+const withNextIntl = createNextIntlPlugin();
+
 export default withNextIntl(nextConfig);

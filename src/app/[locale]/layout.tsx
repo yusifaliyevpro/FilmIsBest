@@ -1,33 +1,35 @@
+import "../globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileNavbar from "@/components/MobileNavbar";
 import { Providers } from "@/components/Providers";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
+import { inter, poppins } from "@/lib/fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { ReactNode } from "react";
 import "swiper/css";
 
-export default async function RootLayout({
-  children,
-  params,
-}: {
-  children: Readonly<ReactNode>;
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
+export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
+  const locale = (await params).locale as Locale;
   setRequestLocale(locale);
   const messages = await getMessages();
   return (
-    <NextIntlClientProvider messages={messages}>
-      <Providers>
-        <Header locale={locale} />
-        {children}
-        <MobileNavbar locale={locale} />
-        <Footer />
-      </Providers>
-    </NextIntlClientProvider>
+    <html
+      lang={locale}
+      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}
+    >
+      <body className="font-inter">
+        <NextIntlClientProvider messages={messages}>
+          <Providers>
+            <Header locale={locale} />
+            {children}
+            <MobileNavbar locale={locale} />
+            <Footer />
+          </Providers>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }
 

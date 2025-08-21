@@ -27,7 +27,7 @@ export default function Search() {
   );
 
   useEffect(() => {
-    router.replace("?" + createQueryString("search", query));
+    router.replace(`?${createQueryString("search", query)}`);
   }, [query, createQueryString, router]);
 
   return (
