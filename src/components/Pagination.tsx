@@ -1,13 +1,14 @@
 "use client";
 
 import { Pagination } from "@heroui/pagination";
+import { Route } from "next";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback } from "react";
 
 export default function PaginationUI({ count }: { count: number }) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname() as Route;
 
   const searchQuery = searchParams.get("search")?.trim() || "";
   const pageQuery = Number(searchParams.get("page")) || 1;
@@ -24,7 +25,7 @@ export default function PaginationUI({ count }: { count: number }) {
 
   const setPage = (page: number) => {
     if (page === 1) router.push(pathname);
-    else router.push(pathname + "?" + createQueryString("page", String(page)));
+    else router.push(`${pathname}?${createQueryString("page", String(page))}`);
   };
 
   const total = Math.ceil((searchQuery ? 20 : count) / 20);

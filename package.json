@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma db push --skip-generate && prisma generate && next build",
+    "build": "prisma db push && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
     "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json"
   },
   "engines": {
