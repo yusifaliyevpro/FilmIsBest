@@ -1,14 +1,21 @@
-import { Button } from "@heroui/button";
-import { useFormValue } from "sanity";
+import { SearchIcon } from "@sanity/icons";
+import { InputProps, useFormValue } from "sanity";
 
-export function SearchOnYoutube() {
+export function SearchOnYoutube(props: InputProps) {
+  const { renderDefault } = props;
   const filmName = useFormValue(["filmName"]) as string;
   const link = `https://www.youtube.com/results?search_query=${encodeURIComponent(filmName).trim().replace(/\s+/g, "+")}+official+trailer`;
 
   return (
-    <div className="relative my-0 flex w-full flex-row justify-end">
-      <a href={link} target="_blank">
-        <Button color="primary">Search on YouTube</Button>
+    <div className="relative">
+      {renderDefault(props)}
+      <a
+        type="button"
+        href={link}
+        target="_blank"
+        className="absolute top-0 right-0 z-[2000] flex h-[98%] w-10 cursor-pointer items-center justify-center rounded transition-all duration-200 hover:bg-gray-600/40"
+      >
+        <SearchIcon fontSize={28} />
       </a>
     </div>
   );

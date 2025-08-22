@@ -1,27 +1,28 @@
 "use client";
 
 import { generateDescription } from "@/data-access/ai/actions";
-import { TextArea } from "@sanity/ui";
+import { Spinner, TextArea } from "@sanity/ui";
 import { startTransition, useState } from "react";
+import { BsStars } from "react-icons/bs";
 import { InputProps, set, unset } from "sanity";
 import { useFormValue } from "sanity";
 
-export default function AITextArea(props: InputProps) {
+export default function GenerateDescriptionComponent(props: InputProps) {
   const { value, onChange } = props;
   const filmName = useFormValue(["filmName"]) as string | undefined;
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [streamValue, setStreamValue] = useState<string | null>(null);
 
   const handleAI = () => {
     if (!filmName) return alert("Əvvəlcə film adı daxil edin.");
 
-    setLoading(true);
+    setIsLoading(true);
     setStreamValue("");
     startTransition(async () => {
       const { textStream } = await generateDescription(filmName);
       if (!textStream) {
-        setLoading(false);
+        setIsLoading(false);
         return;
       }
 
@@ -33,7 +34,7 @@ export default function AITextArea(props: InputProps) {
       }
 
       onChange(fullText ? set(fullText) : unset());
-      setLoading(false);
+      setIsLoading(false);
     });
   };
 
@@ -53,12 +54,13 @@ export default function AITextArea(props: InputProps) {
       />
       <button
         type="button"
+        data-selector="description-generate-button"
         onClick={handleAI}
-        disabled={loading}
-        className="absolute top-2 right-2 z-[2000] h-[30px] w-[30px] cursor-pointer rounded bg-gray-200 text-sm"
+        disabled={isLoading}
+        className="absolute top-2 right-2 z-[2000] flex h-[30px] w-[30px] cursor-pointer flex-col items-center justify-center rounded bg-gray-200 text-sm"
         title="AI ilə yaz"
       >
-        {loading ? "..." : "✨"}
+        {isLoading ? <Spinner size={1} /> : <BsStars size={18} className="text-amber-400" />}
       </button>
     </div>
   );

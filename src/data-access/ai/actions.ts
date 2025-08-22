@@ -21,6 +21,5 @@ export async function generateDescription(filmName: string) {
       'Filmin adını tərcümə etmə. Film adını dırnaq içinə al (misal üçün "Movie Name").' +
       "Bu Description bir film websaytında film haqqında kiçik məlumat vermək üçün istifadə olunacaq.",
   });
-
   return { textStream };
 }

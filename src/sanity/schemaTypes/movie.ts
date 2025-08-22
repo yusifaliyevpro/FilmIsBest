@@ -1,13 +1,15 @@
-import AITextArea from "../components/AITextArea";
+import GenerateDescriptionComponent from "../components/GenerateDescription";
 import { GetMovieDataFromOMDB } from "../components/GetMovieDataFromOMDB";
 import { SearchOnYoutube } from "../components/SearchOnYoutube";
 import { SearchPoster } from "../components/SearchPoster";
+import { BiSolidMovie } from "react-icons/bi";
 import { defineArrayMember, defineField } from "sanity";
 
 const movieSchema = defineField({
   name: "Movie-studio",
   title: "Movies",
   type: "document",
+  icon: BiSolidMovie,
   preview: { select: { title: "filmName", media: "poster" } },
   fields: [
     defineField({
@@ -104,14 +106,7 @@ const movieSchema = defineField({
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
-      name: "posterSearch",
-      title: "Search Poster",
-      type: "string",
-      components: {
-        field: SearchPoster,
-      },
+      components: { field: SearchPoster },
     }),
     defineField({
       name: "description",
@@ -119,7 +114,7 @@ const movieSchema = defineField({
       type: "text",
       validation: (rule) => rule.required(),
       components: {
-        input: AITextArea,
+        input: GenerateDescriptionComponent,
       },
     }),
     // defineField({
@@ -164,14 +159,7 @@ const movieSchema = defineField({
       type: "string",
       initialValue: "Empty",
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "youtubeSearchLink",
-      title: "YouTube Search Link",
-      type: "string",
-      components: {
-        field: SearchOnYoutube,
-      },
+      components: { input: SearchOnYoutube },
     }),
   ],
 });
