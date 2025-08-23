@@ -12,7 +12,10 @@ const nextConfig: NextConfig = {
     ],
     qualities: [75, 100],
   },
-  experimental: { globalNotFound: true },
+  experimental: {
+    globalNotFound: true,
+    turbopackScopeHoisting: false,
+  },
   typedRoutes: true,
 };
 

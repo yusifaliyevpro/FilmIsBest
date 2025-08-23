@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma db push && next build",
+    "build": "prisma db push && next build --turbopack",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
@@ -46,7 +46,7 @@
     "clsx": "^2.1.1",
     "fuse.js": "^7.1.0",
     "motion": "^12.23.12",
-    "next": "15.5.1-canary.4",
+    "next": "15.5.0",
     "next-auth": "5.0.0-beta.29",
     "next-intl": "^4.3.5",
     "next-sanity": "^10.0.13",
