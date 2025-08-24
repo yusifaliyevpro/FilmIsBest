@@ -26,15 +26,6 @@ export async function generateMetadata({ params }: MoviePageProps): Promise<Meta
     metadataBase: new URL(BASE_URL),
     title: movie.filmName,
     description: movie.description,
-    alternates: {
-      canonical: `/movies/${movie.slug}`,
-      languages: {
-        "en-US": `/en/movies/${movie.slug}`,
-        "en-GB": `/en/movies/${movie.slug}`,
-        "az-AZ": `/az/movies/${movie.slug}`,
-        "tr-TR": `/tr/movies/${movie.slug}`,
-      },
-    },
     keywords: [
       "FilmİsBest",
       "Film",

@@ -24,14 +24,6 @@ export async function generateMetadata({
       absolute: `FilmIsBest | ${t("title")}`,
     },
     description: t("description"),
-    alternates: {
-      canonical: ``,
-      languages: {
-        en: `/en`,
-        "az-AZ": `/az`,
-        "tr-TR": `/tr`,
-      },
-    },
     openGraph: {
       description: t("description"),
       images: [

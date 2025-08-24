@@ -21,13 +21,6 @@ export async function generateMetadata({
     metadataBase: new URL(BASE_URL),
     title: t("title"),
     description: t("description"),
-    alternates: {
-      canonical: `/en/movies`,
-      languages: {
-        "az-AZ": `/az/movies`,
-        "tr-TR": `/tr/movies`,
-      },
-    },
     openGraph: {
       description: t("description"),
       images: [

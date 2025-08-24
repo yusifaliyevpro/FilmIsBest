@@ -10,54 +10,30 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import "swiper/css";
 
-export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
-  const locale = (await params).locale as Locale;
-  setRequestLocale(locale);
-  const messages = await getMessages();
-  return (
-    <html
-      lang={locale}
-      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}
-    >
-      <body className="font-inter">
-        <NextIntlClientProvider messages={messages}>
-          <Providers>
-            <Header locale={locale} />
-            {children}
-            <MobileNavbar locale={locale} />
-            <Footer />
-          </Providers>
-        </NextIntlClientProvider>
-      </body>
-    </html>
-  );
-}
-
 export const metadata = {
   metadataBase: new URL(BASE_URL),
-  icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
-    other: {
-      rel: "apple-touch-icon-precomposed",
-      url: "/icon.png",
-    },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
   title: {
     default: "FilmIsBest",
     template: "FilmIsBest | %s",
   },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+    other: { rel: "apple-touch-icon-precomposed", url: "/icon.png" },
+  },
+  alternates: {
+    canonical: ``,
+    languages: {
+      en: `/en`,
+      "az-AZ": `/az`,
+      "tr-TR": `/tr`,
+    },
+  },
+
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   keywords: [
-    "FilmİsBest",
+    "FilmIsBest",
     "Film",
     "Filmlər səhifəsi",
     "Movie",
@@ -102,6 +78,28 @@ export const metadata = {
   other: {
     "google-adsense-account": "ca-pub-7613480628428091",
     "google-site-verification": "GSSl61QhJ471RU6KIbd2fSzwNN_6KYQsjA1-PumXcPs",
-    "og:site_name": "FilmIsBest",
   },
 };
+
+export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
+  const locale = (await params).locale as Locale;
+  setRequestLocale(locale);
+  const messages = await getMessages();
+  return (
+    <html
+      lang={locale}
+      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}
+    >
+      <body className="font-inter">
+        <NextIntlClientProvider messages={messages}>
+          <Providers>
+            <Header locale={locale} />
+            {children}
+            <MobileNavbar locale={locale} />
+            <Footer />
+          </Providers>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
