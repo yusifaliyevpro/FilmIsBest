@@ -1,4 +1,4 @@
-import SanityImage from "./SanityImage";
+import SanityImage from "@/components/sanity-image";
 import { MovieQueryResult } from "@/sanity/types";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";

@@ -1,6 +1,6 @@
-import Movies from "@/components/Movies";
-import PaginationUI from "@/components/Pagination";
-import Search from "@/components/Search";
+import Movies from "@/components/movies";
+import PaginationUI from "@/components/pagination";
+import Search from "@/components/search";
 import { getMovies } from "@/data-access/sanity/movies/get";
 import { Locale, locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";

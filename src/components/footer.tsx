@@ -1,7 +1,7 @@
 import { Button } from "@heroui/button";
 import dynamic from "next/dynamic";
 
-const FormSubmit = dynamic(() => import("./FormSubmit"), {
+const FormSubmit = dynamic(() => import("@/components/form-submit"), {
   loading: () => <Button color="primary" className="h-10 w-30" />,
 });
 

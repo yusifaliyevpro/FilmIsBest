@@ -1,9 +1,9 @@
-import AnimatedText from "@/components/AnimatedText";
-import LottieComponent from "@/components/LottieAnimation";
-import RecentlyAddedMovies from "@/components/RecentlyAddedMovies";
+import AnimatedText from "@/components/animated-text";
+import LottieComponent from "@/components/lottie-component";
+import RecentlyAddedMovies from "@/components/recently-added-movies";
 import { getRecentlyAddedMovies } from "@/data-access/sanity/movies/get";
+import { Link } from "@/i18n/navigation";
 import { locales, Locale } from "@/i18n/routing";
-import { Link } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";

@@ -1,6 +1,6 @@
 "use client";
 
-import { MovieCard } from "./MovieCard";
+import MovieCard from "@/components/movie-card";
 import { MoviesQueryResult } from "@/sanity/types";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";

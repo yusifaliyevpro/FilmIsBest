@@ -29,9 +29,9 @@ export default function AnimatedText({
         transition={{ staggerChildren: 0.1 }}
       >
         {text.split(" ").map((word, index) => (
-          <span key={index} className="inline-block">
+          <span key={String(word + index)} className="inline-block">
             {word.split("").map((char, i) => (
-              <motion.span key={i} className="inline-block" variants={defaultAnimations}>
+              <motion.span key={String(i + char)} className="inline-block" variants={defaultAnimations}>
                 {char}
               </motion.span>
             ))}

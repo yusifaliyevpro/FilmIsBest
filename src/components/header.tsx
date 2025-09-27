@@ -1,7 +1,8 @@
 "use client";
 
-import LanguageSwitcher from "./LanguageSwitcher";
-import { Link, Locale } from "@/i18n/routing";
+import LanguageSwitcher from "@/components/language-switcher";
+import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -11,8 +12,27 @@ export default function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const t = useTranslations("Header");
 
+  const navigationItems = [
+    {
+      href: "/",
+      translationKey: "homePage",
+      path: `/${locale}`,
+    },
+    {
+      href: "/movies",
+      translationKey: "movies",
+      path: `/${locale}/movies`,
+    },
+    {
+      href: "/about",
+      translationKey: "about",
+      path: `/${locale}/about`,
+    },
+  ];
+
   return (
     <Navbar
+      key={"navbar"}
       className="light:text-white min-h-10 bg-gray-100/90 font-bold text-white backdrop-blur-md select-none dark:text-white"
       classNames={{
         item: [
@@ -29,37 +49,29 @@ export default function Header({ locale }: { locale: Locale }) {
         ],
       }}
     >
-      <NavbarContent>
-        <NavbarBrand as={"li"}>
+      <NavbarContent key={"logo"} justify="start">
+        <NavbarBrand as={"li"} key={"brand"}>
           <Link className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold" href={`/`}>
             <BiSolidMovie className="text-3xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="hidden gap-12 sm:flex" justify="center">
-        <NavbarItem isActive={pathname === `/${locale}`}>
-          <Link
-            aria-current="page"
-            className="hover: text-lg text-gray-300 hover:text-white"
-            color="foreground"
-            href={`/`}
-          >
-            {t("homePage")}
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive={pathname === `/${locale}/movies`}>
-          <Link aria-current="page" className="text-lg text-gray-300 hover:text-white" href={`/movies`}>
-            {t("movies")}
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive={pathname === `/${locale}/about`}>
-          <Link aria-current="page" className="text-lg text-gray-300 hover:text-white" href={`/about`}>
-            {t("about")}
-          </Link>
-        </NavbarItem>
+      <NavbarContent key={"navigation"} className="hidden gap-12 sm:flex" justify="center">
+        {navigationItems.map((item) => (
+          <NavbarItem key={item.href} isActive={pathname === item.path}>
+            <Link
+              aria-current="page"
+              className="text-lg text-gray-300 hover:text-white"
+              color="foreground"
+              href={item.href}
+            >
+              {t(item.translationKey)}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
-      <NavbarContent justify="end">
+      <NavbarContent key={"language_switcher"} justify="end">
         <NavbarItem>
           <LanguageSwitcher locale={locale} />
         </NavbarItem>

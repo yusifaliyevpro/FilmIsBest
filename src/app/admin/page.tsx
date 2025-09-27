@@ -1,10 +1,8 @@
-import { AdminSignIn } from "@/components/AdminSignIn";
-import { AvatarMenu } from "@/components/AvatarMenu";
-import { DeleteButton } from "@/components/DeleteButton";
-import RefreshButton from "@/components/RefreshButton";
-import { UpdateButton } from "@/components/UpdateButton";
+import { UpdateButton, DeleteButton, RefreshButton } from "@/components/admin-buttons";
+import AdminSignIn from "@/components/admin-signin";
+import AvatarMenu from "@/components/avatar-menu";
 import { getAllMovieRequests } from "@/data-access/prisma/requests/get";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { AdminEmail } from "@/lib/constants";
 import { Metadata } from "next";
@@ -31,7 +29,7 @@ export default async function AdminPage() {
 
   return (
     <>
-      <div className="mb-3 mt-12 flex w-full flex-row items-center justify-center">
+      <div className="mt-12 mb-3 flex w-full flex-row items-center justify-center">
         <h1 className="text-3xl font-bold">Movie Requests</h1>
         <div className="absolute right-16">
           <AvatarMenu
@@ -47,7 +45,7 @@ export default async function AdminPage() {
         {requests?.map((request) => (
           <div
             key={request.id}
-            className={`flex w-260 flex-row gap-x-10 rounded-xl p-4 py-5 shadow-medium ${request.isAdded && "text-gray-300"}`}
+            className={`shadow-medium flex w-260 flex-row gap-x-10 rounded-xl p-4 py-5 ${request.isAdded && "text-gray-300"}`}
           >
             <div className="line-clamp-1 flex w-56 flex-row gap-x-2 text-nowrap">
               <p className="font-bold">Requester:</p>

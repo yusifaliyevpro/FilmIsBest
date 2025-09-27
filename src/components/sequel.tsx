@@ -1,7 +1,7 @@
 "use client";
 
-import SanityImage from "./SanityImage";
-import { Link } from "@/i18n/routing";
+import SanityImage from "@/components/sanity-image";
+import { Link } from "@/i18n/navigation";
 import { SequelQueryResult } from "@/sanity/types";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
