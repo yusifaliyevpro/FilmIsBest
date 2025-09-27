@@ -1,6 +1,6 @@
-import MovieBar from "@/components/MovieBar";
-import MovieInfo from "@/components/MovieInfo";
-import Sequel from "@/components/Sequels";
+import MovieBar from "@/components/movie-bar";
+import MovieInfo from "@/components/movie-info";
+import Sequel from "@/components/sequel";
 import { getMovie } from "@/data-access/sanity/movies/get";
 import { getSequel } from "@/data-access/sanity/sequel/get";
 import { Locale } from "@/i18n/routing";
@@ -12,7 +12,7 @@ import { setRequestLocale } from "next-intl/server";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 
-const Share = dynamic(() => import("@/components/Share"), {
+const Share = dynamic(() => import("@/components/share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
 });
 

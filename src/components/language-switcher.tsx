@@ -1,6 +1,7 @@
 "use client";
 
-import { Locale, redirect } from "@/i18n/routing";
+import { redirect } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
 import { usePathname } from "next/navigation";

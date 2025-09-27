@@ -1,14 +1,13 @@
 import "../globals.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import MobileNavbar from "@/components/MobileNavbar";
-import { Providers } from "@/components/Providers";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import MobileNavbar from "@/components/mobile-navbar";
+import Providers from "@/components/providers";
 import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { inter, poppins } from "@/lib/fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import "swiper/css";
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),

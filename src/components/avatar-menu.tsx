@@ -6,7 +6,7 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/d
 import { signOut } from "next-auth/react";
 import { BiLogOut } from "react-icons/bi";
 
-export function AvatarMenu({ image, email }: { image: string; email: string }) {
+export default function AvatarMenu({ image, email }: { image: string; email: string }) {
   return (
     <>
       <Dropdown className="light">

@@ -1,5 +1,5 @@
-import SanityImage from "./SanityImage";
-import { Link } from "@/i18n/routing";
+import SanityImage from "@/components/sanity-image";
+import { Link } from "@/i18n/navigation";
 import * as motion from "motion/react-client";
 
 type MovieCardProps = {
@@ -11,9 +11,10 @@ type MovieCardProps = {
   releaseDate: number;
 };
 
-export function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps; isLazyLoad?: boolean }) {
+export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps; isLazyLoad?: boolean }) {
   return (
     <motion.div
+      key={movie.slug}
       initial={{ scale: 1 }}
       whileHover={{ scale: 1.09 }}
       transition={{ type: "spring", stiffness: 140, duration: 0.2 }}

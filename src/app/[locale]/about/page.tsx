@@ -1,4 +1,5 @@
-import { Link, Locale, locales } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
+import { type Locale, locales } from "@/i18n/routing";
 import { Variants } from "motion";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
@@ -112,8 +113,8 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
           viewport={{ once: true }}
           whileInView="visible"
         >
-          {tools.map((tool, i) => (
-            <motion.li key={i} variants={itemVariants}>
+          {tools.map((tool) => (
+            <motion.li key={tool.name} variants={itemVariants}>
               <Link
                 className="shadow-large flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
