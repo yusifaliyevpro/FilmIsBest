@@ -2,6 +2,7 @@
 
 import MovieCard from "@/components/movie-card";
 import { MoviesQueryResult } from "@/sanity/types";
+import Fuse from "fuse.js";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";
 import { useSearchParams } from "next/navigation";
@@ -20,17 +21,12 @@ export default function Movies({ movies }: { movies: MoviesQueryResult }) {
       return;
     }
 
-    const filterMovies = async () => {
-      const Fuse = (await import("fuse.js")).default;
-      const fuse = new Fuse(movies, {
-        keys: ["filmName", "imdbID"],
-        threshold: 0.4,
-      });
-      const result = fuse.search(search);
-      setFilteredMovies(result.map((r) => r.item));
-    };
-
-    filterMovies();
+    const fuse = new Fuse(movies, {
+      keys: ["filmName", "imdbID"],
+      threshold: 0.4,
+    });
+    const result = fuse.search(search);
+    setFilteredMovies(result.map((r) => r.item));
   }, [search, page, movies]);
 
   if (filteredMovies.length === 0) {

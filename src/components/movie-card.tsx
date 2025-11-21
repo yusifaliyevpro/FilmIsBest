@@ -32,7 +32,7 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps
           placeholder="blur"
           loading={isLazyLoad ? "lazy" : undefined}
           blurDataURL={movie.posterlqip!}
-          className="rounded-10 aspect-[2/3]"
+          className="rounded-10 aspect-2/3"
         />
         <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">
           <div className="rounded-3xl bg-gray-200 p-[3px] text-center text-xs font-bold text-white opacity-80">

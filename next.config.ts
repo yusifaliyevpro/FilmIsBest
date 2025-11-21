@@ -2,6 +2,11 @@ import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  reactCompiler: true,
+  typedRoutes: true,
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -12,11 +17,6 @@ const nextConfig: NextConfig = {
     ],
     qualities: [75, 100],
   },
-  experimental: {
-    globalNotFound: true,
-    turbopackScopeHoisting: false,
-  },
-  typedRoutes: true,
 };
 
 const withNextIntl = createNextIntlPlugin();

@@ -112,11 +112,16 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   };
 
   async function handlePoster() {
+    const shareData = {
+      title: `FilmIsBest | ${movie?.filmName}`,
+      files: [] as File[],
+    };
     try {
-      const response = await fetch(movie?.poster as string);
+      const response = await fetch(movie!.poster as string);
 
       if (!response.ok) {
-        throw new Error("Couldn't load photo!");
+        addToast({ title: t("Share.anErrorOccurred"), color: "danger" });
+        return;
       }
 
       const blob = await response.blob();
@@ -126,10 +131,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
           lastModified: new Date().getTime(),
         }),
       ];
-      const shareData = {
-        title: `FilmIsBest | ${movie?.filmName}`,
-        files: filesArray,
-      };
+      shareData.files = filesArray;
       closeAll();
       addToast({ title: t("Share.imageBeingPrepared") });
       return navigator

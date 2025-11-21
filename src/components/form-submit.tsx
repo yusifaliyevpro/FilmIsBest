@@ -35,7 +35,6 @@ export default function FormSubmit() {
     } else if (Object.keys(state.errors ?? {}).length > 0) {
       addToast({ title: t("failedToSend"), color: "danger", timeout: 3000 });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
