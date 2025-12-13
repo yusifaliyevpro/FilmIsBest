@@ -10,7 +10,7 @@ import { addToast, closeAll } from "@heroui/toast";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import {
   BiDotsVerticalRounded,
   BiImageAlt,
@@ -25,11 +25,15 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   const [canShareFiles, setCanShareFiles] = useState(false);
   const [canShareText, setCanShareText] = useState(false);
 
-  useEffect(() => {
+  const onCanShareFiles = useEffectEvent(() => {
     if (typeof navigator !== "undefined" && navigator.canShare) {
       setCanShareFiles(navigator.canShare({ files: [new File([], "test.png", { type: "image/png" })] }));
       setCanShareText(navigator.canShare({ text: "Test" }));
     }
+  });
+
+  useEffect(() => {
+    onCanShareFiles();
   }, []);
 
   const pathname = usePathname();

@@ -1,8 +1,14 @@
+"use server";
+
 import { client } from "@/sanity/lib/client";
 import { SequelQueryResult } from "@/sanity/types";
 import { defineQuery } from "next-sanity";
+import { cacheLife } from "next/cache";
 
 export async function getSequel(movieSlug: string) {
+  "use cache: remote";
+  cacheLife("hours");
+
   const SequelQuery = defineQuery(`
     *[_type == "sequel" && references(*[_type == "Movie-studio" && slug.current == $slug][0]._id)][0] {
       name,
@@ -16,10 +22,6 @@ export async function getSequel(movieSlug: string) {
     }
   `);
 
-  const data = await client.fetch<SequelQueryResult>(
-    SequelQuery,
-    { slug: movieSlug },
-    { next: { revalidate: 3600 } },
-  );
+  const data = await client.fetch<SequelQueryResult>(SequelQuery, { slug: movieSlug });
   return data;
 }

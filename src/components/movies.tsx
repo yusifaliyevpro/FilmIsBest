@@ -6,7 +6,7 @@ import Fuse from "fuse.js";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 
 export default function Movies({ movies }: { movies: MoviesQueryResult }) {
   const searchParams = useSearchParams();
@@ -15,7 +15,7 @@ export default function Movies({ movies }: { movies: MoviesQueryResult }) {
 
   const [filteredMovies, setFilteredMovies] = useState(movies);
 
-  useEffect(() => {
+  const onSearch = useEffectEvent(() => {
     if (!search) {
       setFilteredMovies(movies.slice((page - 1) * 20, page * 20));
       return;
@@ -27,6 +27,10 @@ export default function Movies({ movies }: { movies: MoviesQueryResult }) {
     });
     const result = fuse.search(search);
     setFilteredMovies(result.map((r) => r.item));
+  });
+
+  useEffect(() => {
+    onSearch();
   }, [search, page, movies]);
 
   if (filteredMovies.length === 0) {
@@ -38,7 +42,7 @@ export default function Movies({ movies }: { movies: MoviesQueryResult }) {
   }
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {filteredMovies.map((movie) => (
         <motion.div
           key={movie._id}

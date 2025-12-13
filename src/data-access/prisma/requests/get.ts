@@ -1,4 +1,5 @@
-// No need to be server action
+"use server";
+
 import { auth } from "@/lib/auth";
 import { AdminEmail } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";

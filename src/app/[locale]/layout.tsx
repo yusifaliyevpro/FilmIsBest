@@ -3,11 +3,11 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import MobileNavbar from "@/components/mobile-navbar";
 import Providers from "@/components/providers";
-import { Locale } from "@/i18n/routing";
+import { assertIsValidLocale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { inter, poppins } from "@/lib/fonts";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -81,24 +81,36 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
-  const locale = (await params).locale as Locale;
-  setRequestLocale(locale);
-  const messages = await getMessages();
+  const { locale } = await params;
+  assertIsValidLocale(locale);
+
   return (
     <html
       lang={locale}
       className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}
     >
       <body className="font-inter">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProviderWrapper>
           <Providers>
-            <Header locale={locale} />
+            <Suspense>
+              <Header locale={locale} />
+            </Suspense>
             {children}
-            <MobileNavbar locale={locale} />
+            <Suspense>
+              <MobileNavbar locale={locale} />
+            </Suspense>
             <Footer />
           </Providers>
-        </NextIntlClientProvider>
+        </NextIntlClientProviderWrapper>
       </body>
     </html>
+  );
+}
+
+function NextIntlClientProviderWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense>
+      <NextIntlClientProvider>{children}</NextIntlClientProvider>
+    </Suspense>
   );
 }

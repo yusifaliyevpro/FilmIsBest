@@ -1,8 +1,14 @@
+"use server";
+
 import { client } from "@/sanity/lib/client";
 import { MovieQueryResult, MoviesQueryResult, RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 import { defineQuery } from "next-sanity";
+import { cacheLife } from "next/cache";
 
 export async function getMovies() {
+  "use cache: remote";
+  cacheLife("hours");
+
   const MoviesQuery = defineQuery(`
     *[_type == 'Movie-studio'] 
       | order(_createdAt desc) {
@@ -18,12 +24,15 @@ export async function getMovies() {
       }
   `);
 
-  const data = await client.fetch<MoviesQueryResult>(MoviesQuery, {}, { next: { revalidate: 3600 } });
+  const data = await client.fetch<MoviesQueryResult>(MoviesQuery, {});
 
   return data;
 }
 
 export async function getMovie(slug: string) {
+  "use cache: remote";
+  cacheLife("hours");
+
   const MovieQuery = defineQuery(`
     *[_type == 'Movie-studio' && slug.current == $slug][0] {
       filmName,
@@ -48,12 +57,15 @@ export async function getMovie(slug: string) {
     }
   `);
 
-  const data = await client.fetch<MovieQueryResult>(MovieQuery, { slug }, { next: { revalidate: 3600 } });
+  const data = await client.fetch<MovieQueryResult>(MovieQuery, { slug });
 
   return data;
 }
 
 export async function getRecentlyAddedMovies() {
+  "use cache: remote";
+  cacheLife("hours");
+
   const RecentlyAddedMoviesQuery = defineQuery(`
     *[_type == 'Movie-studio'] 
       | order(_createdAt desc)[0...10] {
@@ -66,11 +78,7 @@ export async function getRecentlyAddedMovies() {
       }
   `);
 
-  const data = await client.fetch<RecentlyAddedMoviesQueryResult>(
-    RecentlyAddedMoviesQuery,
-    {},
-    { next: { revalidate: 3600 } },
-  );
+  const data = await client.fetch<RecentlyAddedMoviesQueryResult>(RecentlyAddedMoviesQuery, {});
 
   return data;
 }

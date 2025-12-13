@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   reactCompiler: true,
   typedRoutes: true,
+  cacheComponents: true,
   experimental: {
     globalNotFound: true,
   },
@@ -15,7 +16,7 @@ const nextConfig: NextConfig = {
         port: "",
       },
     ],
-    qualities: [75, 100],
+    qualities: [75, 90, 100],
   },
 };
 

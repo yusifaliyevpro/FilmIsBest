@@ -31,7 +31,7 @@ export default function Sequel({
             whileHover={{ scale: 1.08 }}
           >
             <Link
-              className={`${movie.slug === currentSlug && "border-3 border-solid border-blue-600"} justify-content-center relative inline-block min-h-[240px] w-[160px] items-center justify-center rounded-xl text-center select-none`}
+              className={`${movie.slug === currentSlug && "border-3 border-solid border-blue-600"} justify-content-center relative inline-block min-h-60 w-40 items-center justify-center rounded-xl text-center select-none`}
               href={`${movie.slug}`}
             >
               <div>
@@ -44,7 +44,7 @@ export default function Sequel({
                     alt={movie.filmName + " movie poster"}
                     placeholder="blur"
                     blurDataURL={movie.posterlqip!}
-                    className="rounded-10 h-[240px]"
+                    className="rounded-10 h-60"
                   />
                 </div>
               </div>

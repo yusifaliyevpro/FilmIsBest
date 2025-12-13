@@ -8,11 +8,13 @@
  */
 import config from "../../../../sanity.config";
 import { NextStudio } from "next-sanity/studio";
-
-export const dynamic = "force-static";
+import { cacheLife } from "next/cache";
 
 export { metadata, viewport } from "next-sanity/studio";
 
-export default function StudioPage() {
+export default async function StudioPage() {
+  "use cache";
+  cacheLife("max");
+
   return <NextStudio config={config} />;
 }

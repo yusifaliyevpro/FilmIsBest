@@ -1,6 +1,11 @@
 "use server";
 
+import { cacheLife } from "next/cache";
+
 export async function getOMDBDataById(imdbID: string) {
+  "use cache: remote";
+  cacheLife("hours");
+
   const OMDB_API_KEY = process.env.OMDB_API_KEY;
   const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);
   const data: OMDbMovieData = await response.json();

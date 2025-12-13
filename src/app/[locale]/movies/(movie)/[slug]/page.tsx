@@ -3,7 +3,7 @@ import MovieInfo from "@/components/movie-info";
 import Sequel from "@/components/sequel";
 import { getMovie } from "@/data-access/sanity/movies/get";
 import { getSequel } from "@/data-access/sanity/sequel/get";
-import { Locale } from "@/i18n/routing";
+import { assertIsValidLocale, routing } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { Button } from "@heroui/button";
 import * as motion from "motion/react-client";
@@ -16,7 +16,7 @@ const Share = dynamic(() => import("@/components/share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
 });
 
-export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[slug]">): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);
@@ -70,9 +70,14 @@ export async function generateMetadata({ params }: MoviePageProps): Promise<Meta
   };
 }
 
-type MoviePageProps = { params: Promise<{ locale: Locale; slug: string }> };
-export default async function Page({ params }: MoviePageProps) {
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function Page({ params }: PageProps<"/[locale]/movies/[slug]">) {
   const { locale, slug } = await params;
+  assertIsValidLocale(locale);
+  setRequestLocale(locale);
   const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
   if (!movie) return notFound();
 

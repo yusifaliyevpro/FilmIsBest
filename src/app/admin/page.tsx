@@ -1,3 +1,4 @@
+import Loading from "../[locale]/loading";
 import { UpdateButton, DeleteButton, RefreshButton } from "@/components/admin-buttons";
 import AdminSignIn from "@/components/admin-signin";
 import AvatarMenu from "@/components/avatar-menu";
@@ -6,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { AdminEmail } from "@/lib/constants";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Admin Console",
@@ -14,7 +16,15 @@ export const metadata: Metadata = {
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
-export default async function AdminPage() {
+export default function AdminPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <AdminPageContent />
+    </Suspense>
+  );
+}
+
+export async function AdminPageContent() {
   const session = await auth();
   if (!session) return <AdminSignIn />;
 

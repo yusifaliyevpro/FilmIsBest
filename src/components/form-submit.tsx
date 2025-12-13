@@ -10,7 +10,7 @@ import { Input } from "@heroui/input";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 import { addToast, closeAll } from "@heroui/toast";
 import { useTranslations } from "next-intl";
-import { startTransition, useActionState, useEffect } from "react";
+import { startTransition, useActionState, useEffect, useEffectEvent } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { HiAtSymbol } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
@@ -27,7 +27,7 @@ export default function FormSubmit() {
 
   const [state, formAction, isPending] = useActionState(submitMovieRequest, initialState);
 
-  useEffect(() => {
+  const onStateChange = useEffectEvent(() => {
     if (state.success) {
       closeAll();
       addToast({ title: t("sent"), color: "success", timeout: 3000 });
@@ -35,6 +35,9 @@ export default function FormSubmit() {
     } else if (Object.keys(state.errors ?? {}).length > 0) {
       addToast({ title: t("failedToSend"), color: "danger", timeout: 3000 });
     }
+  });
+  useEffect(() => {
+    onStateChange();
   }, [state]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

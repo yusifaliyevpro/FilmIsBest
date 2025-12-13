@@ -32,7 +32,6 @@ export default function Header({ locale }: { locale: Locale }) {
 
   return (
     <Navbar
-      key={"navbar"}
       className="light:text-white min-h-10 bg-gray-100/90 font-bold text-white backdrop-blur-md select-none dark:text-white"
       classNames={{
         item: [
@@ -49,17 +48,17 @@ export default function Header({ locale }: { locale: Locale }) {
         ],
       }}
     >
-      <NavbarContent key={"logo"} justify="start">
-        <NavbarBrand as={"li"} key={"brand"}>
+      <NavbarContent justify="start">
+        <NavbarBrand as={"li"}>
           <Link className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold" href={`/`}>
             <BiSolidMovie className="text-3xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent key={"navigation"} className="hidden gap-12 sm:flex" justify="center">
-        {navigationItems.map((item) => (
-          <NavbarItem key={item.href} isActive={pathname === item.path}>
+      <NavbarContent className="hidden gap-12 sm:flex" justify="center">
+        {navigationItems.map((item, i) => (
+          <NavbarItem key={i} isActive={pathname === item.path}>
             <Link
               aria-current="page"
               className="text-lg text-gray-300 hover:text-white"
@@ -71,7 +70,7 @@ export default function Header({ locale }: { locale: Locale }) {
           </NavbarItem>
         ))}
       </NavbarContent>
-      <NavbarContent key={"language_switcher"} justify="end">
+      <NavbarContent justify="end">
         <NavbarItem>
           <LanguageSwitcher locale={locale} />
         </NavbarItem>
