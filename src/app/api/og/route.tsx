@@ -7,7 +7,7 @@ import { NextRequest } from "next/server";
 import { join } from "path";
 
 async function getInterFont() {
-  "use cache: remote";
+  "use cache";
   cacheLife("max");
 
   const interSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));

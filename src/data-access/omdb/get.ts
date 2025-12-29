@@ -3,7 +3,7 @@
 import { cacheLife } from "next/cache";
 
 export async function getOMDBDataById(imdbID: string) {
-  "use cache: remote";
+  "use cache";
   cacheLife("hours");
 
   const OMDB_API_KEY = process.env.OMDB_API_KEY;

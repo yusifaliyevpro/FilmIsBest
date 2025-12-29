@@ -6,7 +6,7 @@ import { defineQuery } from "next-sanity";
 import { cacheLife } from "next/cache";
 
 export async function getMovies() {
-  "use cache: remote";
+  "use cache";
   cacheLife("hours");
 
   const MoviesQuery = defineQuery(`
@@ -30,7 +30,7 @@ export async function getMovies() {
 }
 
 export async function getMovie(slug: string) {
-  "use cache: remote";
+  "use cache";
   cacheLife("hours");
 
   const MovieQuery = defineQuery(`
@@ -63,7 +63,7 @@ export async function getMovie(slug: string) {
 }
 
 export async function getRecentlyAddedMovies() {
-  "use cache: remote";
+  "use cache";
   cacheLife("hours");
 
   const RecentlyAddedMoviesQuery = defineQuery(`

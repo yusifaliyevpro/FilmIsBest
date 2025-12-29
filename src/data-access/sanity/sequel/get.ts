@@ -6,7 +6,7 @@ import { defineQuery } from "next-sanity";
 import { cacheLife } from "next/cache";
 
 export async function getSequel(movieSlug: string) {
-  "use cache: remote";
+  "use cache";
   cacheLife("hours");
 
   const SequelQuery = defineQuery(`
