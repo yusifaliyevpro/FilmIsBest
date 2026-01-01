@@ -23,6 +23,7 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps
       <Link
         className="justify-content-center relative mt-10 inline-block min-h-10 w-66 scale-100 items-center justify-center rounded-xl bg-gray-900 text-center"
         href={`/movies/${movie.slug}`}
+        prefetch={false}
       >
         <SanityImage
           src={movie.poster!}
