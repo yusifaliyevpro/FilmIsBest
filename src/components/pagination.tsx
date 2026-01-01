@@ -1,39 +1,19 @@
 "use client";
 
+import { searchParams } from "@/lib/searchParams";
 import { Pagination } from "@heroui/pagination";
-import { Route } from "next";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useCallback } from "react";
+import { useQueryState } from "nuqs";
 
 export default function PaginationUI({ count }: { count: number }) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname() as Route;
-
-  const searchQuery = searchParams.get("search")?.trim() || "";
-  const pageQuery = Number(searchParams.get("page")) || 1;
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
-
-  const setPage = (page: number) => {
-    if (page === 1) router.push(pathname);
-    else router.push(`${pathname}?${createQueryString("page", String(page))}`);
-  };
+  const [searchQuery] = useQueryState("q", searchParams.q);
+  const [pageQuery, setPage] = useQueryState("p", searchParams.p);
 
   const total = Math.ceil((searchQuery ? 20 : count) / 20);
 
   return (
-    <div className="relative mt-5 flex">
+    <div className="mt-5">
       <Pagination
-        classNames={{ item: "bg-gray-200" }}
+        classNames={{ item: "bg-gray-900" }}
         page={pageQuery < total ? pageQuery : total}
         total={total !== 0 ? total : 1}
         onChange={setPage}

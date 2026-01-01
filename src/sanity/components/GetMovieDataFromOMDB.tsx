@@ -1,7 +1,7 @@
 "use client";
 
 import { apiVersion } from "../env";
-import { getOMDBDataById } from "@/data-access/omdb/get";
+import { getOMDBDataById } from "@/data/omdb/get";
 import { SearchIcon } from "@sanity/icons";
 import { Spinner, useToast } from "@sanity/ui";
 import { startTransition, useState } from "react";
@@ -66,7 +66,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
         type="button"
         onClick={handleFetch}
         disabled={isLoading}
-        className="absolute top-0 right-0 z-[2000] flex h-[98%] w-10 cursor-pointer items-center justify-center rounded transition-all duration-200 hover:bg-gray-600/40"
+        className="absolute top-0 right-0 z-2000 flex h-[98%] w-10 cursor-pointer items-center justify-center rounded transition-all duration-200 hover:bg-gray-600/40"
       >
         {isLoading ? <Spinner size={1} /> : <SearchIcon fontSize={28} />}
       </button>

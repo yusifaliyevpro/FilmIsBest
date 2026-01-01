@@ -9,8 +9,8 @@ export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQue
   const hours = (movie.movieTime || 0) >= 60 ? Math.floor((movie.movieTime || 0) / 60) : 0;
   const minutes = (movie.movieTime || 0) - hours * 60;
   return (
-    <div className="rounded-10 relative mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
-      <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-76 sm:w-60">
+    <div className="relative mx-3 mb-20 flex h-auto w-fit flex-col items-center justify-center rounded-xl border border-solid border-slate-400 p-4 sm:mx-auto sm:flex-row sm:items-start sm:justify-between">
+      <div className="relative mx-16 flex h-auto w-auto items-start justify-between justify-items-start sm:mx-0 sm:h-90 sm:w-60">
         <SanityImage
           src={movie.poster!}
           width={625}
@@ -19,10 +19,10 @@ export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQue
           alt={`${movie.filmName} movie poster`}
           placeholder="blur"
           blurDataURL={movie.posterlqip!}
-          className="rounded-10 relative h-auto w-auto select-none sm:h-76 sm:w-60"
+          className="relative h-auto w-auto rounded-xl select-none sm:h-90 sm:w-60"
         />
       </div>
-      <div className="rounded-10 relative mx-auto w-auto list-none tracking-normal sm:ml-5 sm:w-105">
+      <div className="relative mx-auto w-auto list-none rounded-xl tracking-normal sm:ml-5 sm:w-137.5">
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("movieName")} <span className="text-white">{movie.filmName?.trim()}</span>
         </li>

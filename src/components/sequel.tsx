@@ -17,8 +17,8 @@ export default function Sequel({
   if (!sequel) return null;
 
   return (
-    <section className="rounded-10 shadow-medium mx-3 mb-8 flex min-h-56 flex-col sm:mx-auto sm:w-200">
-      <p className="rounded-t-10 bg-gray-200 p-3 pl-7 text-lg font-bold text-white">
+    <section className="shadow-medium mx-3 mb-8 flex min-h-56 flex-col rounded-xl sm:mx-auto sm:w-209">
+      <p className="rounded-t-10 bg-gray-900 p-3 pl-7 text-lg font-bold text-white">
         {sequel.name + " " + t("name")}
       </p>
       <ol className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
@@ -44,7 +44,7 @@ export default function Sequel({
                     alt={movie.filmName + " movie poster"}
                     placeholder="blur"
                     blurDataURL={movie.posterlqip!}
-                    className="rounded-10 h-60"
+                    className="h-60 rounded-xl"
                   />
                 </div>
               </div>

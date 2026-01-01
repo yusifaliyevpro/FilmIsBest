@@ -50,12 +50,12 @@ export default function MovieBar({ movie }: { movie: MovieQueryResult }) {
   };
 
   return (
-    <div className="rounded-10 relative mx-auto mt-12 flex h-auto w-auto flex-col px-3 sm:h-[560px] sm:w-200">
+    <div className="relative mx-auto mt-12 flex h-auto w-auto flex-col rounded-xl px-3 sm:h-140 sm:w-209">
       <Tabs
         fullWidth
         aria-label="Options"
         className="max-sm:mb-4"
-        classNames={{ tabList: "bg-gray-200 select-none" }}
+        classNames={{ tabList: "bg-gray-900 select-none" }}
         color="primary"
         keyboardActivation="manual"
         selectedKey={selectedKey}
@@ -85,7 +85,7 @@ export default function MovieBar({ movie }: { movie: MovieQueryResult }) {
         <Tab key="trailer" className="font-bold" title={t("trailer")} />
       </Tabs>
       {iframeLoading && (
-        <div className="rounded-b-10 relative bottom-0 left-0 z-35 mx-auto mt-0 flex h-60 w-full items-center justify-center border-none bg-black select-none sm:absolute sm:h-102 sm:w-200">
+        <div className="rounded-b-10 relative bottom-0 left-0 z-35 mx-auto mt-0 flex h-60 w-full items-center justify-center border-none bg-black select-none sm:absolute sm:h-125 sm:w-209">
           <div className="relative animate-spin text-8xl font-bold text-blue-600">
             <AiOutlineLoading />
           </div>
@@ -93,14 +93,14 @@ export default function MovieBar({ movie }: { movie: MovieQueryResult }) {
       )}
       <iframe
         allowFullScreen
-        className={`rounded-b-10 relative bottom-0 left-0 z-35 mx-auto mt-0 h-60 w-full border-none bg-black select-none sm:absolute sm:h-102 sm:w-200 ${iframeLoading ? "hidden" : "block"}`}
+        className={`rounded-b-10 relative bottom-0 left-0 z-35 mx-auto mt-0 h-60 w-full border-none bg-black select-none sm:absolute sm:h-125 sm:w-209 ${iframeLoading ? "hidden" : "block"}`}
         src={activeLink}
         title={movie.filmName || "Movie Video"}
         onLoad={handleLoading}
       />
       <Modal
         backdrop="blur"
-        classNames={{ base: "bg-gray-200" }}
+        classNames={{ base: "bg-gray-900" }}
         isOpen={isTrailer}
         placement="center"
         size="3xl"

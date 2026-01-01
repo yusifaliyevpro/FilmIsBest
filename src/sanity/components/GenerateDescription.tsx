@@ -1,6 +1,6 @@
 "use client";
 
-import { generateDescription } from "@/data-access/ai/actions";
+import { generateDescription } from "@/data/ai/actions";
 import { Spinner, TextArea } from "@sanity/ui";
 import { startTransition, useState } from "react";
 import { BsStars } from "react-icons/bs";
@@ -57,8 +57,8 @@ export default function GenerateDescriptionComponent(props: InputProps) {
         data-selector="description-generate-button"
         onClick={handleAI}
         disabled={isLoading}
-        className="absolute top-2 right-2 z-[2000] flex h-[30px] w-[30px] cursor-pointer flex-col items-center justify-center rounded bg-gray-200 text-sm"
-        title="AI ilə yaz"
+        className="absolute top-2 right-2 z-2000 flex size-7.5 cursor-pointer flex-col items-center justify-center rounded bg-gray-900 text-sm"
+        title="Generate with AI"
       >
         {isLoading ? <Spinner size={1} /> : <BsStars size={18} className="text-amber-400" />}
       </button>

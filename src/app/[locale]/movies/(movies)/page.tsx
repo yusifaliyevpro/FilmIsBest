@@ -1,19 +1,20 @@
+import { MovieCardSkeleton } from "@/components/movie-card";
 import Movies from "@/components/movies";
 import PaginationUI from "@/components/pagination";
 import Search from "@/components/search";
-import { getMovies } from "@/data-access/sanity/movies/get";
-import { Locale, locales } from "@/i18n/routing";
+import { getMovies } from "@/data/sanity/movies/get";
+import { locales, validateLocale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
+import { Pagination } from "@heroui/pagination";
+import { Skeleton } from "@heroui/skeleton";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]/movies">): Promise<Metadata> {
   const { locale } = await params;
+  validateLocale(locale);
   setRequestLocale(locale);
 
   const t = await getTranslations("MetaData.Movies");
@@ -42,15 +43,27 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function MoviesPage({ params }: { params: Promise<{ locale: Locale }> }) {
+export default async function MoviesPage({ params }: PageProps<"/[locale]/movies">) {
   const { locale } = await params;
+  validateLocale(locale);
   setRequestLocale(locale);
   const movies = await getMovies();
   return (
     <section className="justify-content-center relative mx-auto mt-6 mb-20 flex flex-col items-center justify-center">
       <div className="relative flex w-full flex-col items-center justify-center">
-        <Search />
-        <PaginationUI count={movies.length} />
+        <Suspense fallback={<Skeleton className="mx-auto mt-6 mb-4 h-11.5 w-full rounded-3xl sm:w-125" />}>
+          <Search />
+        </Suspense>
+
+        <Suspense
+          fallback={
+            <Skeleton className="mt-5 rounded-lg px-1">
+              <Pagination page={1} total={15} />
+            </Skeleton>
+          }
+        >
+          <PaginationUI count={movies.length} />
+        </Suspense>
       </div>
       <motion.div
         initial={{ y: 600 }}
@@ -58,7 +71,13 @@ export default async function MoviesPage({ params }: { params: Promise<{ locale:
         transition={{ duration: 1.2, type: "spring", stiffness: 55 }}
       >
         <div className="justify-content-center mx-2.5 flex min-h-[60vh] flex-wrap items-center justify-center gap-x-10">
-          <Movies movies={movies} />
+          <Suspense
+            fallback={Array.from({ length: 20 }).map((_, index) => (
+              <MovieCardSkeleton key={index} />
+            ))}
+          >
+            <Movies movies={movies} />
+          </Suspense>
         </div>
       </motion.div>
     </section>

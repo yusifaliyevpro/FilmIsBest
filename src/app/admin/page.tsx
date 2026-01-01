@@ -1,8 +1,7 @@
-import Loading from "../[locale]/loading";
 import { UpdateButton, DeleteButton, RefreshButton } from "@/components/admin-buttons";
 import AdminSignIn from "@/components/admin-signin";
 import AvatarMenu from "@/components/avatar-menu";
-import { getAllMovieRequests } from "@/data-access/prisma/requests/get";
+import { getAllMovieRequests } from "@/data/prisma/requests/get";
 import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { AdminEmail } from "@/lib/constants";
@@ -18,7 +17,7 @@ const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.s
 
 export default function AdminPage() {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense>
       <AdminPageContent />
     </Suspense>
   );
@@ -26,16 +25,18 @@ export default function AdminPage() {
 
 export async function AdminPageContent() {
   const session = await auth();
-  if (!session) return <AdminSignIn />;
+  if (!session || session.user?.email !== AdminEmail) return <AdminSignIn />;
 
-  const { requests, error } = await getAllMovieRequests();
+  const result = await getAllMovieRequests();
 
-  if (error || session.user?.email !== AdminEmail)
+  if (!result.ok)
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
-        <p>{error}</p>
+        <p>{result.error}</p>
       </div>
     );
+
+  const requests = result.data;
 
   return (
     <>

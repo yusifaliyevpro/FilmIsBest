@@ -7,6 +7,7 @@ export default function Template({ children }: { children: Readonly<ReactNode> }
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 100, opacity: 0 }}
       initial={{ y: -100, opacity: 0 }}
+      key={"id"}
       transition={{
         ease: "easeInOut",
         duration: 0.5,

@@ -3,10 +3,11 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import MobileNavbar from "@/components/mobile-navbar";
 import Providers from "@/components/providers";
-import { assertIsValidLocale } from "@/i18n/routing";
+import { validateLocale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { inter, poppins } from "@/lib/fonts";
 import { NextIntlClientProvider } from "next-intl";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 
 export const metadata = {
@@ -19,7 +20,7 @@ export const metadata = {
     icon: "/icon.png",
     shortcut: "/icon.png",
     apple: "/icon.png",
-    other: { rel: "apple-touch-icon-precomposed", url: "/icon.png" },
+    other: [{ rel: "apple-touch-icon-precomposed", url: "/icon.png" }],
   },
   alternates: {
     canonical: ``,
@@ -82,35 +83,31 @@ export const metadata = {
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
-  assertIsValidLocale(locale);
+  validateLocale(locale);
 
   return (
     <html
       lang={locale}
-      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}
+      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}
     >
       <body className="font-inter">
-        <NextIntlClientProviderWrapper>
-          <Providers>
-            <Suspense>
-              <Header locale={locale} />
-            </Suspense>
-            {children}
-            <Suspense>
-              <MobileNavbar locale={locale} />
-            </Suspense>
-            <Footer />
-          </Providers>
-        </NextIntlClientProviderWrapper>
+        <NuqsAdapter>
+          <Suspense>
+            <NextIntlClientProvider>
+              <Providers>
+                <Suspense>
+                  <Header locale={locale} />
+                </Suspense>
+                {children}
+                <Suspense>
+                  <MobileNavbar locale={locale} />
+                </Suspense>
+                <Footer />
+              </Providers>
+            </NextIntlClientProvider>
+          </Suspense>
+        </NuqsAdapter>
       </body>
     </html>
-  );
-}
-
-function NextIntlClientProviderWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense>
-      <NextIntlClientProvider>{children}</NextIntlClientProvider>
-    </Suspense>
   );
 }

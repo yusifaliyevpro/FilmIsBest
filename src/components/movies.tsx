@@ -1,37 +1,30 @@
 "use client";
 
 import MovieCard from "@/components/movie-card";
+import { searchParams } from "@/lib/searchParams";
 import { MoviesQueryResult } from "@/sanity/types";
 import Fuse from "fuse.js";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useEffectEvent, useState } from "react";
+import { useQueryState } from "nuqs";
+import { useMemo } from "react";
+import { useDebounce } from "use-debounce";
 
 export default function Movies({ movies }: { movies: MoviesQueryResult }) {
-  const searchParams = useSearchParams();
-  const search = searchParams.get("search")?.trim();
-  const page = Number(searchParams.get("page")) || 1;
+  const [searchQuery] = useQueryState("q", searchParams.q);
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
+  const [pageQuery] = useQueryState("p", searchParams.p);
 
-  const [filteredMovies, setFilteredMovies] = useState(movies);
-
-  const onSearch = useEffectEvent(() => {
-    if (!search) {
-      setFilteredMovies(movies.slice((page - 1) * 20, page * 20));
-      return;
-    }
+  const filteredMovies = useMemo(() => {
+    if (!debouncedSearchQuery) return movies.slice((pageQuery - 1) * 20, pageQuery * 20);
 
     const fuse = new Fuse(movies, {
       keys: ["filmName", "imdbID"],
       threshold: 0.4,
     });
-    const result = fuse.search(search);
-    setFilteredMovies(result.map((r) => r.item));
-  });
-
-  useEffect(() => {
-    onSearch();
-  }, [search, page, movies]);
+    const result = fuse.search(debouncedSearchQuery);
+    return result.map((r) => r.item);
+  }, [debouncedSearchQuery, movies, pageQuery]);
 
   if (filteredMovies.length === 0) {
     return (
@@ -42,16 +35,17 @@ export default function Movies({ movies }: { movies: MoviesQueryResult }) {
   }
 
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       {filteredMovies.map((movie) => (
         <motion.div
           key={movie._id}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 100 }}
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           transition={{
-            duration: 0.3,
-            ease: "easeOut",
+            duration: 0.4,
+            ease: "easeIn",
+            type: "spring",
           }}
         >
           <MovieCard movie={movie} />

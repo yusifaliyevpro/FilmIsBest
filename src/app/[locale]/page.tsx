@@ -1,13 +1,14 @@
 import AnimatedText from "@/components/animated-text";
 import LottieComponent from "@/components/lottie-component";
 import RecentlyAddedMovies from "@/components/recently-added-movies";
-import { getRecentlyAddedMovies } from "@/data-access/sanity/movies/get";
+import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { Link } from "@/i18n/navigation";
 import { locales, Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 import { BiSolidChevronRight } from "react-icons/bi";
 
 export async function generateMetadata({
@@ -47,8 +48,8 @@ export function generateStaticParams() {
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  const moviesPromise = getRecentlyAddedMovies();
   setRequestLocale(locale);
-  const recentlyAddedMovies = await getRecentlyAddedMovies();
   const t = await getTranslations("Home");
   return (
     <>
@@ -86,7 +87,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </motion.div>
         <motion.div
           animate={{ y: [0, 15, 0] }}
-          className="relative mt-8 flex h-76 w-76 lg:mt-0 lg:h-100 lg:w-100"
+          className="relative mt-8 flex size-90 lg:mt-0 lg:h-100 lg:w-100"
           initial={{ y: 0 }}
           transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
         >
@@ -98,7 +99,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         className="mt-50 w-full text-center text-4xl font-bold text-white"
         text={t("recentlyAdded")}
       />
-      <RecentlyAddedMovies movies={recentlyAddedMovies} />
+      <Suspense fallback={<div className="h-96" />}>
+        <RecentlyAddedMovies moviesPromise={moviesPromise} />
+      </Suspense>
     </>
   );
 }

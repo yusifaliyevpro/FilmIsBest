@@ -1,9 +1,9 @@
 import MovieBar from "@/components/movie-bar";
 import MovieInfo from "@/components/movie-info";
 import Sequel from "@/components/sequel";
-import { getMovie } from "@/data-access/sanity/movies/get";
-import { getSequel } from "@/data-access/sanity/sequel/get";
-import { assertIsValidLocale, routing } from "@/i18n/routing";
+import { getMovie } from "@/data/sanity/movies/get";
+import { getSequel } from "@/data/sanity/sequel/get";
+import { validateLocale, routing } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { Button } from "@heroui/button";
 import * as motion from "motion/react-client";
@@ -76,7 +76,7 @@ export function generateStaticParams() {
 
 export default async function Page({ params }: PageProps<"/[locale]/movies/[slug]">) {
   const { locale, slug } = await params;
-  assertIsValidLocale(locale);
+  validateLocale(locale);
   setRequestLocale(locale);
   const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
   if (!movie) return notFound();
@@ -84,7 +84,7 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
   return (
     <>
       <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
-        <h1 className="text-shadow rounded-10 shadow-small relative top-0 z-0 m-auto mx-5 mt-14 w-auto bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white drop-shadow-2xl sm:mx-auto sm:w-200">
+        <h1 className="text-shadow shadow-small relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-xl bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white drop-shadow-2xl sm:mx-auto sm:w-209">
           {movie.filmName}
         </h1>
         <motion.div

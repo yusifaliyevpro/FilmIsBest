@@ -7,7 +7,7 @@ export default function RootLayout({ children }: { children: Readonly<ReactNode>
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}
+      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}
     >
       <body>{children}</body>
     </html>

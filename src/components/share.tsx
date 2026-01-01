@@ -153,7 +153,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   }
 
   return (
-    <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-200">
+    <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-209">
       <Button
         className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
         color="primary"
@@ -165,7 +165,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       </Button>
       <Modal
         className="light:text-white dark:text-white"
-        classNames={{ base: "bg-gray-200" }}
+        classNames={{ base: "bg-gray-900" }}
         isOpen={isOpen}
         placement="center"
         onOpenChange={onOpenChange}
@@ -176,9 +176,9 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
             <h6 className="text-3xl font-bold">{t("Share.share")}</h6>
           </ModalHeader>
           <ModalBody className="p-8">
-            <div className="no-scrollbar relative mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
+            <div className="scrollbar-hide relative mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
               <div
-                className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
+                className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
                 onClick={() => handleShare("whatsapp")}
               >
                 <BiLogoWhatsapp className="text-7xl text-blue-600" />
@@ -192,7 +192,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
                 <p className="font-bold">Telegram</p>
               </div>
               <div
-                className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
+                className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
                 onClick={() => handleShare("copy")}
               >
                 <BsCardText className="text-7xl text-blue-600" />
@@ -200,7 +200,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
               </div>
               {canShareFiles && (
                 <div
-                  className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
+                  className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
                   onClick={handlePoster}
                 >
                   <BiImageAlt className="text-7xl text-nowrap text-blue-600" />
@@ -209,7 +209,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
               )}
               {canShareText ? (
                 <div
-                  className="rounded-10 hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
+                  className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
                   onClick={() => handleShare("other")}
                 >
                   <BiDotsVerticalRounded className="text-7xl text-blue-600" />

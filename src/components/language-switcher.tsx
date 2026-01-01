@@ -22,23 +22,25 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
     <Select
       isRequired
       aria-label="Language"
-      className="min-w-[110px]"
+      className="min-w-27.5"
       items={languages}
       selectedKeys={[locale]}
       classNames={{
-        trigger: "bg-gray-200 hover:bg-gray-100",
-        popoverContent: "bg-gray-200",
+        trigger: "bg-gray-900 hover:bg-gray-800",
+        popoverContent: "bg-gray-900",
         value: "font-sans font-bold",
         listbox: "font-bold text-white",
         selectorIcon: "text-white",
       }}
       renderValue={(items) => {
-        return items.map((item) => (
-          <div key={item.key} className="flex flex-row items-center gap-x-2">
+        const item = items[0];
+        if (!item) return null;
+        return (
+          <div className="flex flex-row items-center gap-x-2">
             <Avatar alt={item.data?.lang || ""} className="h-6 w-6" src={`/flags/${item?.data?.flag}.svg`} />
             <p>{item?.data?.key.toUpperCase()}</p>
           </div>
-        ));
+        );
       }}
       onSelectionChange={(value) => changeLocale(value.currentKey as Locale)}
     >

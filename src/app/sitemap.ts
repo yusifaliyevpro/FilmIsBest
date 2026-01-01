@@ -1,4 +1,4 @@
-import { getMovies } from "@/data-access/sanity/movies/get";
+import { getMovies } from "@/data/sanity/movies/get";
 import { BASE_URL } from "@/lib/constants";
 import { MetadataRoute } from "next";
 

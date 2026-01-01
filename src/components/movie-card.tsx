@@ -1,5 +1,6 @@
 import SanityImage from "@/components/sanity-image";
 import { Link } from "@/i18n/navigation";
+import { Skeleton } from "@heroui/skeleton";
 import * as motion from "motion/react-client";
 
 type MovieCardProps = {
@@ -20,7 +21,7 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps
       transition={{ type: "spring", stiffness: 140, duration: 0.2 }}
     >
       <Link
-        className="justify-content-center relative mt-10 inline-block min-h-10 w-66 scale-100 items-center justify-center rounded-xl bg-gray-200 text-center"
+        className="justify-content-center relative mt-10 inline-block min-h-10 w-66 scale-100 items-center justify-center rounded-xl bg-gray-900 text-center"
         href={`/movies/${movie.slug}`}
       >
         <SanityImage
@@ -32,22 +33,33 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps
           placeholder="blur"
           loading={isLazyLoad ? "lazy" : undefined}
           blurDataURL={movie.posterlqip!}
-          className="rounded-10 aspect-2/3"
+          className="aspect-2/3 rounded-xl"
         />
-        <div className="absolute top-2.5 flex w-[260px] flex-row justify-around gap-36 p-2.5">
-          <div className="rounded-3xl bg-gray-200 p-[3px] text-center text-xs font-bold text-white opacity-80">
+        <div className="absolute top-2.5 flex w-65 flex-row justify-around gap-36 p-2.5">
+          <div className="rounded-3xl bg-gray-900 p-0.75 text-center text-xs font-bold text-white opacity-80">
             {movie.releaseDate}
           </div>
-          <div className="bg-imdb flex w-8 items-center justify-center rounded-3xl text-center text-xs font-bold text-gray-100">
+          <div className="flex w-8 items-center justify-center rounded-3xl bg-[#ffc107] text-center text-xs font-bold text-gray-800">
             {movie.imdbpuan.toFixed(1)}
           </div>
         </div>
-        <div className="justify-content-center relative flex min-h-13 w-[250px] flex-col items-center justify-center text-center">
-          <h2 className="w-fit max-w-[210px] truncate text-lg font-bold text-white hover:text-blue-800">
+        <div className="justify-content-center relative flex min-h-12.5 w-62.5 flex-col items-center justify-center text-center">
+          <h2 className="w-fit max-w-52.5 truncate text-lg font-bold text-white hover:text-blue-800">
             {movie.filmName}
           </h2>
         </div>
       </Link>
     </motion.div>
+  );
+}
+
+export function MovieCardSkeleton() {
+  return (
+    <div className="justify-content-center relative mt-10 inline-block min-h-10 w-66 scale-100 items-center justify-center rounded-xl bg-gray-900 text-center">
+      <Skeleton className="aspect-2/3 w-full rounded-xl bg-gray-700 before:via-gray-600" />
+      <div className="justify-content-center relative flex min-h-12.5 w-62.5 flex-col items-center justify-center text-center">
+        <Skeleton className="h-6 w-52.5 rounded-lg bg-gray-700 before:via-gray-600" />
+      </div>
+    </div>
   );
 }

@@ -5,7 +5,7 @@ export const locales = ["en", "az", "tr"] as const;
 export type Locale = (typeof locales)[number];
 export const routing = defineRouting({ locales, defaultLocale: "en" });
 
-export function assertIsValidLocale(locale: string): asserts locale is Locale {
+export function validateLocale(locale: string): asserts locale is Locale {
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }

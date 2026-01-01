@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { type Locale, locales } from "@/i18n/routing";
+import { type Locale, locales, validateLocale } from "@/i18n/routing";
 import { Variants } from "motion";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
@@ -66,8 +66,11 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function About({ params }: { params: Promise<{ locale: Locale }> }) {
-  setRequestLocale((await params).locale);
+export default async function About({ params }: PageProps<"/[locale]/about">) {
+  const { locale } = await params;
+  validateLocale(locale);
+
+  setRequestLocale(locale);
   const t = await getTranslations("About");
   const texts: {
     t: string;
@@ -91,7 +94,7 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
   return (
     <section className="relative mx-4 flex flex-wrap items-center justify-center text-white sm:mx-0">
       <motion.ul
-        className="relative mt-8 mb-5 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-[800px] lg:mt-0 lg:p-12"
+        className="relative mt-8 mb-5 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-200 lg:mt-0 lg:p-12"
         initial="hidden"
         variants={ulVariants}
         viewport={{ once: true }}
@@ -99,7 +102,7 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
       >
         {texts.map((text, i) => (
           <motion.p
-            key={i}
+            key={i + text.t}
             className={text.className ? text.className : "flex flex-col text-base leading-relaxed"}
             variants={textVariants}
           >
@@ -113,8 +116,8 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
           viewport={{ once: true }}
           whileInView="visible"
         >
-          {tools.map((tool) => (
-            <motion.li key={tool.name} variants={itemVariants}>
+          {tools.map((tool, i) => (
+            <motion.li key={tool.name + i} variants={itemVariants}>
               <Link
                 className="shadow-large flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
@@ -126,16 +129,16 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
             </motion.li>
           ))}
         </motion.ol>
-        {links.map((link, index) => (
+        {links.map((link, i) => (
           <motion.p
-            key={index}
+            key={link.t + i}
             animate={{ opacity: 1, y: 0 }}
             className="text-center lg:text-left"
             initial={{ opacity: 0, y: -30 }}
             transition={{
               type: "spring",
               stiffness: 100,
-              delay: 5.3 + index++ * 0.5,
+              delay: 5.3 + i++ * 0.5,
               duration: 0.5,
             }}
           >

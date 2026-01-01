@@ -3,6 +3,7 @@
 import LanguageSwitcher from "@/components/language-switcher";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { cn } from "@/lib/cn";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -32,9 +33,9 @@ export default function Header({ locale }: { locale: Locale }) {
 
   return (
     <Navbar
-      className="light:text-white min-h-10 bg-gray-100/90 font-bold text-white backdrop-blur-md select-none dark:text-white"
+      className="light:text-white min-h-10 bg-gray-800/90 font-bold text-white backdrop-blur-md select-none dark:text-white"
       classNames={{
-        item: [
+        item: cn(
           "relative flex h-full items-center",
           "data-[active=true]:after:content-['']",
           "data-[active=true]:after:absolute",
@@ -45,10 +46,10 @@ export default function Header({ locale }: { locale: Locale }) {
           "data-[active=true]:after:rounded-xs",
           "data-[active=true]:after:bg-primary",
           "data-[active=true]:after:mb-3",
-        ],
+        ),
       }}
     >
-      <NavbarContent justify="start">
+      <NavbarContent key="brand" justify="start">
         <NavbarBrand as={"li"}>
           <Link className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold" href={`/`}>
             <BiSolidMovie className="text-3xl font-normal text-blue-600" />
@@ -56,21 +57,22 @@ export default function Header({ locale }: { locale: Locale }) {
           </Link>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="hidden gap-12 sm:flex" justify="center">
-        {navigationItems.map((item, i) => (
-          <NavbarItem key={i} isActive={pathname === item.path}>
+      <NavbarContent key="navigation" className="hidden gap-12 sm:flex" justify="center">
+        {navigationItems.map((item) => (
+          <NavbarItem key={item.href} isActive={pathname === item.path}>
             <Link
               aria-current="page"
               className="text-lg text-gray-300 hover:text-white"
               color="foreground"
               href={item.href}
+              prefetch={true}
             >
               {t(item.translationKey)}
             </Link>
           </NavbarItem>
         ))}
       </NavbarContent>
-      <NavbarContent justify="end">
+      <NavbarContent key="actions" justify="end">
         <NavbarItem>
           <LanguageSwitcher locale={locale} />
         </NavbarItem>

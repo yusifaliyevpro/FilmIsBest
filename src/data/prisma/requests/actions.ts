@@ -1,5 +1,6 @@
 "use server";
 
+import { err, ok } from "@/lib/action-helpers";
 import { auth } from "@/lib/auth";
 import { AdminEmail } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
@@ -24,25 +25,38 @@ export async function submitMovieRequest(_: ActionState, formData: FormData): Pr
 
     return { success: false, data: formDataObject, errors };
   }
-  await prisma.movieRequests.create({ data: result.data });
 
-  return { success: true, data: {} };
+  try {
+    await prisma.movieRequests.create({ data: result.data });
+
+    return { success: true, data: {} };
+  } catch {
+    return { success: false, data: {} };
+  }
 }
 
 export async function removeMovieRequest(id: string) {
   const session = await auth();
   if (!session || session.user?.email !== AdminEmail)
-    return { error: "You are not authorized to remove movie request!" };
+    return err("You are not authorized to delete movie request!");
 
-  const data = await prisma?.movieRequests.delete({ where: { id } });
-  return { data };
+  try {
+    await prisma?.movieRequests.delete({ where: { id }, select: { id: true } });
+    return ok();
+  } catch {
+    return err("Failed to delete movie request!");
+  }
 }
 
 export async function updateMovieRequest(id: string, isAdded: boolean) {
   const session = await auth();
   if (!session || session.user?.email !== AdminEmail)
-    return { error: "You are not authorized to update movie request!" };
+    return err("You are not authorized to update movie request!");
 
-  const data = await prisma?.movieRequests.update({ where: { id }, data: { isAdded } });
-  return { data };
+  try {
+    await prisma.movieRequests.update({ where: { id }, data: { isAdded } });
+    return ok();
+  } catch {
+    return err("Failed to update movie request!");
+  }
 }

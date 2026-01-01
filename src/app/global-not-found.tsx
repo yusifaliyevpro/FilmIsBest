@@ -22,7 +22,7 @@ export default async function NotFoundPage() {
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-100 text-white`}
+      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}
     >
       <body className="font-inter">
         <main className="relative flex min-h-svh w-full flex-col items-center justify-center">
