@@ -12,7 +12,7 @@ export async function generateDescription(filmName: string) {
     "Filmin adını tərcümə etmə. Heç bir markdown işlətmə sadəcə düz mətni yaz.";
 
   const { textStream } = streamText({
-    model: openrouter("deepseek/deepseek-chat-v3.1"),
+    model: openrouter.completion("deepseek/deepseek-chat-v3.1"),
     prompt,
     system:
       "Sən sadəcə düz mətn yazmalısan. Heç bir markdown, stil, HTML və ya formatlaşdırma istifadə etmə. " +
