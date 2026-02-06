@@ -5,11 +5,6 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   typedRoutes: true,
   cacheComponents: true,
-  // logging: {
-  //   fetches: {
-  //     fullUrl: true,
-  //   },
-  // },
   experimental: {
     globalNotFound: true,
   },

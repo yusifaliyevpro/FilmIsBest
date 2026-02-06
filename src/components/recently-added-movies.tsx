@@ -24,6 +24,7 @@ export default function RecentlyAddedMovies({
     >
       <Swiper
         loop
+        lazyPreloadPrevNext={4}
         className="mt-10 mb-32 px-10"
         modules={[Autoplay]}
         slidesPerView={1}

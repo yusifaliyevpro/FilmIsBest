@@ -40,65 +40,39 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   const router = useRouter();
   const t = useTranslations("Movie");
   if (!movie) return null;
-  const translatedGenres = movie.genre.map(
-    (genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre,
-  );
 
-  const whatsappBody =
-    `🍿 *${t("movieName")}* ` +
-    movie.filmName +
-    `\n\n⭐ *${t("stars")}* ` +
-    movie.actors.trim().replace(/!/g, "•") +
-    `\n\n🎭 *${t("category")}* ` +
-    translatedGenres?.join(", ") +
-    `\n\n🎬 *${t("director")}* ` +
-    movie.directed?.trim().replace(/!/g, "•") +
-    `\n\n🥇 *${t("imdbScore")}* ` +
-    movie.imdbpuan +
-    `\n\n *${t("Share.ctaText")}* ⬇️` +
-    "\n\n" +
-    `${BASE_URL}` +
-    pathname;
+  const buildShareBody = (platform: "whatsapp" | "telegram" | "copy") => {
+    const translatedGenres = movie.genre.map(
+      (genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre,
+    );
 
-  const telegramBody =
-    `🍿 **${t("movieName")}** ` +
-    movie.filmName +
-    `\n\n⭐ **${t("stars")}** ` +
-    movie.actors?.trim().replace(/!/g, "•") +
-    `\n\n🎭 **${t("category")}** ` +
-    translatedGenres?.join(", ") +
-    `\n\n🎬 **${t("director")}** ` +
-    movie.directed?.trim().replace(/!/g, "•") +
-    `\n\n🥇 **${t("imdbScore")}** ` +
-    movie.imdbpuan +
-    `\n\n **${t("Share.ctaText")}** ⬇️` +
-    "\n\n" +
-    `${BASE_URL}` +
-    pathname;
+    const bold = platform === "telegram" ? "**" : platform === "whatsapp" ? "*" : "";
 
-  const copyBody =
-    `🍿 ${t("movieName")} ` +
-    movie.filmName +
-    `\n\n⭐ ${t("stars")} ` +
-    movie.actors?.trim().replace(/!/g, "•") +
-    `\n\n🎭 ${t("category")} ` +
-    translatedGenres?.join(", ") +
-    `\n\n🎬 ${t("director")} ` +
-    movie.directed?.trim().replace(/!/g, "•") +
-    `\n\n🥇 ${t("imdbScore")} ` +
-    movie.imdbpuan +
-    `\n\n ${t("Share.ctaText")} ⬇️` +
-    "\n\n" +
-    `${BASE_URL}` +
-    pathname;
+    return (
+      `🍿 ${bold}${t("movieName")}${bold} ` +
+      movie.filmName +
+      `\n\n⭐ ${bold}${t("stars")}${bold} ` +
+      movie.actors?.trim().replace(/!/g, "•") +
+      `\n\n🎭 ${bold}${t("category")}${bold} ` +
+      translatedGenres?.join(", ") +
+      `\n\n🎬 ${bold}${t("director")}${bold} ` +
+      movie.directed?.trim().replace(/!/g, "•") +
+      `\n\n🥇 ${bold}${t("imdbScore")}${bold} ` +
+      movie.imdbpuan +
+      `\n\n ${bold}${t("Share.ctaText")}${bold} ⬇️` +
+      "\n\n" +
+      `${BASE_URL}` +
+      pathname
+    );
+  };
 
   const handleShare = (platform: string) => {
     if (platform === "whatsapp") {
-      router.push(`whatsapp://send?text=${encodeURIComponent(whatsappBody)}`);
+      router.push(`whatsapp://send?text=${encodeURIComponent(buildShareBody("whatsapp"))}`);
     } else if (platform === "telegram") {
-      router.push(`tg://msg?text=${encodeURIComponent(telegramBody)}`);
+      router.push(`tg://msg?text=${encodeURIComponent(buildShareBody("telegram"))}`);
     } else if (platform === "copy") {
-      navigator.clipboard.writeText(copyBody);
+      navigator.clipboard.writeText(buildShareBody("copy"));
       closeAll();
       addToast({ title: t("Share.copied"), color: "success" });
       if (navigator.vibrate) {
@@ -107,7 +81,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
     } else if (platform === "other") {
       const shareData = {
         title: `FilmIsBest | ${movie.filmName}`,
-        text: copyBody,
+        text: buildShareBody("copy"),
       };
       closeAll();
       addToast({ title: t("Share.inProgress"), timeout: 1000 });

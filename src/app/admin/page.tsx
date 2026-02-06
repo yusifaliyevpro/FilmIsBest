@@ -24,10 +24,8 @@ export default function AdminPage() {
 }
 
 export async function AdminPageContent() {
-  const session = await auth();
+  const [session, result] = await Promise.all([auth(), getAllMovieRequests()]);
   if (!session || session.user?.email !== AdminEmail) return <AdminSignIn />;
-
-  const result = await getAllMovieRequests();
 
   if (!result.ok)
     return (

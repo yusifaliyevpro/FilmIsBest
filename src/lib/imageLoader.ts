@@ -4,9 +4,9 @@ import { ImageLoaderProps } from "next/image";
 export default function sanityLoader({
   src,
   width,
-  height = 200,
+  height,
   quality = 75,
-}: ImageLoaderProps & { height?: number }) {
+}: ImageLoaderProps & { height: number }) {
   const image = imageBuilder
     ?.image(src)
     .width(width)

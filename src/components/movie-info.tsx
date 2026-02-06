@@ -20,6 +20,7 @@ export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQue
           placeholder="blur"
           blurDataURL={movie.posterlqip!}
           className="relative h-auto w-auto rounded-xl select-none sm:h-90 sm:w-60"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 264px"
         />
       </div>
       <div className="relative mx-auto w-auto list-none rounded-xl tracking-normal sm:ml-5 sm:w-137.5">

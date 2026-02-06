@@ -28,6 +28,7 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps
         <SanityImage
           src={movie.poster!}
           width={625}
+          preload={!isLazyLoad}
           height={910}
           quality={90}
           alt={`${movie.filmName} movie poster`}
@@ -35,6 +36,7 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps
           loading={isLazyLoad ? "lazy" : undefined}
           blurDataURL={movie.posterlqip!}
           className="aspect-2/3 rounded-xl"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 264px"
         />
         <div className="absolute top-2.5 flex w-65 flex-row justify-around gap-36 p-2.5">
           <div className="rounded-3xl bg-gray-900 p-0.75 text-center text-xs font-bold text-white opacity-80">

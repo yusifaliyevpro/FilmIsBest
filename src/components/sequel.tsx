@@ -45,6 +45,7 @@ export default function Sequel({
                     placeholder="blur"
                     blurDataURL={movie.posterlqip!}
                     className="h-60 rounded-xl"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 264px"
                   />
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 import { updateMovieRequest } from "@/data/prisma/requests/actions";
 import { removeMovieRequest } from "@/data/prisma/requests/actions";
+import { cn } from "@/lib/cn";
 import { Button } from "@heroui/button";
 import { addToast } from "@heroui/toast";
 import { closeAll } from "@heroui/toast";
@@ -29,7 +30,11 @@ export function UpdateButton({ id, added }: { id: string; added: boolean }) {
 
   return (
     <SiTicktick
-      className={`cursor-pointer text-2xl ${!added ? "text-red-500 hover:text-red-600" : "text-blue-500 hover:text-blue-700"}`}
+      className={cn(
+        "cursor-pointer text-2xl",
+        !added ? "text-red-500 hover:text-red-600" : "text-blue-500 hover:text-blue-700",
+        isPending && "cursor-wait opacity-50",
+      )}
       onClick={updateRequest}
     />
   );
