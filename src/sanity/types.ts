@@ -15,7 +15,14 @@ import "@sanity/client";
  * ---------------------------------------------------------------------------------
  */
 
-// Source: schema.json
+// Source: src/sanity/extract.json
+export type MovieStudioReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "Movie-studio";
+};
+
 export type Sequel = {
   _id: string;
   _type: "sequel";
@@ -23,13 +30,18 @@ export type Sequel = {
   _updatedAt: string;
   _rev: string;
   name: string;
-  movies: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "Movie-studio";
-  }>;
+  movies: Array<
+    {
+      _key: string;
+    } & MovieStudioReference
+  >;
+};
+
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
 export type MovieStudio = {
@@ -39,7 +51,6 @@ export type MovieStudio = {
   _updatedAt: string;
   _rev: string;
   imdbID: string;
-  getFilmData?: string;
   filmName: string;
   slug: Slug;
   movieTime: number;
@@ -50,26 +61,40 @@ export type MovieStudio = {
   genre: Array<string>;
   country: string;
   poster: {
-    asset: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
   };
-  posterSearch?: string;
   description: string;
-  generateDescription?: string;
   EnglishLink: boolean;
   EnglishSubtitleLink: boolean;
   TurkishLink: string;
   TurkishSubtitleLink: string;
   FraqmanLink: string;
-  youtubeSearchLink?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -93,25 +118,21 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+  height: number;
+  width: number;
+  aspectRatio: number;
 };
 
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+export type SanityImageMetadata = {
+  _type: "sanity.imageMetadata";
+  location?: Geopoint;
+  dimensions?: SanityImageDimensions;
+  palette?: SanityImagePalette;
+  lqip?: string;
+  blurHash?: string;
+  thumbHash?: string;
+  hasAlpha?: boolean;
+  isOpaque?: boolean;
 };
 
 export type SanityFileAsset = {
@@ -134,6 +155,13 @@ export type SanityFileAsset = {
   path?: string;
   url?: string;
   source?: SanityAssetSourceData;
+};
+
+export type SanityAssetSourceData = {
+  _type: "sanity.assetSourceData";
+  name?: string;
+  id?: string;
+  url?: string;
 };
 
 export type SanityImageAsset = {
@@ -159,17 +187,6 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData;
 };
 
-export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
-};
-
 export type Geopoint = {
   _type: "geopoint";
   lat?: number;
@@ -177,35 +194,26 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
-export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
 export type AllSanitySchemaTypes =
+  | MovieStudioReference
   | Sequel
+  | SanityImageAssetReference
   | MovieStudio
+  | SanityImageCrop
+  | SanityImageHotspot
+  | Slug
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
-  | SanityImageHotspot
-  | SanityImageCrop
-  | SanityFileAsset
-  | SanityImageAsset
   | SanityImageMetadata
-  | Geopoint
-  | Slug
-  | SanityAssetSourceData;
+  | SanityFileAsset
+  | SanityAssetSourceData
+  | SanityImageAsset
+  | Geopoint;
+
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./src/data-access/sanity/movies/get.ts
+
+// Source: src/data/sanity/movies/get.ts
 // Variable: MoviesQuery
 // Query: *[_type == 'Movie-studio']       | order(_createdAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        _id,        imdbpuan,        _updatedAt,        imdbID,        releaseDate      }
 export type MoviesQueryResult = Array<{
@@ -219,6 +227,8 @@ export type MoviesQueryResult = Array<{
   imdbID: string;
   releaseDate: number;
 }>;
+
+// Source: src/data/sanity/movies/get.ts
 // Variable: MovieQuery
 // Query: *[_type == 'Movie-studio' && slug.current == $slug][0] {      filmName,      "poster": poster.asset->url,      "posterlqip": poster.asset->metadata.lqip,      "slug": slug.current,      imdbpuan,      releaseDate,      genre,      description,      _id,      directed,      country,      movieTime,      imdbID,      EnglishLink,      EnglishSubtitleLink,      FraqmanLink,      TurkishLink,      TurkishSubtitleLink,      actors    }
 export type MovieQueryResult = {
@@ -242,6 +252,8 @@ export type MovieQueryResult = {
   TurkishSubtitleLink: string;
   actors: string;
 } | null;
+
+// Source: src/data/sanity/movies/get.ts
 // Variable: RecentlyAddedMoviesQuery
 // Query: *[_type == 'Movie-studio']       | order(_createdAt desc)[0...10] {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        imdbpuan,        releaseDate      }
 export type RecentlyAddedMoviesQueryResult = Array<{
@@ -253,9 +265,9 @@ export type RecentlyAddedMoviesQueryResult = Array<{
   releaseDate: number;
 }>;
 
-// Source: ./src/data-access/sanity/sequel/get.ts
+// Source: src/data/sanity/sequel/get.ts
 // Variable: SequelQuery
-// Query: *[_type == "sequel" && references($movieID)][0] {      name,      "movies": movies[]->         | order(releaseDate desc) {          filmName,          "slug": slug.current,          "poster": poster.asset->url,          "posterlqip": poster.asset->metadata.lqip        }    }
+// Query: *[_type == "sequel" && references(*[_type == "Movie-studio" && slug.current == $slug][0]._id)][0] {      name,      "movies": movies[]->         | order(releaseDate desc) {          filmName,          "slug": slug.current,          "poster": poster.asset->url,          "posterlqip": poster.asset->metadata.lqip        }    }
 export type SequelQueryResult = {
   name: string;
   movies: Array<{
@@ -271,6 +283,6 @@ declare module "@sanity/client" {
     '\n    *[_type == \'Movie-studio\'] \n      | order(_createdAt desc) {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        _id,\n        imdbpuan,\n        _updatedAt,\n        imdbID,\n        releaseDate\n      }\n  ': MoviesQueryResult;
     '\n    *[_type == \'Movie-studio\' && slug.current == $slug][0] {\n      filmName,\n      "poster": poster.asset->url,\n      "posterlqip": poster.asset->metadata.lqip,\n      "slug": slug.current,\n      imdbpuan,\n      releaseDate,\n      genre,\n      description,\n      _id,\n      directed,\n      country,\n      movieTime,\n      imdbID,\n      EnglishLink,\n      EnglishSubtitleLink,\n      FraqmanLink,\n      TurkishLink,\n      TurkishSubtitleLink,\n      actors\n    }\n  ': MovieQueryResult;
     '\n    *[_type == \'Movie-studio\'] \n      | order(_createdAt desc)[0...10] {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        imdbpuan,\n        releaseDate\n      }\n  ': RecentlyAddedMoviesQueryResult;
-    '\n    *[_type == "sequel" && references($movieID)][0] {\n      name,\n      "movies": movies[]-> \n        | order(releaseDate desc) {\n          filmName,\n          "slug": slug.current,\n          "poster": poster.asset->url,\n          "posterlqip": poster.asset->metadata.lqip\n        }\n    }\n  ': SequelQueryResult;
+    '\n    *[_type == "sequel" && references(*[_type == "Movie-studio" && slug.current == $slug][0]._id)][0] {\n      name,\n      "movies": movies[]-> \n        | order(releaseDate desc) {\n          filmName,\n          "slug": slug.current,\n          "poster": poster.asset->url,\n          "posterlqip": poster.asset->metadata.lqip\n        }\n    }\n  ': SequelQueryResult;
   }
 }

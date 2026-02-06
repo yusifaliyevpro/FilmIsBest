@@ -11,7 +11,7 @@ export default defineCliConfig({
   api: { projectId, dataset },
 
   typegen: {
-    path: "./src/data-access/**/*.{ts,tsx,js,jsx}",
+    path: "./src/data/**/*.{ts,tsx,js,jsx}",
     schema: "./src/sanity/extract.json",
     generates: "./src/sanity/types.ts",
   },
