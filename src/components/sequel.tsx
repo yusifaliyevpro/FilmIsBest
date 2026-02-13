@@ -33,6 +33,7 @@ export default function Sequel({
             <Link
               className={`${movie.slug === currentSlug && "border-3 border-solid border-blue-600"} justify-content-center relative inline-block min-h-60 w-40 items-center justify-center rounded-xl text-center select-none`}
               href={`${movie.slug}`}
+              prefetch={false}
             >
               <div>
                 <div className="relative">

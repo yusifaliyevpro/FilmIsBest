@@ -1,4 +1,3 @@
-import { Link } from "@/i18n/navigation";
 import { type Locale, locales, validateLocale } from "@/i18n/routing";
 import { Variants } from "motion";
 import * as motion from "motion/react-client";
@@ -118,14 +117,14 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
         >
           {tools.map((tool, i) => (
             <motion.li key={tool.name + i} variants={itemVariants}>
-              <Link
+              <a
                 className="shadow-large flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
                 target="_blank"
               >
                 <p>{tool.name}</p>
                 {tool.icon && tool.icon}
-              </Link>
+              </a>
             </motion.li>
           ))}
         </motion.ol>
@@ -143,9 +142,9 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
             }}
           >
             {t(link.t as "text1")}{" "}
-            <Link className="text-blue-600 hover:text-blue-800" href={link.link} target="_blank">
+            <a className="text-blue-600 hover:text-blue-800" href={link.link} target="_blank">
               {link.linkText}
-            </Link>
+            </a>
           </motion.p>
         ))}
       </motion.ul>
