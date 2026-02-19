@@ -1,11 +1,10 @@
 "use client";
 
-import { generateDescription } from "@/data/ai/actions";
-import { Spinner, TextArea } from "@sanity/ui";
-import { startTransition, useState } from "react";
+import React, { startTransition, useState } from "react";
 import { BsStars } from "react-icons/bs";
-import { InputProps, set, unset } from "sanity";
-import { useFormValue } from "sanity";
+import { Spinner, TextArea } from "@sanity/ui";
+import { InputProps, set, unset, useFormValue } from "sanity";
+import { generateDescription } from "@/data/ai/actions";
 
 export default function GenerateDescriptionComponent(props: InputProps) {
   const { value, onChange } = props;
