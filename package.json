@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json"
+    "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json",
+    "serve:lhci": "NODE_ENV=production npm run start"
   },
   "engines": {
     "node": ">=22.0.0 <23.0.0 || >=24.0.0 <25.0.0"
