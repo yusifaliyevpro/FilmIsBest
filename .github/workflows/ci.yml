@@ -1,8 +1,9 @@
 name: PR Check
 
 on:
-  push:
   pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
 
 jobs:
   lhci:
