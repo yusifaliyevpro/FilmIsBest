@@ -6,15 +6,11 @@
  * You can learn more about the next-sanity package here:
  * https://github.com/sanity-io/next-sanity
  */
-import { cacheLife } from "next/cache";
 import config from "../../../../sanity.config";
 import { NextStudio } from "next-sanity/studio";
 
 export { metadata, viewport } from "next-sanity/studio";
 
-export default async function StudioPage() {
-  "use cache";
-  cacheLife("max");
-
+export default function StudioPage() {
   return <NextStudio config={config} />;
 }
