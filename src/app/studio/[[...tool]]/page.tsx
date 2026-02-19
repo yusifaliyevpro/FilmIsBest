@@ -11,6 +11,6 @@ import { NextStudio } from "next-sanity/studio";
 
 export { metadata, viewport } from "next-sanity/studio";
 
-export default async function StudioPage() {
+export default function StudioPage() {
   return <NextStudio config={config} />;
 }
