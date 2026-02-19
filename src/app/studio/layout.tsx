@@ -1,7 +1,10 @@
 import { ReactNode, Suspense } from "react";
+import React from "react";
 import "@/lib/env";
 import { inter, poppins } from "@/lib/fonts";
 import "../globals.css";
+
+globalThis.React = React;
 
 export default function RootLayout({ children }: { children: Readonly<ReactNode> }) {
   return (
