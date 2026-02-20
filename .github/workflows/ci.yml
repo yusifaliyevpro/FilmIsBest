@@ -5,23 +5,56 @@ on:
     types: [opened, synchronize, reopened]
     branches: [main]
 
+env:
+  LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+  NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
+  OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+  AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+  AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
+  AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
+  ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+  AUTH_TRUST_HOST: ${{ secrets.AUTH_TRUST_HOST }}
+
 jobs:
+  quality:
+    name: Type & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.x
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Type check
+        run: pnpm tsc --noEmit
+
+      - name: Lint
+        run: pnpm lint
+
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
-
-    env:
-      LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
-      NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
-      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-      AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
-      AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
-      ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
-      AUTH_TRUST_HOST: ${{ secrets.AUTH_TRUST_HOST }}
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -44,8 +77,5 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Install Lighthouse CI
-        run: pnpm add -g @lhci/cli@0.15.x
-
       - name: Run Lighthouse CI
-        run: lhci autorun
+        run: pnpm dlx @lhci/cli@0.15.x autorun

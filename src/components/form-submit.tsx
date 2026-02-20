@@ -4,16 +4,16 @@
 // It was a great starting point for learning about web forms and handling submissions with basic HTML POST methods.
 // Since then, I've explored more advanced technologies like Next.js, UI libraries, Server Actions, Prisma, and useActionState.
 // It's interesting to see how much my approach to building forms has evolved since those first experiments with Formsubmit.co.
-import { submitMovieRequest } from "@/data/prisma/requests/actions";
+import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/modal";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
 import { addToast, closeAll } from "@heroui/toast";
-import { useTranslations } from "next-intl";
 import { startTransition, useActionState, useEffect, useEffectEvent } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { HiAtSymbol } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
+import { submitMovieRequest } from "@/data/prisma/requests/actions";
 
 const initialState = {
   success: false,
@@ -54,13 +54,13 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
   return (
     <Modal
       backdrop="blur"
-      classNames={{ base: "bg-gray-200" }}
+      classNames={{ base: "bg-gray-900" }}
       isOpen={isOpen}
       placement="center"
       onOpenChange={onOpenChange}
     >
       <ModalContent>
-        <ModalHeader className="light:text-white mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold text-white dark:text-white">
+        <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold text-white dark:text-white">
           {t("movieRequest")}
         </ModalHeader>
         <form onSubmit={handleSubmit} noValidate>
@@ -70,7 +70,7 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
               autoComplete="off"
               name="fullName"
               classNames={{ input: "text-white" }}
-              endContent={<IoPerson className="text-default-500 pointer-events-none shrink-0 text-xl" />}
+              endContent={<IoPerson className="pointer-events-none shrink-0 text-xl text-default-500" />}
               label={`${t("name")} (Optional)`}
               labelPlacement="outside"
               type="text"
@@ -82,7 +82,7 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
               autoComplete="email"
               classNames={{ input: "text-white" }}
               description={t("emailPrivacy")}
-              endContent={<HiAtSymbol className="text-default-500 pointer-events-none shrink-0 text-2xl" />}
+              endContent={<HiAtSymbol className="pointer-events-none shrink-0 text-2xl text-default-500" />}
               errorMessage={!!state.errors?.email && t("emailError")}
               isInvalid={!!state.errors?.email}
               label={t("email")}
@@ -97,8 +97,8 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
               autoComplete="off"
               name="movieName"
               className="text-white"
-              classNames={{ input: "light:text-white dark:text-white" }}
-              endContent={<BiSolidMovie className="text-default-500 pointer-events-none shrink-0 text-2xl" />}
+              classNames={{ input: "dark:text-white light:text-white" }}
+              endContent={<BiSolidMovie className="pointer-events-none shrink-0 text-2xl text-default-500" />}
               errorMessage={!!state.errors?.movieName && t("movieNameError")}
               isInvalid={!!state.errors?.movieName}
               label={t("movieName")}
