@@ -17,47 +17,38 @@ env:
   AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
   ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
   AUTH_TRUST_HOST: ${{ secrets.AUTH_TRUST_HOST }}
-jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 10.x
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: nextjs-build
-          path: .next/
-          retention-days: 1
+jobs:
   quality:
     name: Type & Lint
-    needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
         with:
           version: 10.x
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
       - run: pnpm install --frozen-lockfile
       - run: pnpm tsc --noEmit
       - run: pnpm lint
 
   lhci:
     name: Lighthouse
-    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -81,11 +72,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: NextJS build
-        uses: actions/download-artifact@v4
-        with:
-          name: nextjs-build
-          path: .next/
+      - name: Build
+        run: pnpm build
 
       - name: Run Lighthouse CI
         run: pnpm dlx @lhci/cli@0.15.x autorun
