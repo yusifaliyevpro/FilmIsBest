@@ -1,13 +1,12 @@
-import { type Locale, locales, validateLocale } from "@/i18n/routing";
 import { Variants } from "motion";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import React from "react";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { SiNextdotjs, SiNextui, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
+import { type Locale, locales, validateLocale } from "@/i18n/routing";
 
 const ulVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.5 } } };
 const textVariants: Variants = {
@@ -23,11 +22,7 @@ const itemVariants: Variants = {
   visible: { scale: 1, opacity: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("MetaData.About");
@@ -118,7 +113,7 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
           {tools.map((tool, i) => (
             <motion.li key={tool.name + i} variants={itemVariants}>
               <a
-                className="shadow-large flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 drop-shadow-2xl hover:bg-slate-700"
+                className="flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 shadow-large drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
                 target="_blank"
               >
