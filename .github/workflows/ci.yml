@@ -9,6 +9,9 @@ jobs:
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     env:
       LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
@@ -49,12 +52,3 @@ jobs:
 
       - name: Run Lighthouse CI
         run: lhci autorun
-
-      - name: Lighthouse Comment
-        uses: treosh/lighthouse-ci-action@v11
-        with:
-          urls: |
-            http://localhost:3000/en
-            http://localhost:3000/en/movies
-          uploadArtifacts: true
-          temporaryPublicStorage: true
