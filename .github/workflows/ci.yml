@@ -18,26 +18,9 @@ env:
   ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
   AUTH_TRUST_HOST: ${{ secrets.AUTH_TRUST_HOST }}
 jobs:
-  quality:
-    name: Type & Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 10.x
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm tsc --noEmit
-      - run: pnpm lint
-
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: quality
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -55,9 +38,26 @@ jobs:
           name: nextjs-build
           path: .next/
           retention-days: 1
+  quality:
+    name: Type & Lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10.x
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm tsc --noEmit
+      - run: pnpm lint
 
   lhci:
     name: Lighthouse
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
