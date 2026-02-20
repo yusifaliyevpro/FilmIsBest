@@ -42,10 +42,10 @@
     "@sanity/react-loader": "^2.0.7",
     "@sanity/ui": "^3.1.11",
     "@sanity/vision": "^5.11.0",
-    "ai": "^6.0.73",
+    "ai": "^6.0.94",
     "clsx": "^2.1.1",
     "fuse.js": "^7.1.0",
-    "motion": "^12.33.0",
+    "motion": "^12.34.3",
     "next": "16.1.6",
     "next-auth": "5.0.0-beta.30",
     "next-intl": "^4.8.2",
@@ -55,7 +55,7 @@
     "react-dom": "19.2.4",
     "react-icons": "^5.5.0",
     "sanity": "^5.11.0",
-    "styled-components": "^6.3.10",
+    "styled-components": "^6.3.11",
     "swiper": "^12.1.0",
     "tailwind-merge": "^3.4.0",
     "typescript": "^5.9.3",
@@ -93,6 +93,10 @@
       "sharp",
       "unrs-resolver",
       "yarn"
-    ]
+    ],
+    "overrides": {
+      "ajv@<8.18.0": ">=8.18.0",
+      "minimatch@<10.2.1": ">=10.2.1"
+    }
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { startTransition, useState } from "react";
+import { startTransition, useState } from "react";
 import { BsStars } from "react-icons/bs";
 import { Spinner, TextArea } from "@sanity/ui";
 import { InputProps, set, unset, useFormValue } from "sanity";

@@ -1,9 +1,8 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { Button } from "@heroui/button";
 import { Card, CardBody, CardHeader } from "@heroui/card";
-import { signIn } from "next-auth/react";
-import React from "react";
 import { BsGithub } from "react-icons/bs";
 
 export default function AdminSignIn() {
@@ -12,7 +11,7 @@ export default function AdminSignIn() {
       <Card className="w-full max-w-md">
         <CardHeader className="flex flex-col gap-1 text-center">
           <h1 className="text-2xl font-bold">Admin Signup</h1>
-          <p className="text-default-500 text-sm">Access restricted to authorized personnel only</p>
+          <p className="text-sm text-default-500">Access restricted to authorized personnel only</p>
         </CardHeader>
         <CardBody>
           <Button
