@@ -93,10 +93,6 @@
       "sharp",
       "unrs-resolver",
       "yarn"
-    ],
-    "overrides": {
-      "ajv@<8.18.0": ">=8.18.0",
-      "minimatch@<10.2.1": ">=10.2.1"
-    }
+    ]
   }
 }

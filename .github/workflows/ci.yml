@@ -43,9 +43,11 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm tsc --noEmit
-      - run: pnpm lint
+      - name: Type check
+        run: pnpm tsc --noEmit
+
+      - name: Lint
+        run: pnpm lint
 
   lhci:
     name: Lighthouse
