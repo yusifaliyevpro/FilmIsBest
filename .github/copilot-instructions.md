@@ -13,7 +13,7 @@ FilmIsBest is a multilingual movie discovery and management platform built with 
 
 ### Core Framework
 
-- **Next.js 16.1.6** - App Router
+- **Next.js 16.2.0** - App Router
 - **React 19.2.4** - UI library
 - **TypeScript 5.9.3** - Type safety
 - **Node.js** - Requires >=22.0.0 <23.0.0 || >=24.0.0 <25.0.0
