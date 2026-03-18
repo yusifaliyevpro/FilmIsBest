@@ -1,11 +1,11 @@
 "use client";
 
-import { apiVersion } from "../env";
-import { getOMDBDataById } from "@/data/omdb/get";
+import { startTransition, useState } from "react";
 import { SearchIcon } from "@sanity/icons";
 import { Spinner, useToast } from "@sanity/ui";
-import { startTransition, useState } from "react";
 import { InputProps, useClient, useFormValue } from "sanity";
+import { getOMDBDataById } from "@/data/omdb/get";
+import { apiVersion } from "../env";
 
 export function GetMovieDataFromOMDB(props: InputProps) {
   const { value, renderDefault } = props;
@@ -53,9 +53,8 @@ export function GetMovieDataFromOMDB(props: InputProps) {
       } catch (err) {
         console.error(err);
         toast.push({ title: "An error occured while fetching data!", status: "error" });
-      } finally {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     });
   };
 

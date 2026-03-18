@@ -1,12 +1,12 @@
 "use client";
 
-import MovieCard from "@/components/movie-card";
-import { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 import { motion } from "motion/react";
-import { use } from "react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { use } from "react";
+import { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
+import MovieCard from "@/components/movie-card";
 
 export default function RecentlyAddedMovies({
   moviesPromise,

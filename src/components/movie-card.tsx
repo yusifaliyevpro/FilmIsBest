@@ -1,7 +1,7 @@
+import * as motion from "motion/react-client";
+import { Skeleton } from "@heroui/skeleton";
 import SanityImage from "@/components/sanity-image";
 import { Link } from "@/i18n/navigation";
-import { Skeleton } from "@heroui/skeleton";
-import * as motion from "motion/react-client";
 
 type MovieCardProps = {
   filmName: string;

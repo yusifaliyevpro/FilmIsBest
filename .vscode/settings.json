@@ -1,11 +1,7 @@
 {
-  "typescript.tsdk": "node_modules\\typescript\\lib",
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  },
-  "i18n-ally.localesPaths": ["messages", "src/i18n"],
-  "i18n-ally.keystyle": "nested",
-  "prisma.pinToPrisma6": true
+  }
 }
 
 // VSCode config - You can change it

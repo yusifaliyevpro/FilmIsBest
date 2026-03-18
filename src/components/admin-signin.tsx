@@ -1,9 +1,9 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { Button } from "@heroui/button";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { BsGithub } from "react-icons/bs";
+import { authClient } from "@/lib/auth-client";
 
 export default function AdminSignIn() {
   return (
@@ -15,7 +15,7 @@ export default function AdminSignIn() {
         </CardHeader>
         <CardBody>
           <Button
-            onPress={() => signIn("github")}
+            onPress={() => authClient.signIn.social({ provider: "github", callbackURL: "/admin" })}
             startContent={<BsGithub />}
             className="w-full"
             color="default"

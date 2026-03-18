@@ -1,16 +1,16 @@
+import * as motion from "motion/react-client";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Pagination } from "@heroui/pagination";
+import { Skeleton } from "@heroui/skeleton";
+import { Suspense } from "react";
+import { getMovies } from "@/data/sanity/movies/get";
 import { MovieCardSkeleton } from "@/components/movie-card";
 import Movies from "@/components/movies";
 import PaginationUI from "@/components/pagination";
 import Search from "@/components/search";
-import { getMovies } from "@/data/sanity/movies/get";
-import { locales, validateLocale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { Pagination } from "@heroui/pagination";
-import { Skeleton } from "@heroui/skeleton";
-import * as motion from "motion/react-client";
-import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
+import { locales, validateLocale } from "@/i18n/routing";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/movies">): Promise<Metadata> {
   const { locale } = await params;
@@ -65,11 +65,7 @@ export default async function MoviesPage({ params }: PageProps<"/[locale]/movies
           <PaginationUI count={movies.length} />
         </Suspense>
       </div>
-      <motion.div
-        initial={{ y: 600 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 1.2, type: "spring", stiffness: 55 }}
-      >
+      <motion.div initial={{ y: 600 }} animate={{ y: 0 }} transition={{ duration: 1.2, type: "spring", stiffness: 55 }}>
         <div className="justify-content-center mx-2.5 flex min-h-[60vh] flex-wrap items-center justify-center gap-x-10">
           <Suspense
             fallback={Array.from({ length: 20 }).map((_, index) => (

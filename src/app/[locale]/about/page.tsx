@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
-import { SiNextdotjs, SiNextui, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
+import { SiHeroui, SiNextdotjs, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
 import { type Locale, locales, validateLocale } from "@/i18n/routing";
 
@@ -166,7 +166,7 @@ const tools: { name: string; link: string; icon: React.JSX.Element }[] = [
   {
     name: "NextUI",
     link: "https://nextui.org/",
-    icon: <SiNextui className="text-8xl sm:text-7xl" />,
+    icon: <SiHeroui className="text-8xl sm:text-7xl" />,
   },
   {
     name: "Tailwind CSS",

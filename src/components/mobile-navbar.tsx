@@ -1,12 +1,12 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { FaHome } from "react-icons/fa";
 import { MdMovieFilter } from "react-icons/md";
 import { MdOutlineInfo } from "react-icons/md";
+import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 
 export default function MobileNavbar({ locale }: { locale: Locale }) {
   const t = useTranslations("Header");
@@ -36,7 +36,7 @@ export default function MobileNavbar({ locale }: { locale: Locale }) {
   return (
     <div
       key="mobile-navbar"
-      className="shadow-medium fixed bottom-0 z-9989 flex w-full flex-row items-center justify-around border-t-[0.5px] border-solid border-gray-700 bg-gray-900 min-[645px]:hidden"
+      className="fixed bottom-0 z-9989 flex w-full flex-row items-center justify-around border-t-[0.5px] border-solid border-gray-700 bg-gray-900 shadow-medium min-[645px]:hidden"
     >
       {navigationItems.map((item) => {
         const Icon = item.icon;

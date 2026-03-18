@@ -630,8 +630,8 @@ export default async function MoviesPage() {
 ```typescript
 "use server";
 
-import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { prisma } from "@/lib/prisma";
 
 export async function markRequestAsAdded(id: string) {
   await prisma.movieRequests.update({

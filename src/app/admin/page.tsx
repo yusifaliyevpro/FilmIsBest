@@ -1,12 +1,10 @@
-import { UpdateButton, DeleteButton, RefreshButton } from "@/components/admin-buttons";
+import { Metadata } from "next";
+import { Suspense } from "react";
+import { DeleteButton, RefreshButton, UpdateButton } from "@/components/admin-buttons";
 import AdminSignIn from "@/components/admin-signin";
 import AvatarMenu from "@/components/avatar-menu";
 import { getAllMovieRequests } from "@/data/prisma/requests/get";
-import { Link } from "@/i18n/navigation";
-import { auth } from "@/lib/auth";
-import { AdminEmail } from "@/lib/constants";
-import { Metadata } from "next";
-import { Suspense } from "react";
+import { getAdminSession } from "@/lib/admin-auth";
 
 export const metadata: Metadata = {
   title: "Admin Console",
@@ -24,8 +22,8 @@ export default function AdminPage() {
 }
 
 export async function AdminPageContent() {
-  const [session, result] = await Promise.all([auth(), getAllMovieRequests()]);
-  if (!session || session.user?.email !== AdminEmail) return <AdminSignIn />;
+  const [session, result] = await Promise.all([getAdminSession(), getAllMovieRequests()]);
+  if (!session?.isAdmin) return <AdminSignIn />;
 
   if (!result.ok)
     return (
@@ -41,10 +39,7 @@ export async function AdminPageContent() {
       <div className="mt-12 mb-3 flex w-full flex-row items-center justify-center">
         <h1 className="text-3xl font-bold">Movie Requests</h1>
         <div className="absolute right-16">
-          <AvatarMenu
-            image={session.user.image || "/account_image_placeholder.jpg"}
-            email={session.user.email}
-          />
+          <AvatarMenu image={session!.user.image || "/account_image_placeholder.jpg"} email={session!.user.email} />
         </div>
       </div>
       <div className="flex flex-col gap-y-4 py-12">
@@ -54,7 +49,7 @@ export async function AdminPageContent() {
         {requests?.map((request) => (
           <div
             key={request.id}
-            className={`shadow-medium flex w-260 flex-row gap-x-10 rounded-xl p-4 py-5 ${request.isAdded && "text-gray-300"}`}
+            className={`flex w-260 flex-row gap-x-10 rounded-xl p-4 py-5 shadow-medium ${request.isAdded && "text-gray-300"}`}
           >
             <div className="line-clamp-1 flex w-56 flex-row gap-x-2 text-nowrap">
               <p className="font-bold">Requester:</p>
@@ -62,7 +57,7 @@ export async function AdminPageContent() {
             </div>
             <div className="line-clamp-1 flex w-[20rem] flex-row gap-x-2 text-nowrap">
               <p className="font-bold">Email:</p>
-              <Link
+              <a
                 className={`truncate text-blue-600 ${request.isAdded && "text-gray-300"}`}
                 target="_blank"
                 href={encodeURI(
@@ -70,7 +65,7 @@ export async function AdminPageContent() {
                 )}
               >
                 {request.email.toLowerCase()}
-              </Link>
+              </a>
             </div>
             <div className="line-clamp-1 flex w-68 flex-row gap-x-2 text-nowrap">
               <p className="font-bold">Movie Name:</p>

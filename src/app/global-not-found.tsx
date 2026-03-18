@@ -1,6 +1,6 @@
-import "./globals.css";
-import { inter, poppins } from "@/lib/fonts";
 import { Metadata } from "next";
+import { inter, poppins } from "@/lib/fonts";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "404 Not found",
@@ -20,10 +20,7 @@ export const metadata: Metadata = {
 
 export default async function NotFoundPage() {
   return (
-    <html
-      lang="en"
-      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}
-    >
+    <html lang="en" className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}>
       <body className="font-inter">
         <main className="relative flex min-h-svh w-full flex-col items-center justify-center">
           <h1 className="relative mx-7 text-center text-2xl font-bold sm:text-3xl">

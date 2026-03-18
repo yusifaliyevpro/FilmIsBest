@@ -1,13 +1,13 @@
 "use client";
 
-import MovieCard from "@/components/movie-card";
-import { searchParams } from "@/lib/searchParams";
-import { MoviesQueryResult } from "@/sanity/types";
 import Fuse from "fuse.js";
 import { AnimatePresence, motion } from "motion/react";
 import { useQueryState } from "nuqs";
-import { useMemo } from "react";
 import { useDebounce } from "use-debounce";
+import { useMemo } from "react";
+import { MoviesQueryResult } from "@/sanity/types";
+import MovieCard from "@/components/movie-card";
+import { searchParams } from "@/lib/searchParams";
 
 export default function Movies({ movies }: { movies: MoviesQueryResult }) {
   const [searchQuery] = useQueryState("q", searchParams.q);

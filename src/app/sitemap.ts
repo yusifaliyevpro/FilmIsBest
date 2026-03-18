@@ -1,6 +1,6 @@
+import { MetadataRoute } from "next";
 import { getMovies } from "@/data/sanity/movies/get";
 import { BASE_URL } from "@/lib/constants";
-import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const moviesData = await getMovies();

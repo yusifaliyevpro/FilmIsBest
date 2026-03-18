@@ -1,9 +1,9 @@
+import { BiSolidMovie } from "react-icons/bi";
+import { defineArrayMember, defineField } from "sanity";
 import GenerateDescriptionComponent from "../components/GenerateDescription";
 import { GetMovieDataFromOMDB } from "../components/GetMovieDataFromOMDB";
 import { SearchOnYoutube } from "../components/SearchOnYoutube";
 import { SearchPoster } from "../components/SearchPoster";
-import { BiSolidMovie } from "react-icons/bi";
-import { defineArrayMember, defineField } from "sanity";
 
 const movieSchema = defineField({
   name: "Movie-studio",

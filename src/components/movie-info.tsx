@@ -1,7 +1,7 @@
-import SanityImage from "@/components/sanity-image";
-import { MovieQueryResult } from "@/sanity/types";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import SanityImage from "@/components/sanity-image";
+import { MovieQueryResult } from "@/sanity/types";
 
 export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQueryResult> }) {
   const t = await getTranslations("Movie");

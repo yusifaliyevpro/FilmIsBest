@@ -1,8 +1,5 @@
 "use client";
 
-import { updateMovieRequest } from "@/data/prisma/requests/actions";
-import { removeMovieRequest } from "@/data/prisma/requests/actions";
-import { cn } from "@/lib/cn";
 import { Button } from "@heroui/button";
 import { addToast } from "@heroui/toast";
 import { closeAll } from "@heroui/toast";
@@ -10,6 +7,9 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { SiTicktick } from "react-icons/si";
+import { updateMovieRequest } from "@/data/prisma/requests/actions";
+import { removeMovieRequest } from "@/data/prisma/requests/actions";
+import { cn } from "@/lib/cn";
 
 export function UpdateButton({ id, added }: { id: string; added: boolean }) {
   const router = useRouter();

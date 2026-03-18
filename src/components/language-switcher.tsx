@@ -1,10 +1,10 @@
 "use client";
 
-import { redirect } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
 import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
 import { usePathname } from "next/navigation";
+import { redirect } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 
 type Languages = { key: Locale; lang: string; flag: string }[];
 
@@ -49,9 +49,7 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
       {(language) => (
         <SelectItem
           key={language.key}
-          startContent={
-            <Avatar alt={language.lang} className="h-6 w-6" src={`/flags/${language.flag}.svg`} />
-          }
+          startContent={<Avatar alt={language.lang} className="h-6 w-6" src={`/flags/${language.flag}.svg`} />}
         >
           {language.key.toUpperCase()}
         </SelectItem>

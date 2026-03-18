@@ -1,8 +1,7 @@
 "use server";
 
 import { err, ok } from "@/lib/action-helpers";
-import { auth } from "@/lib/auth";
-import { AdminEmail } from "@/lib/constants";
+import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 import { MovieRequestFormData, movieRequestSchema } from "@/lib/validation";
 
@@ -36,9 +35,7 @@ export async function submitMovieRequest(_: ActionState, formData: FormData): Pr
 }
 
 export async function removeMovieRequest(id: string) {
-  const session = await auth();
-  if (!session || session.user?.email !== AdminEmail)
-    return err("You are not authorized to delete movie request!");
+  await requireAdmin();
 
   try {
     await prisma?.movieRequests.delete({ where: { id }, select: { id: true } });
@@ -49,9 +46,7 @@ export async function removeMovieRequest(id: string) {
 }
 
 export async function updateMovieRequest(id: string, isAdded: boolean) {
-  const session = await auth();
-  if (!session || session.user?.email !== AdminEmail)
-    return err("You are not authorized to update movie request!");
+  await requireAdmin();
 
   try {
     await prisma.movieRequests.update({ where: { id }, data: { isAdded } });

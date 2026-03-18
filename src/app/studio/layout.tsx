@@ -1,5 +1,5 @@
+import "@/lib/env.server";
 import { ReactNode, Suspense } from "react";
-import "@/lib/env";
 import { inter, poppins } from "@/lib/fonts";
 import "../globals.css";
 
