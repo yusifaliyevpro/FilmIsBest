@@ -14,6 +14,7 @@ env:
   OMDB_API_KEY: "nice_try"
   OPENROUTER_API_KEY: "nice_try"
   BETTER_AUTH_SECRET: "nice_try"
+  BETTER_AUTH_URL: "http://localhost:3000"
   GITHUB_CLIENT_ID: "nice_try"
   GITHUB_CLIENT_SECRET: "nice_try"
   ADMIN_EMAIL: "nice_try"
