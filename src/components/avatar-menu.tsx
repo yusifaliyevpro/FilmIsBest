@@ -3,10 +3,18 @@
 import { Avatar } from "@heroui/avatar";
 import { Button } from "@heroui/button";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
-import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { BiLogOut } from "react-icons/bi";
+import { authClient } from "@/lib/auth-client";
 
 export default function AvatarMenu({ image, email }: { image: string; email: string }) {
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    router.refresh();
+  };
+
   return (
     <>
       <Dropdown className="light">
@@ -22,7 +30,7 @@ export default function AvatarMenu({ image, email }: { image: string; email: str
               color="danger"
               startContent={<BiLogOut className="text-2xl" />}
               className="w-full justify-center font-bold"
-              onPress={() => signOut()}
+              onPress={() => handleSignOut()}
             >
               Sign Out
             </Button>

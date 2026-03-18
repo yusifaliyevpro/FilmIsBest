@@ -1,9 +1,9 @@
 "use client";
 
-import { HeroUIProvider } from "@heroui/system";
-import { ToastProvider } from "@heroui/toast";
 import { MotionConfig } from "motion/react";
 import { Route } from "next";
+import { HeroUIProvider } from "@heroui/system";
+import { ToastProvider } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 

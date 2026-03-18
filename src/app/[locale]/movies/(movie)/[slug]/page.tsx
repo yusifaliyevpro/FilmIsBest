@@ -1,16 +1,16 @@
-import MovieBar from "@/components/movie-bar";
-import MovieInfo from "@/components/movie-info";
-import Sequel from "@/components/sequel";
-import { getMovie } from "@/data/sanity/movies/get";
-import { getSequel } from "@/data/sanity/sequel/get";
-import { validateLocale, routing } from "@/i18n/routing";
-import { BASE_URL } from "@/lib/constants";
-import { Button } from "@heroui/button";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import { Button } from "@heroui/button";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+import { getMovie } from "@/data/sanity/movies/get";
+import { getSequel } from "@/data/sanity/sequel/get";
+import MovieBar from "@/components/movie-bar";
+import MovieInfo from "@/components/movie-info";
+import Sequel from "@/components/sequel";
+import { BASE_URL } from "@/lib/constants";
+import { routing, validateLocale } from "@/i18n/routing";
 
 const Share = dynamic(() => import("@/components/share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
@@ -84,7 +84,7 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
   return (
     <>
       <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
-        <h1 className="text-shadow shadow-small relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-xl bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white drop-shadow-2xl sm:mx-auto sm:w-209">
+        <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-xl bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-209">
           {movie.filmName}
         </h1>
         <motion.div
@@ -96,11 +96,7 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
           <Share locale={locale} movie={movie} />
         </motion.div>
       </div>
-      <motion.div
-        animate={{ y: 0 }}
-        initial={{ y: 600 }}
-        transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
-      >
+      <motion.div animate={{ y: 0 }} initial={{ y: 600 }} transition={{ type: "spring", duration: 0.3, stiffness: 50 }}>
         <Sequel currentSlug={movie.slug} sequel={sequel} />
         <MovieInfo movie={movie} />
       </motion.div>

@@ -1,9 +1,9 @@
 "use server";
 
+import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
 import { SequelQueryResult } from "@/sanity/types";
 import { defineQuery } from "next-sanity";
-import { cacheLife } from "next/cache";
 
 export async function getSequel(movieSlug: string) {
   "use cache";

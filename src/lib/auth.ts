@@ -1,12 +1,33 @@
+import { prismaAdapter } from "@better-auth/prisma-adapter";
+import { betterAuth } from "better-auth";
 import { prisma } from "./prisma";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
-import Github from "next-auth/providers/github";
 
-// import Google from "next-auth/providers/google";
-
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
-  session: { maxAge: 3600 * 24 },
-  providers: [Github],
+export const auth = betterAuth({
+  database: prismaAdapter(prisma, { provider: "postgresql" }),
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["github"],
+    },
+  },
+  session: {
+    expiresIn: 60 * 60 * 24 * 30, // 30 days
+    updateAge: 60 * 60 * 24 * 15, // 15 days
+    cookieCache: {
+      enabled: true,
+      strategy: "compact",
+      maxAge: 30 * 60, // 30 minutes
+    },
+  },
+  rateLimit: {
+    enabled: true,
+    storage: "database",
+  },
+  socialProviders: {
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      overrideUserInfoOnSignIn: true,
+    },
+  },
 });

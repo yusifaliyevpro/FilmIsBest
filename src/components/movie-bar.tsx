@@ -1,12 +1,12 @@
 "use client";
 
-import { MovieQueryResult } from "@/sanity/types";
-import { Modal, ModalBody, ModalContent, ModalHeader } from "@heroui/modal";
-import { Tabs, Tab } from "@heroui/tabs";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { useTranslations } from "next-intl";
+import { Modal, ModalBody, ModalContent, ModalHeader } from "@heroui/modal";
+import { Tab, Tabs } from "@heroui/tabs";
 import { useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
+import { MovieQueryResult } from "@/sanity/types";
 
 export default function MovieBar({ movie }: { movie: MovieQueryResult }) {
   const englishLink = "https://vidsrc.to/embed/movie/" + movie?.imdbID;

@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { BASE_URL } from "@/lib/constants";
 import { readFile } from "fs/promises";
+import { join } from "path";
 import { cacheLife } from "next/cache";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
-import { join } from "path";
+import { BASE_URL } from "@/lib/constants";
 
 async function getInterFont() {
   "use cache";

@@ -1,13 +1,13 @@
 "use client";
 
-import LanguageSwitcher from "@/components/language-switcher";
-import { Link } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
-import { cn } from "@/lib/cn";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { useTranslations } from "next-intl";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { usePathname } from "next/navigation";
 import { BiSolidMovie } from "react-icons/bi";
+import LanguageSwitcher from "@/components/language-switcher";
+import { cn } from "@/lib/cn";
+import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 
 export default function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
@@ -33,7 +33,7 @@ export default function Header({ locale }: { locale: Locale }) {
 
   return (
     <Navbar
-      className="light:text-white min-h-10 bg-gray-800/90 font-bold text-white backdrop-blur-md select-none dark:text-white"
+      className="min-h-10 bg-gray-800/90 font-bold text-white backdrop-blur-md select-none dark:text-white light:text-white"
       classNames={{
         item: cn(
           "relative flex h-full items-center",

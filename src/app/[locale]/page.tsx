@@ -1,21 +1,17 @@
-import AnimatedText from "@/components/animated-text";
-import LottieComponent from "@/components/lottie-component";
-import RecentlyAddedMovies from "@/components/recently-added-movies";
-import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
-import { Link } from "@/i18n/navigation";
-import { locales, Locale } from "@/i18n/routing";
-import { BASE_URL } from "@/lib/constants";
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { BiSolidChevronRight } from "react-icons/bi";
+import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
+import AnimatedText from "@/components/animated-text";
+import LottieComponent from "@/components/lottie-component";
+import RecentlyAddedMovies from "@/components/recently-added-movies";
+import { BASE_URL } from "@/lib/constants";
+import { Link } from "@/i18n/navigation";
+import { Locale, locales } from "@/i18n/routing";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("MetaData.Home");
@@ -94,11 +90,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <LottieComponent src="/HomePageAnimation.lottie" />
         </motion.div>
       </div>
-      <AnimatedText
-        once
-        className="mt-50 w-full text-center text-4xl font-bold text-white"
-        text={t("recentlyAdded")}
-      />
+      <AnimatedText once className="mt-50 w-full text-center text-4xl font-bold text-white" text={t("recentlyAdded")} />
       <Suspense fallback={<div className="h-96" />}>
         <RecentlyAddedMovies moviesPromise={moviesPromise} />
       </Suspense>

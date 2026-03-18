@@ -1,8 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { useDisclosure } from "@heroui/modal";
-import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 
 const FormSubmit = dynamic(() => import("@/components/form-submit"), {
@@ -17,11 +17,7 @@ export default function Footer() {
     <footer className="relative bottom-0 left-0 z-48 hidden h-auto w-full flex-col items-center justify-center bg-gray-900 fill-current py-5 text-white sm:flex-row md:flex">
       <h3 className="text-xl font-bold no-underline select-none">
         👌 Made by{" "}
-        <a
-          className="text-xl no-underline hover:text-blue-600"
-          href="https://yusifaliyevpro.com"
-          target="_blank"
-        >
+        <a className="text-xl no-underline hover:text-blue-600" href="https://yusifaliyevpro.com" target="_blank">
           YusifAliyevPro
         </a>
       </h3>

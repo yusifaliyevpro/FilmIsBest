@@ -1,14 +1,14 @@
-import "../globals.css";
+import { NextIntlClientProvider } from "next-intl";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Suspense } from "react";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import MobileNavbar from "@/components/mobile-navbar";
 import Providers from "@/components/providers";
-import { validateLocale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { inter, poppins } from "@/lib/fonts";
-import { NextIntlClientProvider } from "next-intl";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Suspense } from "react";
+import { validateLocale } from "@/i18n/routing";
+import "../globals.css";
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -86,10 +86,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
   validateLocale(locale);
 
   return (
-    <html
-      lang={locale}
-      className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}
-    >
+    <html lang={locale} className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}>
       <body className="font-inter">
         <NuqsAdapter>
           <Suspense>

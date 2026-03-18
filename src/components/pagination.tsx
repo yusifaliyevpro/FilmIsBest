@@ -1,8 +1,8 @@
 "use client";
 
-import { searchParams } from "@/lib/searchParams";
-import { Pagination } from "@heroui/pagination";
 import { useQueryState } from "nuqs";
+import { Pagination } from "@heroui/pagination";
+import { searchParams } from "@/lib/searchParams";
 
 export default function PaginationUI({ count }: { count: number }) {
   const [searchQuery] = useQueryState("q", searchParams.q);

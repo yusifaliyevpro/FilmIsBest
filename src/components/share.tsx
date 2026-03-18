@@ -1,24 +1,18 @@
 "use client";
 
-import { BASE_URL } from "../lib/constants";
-import { Locale } from "@/i18n/routing";
-import { MovieQueryResult } from "@/sanity/types";
+import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
-import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure } from "@heroui/modal";
+import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/modal";
 import { Snippet } from "@heroui/snippet";
 import { addToast, closeAll } from "@heroui/toast";
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useEffectEvent, useState } from "react";
-import {
-  BiDotsVerticalRounded,
-  BiImageAlt,
-  BiLogoTelegram,
-  BiLogoWhatsapp,
-  BiSolidShareAlt,
-} from "react-icons/bi";
+import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
+import { MovieQueryResult } from "@/sanity/types";
+import { Locale } from "@/i18n/routing";
+import { BASE_URL } from "../lib/constants";
 
 export default function Share({ movie, locale }: { movie: MovieQueryResult; locale: Locale }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -42,9 +36,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   if (!movie) return null;
 
   const buildShareBody = (platform: "whatsapp" | "telegram" | "copy") => {
-    const translatedGenres = movie.genre.map(
-      (genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre,
-    );
+    const translatedGenres = movie.genre.map((genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre);
 
     const bold = platform === "telegram" ? "**" : platform === "whatsapp" ? "*" : "";
 
@@ -138,7 +130,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
         <p>{t("Share.share")}</p>
       </Button>
       <Modal
-        className="light:text-white dark:text-white"
+        className="dark:text-white light:text-white"
         classNames={{ base: "bg-gray-900" }}
         isOpen={isOpen}
         placement="center"
@@ -150,23 +142,23 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
             <h6 className="text-3xl font-bold">{t("Share.share")}</h6>
           </ModalHeader>
           <ModalBody className="p-8">
-            <div className="scrollbar-hide relative mb-10 flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
+            <div className="relative mb-10 scrollbar-hide flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
               <div
-                className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
+                className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                 onClick={() => handleShare("whatsapp")}
               >
                 <BiLogoWhatsapp className="text-7xl text-blue-600" />
                 <p className="font-bold">WhatsApp</p>
               </div>
               <div
-                className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center p-2"
+                className="relative flex w-fit cursor-pointer flex-col items-center p-2 hover:shadow-medium"
                 onClick={() => handleShare("telegram")}
               >
                 <BiLogoTelegram className="text-7xl text-blue-600" />
                 <p className="font-bold">Telegram</p>
               </div>
               <div
-                className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
+                className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                 onClick={() => handleShare("copy")}
               >
                 <BsCardText className="text-7xl text-blue-600" />
@@ -174,7 +166,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
               </div>
               {canShareFiles && (
                 <div
-                  className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
+                  className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                   onClick={handlePoster}
                 >
                   <BiImageAlt className="text-7xl text-nowrap text-blue-600" />
@@ -183,7 +175,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
               )}
               {canShareText ? (
                 <div
-                  className="hover:shadow-medium relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2"
+                  className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                   onClick={() => handleShare("other")}
                 >
                   <BiDotsVerticalRounded className="text-7xl text-blue-600" />

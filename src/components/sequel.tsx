@@ -1,26 +1,18 @@
 "use client";
 
-import SanityImage from "@/components/sanity-image";
-import { Link } from "@/i18n/navigation";
-import { SequelQueryResult } from "@/sanity/types";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
+import SanityImage from "@/components/sanity-image";
+import { SequelQueryResult } from "@/sanity/types";
+import { Link } from "@/i18n/navigation";
 
-export default function Sequel({
-  currentSlug,
-  sequel,
-}: {
-  currentSlug: string | null;
-  sequel: SequelQueryResult;
-}) {
+export default function Sequel({ currentSlug, sequel }: { currentSlug: string | null; sequel: SequelQueryResult }) {
   const t = useTranslations("Movie.Sequels");
   if (!sequel) return null;
 
   return (
-    <section className="shadow-medium mx-3 mb-8 flex min-h-56 flex-col rounded-xl sm:mx-auto sm:w-209">
-      <p className="rounded-t-10 bg-gray-900 p-3 pl-7 text-lg font-bold text-white">
-        {sequel.name + " " + t("name")}
-      </p>
+    <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-xl shadow-medium sm:mx-auto sm:w-209">
+      <p className="rounded-t-10 bg-gray-900 p-3 pl-7 text-lg font-bold text-white">{sequel.name + " " + t("name")}</p>
       <ol className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
         {sequel.movies.map((movie, index) => (
           <motion.li
