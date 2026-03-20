@@ -185,7 +185,7 @@ const tools: { name: string; link: string; icon: React.JSX.Element }[] = [
   },
   {
     name: "Prisma",
-    link: "https://www.mongodb.com/",
+    link: "https://www.prisma.io/",
     icon: <SiPrisma className="text-8xl text-white" />,
   },
 ];
