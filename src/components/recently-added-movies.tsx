@@ -4,16 +4,10 @@ import { motion } from "motion/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { use } from "react";
 import { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 import MovieCard from "@/components/movie-card";
 
-export default function RecentlyAddedMovies({
-  moviesPromise,
-}: {
-  moviesPromise: Promise<RecentlyAddedMoviesQueryResult>;
-}) {
-  const movies = use(moviesPromise);
+export default function RecentlyAddedMovies({ movies }: { movies: RecentlyAddedMoviesQueryResult }) {
   return (
     <motion.div
       className="relative h-auto w-full px-20 text-white"

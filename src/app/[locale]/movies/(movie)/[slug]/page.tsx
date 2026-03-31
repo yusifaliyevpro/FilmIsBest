@@ -2,6 +2,7 @@ import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { Button } from "@heroui/button";
+import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getMovie } from "@/data/sanity/movies/get";
@@ -17,6 +18,9 @@ const Share = dynamic(() => import("@/components/share"), {
 });
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[slug]">): Promise<Metadata> {
+  "use cache";
+  cacheLife("hours");
+
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const movie = await getMovie(slug);
@@ -27,7 +31,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
     title: movie.filmName,
     description: movie.description,
     keywords: [
-      "FilmİsBest",
+      "FilmIsBest",
       "Film",
       "Filmlər səhifəsi",
       "Movie",
@@ -75,6 +79,9 @@ export function generateStaticParams() {
 }
 
 export default async function Page({ params }: PageProps<"/[locale]/movies/[slug]">) {
+  "use cache";
+  cacheLife("hours");
+
   const { locale, slug } = await params;
   validateLocale(locale);
   setRequestLocale(locale);

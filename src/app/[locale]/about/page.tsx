@@ -2,6 +2,7 @@ import { Variants } from "motion";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { cacheLife } from "next/cache";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
@@ -23,6 +24,9 @@ const itemVariants: Variants = {
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  "use cache";
+  cacheLife("max");
+
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("MetaData.About");
@@ -61,6 +65,8 @@ export function generateStaticParams() {
 }
 
 export default async function About({ params }: PageProps<"/[locale]/about">) {
+  "use cache";
+  cacheLife("max");
   const { locale } = await params;
   validateLocale(locale);
 

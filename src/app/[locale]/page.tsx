@@ -1,7 +1,7 @@
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
+import { cacheLife } from "next/cache";
 import { BiSolidChevronRight } from "react-icons/bi";
 import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import AnimatedText from "@/components/animated-text";
@@ -43,8 +43,11 @@ export function generateStaticParams() {
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
+  "use cache";
+  cacheLife("hours");
+
   const { locale } = await params;
-  const moviesPromise = getRecentlyAddedMovies();
+  const recentlyAddedMovies = await getRecentlyAddedMovies();
   setRequestLocale(locale);
   const t = await getTranslations("Home");
   return (
@@ -91,9 +94,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </motion.div>
       </div>
       <AnimatedText once className="mt-50 w-full text-center text-4xl font-bold text-white" text={t("recentlyAdded")} />
-      <Suspense fallback={<div className="h-96" />}>
-        <RecentlyAddedMovies moviesPromise={moviesPromise} />
-      </Suspense>
+      <RecentlyAddedMovies movies={recentlyAddedMovies} />
     </>
   );
 }
