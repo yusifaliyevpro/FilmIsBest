@@ -14,9 +14,9 @@ export default function Sequel({ currentSlug, sequel }: { currentSlug: string | 
     <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-xl shadow-medium sm:mx-auto sm:w-209">
       <p className="rounded-t-10 bg-gray-900 p-3 pl-7 text-lg font-bold text-white">{sequel.name + " " + t("name")}</p>
       <ol className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
-        {sequel.movies.map((movie, index) => (
+        {sequel.movies.map((movie) => (
           <motion.li
-            key={index}
+            key={movie.slug}
             className="mx-3 my-5"
             initial={{ scale: 1 }}
             transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
