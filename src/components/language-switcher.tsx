@@ -8,8 +8,9 @@ import type { Locale } from "@/i18n/routing";
 
 type Languages = { key: Locale; lang: string; flag: string }[];
 
-export default function LanguageSwitcher({ locale }: { locale: Locale }) {
+export function LanguageSwitcher() {
   const pathname = usePathname().slice(3).trim() || "/";
+  const locale = pathname.split("/")[0] as Locale;
   const changeLocale = (lang: Locale) => {
     if (lang !== locale) redirect({ locale: lang, href: pathname });
   };

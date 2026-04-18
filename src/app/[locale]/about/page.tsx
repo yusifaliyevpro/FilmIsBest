@@ -1,13 +1,13 @@
 import { Variants } from "motion";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
-import { type Locale, locales, validateLocale } from "@/i18n/routing";
+import { locales, validateLocale } from "@/i18n/routing";
 
 const ulVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.5 } } };
 const textVariants: Variants = {
@@ -23,12 +23,10 @@ const itemVariants: Variants = {
   visible: { scale: 1, opacity: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   "use cache";
   cacheLife("max");
 
-  const { locale } = await params;
-  setRequestLocale(locale);
   const t = await getTranslations("MetaData.About");
   return {
     title: t("title"),
@@ -70,7 +68,6 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
   const { locale } = await params;
   validateLocale(locale);
 
-  setRequestLocale(locale);
   const t = await getTranslations("About");
   const texts: {
     t: string;

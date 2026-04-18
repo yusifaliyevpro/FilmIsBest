@@ -1,36 +1,12 @@
-"use client";
-
-import { useTranslations } from "next-intl";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
-import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 import { BiSolidMovie } from "react-icons/bi";
-import LanguageSwitcher from "@/components/language-switcher";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { cn } from "@/lib/cn";
 import { Link } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
+import { NavItem } from "./nav-item";
 
-export default function Header({ locale }: { locale: Locale }) {
-  const pathname = usePathname();
-  const t = useTranslations("Header");
-
-  const navigationItems = [
-    {
-      href: "/",
-      translationKey: "homePage",
-      path: `/${locale}`,
-    },
-    {
-      href: "/movies",
-      translationKey: "movies",
-      path: `/${locale}/movies`,
-    },
-    {
-      href: "/about",
-      translationKey: "about",
-      path: `/${locale}/about`,
-    },
-  ];
-
+export function Header() {
   return (
     <Navbar
       className="min-h-10 bg-gray-800/90 font-bold text-white backdrop-blur-md select-none dark:text-white light:text-white"
@@ -58,25 +34,43 @@ export default function Header({ locale }: { locale: Locale }) {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent key="navigation" className="hidden gap-12 sm:flex" justify="center">
-        {navigationItems.map((item) => (
-          <NavbarItem key={item.href} isActive={pathname === item.path}>
-            <Link
-              aria-current="page"
-              className="text-lg text-gray-300 hover:text-white"
-              color="foreground"
-              href={item.href}
-              prefetch={true}
-            >
-              {t(item.translationKey)}
-            </Link>
-          </NavbarItem>
-        ))}
+        <Suspense>
+          {navigationItems.map((item) => (
+            <NavItem key={item.href} item={item} />
+          ))}
+        </Suspense>
       </NavbarContent>
       <NavbarContent key="actions" justify="end">
         <NavbarItem>
-          <LanguageSwitcher locale={locale} />
+          <Suspense>
+            <LanguageSwitcher />
+          </Suspense>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
   );
 }
+
+export type NavBarItem = {
+  href: string;
+  translationKey: string;
+  path: string;
+};
+
+const navigationItems: NavBarItem[] = [
+  {
+    href: "/",
+    translationKey: "homePage",
+    path: `/`,
+  },
+  {
+    href: "/movies",
+    translationKey: "movies",
+    path: `/movies`,
+  },
+  {
+    href: "/about",
+    translationKey: "about",
+    path: `/about`,
+  },
+];

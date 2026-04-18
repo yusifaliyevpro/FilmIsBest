@@ -8,7 +8,7 @@ import { MdOutlineInfo } from "react-icons/md";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 
-export default function MobileNavbar({ locale }: { locale: Locale }) {
+export function MobileNavbar({ locale }: { locale: Locale }) {
   const t = useTranslations("Header");
   const pathname = usePathname();
 

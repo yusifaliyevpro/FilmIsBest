@@ -1,6 +1,6 @@
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Pagination } from "@heroui/pagination";
 import { Skeleton } from "@heroui/skeleton";
 import { Suspense } from "react";
@@ -10,13 +10,9 @@ import Movies from "@/components/movies";
 import PaginationUI from "@/components/pagination";
 import Search from "@/components/search";
 import { BASE_URL } from "@/lib/constants";
-import { locales, validateLocale } from "@/i18n/routing";
+import { locales } from "@/i18n/routing";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/movies">): Promise<Metadata> {
-  const { locale } = await params;
-  validateLocale(locale);
-  setRequestLocale(locale);
-
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Movies");
   return {
     metadataBase: new URL(BASE_URL),
@@ -43,10 +39,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function MoviesPage({ params }: PageProps<"/[locale]/movies">) {
-  const { locale } = await params;
-  validateLocale(locale);
-  setRequestLocale(locale);
+export default async function MoviesPage() {
   const movies = await getMovies();
   return (
     <section className="justify-content-center relative mx-auto mt-6 mb-20 flex flex-col items-center justify-center">

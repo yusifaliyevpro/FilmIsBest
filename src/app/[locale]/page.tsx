@@ -1,6 +1,6 @@
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { BiSolidChevronRight } from "react-icons/bi";
 import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
@@ -9,11 +9,9 @@ import LottieComponent from "@/components/lottie-component";
 import RecentlyAddedMovies from "@/components/recently-added-movies";
 import { BASE_URL } from "@/lib/constants";
 import { Link } from "@/i18n/navigation";
-import { Locale, locales } from "@/i18n/routing";
+import { locales } from "@/i18n/routing";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Home");
   return {
     metadataBase: new URL(BASE_URL),
@@ -42,13 +40,11 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
+export default async function Home() {
   "use cache";
   cacheLife("hours");
 
-  const { locale } = await params;
   const recentlyAddedMovies = await getRecentlyAddedMovies();
-  setRequestLocale(locale);
   const t = await getTranslations("Home");
   return (
     <>

@@ -9,7 +9,7 @@ const FormSubmit = dynamic(() => import("@/components/form-submit"), {
   ssr: false,
 });
 
-export default function Footer() {
+export function Footer() {
   const t = useTranslations("Footer.FormSubmit");
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 

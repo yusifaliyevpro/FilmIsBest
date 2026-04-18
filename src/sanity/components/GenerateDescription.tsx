@@ -1,52 +1,31 @@
 "use client";
 
-import { startTransition, useState } from "react";
+import { useCompletion } from "@ai-sdk/react";
 import { BsStars } from "react-icons/bs";
 import { Spinner, TextArea } from "@sanity/ui";
 import { InputProps, set, unset, useFormValue } from "sanity";
-import { generateDescription } from "@/data/ai/actions";
 
-export default function GenerateDescriptionComponent(props: InputProps) {
+export function GenerateDescriptionComponent(props: InputProps) {
   const { value, onChange } = props;
   const filmName = useFormValue(["filmName"]) as string | undefined;
-  const [isLoading, setIsLoading] = useState(false);
 
-  const [streamValue, setStreamValue] = useState<string | null>(null);
-
-  const handleAI = () => {
-    if (!filmName) return alert("Əvvəlcə film adı daxil edin.");
-
-    setIsLoading(true);
-    setStreamValue("");
-    startTransition(async () => {
-      const { textStream } = await generateDescription(filmName);
-      if (!textStream) {
-        setIsLoading(false);
-        return;
-      }
-
-      let fullText = "";
-
-      for await (const textPart of textStream) {
-        fullText += textPart;
-        setStreamValue(fullText);
-      }
-
-      onChange(fullText ? set(fullText) : unset());
-      setIsLoading(false);
-    });
-  };
+  const { completion, isLoading, complete, setCompletion } = useCompletion({
+    api: "/api/generate-description",
+    onFinish: (_, completion) => {
+      onChange(completion ? set(completion) : unset());
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputVal = e.currentTarget.value;
+    setCompletion("");
     onChange(inputVal ? set(inputVal) : unset());
-    setStreamValue(null);
   };
 
   return (
     <div className="relative">
       <TextArea
-        value={streamValue !== null ? streamValue : (value as string)}
+        value={completion || (value as string)}
         rows={10}
         onChange={handleChange}
         style={{ paddingRight: "40px" }}
@@ -54,7 +33,10 @@ export default function GenerateDescriptionComponent(props: InputProps) {
       <button
         type="button"
         data-selector="description-generate-button"
-        onClick={handleAI}
+        onClick={() => {
+          if (!filmName) return alert("Əvvəlcə film adı daxil edin.");
+          complete(filmName);
+        }}
         disabled={isLoading}
         className="absolute top-2 right-2 z-2000 flex size-7.5 cursor-pointer flex-col items-center justify-center rounded bg-gray-900 text-sm"
         title="Generate with AI"
