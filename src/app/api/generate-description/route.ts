@@ -1,8 +1,8 @@
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminSession } from "@/lib/admin-auth";
-import { z } from "zod";
 
 const bodySchema = z.object({ prompt: z.string().min(1).max(200) });
 
