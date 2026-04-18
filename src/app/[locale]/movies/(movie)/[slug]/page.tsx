@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
   if (!movie) return notFound();
 
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: BASE_URL,
     title: movie.filmName,
     description: movie.description,
     keywords: [

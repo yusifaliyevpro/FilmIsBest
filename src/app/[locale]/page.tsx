@@ -14,7 +14,7 @@ import { locales } from "@/i18n/routing";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Home");
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: BASE_URL,
     title: {
       absolute: `FilmIsBest | ${t("title")}`,
     },

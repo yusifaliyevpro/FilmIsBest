@@ -15,7 +15,7 @@ import { locales } from "@/i18n/routing";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Movies");
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: BASE_URL,
     title: t("title"),
     description: t("description"),
     openGraph: {

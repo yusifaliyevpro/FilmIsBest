@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
@@ -10,8 +11,8 @@ import { inter, poppins } from "@/lib/fonts";
 import { validateLocale } from "@/i18n/routing";
 import "../globals.css";
 
-export const metadata = {
-  metadataBase: new URL(BASE_URL),
+export const metadata: Metadata = {
+  metadataBase: BASE_URL,
   title: {
     default: "FilmIsBest",
     template: "FilmIsBest | %s",
@@ -94,7 +95,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
               <Header />
               {children}
               <Suspense>
-                <MobileNavbar locale={locale} />
+                <MobileNavbar />
               </Suspense>
               <Footer />
             </Providers>
