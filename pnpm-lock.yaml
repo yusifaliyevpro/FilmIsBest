@@ -39,7 +39,7 @@ importers:
         specifier: ^2.2.27
         version: 2.2.27(@heroui/system@2.4.28(@heroui/theme@2.4.26(tailwindcss@4.2.2))(@react-spectrum/provider@3.11.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(framer-motion@12.38.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@heroui/theme@2.4.26(tailwindcss@4.2.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@heroui/select':
-        specifier: ^2.4.32
+        specifier: ^2.4.33
         version: 2.4.33(@heroui/system@2.4.28(@heroui/theme@2.4.26(tailwindcss@4.2.2))(@react-spectrum/provider@3.11.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(framer-motion@12.38.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@heroui/theme@2.4.26(tailwindcss@4.2.2))(@react-spectrum/provider@3.11.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(framer-motion@12.38.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@heroui/skeleton':
         specifier: ^2.2.18
