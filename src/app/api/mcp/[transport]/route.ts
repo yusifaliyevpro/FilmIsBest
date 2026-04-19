@@ -1,4 +1,4 @@
-import { createMcpHandler } from "mcp-handler";
+import { createMcpHandler, withMcpAuth } from "mcp-handler";
 import { z } from "zod";
 import { getMovieDetailForMCP, getRecentlyAddedForMCP, listMoviesForMCP } from "@/data/sanity/movies/mcp";
 
@@ -101,4 +101,14 @@ const handler = createMcpHandler(
   },
 );
 
-export { handler as GET, handler as POST };
+const authHandler = withMcpAuth(
+  handler,
+  (req, token) => {
+    const expected = process.env.MCP_AUTH_TOKEN;
+    if (!expected || token !== expected) return undefined;
+    return { token, scopes: [], clientId: "owner" };
+  },
+  { required: true },
+);
+
+export { authHandler as GET, authHandler as POST };
