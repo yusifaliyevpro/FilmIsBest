@@ -1,15 +1,16 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
-import { usePathname } from "next/navigation";
-import { redirect } from "@/i18n/navigation";
+import { redirect, usePathname } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 
 type Languages = { key: Locale; lang: string; flag: string }[];
 
-export default function LanguageSwitcher({ locale }: { locale: Locale }) {
-  const pathname = usePathname().slice(3).trim() || "/";
+export function LanguageSwitcher() {
+  const pathname = usePathname();
+  const locale = useLocale() as Locale;
   const changeLocale = (lang: Locale) => {
     if (lang !== locale) redirect({ locale: lang, href: pathname });
   };
@@ -26,6 +27,8 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
       aria-label="Language"
       className="min-w-27.5"
       items={languages}
+      id="skd934urik"
+      aria-labelledby="jeiwjdsskd"
       selectedKeys={[locale]}
       classNames={{
         trigger: "bg-gray-900 hover:bg-gray-800",

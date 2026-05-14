@@ -81,7 +81,7 @@ This project helped me learn:
 
 ## Links
 
-- [Live Site](https://filmisbest.com/)
+- [Live Site](https://filmisbest.vercel.app/)
 - [Blog Post](https://yusifaliyevpro.com/blog/filmisbest-tecrubem)
 - [Author](https://yusifaliyevpro.com/)
 - [GitHub Repo](https://github.com/yusifaliyevpro/FilmIsBest)

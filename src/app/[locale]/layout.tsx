@@ -1,17 +1,18 @@
+import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import MobileNavbar from "@/components/mobile-navbar";
-import Providers from "@/components/providers";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { MobileNavbar } from "@/components/mobile-navbar";
+import { Providers } from "@/components/providers";
 import { BASE_URL } from "@/lib/constants";
 import { inter, poppins } from "@/lib/fonts";
 import { validateLocale } from "@/i18n/routing";
 import "../globals.css";
 
-export const metadata = {
-  metadataBase: new URL(BASE_URL),
+export const metadata: Metadata = {
+  metadataBase: BASE_URL,
   title: {
     default: "FilmIsBest",
     template: "FilmIsBest | %s",
@@ -37,7 +38,7 @@ export const metadata = {
     "Film",
     "Filmlər səhifəsi",
     "Movie",
-    "Filmisbest.com",
+    "filmisbest.vercel.app",
     "yusifaliyevpro",
     "yusifaliyevpro.com",
     "Azfilm",
@@ -89,20 +90,16 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
     <html lang={locale} className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}>
       <body className="font-inter">
         <NuqsAdapter>
-          <Suspense>
-            <NextIntlClientProvider>
-              <Providers>
-                <Suspense>
-                  <Header locale={locale} />
-                </Suspense>
-                {children}
-                <Suspense>
-                  <MobileNavbar locale={locale} />
-                </Suspense>
-                <Footer />
-              </Providers>
-            </NextIntlClientProvider>
-          </Suspense>
+          <NextIntlClientProvider>
+            <Providers>
+              <Header />
+              {children}
+              <Suspense>
+                <MobileNavbar />
+              </Suspense>
+              <Footer />
+            </Providers>
+          </NextIntlClientProvider>
         </NuqsAdapter>
       </body>
     </html>

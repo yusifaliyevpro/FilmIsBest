@@ -1,6 +1,5 @@
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
 import { Button } from "@heroui/button";
 import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
@@ -21,13 +20,12 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
   "use cache";
   cacheLife("hours");
 
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
+  const { slug } = await params;
   const movie = await getMovie(slug);
   if (!movie) return notFound();
 
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: BASE_URL,
     title: movie.filmName,
     description: movie.description,
     keywords: [
@@ -35,7 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
       "Film",
       "Filmlər səhifəsi",
       "Movie",
-      "Filmisbest.com",
+      "filmisbest.vercel.app",
       "yusifaliyevpro",
       "yusifaliyevpro.com",
       "Azfilm",
@@ -75,7 +73,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
 }
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale, slug: "first-signal" }));
 }
 
 export default async function Page({ params }: PageProps<"/[locale]/movies/[slug]">) {
@@ -84,7 +82,6 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
 
   const { locale, slug } = await params;
   validateLocale(locale);
-  setRequestLocale(locale);
   const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
   if (!movie) return notFound();
 

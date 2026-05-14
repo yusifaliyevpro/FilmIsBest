@@ -1,6 +1,6 @@
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { BiSolidChevronRight } from "react-icons/bi";
 import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
@@ -9,14 +9,12 @@ import LottieComponent from "@/components/lottie-component";
 import RecentlyAddedMovies from "@/components/recently-added-movies";
 import { BASE_URL } from "@/lib/constants";
 import { Link } from "@/i18n/navigation";
-import { Locale, locales } from "@/i18n/routing";
+import { locales } from "@/i18n/routing";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Home");
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: BASE_URL,
     title: {
       absolute: `FilmIsBest | ${t("title")}`,
     },
@@ -42,13 +40,11 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
+export default async function Home() {
   "use cache";
   cacheLife("hours");
 
-  const { locale } = await params;
   const recentlyAddedMovies = await getRecentlyAddedMovies();
-  setRequestLocale(locale);
   const t = await getTranslations("Home");
   return (
     <>
@@ -61,7 +57,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <h1 className="relative mt-6 flex flex-col text-center text-2xl font-bold text-wrap no-underline md:gap-y-3 lg:mt-0 lg:text-5xl lg:text-nowrap">
             <p>{t("cta")}</p>
             <p className="inline-block bg-linear-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text text-wrap text-transparent">
-              {t("ctaUrl", { url: "filmisbest.com" })}
+              {t("ctaUrl", { url: "filmisbest.vercel.app" })}
             </p>
           </h1>
           <div className="relative flex flex-row items-center justify-center gap-x-8">

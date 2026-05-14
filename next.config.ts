@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   experimental: {
     globalNotFound: true,
+    rootParams: true,
   },
   images: {
     remotePatterns: [

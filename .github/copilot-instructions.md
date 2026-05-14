@@ -6,7 +6,7 @@ This document provides comprehensive guidance for AI agents working on the FilmI
 
 FilmIsBest is a multilingual movie discovery and management platform built with Next.js. It serves as both a public-facing movie browsing website and an admin portal for content management. The project integrates with Sanity CMS for content management, uses Prisma with MongoDB for data persistence, and includes authentication via NextAuth.js.
 
-**Live Site:** https://filmisbest.com/  
+**Live Site:** https://filmisbest.vercel.app/  
 **Repository:** https://github.com/yusifaliyevpro/FilmIsBest
 
 ## Technology Stack
@@ -664,7 +664,7 @@ export function WelcomeButton() {
 - **Author Website:** https://yusifaliyevpro.com/
 - **Blog Post:** https://yusifaliyevpro.com/blog/filmisbest-tecrubem
 - **GitHub:** https://github.com/yusifaliyevpro/FilmIsBest
-- **Live Site:** https://filmisbest.com/
+- **Live Site:** https://filmisbest.vercel.app/
 
 ---
 

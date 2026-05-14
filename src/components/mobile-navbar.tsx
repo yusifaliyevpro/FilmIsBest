@@ -6,9 +6,8 @@ import { FaHome } from "react-icons/fa";
 import { MdMovieFilter } from "react-icons/md";
 import { MdOutlineInfo } from "react-icons/md";
 import { Link } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
 
-export default function MobileNavbar({ locale }: { locale: Locale }) {
+export function MobileNavbar() {
   const t = useTranslations("Header");
   const pathname = usePathname();
 
@@ -17,19 +16,19 @@ export default function MobileNavbar({ locale }: { locale: Locale }) {
       href: "/",
       icon: FaHome,
       translationKey: "homePage",
-      path: `/${locale}`,
+      path: `/`,
     },
     {
       href: "/movies",
       icon: MdMovieFilter,
       translationKey: "movies",
-      path: `/${locale}/movies`,
+      path: `/movies`,
     },
     {
       href: "/about",
       icon: MdOutlineInfo,
       translationKey: "about",
-      path: `/${locale}/about`,
+      path: `/about`,
     },
   ];
 

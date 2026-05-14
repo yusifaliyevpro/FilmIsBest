@@ -11,10 +11,15 @@
       "sourceType": "github",
       "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
     },
+    "heroui-migration": {
+      "source": "heroui-inc/heroui",
+      "sourceType": "github",
+      "computedHash": "9696b5cf0009120bfe03e00cc94c0e2defc1f5af981fc5bb10b1eeffa53e34cf"
+    },
     "heroui-react": {
       "source": "heroui-inc/heroui",
       "sourceType": "github",
-      "computedHash": "692cc86ded65b603961fa1bc5685670e2976a3a6e1459187c210b415e8dfeb1e"
+      "computedHash": "c9e1bb41fbc3cee782faae08bd465ae05cd685a6ed7cc3392464fdf29b3ab467"
     },
     "next-best-practices": {
       "source": "vercel-labs/next-skills",

@@ -1,5 +1,5 @@
 import "@/lib/env.server";
-import Providers from "@/components/providers";
+import { Providers } from "@/components/providers";
 import { inter, poppins } from "@/lib/fonts";
 import "../globals.css";
 
