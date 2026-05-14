@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Film",
     "Filmlər səhifəsi",
     "Movie",
-    "Filmisbest.com",
+    "filmisbest.vercel.app",
     "yusifaliyevpro",
     "yusifaliyevpro.com",
     "Azfilm",

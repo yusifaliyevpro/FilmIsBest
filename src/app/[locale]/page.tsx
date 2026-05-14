@@ -57,7 +57,7 @@ export default async function Home() {
           <h1 className="relative mt-6 flex flex-col text-center text-2xl font-bold text-wrap no-underline md:gap-y-3 lg:mt-0 lg:text-5xl lg:text-nowrap">
             <p>{t("cta")}</p>
             <p className="inline-block bg-linear-to-r from-[rgba(0,67,181,1)] from-0% via-[rgba(10,107,222,1)] via-50% to-[rgba(0,123,255,1)] to-100% bg-clip-text text-wrap text-transparent">
-              {t("ctaUrl", { url: "filmisbest.com" })}
+              {t("ctaUrl", { url: "filmisbest.vercel.app" })}
             </p>
           </h1>
           <div className="relative flex flex-row items-center justify-center gap-x-8">

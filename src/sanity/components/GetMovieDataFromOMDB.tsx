@@ -43,7 +43,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
           country: OMDbMovie.Country.trim(),
           directed: OMDbMovie.Director.split(", ").join(" ! ").trim(),
           releaseDate: Number(OMDbMovie.Year),
-          movieTime: parseInt(OMDbMovie.Runtime.match(/\d+/)?.[0] || "0", 10),
+          movieTime: extractMovieTime(OMDbMovie.Runtime),
           genre: validGenres,
         };
 
@@ -113,4 +113,10 @@ const triggerDescriptionGeneration = () => {
   } else {
     console.warn("Slug generate butonu tapılmadı.");
   }
+};
+
+// Helper function defined outside try/catch for React Compiler compatibility
+const extractMovieTime = (runtimeStr: string): number => {
+  const match = runtimeStr.match(/\d+/);
+  return match ? parseInt(match[0], 10) : 0;
 };

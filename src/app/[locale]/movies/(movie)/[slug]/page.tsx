@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
       "Film",
       "Filmlər səhifəsi",
       "Movie",
-      "Filmisbest.com",
+      "filmisbest.vercel.app",
       "yusifaliyevpro",
       "yusifaliyevpro.com",
       "Azfilm",
