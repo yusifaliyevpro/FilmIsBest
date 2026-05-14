@@ -27,6 +27,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     onCanShareFiles();
   }, []);
 
