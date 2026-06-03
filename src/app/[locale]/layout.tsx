@@ -8,7 +8,6 @@ import { MobileNavbar } from "@/components/mobile-navbar";
 import { Providers } from "@/components/providers";
 import { BASE_URL } from "@/lib/constants";
 import { inter, poppins } from "@/lib/fonts";
-import { validateLocale } from "@/i18n/routing";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -83,10 +82,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
-  const { locale } = await params;
-  validateLocale(locale);
-
-  return (
+  return params.then(({ locale }) => (
     <html lang={locale} className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}>
       <body className="font-inter">
         <NuqsAdapter>
@@ -103,5 +99,5 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
         </NuqsAdapter>
       </body>
     </html>
-  );
+  ));
 }
