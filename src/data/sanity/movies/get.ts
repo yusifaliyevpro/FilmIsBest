@@ -1,5 +1,4 @@
-"use server";
-
+import "server-only";
 import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
 import { MovieQueryResult, MoviesQueryResult, RecentlyAddedMoviesQueryResult } from "@/sanity/types";

@@ -93,6 +93,7 @@ export default function MovieBar({ movie }: { movie: MovieQueryResult }) {
       )}
       <iframe
         allowFullScreen
+        sandbox=""
         className={`rounded-b-10 relative bottom-0 left-0 z-35 mx-auto mt-0 h-60 w-full border-none bg-black select-none sm:absolute sm:h-125 sm:w-209 ${iframeLoading ? "hidden" : "block"}`}
         src={activeLink}
         title={movie.filmName || "Movie Video"}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
+import { domAnimation, LazyMotion, m, useInView } from "motion/react";
 import { useRef } from "react";
 
 export default function AnimatedText({ text, className, once }: { text: string; className: string; once: boolean }) {
@@ -13,24 +13,26 @@ export default function AnimatedText({ text, className, once }: { text: string; 
   return (
     <p className={className}>
       <span className="sr-only">{text}</span>
-      <motion.span
-        ref={ref}
-        aria-hidden
-        animate={isInView ? "visible" : "hidden"}
-        initial="hidden"
-        transition={{ staggerChildren: 0.1 }}
-      >
-        {text.split(" ").map((word, index) => (
-          <span key={String(word + index)} className="inline-block">
-            {word.split("").map((char, i) => (
-              <motion.span key={String(i + char)} className="inline-block" variants={defaultAnimations}>
-                {char}
-              </motion.span>
-            ))}
-            <span className="inline-block">&nbsp;</span>
-          </span>
-        ))}
-      </motion.span>
+      <LazyMotion features={domAnimation}>
+        <m.span
+          ref={ref}
+          aria-hidden
+          animate={isInView ? "visible" : "hidden"}
+          initial="hidden"
+          transition={{ staggerChildren: 0.1 }}
+        >
+          {text.split(" ").map((word, index) => (
+            <span key={String(word + index)} className="inline-block">
+              {word.split("").map((char, i) => (
+                <m.span key={String(i + char)} className="inline-block" variants={defaultAnimations}>
+                  {char}
+                </m.span>
+              ))}
+              <span className="inline-block">&nbsp;</span>
+            </span>
+          ))}
+        </m.span>
+      </LazyMotion>
     </p>
   );
 }

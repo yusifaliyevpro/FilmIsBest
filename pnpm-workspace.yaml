@@ -1,9 +1,15 @@
 allowBuilds:
-  '@heroui/shared-utils': true
-  '@parcel/watcher': true
-  '@prisma/engines': true
-  '@swc/core': true
+  "@heroui/shared-utils": true
+  "@parcel/watcher": true
+  "@prisma/engines": true
+  "@swc/core": true
   esbuild: true
   prisma: true
   sharp: true
   unrs-resolver: true
+minimumReleaseAge: 1440
+trustPolicy: "no-downgrade"
+trustPolicyExclude:
+  - semver@6.3.1||5.7.2
+  - groq@3.88.1-typegen-experimental.0
+  - eslint-import-resolver-typescript@3.10.1

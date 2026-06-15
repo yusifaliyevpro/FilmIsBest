@@ -1,8 +1,6 @@
 pnpm-lock.yaml
-pnpm-workspace.yaml
 .next
 node_modules
-README.md
 AGENTS.md
 .agents
 .heroui-docs

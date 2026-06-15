@@ -4,7 +4,7 @@ import { BiSolidMovie } from "react-icons/bi";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { cn } from "@/lib/cn";
 import { Link } from "@/i18n/navigation";
-import { NavItem } from "./nav-item";
+import { NavBarItem, NavItem } from "./nav-item";
 
 export function Header() {
   return (
@@ -50,12 +50,6 @@ export function Header() {
     </Navbar>
   );
 }
-
-export type NavBarItem = {
-  href: string;
-  translationKey: string;
-  path: string;
-};
 
 const navigationItems: NavBarItem[] = [
   {

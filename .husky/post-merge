@@ -1,3 +1,0 @@
-pnpm install
-pnpm install:skills
-pnpm prisma:generate

@@ -9,13 +9,13 @@ import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
 import { addToast, closeAll } from "@heroui/toast";
-import { startTransition, useActionState, useEffect, useEffectEvent } from "react";
+import { useState, useTransition } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { HiAtSymbol } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
-import { submitMovieRequest } from "@/data/prisma/requests/actions";
+import { ActionState, submitMovieRequest } from "@/data/prisma/requests/actions";
 
-const initialState = {
+const initialState: ActionState = {
   success: false,
   data: { fullName: "", email: "", movieName: "" },
   errors: {},
@@ -30,25 +30,23 @@ type FormSubmitProps = {
 export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmitProps) {
   const t = useTranslations("Footer.FormSubmit");
 
-  const [state, formAction, isPending] = useActionState(submitMovieRequest, initialState);
+  const [state, setState] = useState(initialState);
+  const [isPending, startTransition] = useTransition();
 
-  const onStateChange = useEffectEvent(() => {
-    if (state.success) {
-      closeAll();
-      addToast({ title: t("sent"), color: "success", timeout: 3000 });
-      onClose();
-    } else if (Object.keys(state.errors ?? {}).length > 0) {
-      addToast({ title: t("failedToSend"), color: "danger", timeout: 3000 });
-    }
-  });
-  useEffect(() => {
-    onStateChange();
-  }, [state]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    startTransition(() => formAction(formData));
+    startTransition(async () => {
+      const result = await submitMovieRequest(state, formData);
+      setState(result);
+      if (result.success) {
+        closeAll();
+        addToast({ title: t("sent"), color: "success", timeout: 3000 });
+        onClose();
+      } else if (Object.keys(result.errors ?? {}).length > 0) {
+        addToast({ title: t("failedToSend"), color: "danger", timeout: 3000 });
+      }
+    });
   };
 
   return (

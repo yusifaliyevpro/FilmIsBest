@@ -44,8 +44,8 @@ export default async function Home() {
   "use cache";
   cacheLife("hours");
 
-  const recentlyAddedMovies = await getRecentlyAddedMovies();
-  const t = await getTranslations("Home");
+  const [recentlyAddedMovies, t] = await Promise.all([getRecentlyAddedMovies(), getTranslations("Home")]);
+
   return (
     <>
       <div className="relative mt-8 flex flex-col items-center justify-between px-20 text-white md:mt-16 lg:flex-row">

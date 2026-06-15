@@ -7,7 +7,7 @@ import { Snippet } from "@heroui/snippet";
 import { addToast, closeAll } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { useEffect, useEffectEvent, useState } from "react";
+import { useState } from "react";
 import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
 import { MovieQueryResult } from "@/sanity/types";
@@ -16,20 +16,10 @@ import { BASE_URL } from "../lib/constants";
 
 export default function Share({ movie, locale }: { movie: MovieQueryResult; locale: Locale }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [canShareFiles, setCanShareFiles] = useState(false);
-  const [canShareText, setCanShareText] = useState(false);
-
-  const onCanShareFiles = useEffectEvent(() => {
-    if (typeof navigator !== "undefined" && navigator.canShare) {
-      setCanShareFiles(navigator.canShare({ files: [new File([], "test.png", { type: "image/png" })] }));
-      setCanShareText(navigator.canShare({ text: "Test" }));
-    }
-  });
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    onCanShareFiles();
-  }, []);
+  const [canShareFiles] = useState(() =>
+    navigator.canShare({ files: [new File([], "test.png", { type: "image/png" })] }),
+  );
+  const [canShareText] = useState(() => navigator.canShare({ text: "Test" }));
 
   const pathname = usePathname();
   const router = useRouter();
@@ -144,44 +134,49 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
           </ModalHeader>
           <ModalBody className="p-8">
             <div className="relative mb-10 scrollbar-hide flex flex-1 flex-row items-center gap-4 overflow-x-scroll">
-              <div
+              <button
+                type="button"
                 className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                 onClick={() => handleShare("whatsapp")}
               >
                 <BiLogoWhatsapp className="text-7xl text-blue-600" />
                 <p className="font-bold">WhatsApp</p>
-              </div>
-              <div
+              </button>
+              <button
+                type="button"
                 className="relative flex w-fit cursor-pointer flex-col items-center p-2 hover:shadow-medium"
                 onClick={() => handleShare("telegram")}
               >
                 <BiLogoTelegram className="text-7xl text-blue-600" />
                 <p className="font-bold">Telegram</p>
-              </div>
-              <div
+              </button>
+              <button
+                type="button"
                 className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                 onClick={() => handleShare("copy")}
               >
                 <BsCardText className="text-7xl text-blue-600" />
                 <p className="font-bold text-nowrap">Copy Text</p>
-              </div>
+              </button>
               {canShareFiles && (
-                <div
+                <button
+                  type="button"
                   className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                   onClick={handlePoster}
                 >
                   <BiImageAlt className="text-7xl text-nowrap text-blue-600" />
                   <p className="font-bold">Poster</p>
-                </div>
+                </button>
               )}
               {canShareText ? (
-                <div
+                <button
+                  type="button"
                   className="relative flex w-fit cursor-pointer flex-col items-center rounded-xl p-2 hover:shadow-medium"
                   onClick={() => handleShare("other")}
                 >
                   <BiDotsVerticalRounded className="text-7xl text-blue-600" />
                   <p className="font-bold">{t("Share.other")}</p>
-                </div>
+                </button>
               ) : (
                 ""
               )}

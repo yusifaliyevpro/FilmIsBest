@@ -4,7 +4,12 @@ import { useTranslations } from "next-intl";
 import { NavbarItem } from "@heroui/navbar";
 import { usePathname } from "next/navigation";
 import { Link } from "@/i18n/navigation";
-import { NavBarItem } from "./header";
+
+export type NavBarItem = {
+  href: string;
+  translationKey: string;
+  path: string;
+};
 
 export function NavItem({ item }: { item: NavBarItem }) {
   const t = useTranslations("Header");

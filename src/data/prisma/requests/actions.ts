@@ -5,7 +5,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 import { MovieRequestFormData, movieRequestSchema } from "@/lib/validation";
 
-type ActionState = {
+export type ActionState = {
   success: boolean;
   data: Partial<MovieRequestFormData>;
   errors?: Partial<Record<keyof MovieRequestFormData, string>>;
@@ -38,7 +38,7 @@ export async function removeMovieRequest(id: string) {
   await requireAdmin();
 
   try {
-    await prisma?.movieRequests.delete({ where: { id }, select: { id: true } });
+    await prisma.movieRequests.delete({ where: { id }, select: { id: true } });
     return ok();
   } catch {
     return err("Failed to delete movie request!");

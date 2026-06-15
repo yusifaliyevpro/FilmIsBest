@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { DeleteButton, RefreshButton, UpdateButton } from "@/components/admin-buttons";
 import AdminSignIn from "@/components/admin-signin";
 import AvatarMenu from "@/components/avatar-menu";
+import { DeleteButton } from "@/components/delete-button";
+import { RefreshButton } from "@/components/refresh-button";
+import { UpdateButton } from "@/components/update-button";
 import { getAllMovieRequests } from "@/data/prisma/requests/get";
 import { getAdminSession } from "@/lib/admin-auth";
 
