@@ -17,9 +17,13 @@ import { BASE_URL } from "../lib/constants";
 export default function Share({ movie, locale }: { movie: MovieQueryResult; locale: Locale }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [canShareFiles] = useState(() =>
-    navigator ? navigator.canShare({ files: [new File([], "test.png", { type: "image/png" })] }) : false,
+    navigator && navigator.canShare
+      ? navigator.canShare({ files: [new File([], "test.png", { type: "image/png" })] })
+      : false,
   );
-  const [canShareText] = useState(() => (navigator ? navigator.canShare({ text: "Test" }) : false));
+  const [canShareText] = useState(() =>
+    navigator && navigator.canShare ? navigator.canShare({ text: "Test" }) : false,
+  );
 
   const pathname = usePathname();
   const router = useRouter();
