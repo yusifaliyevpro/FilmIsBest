@@ -1,5 +1,6 @@
 import { SearchIcon } from "@sanity/icons";
 import { InputProps, useFormValue } from "sanity";
+import { Box, Button } from "@sanity/ui";
 
 export function SearchOnYoutube(props: InputProps) {
   const { renderDefault } = props;
@@ -7,16 +8,26 @@ export function SearchOnYoutube(props: InputProps) {
   const link = `https://www.youtube.com/results?search_query=${encodeURIComponent(filmName).trim().replace(/\s+/g, "+")}+official+trailer`;
 
   return (
-    <div className="relative">
+    <Box style={{ position: "relative" }}>
       {renderDefault(props)}
-      <a
-        type="button"
+      <Button
+        as="a"
         href={link}
         target="_blank"
-        className="absolute top-0 right-0 z-2000 flex h-[98%] w-10 cursor-pointer items-center justify-center rounded transition-all duration-200 hover:bg-gray-600/40"
-      >
-        <SearchIcon fontSize={28} />
-      </a>
-    </div>
+        rel="noopener noreferrer"
+        mode="bleed"
+        icon={SearchIcon}
+        radius={2}
+        aria-label="Search on YouTube"
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          zIndex: 2000,
+          height: "98%",
+          width: "40px",
+        }}
+      />
+    </Box>
   );
 }

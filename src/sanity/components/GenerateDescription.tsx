@@ -2,7 +2,7 @@
 
 import { useCompletion } from "@ai-sdk/react";
 import { BsStars } from "react-icons/bs";
-import { Spinner, TextArea } from "@sanity/ui";
+import { Box, Button, TextArea } from "@sanity/ui";
 import { InputProps, set, unset, useFormValue } from "sanity";
 
 export function GenerateDescriptionComponent(props: InputProps) {
@@ -23,14 +23,14 @@ export function GenerateDescriptionComponent(props: InputProps) {
   };
 
   return (
-    <div className="relative">
+    <Box style={{ position: "relative" }}>
       <TextArea
         value={completion || (value as string)}
         rows={10}
         onChange={handleChange}
         style={{ paddingRight: "40px" }}
       />
-      <button
+      <Button
         type="button"
         data-selector="description-generate-button"
         onClick={() => {
@@ -38,11 +38,23 @@ export function GenerateDescriptionComponent(props: InputProps) {
           complete(filmName);
         }}
         disabled={isLoading}
-        className="absolute top-2 right-2 z-2000 flex size-7.5 cursor-pointer flex-col items-center justify-center rounded bg-gray-900 text-sm"
+        loading={isLoading}
+        mode="bleed"
+        padding={0}
+        radius={2}
+        icon={<BsStars size={18} style={{ color: "#fbbf24" }} />}
         title="Generate with AI"
-      >
-        {isLoading ? <Spinner size={1} /> : <BsStars size={18} className="text-amber-400" />}
-      </button>
-    </div>
+        aria-label="Generate description with AI"
+        style={{
+          position: "absolute",
+          top: "8px",
+          right: "8px",
+          zIndex: 2000,
+          width: "30px",
+          height: "30px",
+          backgroundColor: "#111827",
+        }}
+      />
+    </Box>
   );
 }

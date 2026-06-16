@@ -43,7 +43,8 @@
   },
   "Footer": {
     "FormSubmit": {
-      "movieRequest": "Film İstəyi",
+      "movieSuggestion": "Film Tövsiyə Et",
+      "description": "FilmIsBest yalnız mənim şəxsən izlədiyim filmləri əhatə edir. Sevdiyiniz bir filmi təklif edin — əgər izləyib bəyənsəm, onu sayta əlavə edəcəyəm!",
       "name": "Ad",
       "email": "Email",
       "movieName": "Filmin Adı",
@@ -51,7 +52,7 @@
       "emailPrivacy": "E-poçtunuzu heç vaxt başqası ilə paylaşmayacağıq",
       "emailError": "Daxil etdiyiniz email düzgün deyil",
       "movieNameError": "Film Adı boş qoyula bilməz",
-      "newMovieRequest": "Yeni Film Istəyi!",
+      "newMovieSuggestion": "Yeni Film Tövsiyəsi!",
       "sending": "Göndərilir...",
       "sent": "Göndərildi!",
       "failedToSend": "Göndərilə bilmədi"

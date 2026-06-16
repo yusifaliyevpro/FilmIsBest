@@ -43,7 +43,8 @@
   },
   "Footer": {
     "FormSubmit": {
-      "movieRequest": "Film İsteği",
+      "movieSuggestion": "Film Öner",
+      "description": "FilmIsBest yalnızca benim şahsen izlediğim filmleri içerir. Sevdiğiniz bir filmi önerin — izleyip beğenirsem, siteye eklerim!",
       "name": "İsim",
       "email": "Email",
       "movieName": "Film Adı",
@@ -51,7 +52,7 @@
       "emailPrivacy": "E-postanızı asla başkasıyla paylaşmayacağız",
       "emailError": "Girdiğiniz e-posta hatalı",
       "movieNameError": "Film Adı boş bırakılamaz",
-      "newMovieRequest": "Yeni Film İsteği!",
+      "newMovieSuggestion": "Yeni Film Önerisi!",
       "sending": "Gönderiliyor...",
       "sent": "Gönderildi!",
       "failedToSend": "Gönderilemedi"

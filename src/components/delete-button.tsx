@@ -4,7 +4,7 @@ import { addToast, closeAll } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { removeMovieRequest } from "@/data/prisma/requests/actions";
+import { removeMovieSuggestion } from "@/data/prisma/suggestions/actions";
 
 export function DeleteButton({ id }: { id: string }) {
   const router = useRouter();
@@ -13,14 +13,14 @@ export function DeleteButton({ id }: { id: string }) {
   const deleteRequest = () => {
     if (isPending) return;
     startTransition(async () => {
-      const result = await removeMovieRequest(id);
+      const result = await removeMovieSuggestion(id);
       closeAll();
 
       if (result.ok) {
         addToast({ title: "Successfully Deleted!", color: "success" });
         return router.refresh();
       } else {
-        addToast({ title: "Failed to delete movie request", description: result.error, color: "danger" });
+        addToast({ title: "Failed to delete movie suggestion", description: result.error, color: "danger" });
       }
     });
   };

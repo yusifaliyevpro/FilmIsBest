@@ -4,7 +4,7 @@ import { addToast } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { SiTicktick } from "react-icons/si";
-import { updateMovieRequest } from "@/data/prisma/requests/actions";
+import { updateMovieSuggestion } from "@/data/prisma/suggestions/actions";
 import { cn } from "@/lib/cn";
 
 export function UpdateButton({ id, added }: { id: string; added: boolean }) {
@@ -14,12 +14,12 @@ export function UpdateButton({ id, added }: { id: string; added: boolean }) {
   const updateRequest = () => {
     if (isPending) return;
     startTransition(async () => {
-      const result = await updateMovieRequest(id, added);
+      const result = await updateMovieSuggestion(id, added);
       if (result.ok) {
         addToast({ title: "Updates Successfully!", color: "success" });
         router.refresh();
       } else {
-        addToast({ title: "Failed to update movie request", description: result.error, color: "danger" });
+        addToast({ title: "Failed to update movie suggestion", description: result.error, color: "danger" });
       }
     });
   };

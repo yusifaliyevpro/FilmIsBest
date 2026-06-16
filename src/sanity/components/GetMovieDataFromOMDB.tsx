@@ -2,7 +2,7 @@
 
 import { startTransition, useState } from "react";
 import { SearchIcon } from "@sanity/icons";
-import { Spinner, useToast } from "@sanity/ui";
+import { Box, Button, useToast } from "@sanity/ui";
 import { InputProps, useClient, useFormValue } from "sanity";
 import { getOMDBDataById } from "@/data/omdb/get";
 import { apiVersion } from "../env";
@@ -59,17 +59,27 @@ export function GetMovieDataFromOMDB(props: InputProps) {
   };
 
   return (
-    <div className="relative">
+    <Box style={{ position: "relative" }}>
       {renderDefault(props)}
-      <button
+      <Button
         type="button"
         onClick={handleFetch}
         disabled={isLoading}
-        className="absolute top-0 right-0 z-2000 flex h-[98%] w-10 cursor-pointer items-center justify-center rounded transition-all duration-200 hover:bg-gray-600/40"
-      >
-        {isLoading ? <Spinner size={1} /> : <SearchIcon fontSize={28} />}
-      </button>
-    </div>
+        loading={isLoading}
+        mode="bleed"
+        icon={SearchIcon}
+        radius={2}
+        aria-label="Fetch movie data from OMDb"
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          zIndex: 2000,
+          height: "98%",
+          width: "40px",
+        }}
+      />
+    </Box>
   );
 }
 

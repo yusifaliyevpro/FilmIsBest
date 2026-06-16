@@ -1,11 +1,6 @@
-import "@/lib/env.server";
-import { ReactNode } from "react";
-import { inter, poppins } from "@/lib/fonts";
-import "../globals.css";
-
-export default function RootLayout({ children }: { children: Readonly<ReactNode> }) {
+export default function RootLayout({ children }: { children: Readonly<React.ReactNode> }) {
   return (
-    <html lang="en" className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}>
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

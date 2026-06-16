@@ -13,7 +13,7 @@ import { useState, useTransition } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { HiAtSymbol } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
-import { ActionState, submitMovieRequest } from "@/data/prisma/requests/actions";
+import { ActionState, submitMovieSuggestion } from "@/data/prisma/suggestions/actions";
 
 const initialState: ActionState = {
   success: false,
@@ -37,7 +37,7 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     startTransition(async () => {
-      const result = await submitMovieRequest(state, formData);
+      const result = await submitMovieSuggestion(state, formData);
       setState(result);
       if (result.success) {
         closeAll();
@@ -58,8 +58,9 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
       onOpenChange={onOpenChange}
     >
       <ModalContent>
-        <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 text-2xl font-bold text-white dark:text-white">
-          {t("movieRequest")}
+        <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 px-6 text-center">
+          <span className="text-2xl font-bold text-white">{t("movieSuggestion")}</span>
+          <span className="text-sm font-normal text-default-500">{t("description")}</span>
         </ModalHeader>
         <form onSubmit={handleSubmit} noValidate>
           <ModalBody>

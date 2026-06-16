@@ -23,7 +23,7 @@ export function Footer() {
       </h3>
       <div className="mt-4 flex text-white sm:absolute sm:right-28 sm:mt-auto sm:ml-auto">
         <Button className="text-base font-bold" color="primary" onPress={onOpen}>
-          {t("movieRequest")}
+          {t("movieSuggestion")}
         </Button>
 
         {isOpen && <FormSubmit isOpen={isOpen} onClose={onClose} onOpenChange={onOpenChange} />}

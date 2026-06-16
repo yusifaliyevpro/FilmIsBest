@@ -4,13 +4,13 @@ import { err, ok } from "@/lib/action-helpers";
 import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 
-export async function getAllMovieRequests() {
+export async function getAllMovieSuggestions() {
   try {
     await requireAdmin();
-    const requests = await prisma.movieRequests.findMany();
+    const suggestions = await prisma.movieSuggestions.findMany();
 
-    return ok(requests);
+    return ok(suggestions);
   } catch {
-    return err("Failed to fetch movie requests!");
+    return err("Failed to fetch movie suggestions!");
   }
 }
