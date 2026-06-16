@@ -58,9 +58,8 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
       onOpenChange={onOpenChange}
     >
       <ModalContent>
-        <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 px-6 text-center">
-          <span className="text-2xl font-bold text-white">{t("movieSuggestion")}</span>
-          <span className="text-sm font-normal text-default-500">{t("description")}</span>
+        <ModalHeader className="mt-2 flex flex-col items-center justify-center gap-1 px-6 text-center text-2xl font-bold text-white">
+          {t("movieSuggestion")}
         </ModalHeader>
         <form onSubmit={handleSubmit} noValidate>
           <ModalBody>
@@ -106,6 +105,7 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
               variant="bordered"
               defaultValue={state.data.movieName}
             />
+            <p className="mt-1 text-center text-xs text-default-500">{t("description")}</p>
           </ModalBody>
           <ModalFooter className="relative flex items-center justify-center">
             <Button type="submit" color="primary" isDisabled={isPending} isLoading={isPending}>

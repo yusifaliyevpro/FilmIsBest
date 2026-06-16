@@ -44,7 +44,7 @@
   "Footer": {
     "FormSubmit": {
       "movieSuggestion": "Suggest a Movie",
-      "description": "FilmIsBest only features movies I've personally watched. Suggest one you love — if I watch it and enjoy it, I'll add it to the site!",
+      "description": "FilmIsBest only features movies I've personally watched. Suggest one you love. If I watch it and enjoy it, I'll add it to the site!",
       "name": "Name",
       "email": "Email",
       "movieName": "Movie Name",

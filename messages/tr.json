@@ -44,7 +44,7 @@
   "Footer": {
     "FormSubmit": {
       "movieSuggestion": "Film Öner",
-      "description": "FilmIsBest yalnızca benim şahsen izlediğim filmleri içerir. Sevdiğiniz bir filmi önerin — izleyip beğenirsem, siteye eklerim!",
+      "description": "FilmIsBest yalnızca benim şahsen izlediğim filmleri içerir. Sevdiğiniz bir filmi önerin. İzleyip beğenirsem, siteye eklerim!",
       "name": "İsim",
       "email": "Email",
       "movieName": "Film Adı",
