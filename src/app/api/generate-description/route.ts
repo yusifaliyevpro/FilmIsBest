@@ -10,7 +10,10 @@ const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY });
 
 export async function POST(req: NextRequest) {
   const parsed = bodySchema.safeParse(await req.json());
-  if (!parsed.success) return new NextResponse("Invalid film name", { status: 400 });
+  if (!parsed.success) {
+    console.error(z.prettifyError(parsed.error));
+    return new NextResponse("Invalid request body", { status: 400 });
+  }
   const { prompt: filmName, token } = parsed.data;
 
   const isMember = await isSanityProjectMember(token);
