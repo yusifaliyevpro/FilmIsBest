@@ -1,10 +1,14 @@
 "use server";
 
+import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
 import { cacheLife } from "next/cache";
 
-export async function getOMDBDataById(imdbID: string) {
+export async function getOMDBDataById(imdbID: string, token: string) {
   "use cache";
   cacheLife("hours");
+
+  const isMember = await isSanityProjectMember(token);
+  if (!isMember) return null;
 
   const OMDB_API_KEY = process.env.OMDB_API_KEY;
   const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);

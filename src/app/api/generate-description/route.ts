@@ -2,20 +2,19 @@ import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
 import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
-import { getAdminSession } from "@/lib/admin-auth";
+import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
 
-const bodySchema = z.object({ prompt: z.string().min(1).max(200) });
+const bodySchema = z.object({ prompt: z.string().min(1).max(200), token: z.string().min(3) });
 
 const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY });
 
 export async function POST(req: NextRequest) {
-  const session = await getAdminSession();
-  if (!session) return new NextResponse("Unauthorized", { status: 401 });
-
   const parsed = bodySchema.safeParse(await req.json());
   if (!parsed.success) return new NextResponse("Invalid film name", { status: 400 });
+  const { prompt: filmName, token } = parsed.data;
 
-  const { prompt: filmName } = parsed.data;
+  const isMember = await isSanityProjectMember(token);
+  if (!isMember) return new NextResponse("Unauthorized", { status: 401 });
 
   const result = streamText({
     model: openrouter.completion("deepseek/deepseek-chat-v3.1"),

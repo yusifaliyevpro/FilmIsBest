@@ -26,7 +26,16 @@ export function GetMovieDataFromOMDB(props: InputProps) {
 
     startTransition(async () => {
       try {
-        const OMDbMovie = await getOMDBDataById(imdbID);
+        const token = client.config().token;
+        if (!token) {
+          toast.push({ status: "error", title: "You must be logged in to Sanity Studio" });
+          return;
+        }
+        const OMDbMovie = await getOMDBDataById(imdbID, token);
+        if (!OMDbMovie) {
+          toast.push({ title: "Unauthorized", status: "error" });
+          return;
+        }
 
         if (OMDbMovie.Response === "False") {
           toast.push({ title: "Movie is not found!", status: "error" });

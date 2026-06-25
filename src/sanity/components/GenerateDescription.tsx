@@ -3,14 +3,19 @@
 import { useCompletion } from "@ai-sdk/react";
 import { BsStars } from "react-icons/bs";
 import { Box, Button, TextArea } from "@sanity/ui";
-import { InputProps, set, unset, useFormValue } from "sanity";
+import { InputProps, set, unset, useClient, useFormValue } from "sanity";
+import { apiVersion } from "../env";
 
 export function GenerateDescriptionComponent(props: InputProps) {
   const { value, onChange } = props;
   const filmName = useFormValue(["filmName"]) as string | undefined;
+  const client = useClient({ apiVersion: apiVersion });
+
+  const token = client.config().token;
 
   const { completion, isLoading, complete, setCompletion } = useCompletion({
     api: "/api/generate-description",
+    body: { token },
     onFinish: (_, completion) => {
       onChange(completion ? set(completion) : unset());
     },
