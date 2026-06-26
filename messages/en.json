@@ -2,7 +2,7 @@
   "Home": {
     "movies": "Movies",
     "recentlyAdded": "Recently Added Movies",
-    "cta": "Find all your favorite movies",
+    "cta": "See the movies I have watched",
     "ctaUrl": "at {url}!"
   },
   "MetaData": {
@@ -33,7 +33,8 @@
     "buyACoffee": "You can buy me a coffee to support my projects😊:",
     "myCodes": "My codes are in my GitHub account😺:",
     "dataSources": "Data sources:",
-    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
+    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "watchedNote": "Note: every movie listed here is one I have personally watched. This is not a catalogue of all films, just a record of what I have watched."
   },
   "Header": {
     "homePage": "Home",

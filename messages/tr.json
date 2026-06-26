@@ -2,7 +2,7 @@
   "Home": {
     "movies": "Filmler",
     "recentlyAdded": "En Son Eklenenler",
-    "cta": "Aradığınız tüm filmler",
+    "cta": "İzlediğim tüm filmler",
     "ctaUrl": "{url}'da"
   },
   "MetaData": {
@@ -33,7 +33,8 @@
     "buyACoffee": "Projelerimi desteklemek için bana bir kahve ısmarlayabilirsin😊:",
     "myCodes": "Kodlarım GitHub hesabımdadır😺:",
     "dataSources": "Veri kaynakları:",
-    "tmdbAttribution": "Bu ürün TMDB API'sini kullanır ancak TMDB tarafından onaylanmamış veya sertifikalandırılmamıştır."
+    "tmdbAttribution": "Bu ürün TMDB API'sini kullanır ancak TMDB tarafından onaylanmamış veya sertifikalandırılmamıştır.",
+    "watchedNote": "Not: burada listelenen her film şahsen izlediğim bir filmdir. Bu tüm filmlerin bir kataloğu değil, sadece izlediklerimin bir kaydıdır."
   },
   "Header": {
     "homePage": "Ana Sayfa",
