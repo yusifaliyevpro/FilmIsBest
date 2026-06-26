@@ -31,7 +31,9 @@
     "text2": "İlk aylarda vebsayt çox statik idi və yalnız HTML-dən ibarət idi. Lakin sonrakı bir il ərzində öz bacarıqlarımı inkişaf etdirdim və vebsayt üzərində işləməyə davam etdim. Bu il yeni öyrəndiyim NextJS Framework-ü ilə vebsaytı yenidən yazdım.",
     "text3": "Hal-hazırda vebsaytın aktiv inkişafını dayandırmış olsam da, bəzən kiçik dəyişikliklər edirəm.",
     "buyACoffee": "Layihələrimə dəstək olmaq üçün mənə bir dənə kofe ala bilərsən😊:",
-    "myCodes": "Kodlarım GitHub hesabımdadır😺:"
+    "myCodes": "Kodlarım GitHub hesabımdadır😺:",
+    "dataSources": "Məlumat mənbələri:",
+    "tmdbAttribution": "Bu məhsul TMDB API-dən istifadə edir, lakin TMDB tərəfindən təsdiqlənməyib və ya sertifikatlaşdırılmayıb."
   },
   "Header": {
     "homePage": "Ana Səhifə",

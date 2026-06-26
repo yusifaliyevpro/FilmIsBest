@@ -11,6 +11,7 @@ const serverEnvSchema = z.object({
   GITHUB_CLIENT_SECRET: z.string().min(3),
   OMDB_API_KEY: z.string().min(3),
   OPENROUTER_API_KEY: z.string().min(3),
+  TMDB_API_KEY: z.string().min(3),
 });
 
 type ServerEnv = z.infer<typeof serverEnvSchema>;

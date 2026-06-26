@@ -31,7 +31,9 @@
     "text2": "In the early months, the website was very static and consisted only of HTML. However, over the next year, I continued to work on the website and develop my skills. This year, I rewrote the website using the NextJS Framework, which I had recently learned.",
     "text3": "Although I have currently stopped active development on the website, I sometimes make minor changes.",
     "buyACoffee": "You can buy me a coffee to support my projects😊:",
-    "myCodes": "My codes are in my GitHub account😺:"
+    "myCodes": "My codes are in my GitHub account😺:",
+    "dataSources": "Data sources:",
+    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
   },
   "Header": {
     "homePage": "Home",

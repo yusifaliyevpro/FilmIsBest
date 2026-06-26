@@ -33,13 +33,13 @@ export async function POST(req: NextRequest) {
     onError: ({ error }) => {
       console.error("[generate-description] streamText error:", error);
     },
-    onFinish: ({ text, usage, finishReason }) => {
-      console.log("[generate-description] finished:", {
-        length: text.length,
-        finishReason,
-        usage,
-      });
-    },
+    // onFinish: ({ text, usage, finishReason }) => {
+    //   console.log("[generate-description] finished:", {
+    //     length: text.length,
+    //     finishReason,
+    //     usage,
+    //   });
+    // },
     prompt:
       `${filmName} filmi haqqında 60-70 sözdən ibarət Azərbaycan dilində description yaz.` +
       "Filmin adını tərcümə etmə. Heç bir markdown işlətmə sadəcə düz mətni yaz.",

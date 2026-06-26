@@ -1,6 +1,7 @@
 import { Variants } from "motion";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { BiLogoTailwindCss } from "react-icons/bi";
@@ -126,6 +127,29 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
             </motion.li>
           ))}
         </motion.ol>
+        <motion.div
+          className="my-4 flex flex-col items-center gap-y-3 text-center"
+          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -30 }}
+          transition={{ type: "spring", stiffness: 100, delay: 5, duration: 0.5 }}
+        >
+          <p className="text-2xl font-bold drop-shadow-2xl">{t("dataSources")}</p>
+          <a
+            href="https://www.themoviedb.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="The Movie Database (TMDB)"
+          >
+            <Image
+              src="/tmdb_logo.svg"
+              alt="The Movie Database (TMDB) logo"
+              width={140}
+              height={101}
+              className="h-auto w-32"
+            />
+          </a>
+          <p className="max-w-md text-sm text-slate-400">{t("tmdbAttribution")}</p>
+        </motion.div>
         {links.map((link, i) => (
           <motion.p
             key={link.t + i}

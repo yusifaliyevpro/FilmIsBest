@@ -1,8 +1,8 @@
 "use client";
 
 import { useCompletion } from "@ai-sdk/react";
-import { BsStars } from "react-icons/bs";
-import { Box, Button, TextArea, useToast } from "@sanity/ui";
+import { SparklesIcon } from "@sanity/icons";
+import { Button, Flex, Stack, TextArea, useToast } from "@sanity/ui";
 import { InputProps, set, unset, useClient, useFormValue } from "sanity";
 import { apiVersion } from "../env";
 import { useEffect } from "react";
@@ -59,38 +59,25 @@ export function GenerateDescriptionComponent(props: InputProps) {
   };
 
   return (
-    <Box style={{ position: "relative" }}>
-      <TextArea
-        value={completion || (value as string)}
-        rows={10}
-        onChange={handleChange}
-        style={{ paddingRight: "40px" }}
-      />
-      <Button
-        type="button"
-        data-selector="description-generate-button"
-        onClick={() => {
-          if (!filmName) return alert("Əvvəlcə film adı daxil edin.");
-          complete(filmName);
-        }}
-        disabled={isLoading}
-        loading={isLoading}
-        mode="bleed"
-        padding={0}
-        radius={2}
-        icon={<BsStars size={18} style={{ color: "#fbbf24" }} />}
-        title="Generate with AI"
-        aria-label="Generate description with AI"
-        style={{
-          position: "absolute",
-          top: "8px",
-          right: "8px",
-          zIndex: 2000,
-          width: "30px",
-          height: "30px",
-          backgroundColor: "#111827",
-        }}
-      />
-    </Box>
+    <Stack gap={3}>
+      <TextArea value={completion || (value as string)} rows={10} onChange={handleChange} />
+      <Flex align="center" justify="flex-end">
+        <Button
+          type="button"
+          data-selector="description-generate-button"
+          onClick={() => {
+            if (!filmName) return alert("Əvvəlcə film adı daxil edin.");
+            complete(filmName);
+          }}
+          disabled={isLoading}
+          loading={isLoading}
+          mode="ghost"
+          icon={SparklesIcon}
+          text="Generate with AI"
+          title="Generate with AI"
+          aria-label="Generate description with AI"
+        />
+      </Flex>
+    </Stack>
   );
 }

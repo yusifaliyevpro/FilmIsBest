@@ -2,7 +2,7 @@
 
 import { startTransition, useState } from "react";
 import { SearchIcon } from "@sanity/icons";
-import { Box, Button, useToast } from "@sanity/ui";
+import { Box, Button, Flex, useToast } from "@sanity/ui";
 import { InputProps, useClient, useFormValue } from "sanity";
 import { getOMDBDataById } from "@/data/omdb/get";
 import { apiVersion } from "../env";
@@ -59,6 +59,8 @@ export function GetMovieDataFromOMDB(props: InputProps) {
         await client.patch(documentId).set(filmData).commit();
         triggerSlugGeneration();
         triggerDescriptionGeneration();
+        triggerPosterFetch();
+        triggerTrailerFetch();
       } catch (err) {
         console.error(err);
         toast.push({ title: "An error occured while fetching data!", status: "error" });
@@ -68,27 +70,19 @@ export function GetMovieDataFromOMDB(props: InputProps) {
   };
 
   return (
-    <Box style={{ position: "relative" }}>
-      {renderDefault(props)}
+    <Flex align="center" gap={1}>
+      <Box flex={1}>{renderDefault(props)}</Box>
       <Button
         type="button"
         onClick={handleFetch}
         disabled={isLoading}
         loading={isLoading}
-        mode="bleed"
+        mode="ghost"
         icon={SearchIcon}
-        radius={2}
         aria-label="Fetch movie data from OMDb"
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          zIndex: 2000,
-          height: "98%",
-          width: "40px",
-        }}
+        title="Fetch movie data from OMDb"
       />
-    </Box>
+    </Flex>
   );
 }
 
@@ -130,7 +124,31 @@ const triggerDescriptionGeneration = () => {
   if (descriptionButton) {
     descriptionButton.click();
   } else {
-    console.warn("Slug generate butonu tapılmadı.");
+    console.warn("Description generate butonu tapılmadı.");
+  }
+};
+
+const triggerPosterFetch = () => {
+  const posterButton = document.querySelector(
+    '[data-selector="poster-fetch-button"]',
+  ) as HTMLButtonElement;
+
+  if (posterButton) {
+    posterButton.click();
+  } else {
+    console.warn("Poster fetch butonu tapılmadı.");
+  }
+};
+
+const triggerTrailerFetch = () => {
+  const trailerButton = document.querySelector(
+    '[data-selector="trailer-fetch-button"]',
+  ) as HTMLButtonElement;
+
+  if (trailerButton) {
+    trailerButton.click();
+  } else {
+    console.warn("Trailer fetch butonu tapılmadı.");
   }
 };
 
