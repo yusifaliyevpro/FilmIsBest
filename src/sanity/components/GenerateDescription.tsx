@@ -2,24 +2,55 @@
 
 import { useCompletion } from "@ai-sdk/react";
 import { BsStars } from "react-icons/bs";
-import { Box, Button, TextArea } from "@sanity/ui";
+import { Box, Button, TextArea, useToast } from "@sanity/ui";
 import { InputProps, set, unset, useClient, useFormValue } from "sanity";
 import { apiVersion } from "../env";
+import { useEffect } from "react";
 
 export function GenerateDescriptionComponent(props: InputProps) {
   const { value, onChange } = props;
   const filmName = useFormValue(["filmName"]) as string | undefined;
   const client = useClient({ apiVersion: apiVersion });
+  const toast = useToast();
 
   const token = client.config().token;
 
   const { completion, isLoading, complete, setCompletion } = useCompletion({
     api: "/api/generate-description",
+    // The route returns result.toTextStreamResponse() (plain text), so the
+    // client must use the "text" protocol. The default "data" protocol expects
+    // SSE-formatted data chunks and silently parses nothing from a text stream.
+    streamProtocol: "text",
     body: { token },
+    fetch: async (input, init) => {
+      console.log("[GenerateDescription] requesting:", input);
+      const response = await fetch(input, init);
+      console.log("[GenerateDescription] response:", response.status, response.statusText);
+      if (!response.ok) {
+        const text = await response.clone().text();
+        console.error("[GenerateDescription] error body:", text);
+      }
+      return response;
+    },
     onFinish: (_, completion) => {
+      console.log("[GenerateDescription] finished, length:", completion?.length ?? 0);
       onChange(completion ? set(completion) : unset());
     },
+    onError: (error) => {
+      console.error("[GenerateDescription] error:", error);
+      toast.push({
+        status: "error",
+        title: "Description yaradıla bilmədi",
+        description: error.message || "Naməlum xəta baş verdi.",
+      });
+    },
   });
+
+  useEffect(() => {
+    if (!isLoading && completion) {
+      console.log("Generated description:", completion);
+    }
+  }, [completion, isLoading]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputVal = e.currentTarget.value;

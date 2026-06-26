@@ -15,12 +15,31 @@ export async function POST(req: NextRequest) {
     return new NextResponse("Invalid request body", { status: 400 });
   }
   const { prompt: filmName, token } = parsed.data;
+  console.log("[generate-description] request for film:", filmName);
 
   const isMember = await isSanityProjectMember(token);
-  if (!isMember) return new NextResponse("Unauthorized", { status: 401 });
+  if (!isMember) {
+    console.error("Unauthorized access attempt to generate description");
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
+  if (!process.env.OPENROUTER_API_KEY) {
+    console.error("[generate-description] OPENROUTER_API_KEY is not set");
+    return new NextResponse("Server misconfiguration: missing API key", { status: 500 });
+  }
 
   const result = streamText({
     model: openrouter.completion("deepseek/deepseek-chat-v3.1"),
+    onError: ({ error }) => {
+      console.error("[generate-description] streamText error:", error);
+    },
+    onFinish: ({ text, usage, finishReason }) => {
+      console.log("[generate-description] finished:", {
+        length: text.length,
+        finishReason,
+        usage,
+      });
+    },
     prompt:
       `${filmName} filmi haqqında 60-70 sözdən ibarət Azərbaycan dilində description yaz.` +
       "Filmin adını tərcümə etmə. Heç bir markdown işlətmə sadəcə düz mətni yaz.",
