@@ -16,6 +16,39 @@ export async function getOMDBDataById(imdbID: string, token: string) {
   return data;
 }
 
+export type OMDbSearchItem = {
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
+};
+
+/**
+ * Searches OMDb by movie title. Returns at most `limit` movie results (poster,
+ * title, year and imdbID) for the caller to pick from. Returns null when the
+ * caller isn't a project member.
+ */
+export async function searchOMDBByTitle(
+  query: string,
+  token: string,
+  limit = 5,
+): Promise<OMDbSearchItem[] | null> {
+  "use cache";
+  cacheLife("hours");
+
+  const isMember = await isSanityProjectMember(token);
+  if (!isMember) return null;
+
+  const OMDB_API_KEY = process.env.OMDB_API_KEY;
+  const response = await fetch(
+    `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&type=movie&apikey=${OMDB_API_KEY}`,
+  );
+  const data: { Search?: OMDbSearchItem[]; Response: string } = await response.json();
+  if (data.Response === "False" || !data.Search) return [];
+  return data.Search.slice(0, limit);
+}
+
 type OMDbMovieData = {
   Title: string;
   Year: string;
