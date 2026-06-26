@@ -1,96 +1,198 @@
 import "server-only";
 import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
-import { defineQuery } from "next-sanity";
-import { getMovie, getRecentlyAddedMovies } from "./get";
+import { getMovie } from "./get";
 
-export type MCPMovieListItem = {
-  filmName: string;
-  slug: string;
-  imdbID: string;
-  imdbpuan: number;
-  releaseDate: number;
-  genre: string[];
-  directed: string;
-  movieTime: number;
+/**
+ * Every field the MCP tools can return. Declared as a const tuple so it can back
+ * both the GROQ projection map and a `z.literal` in the route.
+ */
+export const MOVIE_FIELD_NAMES = [
+  "filmName",
+  "slug",
+  "imdbID",
+  "imdbpuan",
+  "releaseDate",
+  "genre",
+  "directed",
+  "movieTime",
+  "actors",
+  "country",
+  "description",
+  "poster",
+] as const;
+export type MovieField = (typeof MOVIE_FIELD_NAMES)[number];
+
+/**
+ * Maps each field to its GROQ projection snippet. The AI picks which of these it
+ * wants per request, so responses stay small and we can return the whole
+ * catalogue without blowing the token budget.
+ */
+const MOVIE_FIELDS: Record<MovieField, string> = {
+  filmName: "filmName",
+  slug: '"slug": slug.current',
+  imdbID: "imdbID",
+  imdbpuan: "imdbpuan",
+  releaseDate: "releaseDate",
+  genre: "genre",
+  directed: "directed",
+  movieTime: "movieTime",
+  actors: "actors",
+  country: "country",
+  description: "description",
+  poster: '"poster": poster.asset->url',
 };
 
-export type ListMoviesForMCPParams = {
-  genres?: string[];
-  minImdbRating?: number;
-  fromYear?: number;
-  toYear?: number;
-  nameQuery?: string;
-  limit?: number;
+/** The fixed genre set (mirrors the Studio schema's genre list). */
+export const MOVIE_GENRES = [
+  "Action",
+  "Adventure",
+  "Drama",
+  "Thriller",
+  "Animation",
+  "Comedy",
+  "Family",
+  "Sci-Fi",
+  "Fantasy",
+  "Horror",
+  "Mystery",
+  "Documentary",
+  "War",
+  "Crime",
+  "Historical",
+] as const;
+export type MovieGenre = (typeof MOVIE_GENRES)[number];
+
+export const MOVIE_SORTS = ["recent", "rating", "year"] as const;
+export type MovieSort = (typeof MOVIE_SORTS)[number];
+
+const SORT_ORDERS: Record<MovieSort, string> = {
+  recent: "_createdAt desc",
+  rating: "imdbpuan desc",
+  year: "releaseDate desc",
 };
 
-export async function listMoviesForMCP(params: ListMoviesForMCPParams = {}) {
-  "use cache";
-  cacheLife("hours");
+/** Fields stored as " ! "-joined strings that should be returned as arrays. */
+const MULTI_VALUE_FIELDS: MovieField[] = ["actors", "directed"];
 
-  const limit = Math.min(Math.max(params.limit ?? 50, 1), 200);
-  const hasGenres = Array.isArray(params.genres) && params.genres.length > 0;
-  const genres = hasGenres ? params.genres! : null;
-  const minImdbRating = params.minImdbRating ?? null;
-  const fromYear = params.fromYear ?? null;
-  const toYear = params.toYear ?? null;
-  const nameQuery = params.nameQuery?.trim() ? `${params.nameQuery.trim()}*` : null;
+type MovieRecord = Partial<Record<MovieField, unknown>>;
 
-  const query = defineQuery(`
-    *[_type == 'Movie-studio'
+/** Builds a GROQ projection from the requested fields (ignoring unknown ones). */
+function buildProjection(fields: MovieField[]): string {
+  const valid = fields.filter((f) => f in MOVIE_FIELDS);
+  const selected = valid.length > 0 ? valid : (["filmName", "slug"] as MovieField[]);
+  return selected.map((f) => MOVIE_FIELDS[f]).join(", ");
+}
+
+/** Splits the " ! "-joined `actors`/`directed` strings into clean arrays. */
+function normalizeRecord(record: MovieRecord): MovieRecord {
+  const out: MovieRecord = { ...record };
+  for (const field of MULTI_VALUE_FIELDS) {
+    const value = out[field];
+    if (typeof value === "string") {
+      out[field] = value
+        .split("!")
+        .map((part) => part.trim())
+        .filter(Boolean);
+    }
+  }
+  return out;
+}
+
+/** GROQ predicate shared by list_movies and count_movies. */
+const MOVIE_FILTER = `_type == 'Movie-studio'
       && ($genres == null || count((genre[])[@ in $genres]) > 0)
       && ($minImdbRating == null || imdbpuan >= $minImdbRating)
       && ($fromYear == null || releaseDate >= $fromYear)
       && ($toYear == null || releaseDate <= $toYear)
-      && ($nameQuery == null || filmName match $nameQuery)
-    ]
-      | order(_createdAt desc)[0...$limit] {
-        filmName,
-        "slug": slug.current,
-        imdbID,
-        imdbpuan,
-        releaseDate,
-        genre,
-        directed,
-        movieTime
-      }
-  `);
+      && ($nameQuery == null || filmName match $nameQuery)`;
 
-  return client.fetch<MCPMovieListItem[]>(query, {
-    genres,
-    minImdbRating,
-    fromYear,
-    toYear,
-    nameQuery,
-    limit,
-  });
-}
+export type MovieFilterParams = {
+  genres?: MovieGenre[];
+  minImdbRating?: number;
+  fromYear?: number;
+  toYear?: number;
+  nameQuery?: string;
+};
 
-export async function getMovieDetailForMCP(slug: string) {
-  const movie = await getMovie(slug);
-  if (!movie) return null;
+/** Normalizes the filter inputs into the GROQ params MOVIE_FILTER expects. */
+function buildFilterParams(params: MovieFilterParams) {
+  const hasGenres = Array.isArray(params.genres) && params.genres.length > 0;
   return {
-    filmName: movie.filmName,
-    slug: movie.slug,
-    imdbID: movie.imdbID,
-    imdbpuan: movie.imdbpuan,
-    releaseDate: movie.releaseDate,
-    genre: movie.genre,
-    directed: movie.directed,
-    actors: movie.actors,
-    country: movie.country,
-    movieTime: movie.movieTime,
-    description: movie.description,
+    genres: hasGenres ? params.genres! : null,
+    minImdbRating: params.minImdbRating ?? null,
+    fromYear: params.fromYear ?? null,
+    toYear: params.toYear ?? null,
+    nameQuery: params.nameQuery?.trim() ? `${params.nameQuery.trim()}*` : null,
   };
 }
 
-export async function getRecentlyAddedForMCP(limit = 10) {
-  const capped = Math.min(Math.max(limit, 1), 50);
-  const movies = await getRecentlyAddedMovies();
-  return movies.slice(0, capped).map((m) => ({
-    filmName: m.filmName,
-    slug: m.slug,
-    imdbpuan: m.imdbpuan,
-    releaseDate: m.releaseDate,
-  }));
+export type ListMoviesForMCPParams = MovieFilterParams & {
+  fields: MovieField[];
+  sort?: MovieSort;
+  limit?: number;
+};
+
+export async function listMoviesForMCP(params: ListMoviesForMCPParams) {
+  "use cache";
+  cacheLife("hours");
+
+  // Default to the whole catalogue; only cap to keep a single response sane.
+  const limit = Math.min(Math.max(params.limit ?? 1000, 1), 1000);
+  const projection = buildProjection(params.fields);
+  // `order` comes from a fixed map keyed by a validated sort value, so it's safe
+  // to interpolate (GROQ can't parameterize ordering).
+  const order = SORT_ORDERS[params.sort ?? "recent"];
+
+  const query = `
+    *[${MOVIE_FILTER}]
+      | order(${order})[0...$limit] {
+        ${projection}
+      }
+  `;
+
+  const movies = await client.fetch<MovieRecord[]>(query, {
+    ...buildFilterParams(params),
+    limit,
+  });
+
+  return movies.map(normalizeRecord);
+}
+
+export async function countMoviesForMCP(params: MovieFilterParams = {}) {
+  "use cache";
+  cacheLife("hours");
+
+  const query = `count(*[${MOVIE_FILTER}])`;
+  return client.fetch<number>(query, buildFilterParams(params));
+}
+
+export async function getRecentlyAddedForMCP(fields: MovieField[], limit = 10) {
+  "use cache";
+  cacheLife("hours");
+
+  const capped = Math.min(Math.max(limit, 1), 100);
+  const projection = buildProjection(fields);
+
+  const query = `
+    *[_type == 'Movie-studio']
+      | order(_createdAt desc)[0...$limit] {
+        ${projection}
+      }
+  `;
+
+  const movies = await client.fetch<MovieRecord[]>(query, { limit: capped });
+  return movies.map(normalizeRecord);
+}
+
+export async function getMovieDetailForMCP(slug: string, fields?: MovieField[]): Promise<MovieRecord | null> {
+  const movie = await getMovie(slug);
+  if (!movie) return null;
+
+  const selected = fields && fields.length > 0 ? fields : MOVIE_FIELD_NAMES;
+  const result: MovieRecord = {};
+  for (const field of selected) {
+    if (field in movie) result[field] = (movie as Record<string, unknown>)[field];
+  }
+  return normalizeRecord(result);
 }

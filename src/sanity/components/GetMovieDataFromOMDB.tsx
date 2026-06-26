@@ -34,32 +34,29 @@ export function GetMovieDataFromOMDB(props: InputProps) {
         const OMDbMovie = await getOMDBDataById(imdbID, token);
         if (!OMDbMovie) {
           toast.push({ title: "Unauthorized", status: "error" });
-          return;
-        }
-        if (OMDbMovie.Response === "False") {
+        } else if (OMDbMovie.Response === "False") {
           toast.push({ title: "Movie is not found!", status: "error" });
-          return;
+        } else {
+          const genreList = (OMDbMovie.Genre as string).split(", ").map((g) => g.trim());
+          const validGenres = genreList.filter((g) => availableGenres.includes(g));
+
+          const filmData = {
+            filmName: OMDbMovie.Title.trim(),
+            imdbpuan: parseFloat(OMDbMovie.imdbRating),
+            actors: OMDbMovie.Actors.split(", ").slice(0, 3).join(" ! ").trim(),
+            country: OMDbMovie.Country.trim(),
+            directed: OMDbMovie.Director.split(", ").join(" ! ").trim(),
+            releaseDate: Number(OMDbMovie.Year),
+            movieTime: extractMovieTime(OMDbMovie.Runtime),
+            genre: validGenres,
+          };
+
+          await client.patch(documentId).set(filmData).commit();
+          triggerSlugGeneration();
+          triggerDescriptionGeneration();
+          triggerPosterFetch();
+          triggerTrailerFetch();
         }
-
-        const genreList = (OMDbMovie.Genre as string).split(", ").map((g) => g.trim());
-        const validGenres = genreList.filter((g) => availableGenres.includes(g));
-
-        const filmData = {
-          filmName: OMDbMovie.Title.trim(),
-          imdbpuan: parseFloat(OMDbMovie.imdbRating),
-          actors: OMDbMovie.Actors.split(", ").slice(0, 3).join(" ! ").trim(),
-          country: OMDbMovie.Country.trim(),
-          directed: OMDbMovie.Director.split(", ").join(" ! ").trim(),
-          releaseDate: Number(OMDbMovie.Year),
-          movieTime: extractMovieTime(OMDbMovie.Runtime),
-          genre: validGenres,
-        };
-
-        await client.patch(documentId).set(filmData).commit();
-        triggerSlugGeneration();
-        triggerDescriptionGeneration();
-        triggerPosterFetch();
-        triggerTrailerFetch();
       } catch (err) {
         console.error(err);
         toast.push({ title: "An error occured while fetching data!", status: "error" });
@@ -94,14 +91,12 @@ export function GetMovieDataFromOMDB(props: InputProps) {
         const items = await searchOMDBByTitle(query, token);
         if (items === null) {
           toast.push({ title: "Unauthorized", status: "error" });
-          return;
-        }
-        if (items.length === 0) {
+        } else if (items.length === 0) {
           toast.push({ title: "No movies found!", status: "warning" });
-          return;
+        } else {
+          setResults(items);
+          setOpen(true);
         }
-        setResults(items);
-        setOpen(true);
       } catch (err) {
         console.error(err);
         toast.push({ title: "An error occured while searching!", status: "error" });
