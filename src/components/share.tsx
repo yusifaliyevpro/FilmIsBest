@@ -114,14 +114,14 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   }
 
   return (
-    <div className="relative mx-3 my-6 flex w-auto flex-row justify-end sm:w-209">
+    <div className="relative flex">
       <Button
-        className="relative flex flex-row items-center justify-center gap-1 text-xl font-bold"
+        className="relative flex flex-row items-center justify-center gap-1 text-base font-bold"
         color="primary"
-        size="lg"
+        size="md"
         onPress={onOpen}
       >
-        <BiSolidShareAlt className="mt-1 text-3xl" />
+        <BiSolidShareAlt className="mt-0.5 text-2xl" />
         <p>{t("Share.share")}</p>
       </Button>
       <Modal

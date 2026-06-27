@@ -96,8 +96,9 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
           initial={{ y: 600 }}
           transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
         >
-          <MovieBar movie={movie} />
-          <Share locale={locale} movie={movie} />
+          <MovieBar movie={movie}>
+            <Share locale={locale} movie={movie} />
+          </MovieBar>
         </motion.div>
       </div>
       <motion.div animate={{ y: 0 }} initial={{ y: 600 }} transition={{ type: "spring", duration: 0.3, stiffness: 50 }}>

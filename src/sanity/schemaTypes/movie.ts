@@ -117,42 +117,6 @@ const movieSchema = defineField({
         input: GenerateDescriptionComponent,
       },
     }),
-    // defineField({
-    //   name: "generateDescription",
-    //   title: "Generate Description",
-    //   type: "string",
-    //   components: {
-    //     field: GenerateDescription,
-    //   },
-    // }),
-    defineField({
-      title: "Has an English version?",
-      name: "EnglishLink",
-      type: "boolean",
-      initialValue: true,
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      title: "Has an English subtitle version?",
-      name: "EnglishSubtitleLink",
-      type: "boolean",
-      initialValue: true,
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "TurkishLink",
-      title: "Turkish Link",
-      type: "string",
-      initialValue: "Empty",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "TurkishSubtitleLink",
-      title: "Turkish Subtitle Link",
-      type: "string",
-      initialValue: "Empty",
-      validation: (rule) => rule.required(),
-    }),
     defineField({
       name: "FraqmanLink",
       title: "Fraqman Link",

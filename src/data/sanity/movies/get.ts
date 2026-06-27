@@ -47,11 +47,7 @@ export async function getMovie(slug: string) {
       country,
       movieTime,
       imdbID,
-      EnglishLink,
-      EnglishSubtitleLink,
       FraqmanLink,
-      TurkishLink,
-      TurkishSubtitleLink,
       actors
     }
   `);
