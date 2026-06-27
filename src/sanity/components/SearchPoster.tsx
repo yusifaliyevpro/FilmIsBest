@@ -65,6 +65,13 @@ export function SearchPoster(props: ObjectFieldProps<ImageValue>) {
               description: "Use the search button to find one manually.",
             });
             break;
+          case "no-more":
+            toast.push({
+              status: "info",
+              title: "No more posters left",
+              description: "All TMDB posters for this movie are already uploaded.",
+            });
+            break;
           case "error":
             toast.push({ status: "error", title: "Poster fetch failed", description: result.message });
             break;

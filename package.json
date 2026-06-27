@@ -17,7 +17,9 @@
     "install:skills": "pnpx skills@latest experimental_install",
     "install:heroui_docs": "pnpx heroui-cli@latest agents-md --react --output AGENTS.md",
     "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json",
-    "doctor": "npx react-doctor@latest"
+    "doctor": "npx react-doctor@latest",
+    "remove-assets": "npx sanity exec scripts/remove-unused-assets.ts --with-user-token",
+    "remove-assets:preview": "npx sanity exec scripts/preview-unused-assets.ts --with-user-token"
   },
   "engines": {
     "node": ">=24.0.0"

@@ -15,6 +15,7 @@ export type TmdbResult<T> =
   | { status: "ok"; data: T }
   | { status: "unauthorized" }
   | { status: "not-found" }
+  | { status: "no-more" }
   | { status: "error"; message: string };
 
 type TmdbMovie = { id: number; poster_path: string | null };
@@ -124,13 +125,26 @@ export async function uploadMoviePosters(
   if (posterPaths.length === 0 && movie.poster_path) posterPaths = [movie.poster_path];
   if (posterPaths.length === 0) return { status: "not-found" };
 
-  const selected = posterPaths.slice(0, MAX_POSTERS);
   const writeClient = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
-  // Upload in order; keep successful asset ids in the same order so index 0 is
-  // TMDB's top-ranked poster.
+  // Find which of these TMDB posters we've already uploaded (tagged via the
+  // asset's `source`), so repeated clicks fetch the *next* batch instead of the
+  // same ones.
+  const alreadyUploaded = await writeClient.fetch<string[]>(
+    `*[_type == "sanity.imageAsset" && source.name == "tmdb" && source.id in $ids].source.id`,
+    { ids: posterPaths },
+  );
+  const uploadedSet = new Set(alreadyUploaded);
+
+  const remaining = posterPaths.filter((path) => !uploadedSet.has(path));
+  if (remaining.length === 0) return { status: "no-more" };
+
+  // Take the next batch, keeping TMDB's order (index 0 is the top-ranked of the
+  // remaining posters).
+  const selected = remaining.slice(0, MAX_POSTERS);
+
   const results = await Promise.all(
-    selected.map(async (path, i) => {
+    selected.map(async (path) => {
       try {
         const imgRes = await fetch(`${TMDB_IMAGE_BASE}${path}`);
         if (!imgRes.ok) {
@@ -139,10 +153,17 @@ export async function uploadMoviePosters(
         }
         const buffer = Buffer.from(await imgRes.arrayBuffer());
         const asset = await writeClient.assets.upload("image", buffer, {
-          filename: `${imdbID}-${i + 1}.jpg`,
-          title: filmName ? `${filmName} — poster ${i + 1}` : `${imdbID} poster ${i + 1}`,
+          filename: `${imdbID}-${path.replace(/^\//, "")}`,
+          title: filmName ? `${filmName} — poster` : `${imdbID} poster`,
           contentType: imgRes.headers.get("content-type") ?? "image/jpeg",
         });
+        // Tag the asset with its TMDB source so the next fetch skips it. We patch
+        // (rather than rely on the upload metadata) so it sticks even when Sanity
+        // deduplicates to a pre-existing asset.
+        await writeClient
+          .patch(asset._id)
+          .set({ source: { _type: "sanity.assetSourceData", name: "tmdb", id: path } })
+          .commit();
         return asset._id;
       } catch (err) {
         console.error("[tmdb] poster upload failed:", path, err);
