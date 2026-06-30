@@ -27,10 +27,10 @@ type ActionFailure = { ok: false; error: string };
 
 type ActionResult<T = void> = ActionSuccess<T> | ActionFailure;
 
-export type InferActionData<T> = T extends (...args: never[]) => Promise<ActionResult<infer D>> ? D : never;
+// export type InferActionData<T> = T extends (...args: never[]) => Promise<ActionResult<infer D>> ? D : never;
 
-export type InferActionParams<T> = T extends (params: infer P) => Promise<ActionResult<unknown>> ? P : never;
+// export type InferActionParams<T> = T extends (params: infer P) => Promise<ActionResult<unknown>> ? P : never;
 
-export type InferActionReturn<T> = T extends (...args: never[]) => Promise<ActionResult<infer R>>
-  ? ActionResult<R>
-  : never;
+// export type InferActionReturn<T> = T extends (...args: never[]) => Promise<ActionResult<infer R>>
+//   ? ActionResult<R>
+//   : never;

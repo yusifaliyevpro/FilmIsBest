@@ -1,25 +1,15 @@
-import * as motion from "motion/react-client";
-import { Skeleton } from "@heroui/skeleton";
 import SanityImage from "@/components/sanity-image";
 import { Link } from "@/i18n/navigation";
+import { MoviesQueryResult } from "@/sanity/types";
 
-type MovieCardProps = {
-  filmName: string;
-  poster: string | null;
-  posterlqip: string | null;
-  slug: string;
-  imdbpuan: number;
-  releaseDate: number;
-};
+type Movie = Pick<
+  MoviesQueryResult[number],
+  "slug" | "poster" | "posterlqip" | "filmName" | "releaseDate" | "imdbpuan"
+>;
 
-export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps; isLazyLoad?: boolean }) {
+export default function MovieCard({ movie, isLazyLoad }: { movie: Movie; isLazyLoad?: boolean }) {
   return (
-    <motion.div
-      key={movie.slug}
-      initial={{ scale: 1 }}
-      whileHover={{ scale: 1.09 }}
-      transition={{ type: "spring", stiffness: 140, duration: 0.2 }}
-    >
+    <div className="transition-transform duration-500 ease-spring-55 hover:scale-[1.09]">
       <Link
         className="justify-content-center relative mt-10 inline-block min-h-10 w-66 scale-100 items-center justify-center rounded-xl bg-gray-900 text-center"
         href={`/movies/${movie.slug}`}
@@ -52,17 +42,6 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: MovieCardProps
           </h2>
         </div>
       </Link>
-    </motion.div>
-  );
-}
-
-export function MovieCardSkeleton() {
-  return (
-    <div className="justify-content-center relative mt-10 inline-block min-h-10 w-66 scale-100 items-center justify-center rounded-xl bg-gray-900 text-center">
-      <Skeleton className="aspect-2/3 w-full rounded-xl bg-gray-700 before:via-gray-600" />
-      <div className="justify-content-center relative flex min-h-12.5 w-62.5 flex-col items-center justify-center text-center">
-        <Skeleton className="h-6 w-52.5 rounded-lg bg-gray-700 before:via-gray-600" />
-      </div>
     </div>
   );
 }

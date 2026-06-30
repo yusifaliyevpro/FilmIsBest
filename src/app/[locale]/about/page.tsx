@@ -1,5 +1,3 @@
-import { Variants } from "motion";
-import * as motion from "motion/react-client";
 import { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
@@ -7,22 +5,7 @@ import { cacheLife } from "next/cache";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
-import { TbBrandFramerMotion } from "react-icons/tb";
 import { locales, validateLocale } from "@/i18n/routing";
-
-const ulVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.5 } } };
-const textVariants: Variants = {
-  hidden: { opacity: 0, y: -30 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, duration: 0.5 } },
-};
-const olVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.3, delayChildren: 2 } },
-};
-const itemVariants: Variants = {
-  hidden: { scale: 0, opacity: 0 },
-  visible: { scale: 1, opacity: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
-};
 
 export async function generateMetadata(): Promise<Metadata> {
   "use cache";
@@ -92,31 +75,15 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
   ];
   return (
     <section className="relative mx-4 flex flex-wrap items-center justify-center text-white sm:mx-0">
-      <motion.ul
-        className="relative mt-8 mb-5 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-200 lg:mt-0 lg:p-12"
-        initial="hidden"
-        variants={ulVariants}
-        viewport={{ once: true }}
-        whileInView="visible"
-      >
+      <ul className="relative mt-8 mb-5 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-200 lg:mt-0 lg:p-12">
         {texts.map((text, i) => (
-          <motion.p
-            key={i + text.t}
-            className={text.className ? text.className : "flex flex-col text-base leading-relaxed"}
-            variants={textVariants}
-          >
+          <p key={i + text.t} className={text.className ? text.className : "flex flex-col text-base leading-relaxed"}>
             {t(text.t as "text1")}
-          </motion.p>
+          </p>
         ))}
-        <motion.ol
-          className="tools relative my-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-8 select-none sm:flex-row"
-          initial="hidden"
-          variants={olVariants}
-          viewport={{ once: true }}
-          whileInView="visible"
-        >
+        <ol className="tools relative my-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-8 select-none sm:flex-row">
           {tools.map((tool, i) => (
-            <motion.li key={tool.name + i} variants={itemVariants}>
+            <li key={tool.name + i}>
               <a
                 className="flex flex-col items-center justify-center gap-y-2 rounded-xl bg-slate-800 p-3 shadow-large drop-shadow-2xl hover:bg-slate-700"
                 href={tool.link}
@@ -125,15 +92,10 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
                 <p>{tool.name}</p>
                 {tool.icon && tool.icon}
               </a>
-            </motion.li>
+            </li>
           ))}
-        </motion.ol>
-        <motion.div
-          className="my-4 flex flex-col items-center gap-y-3 text-center"
-          animate={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: -30 }}
-          transition={{ type: "spring", stiffness: 100, delay: 5, duration: 0.5 }}
-        >
+        </ol>
+        <div className="my-4 flex flex-col items-center gap-y-3 text-center">
           <p className="text-2xl font-bold drop-shadow-2xl">{t("dataSources")}</p>
           <a
             href="https://www.themoviedb.org/"
@@ -150,27 +112,16 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
             />
           </a>
           <p className="max-w-md text-sm text-slate-400">{t("tmdbAttribution")}</p>
-        </motion.div>
+        </div>
         {links.map((link, i) => (
-          <motion.p
-            key={link.t + i}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center lg:text-left"
-            initial={{ opacity: 0, y: -30 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              delay: 5.3 + i++ * 0.5,
-              duration: 0.5,
-            }}
-          >
+          <p key={link.t + i} className="text-center lg:text-left">
             {t(link.t as "text1")}{" "}
             <a className="text-blue-600 hover:text-blue-800" href={link.link} target="_blank">
               {link.linkText}
             </a>
-          </motion.p>
+          </p>
         ))}
-      </motion.ul>
+      </ul>
     </section>
   );
 }
@@ -205,11 +156,6 @@ const tools: { name: string; link: string; icon: React.JSX.Element }[] = [
     name: "React Icons",
     link: "https://react-icons.github.io/react-icons/",
     icon: <FaReact className="text-8xl text-[#e91e63]" />,
-  },
-  {
-    name: "Framer Motion",
-    link: "https://www.framer.com/motion/",
-    icon: <TbBrandFramerMotion className="text-8xl" />,
   },
   {
     name: "Prisma",

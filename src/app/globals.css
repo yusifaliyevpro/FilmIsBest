@@ -8,6 +8,288 @@
   --font-poppins: var(--font-poppins);
 }
 
+@theme {
+  /* CTA button pulse: 0.8s scale pulse + 4s pause folded into one 4.8s loop,
+     with a one-time 1.5s start delay (matches the former motion settings). */
+  --animate-cta-pulse: cta-pulse 4.8s ease-in-out 1.5s infinite;
+
+  @keyframes cta-pulse {
+    0% {
+      transform: scale(1);
+    }
+    4.17% {
+      transform: scale(1.1);
+    }
+    8.33% {
+      transform: scale(1);
+    }
+    12.5% {
+      transform: scale(0.9);
+    }
+    16.67%,
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Floating hero animation: drifts down 15px and back, with a one-time
+     0.5s start delay (matches the former motion settings). */
+  --animate-float-y: float-y 1.5s ease-in-out 0.5s infinite;
+
+  @keyframes float-y {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(15px);
+    }
+  }
+
+  /* Hero heading one-shot entrance: rises 10px and fades from 0.6 → 1
+     (matches the former motion initial/animate settings). */
+  --animate-hero-enter: hero-enter 0.1s ease-out both;
+
+  @keyframes hero-enter {
+    from {
+      transform: translateY(10px);
+      opacity: 0.6;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* ── Reusable spring "slide up" entrance ─────────────────────────────────────
+   One keyframe (slide up from 600px) driven by a swappable spring easing curve.
+   Each linear() is sampled from the real spring equation (Framer defaults:
+   mass 1, damping 10; stiffness sets the overshoot/feel), so the CSS reproduces
+   the actual overshoot. The curve is normalized over [0,1], so duration just
+   controls speed. linear() lives in its own var because its commas can't sit
+   inside the `animation` shorthand.
+
+   Easing and duration are required (no defaults) and set with Tailwind's own
+   ease-* /duration-* utilities, so the spring is always visible in the markup.
+   Those utilities set --tw-ease/--tw-duration, which the animation reads.
+
+   Usage:
+     className="spring-up ease-spring-50 duration-[1.45s]"
+     className="spring-up ease-spring-55 duration-[1.45s]"   (bouncier) */
+@keyframes spring-up {
+  from {
+    transform: translateY(600px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@theme {
+  /* Spring easing curves — also exposed as `ease-spring-*` utilities.
+     stiffness 50 → ζ≈0.707, ~4.3% overshoot */
+  --ease-spring-50: linear(
+    0,
+    0.0743 4.2%,
+    0.2397 8.3%,
+    0.4328 12.5%,
+    0.6148 16.7%,
+    0.7663 20.8%,
+    0.8806 25%,
+    0.9592 29.2%,
+    1.0076 33.3%,
+    1.0331 37.5%,
+    1.0425 41.7%,
+    1.042 45.8%,
+    1.036 50%,
+    1.0279 54.2%,
+    1.0197 58.3%,
+    1.0125 62.5%,
+    1.0069 66.7%,
+    1.003 70.8%,
+    1.0004 75%,
+    0.9989 79.2%,
+    0.9983 83.3%,
+    0.9981 87.5%,
+    0.9983 91.7%,
+    0.9987 95.8%,
+    1 100%
+  );
+  /* stiffness 55 → ζ≈0.674, ~5.7% overshoot */
+  --ease-spring-55: linear(
+    0,
+    0.0816 4.2%,
+    0.2622 8.3%,
+    0.4703 12.5%,
+    0.6625 16.7%,
+    0.8176 20.8%,
+    0.9294 25%,
+    1.0009 29.2%,
+    1.0399 33.3%,
+    1.0553 37.5%,
+    1.0555 41.7%,
+    1.0474 45.8%,
+    1.0359 50%,
+    1.0244 54.2%,
+    1.0144 58.3%,
+    1.0068 62.5%,
+    1.0017 66.7%,
+    0.9986 70.8%,
+    0.9972 75%,
+    0.9968 79.2%,
+    0.997 83.3%,
+    0.9976 87.5%,
+    0.9983 91.7%,
+    0.9989 95.8%,
+    1 100%
+  );
+  /* stiffness 140 → ζ≈0.423, ~23% overshoot (bouncy — used for hover) */
+  --ease-spring-140: linear(
+    0,
+    0.2025 4.2%,
+    0.6063 8.3%,
+    0.9718 12.5%,
+    1.1818 16.7%,
+    1.2298 20.8%,
+    1.1716 25%,
+    1.0767 29.2%,
+    0.9966 33.3%,
+    0.9541 37.5%,
+    0.9477 41.7%,
+    0.9635 45.8%,
+    0.9855 50%,
+    1.0029 54.2%,
+    1.0113 58.3%,
+    1.0118 62.5%,
+    1.0077 66.7%,
+    1.0026 70.8%,
+    0.9989 75%,
+    0.9973 79.2%,
+    0.9974 83.3%,
+    0.9984 87.5%,
+    0.9995 91.7%,
+    1.0003 95.8%,
+    1 100%
+  );
+}
+
+@utility spring-up {
+  animation-name: spring-up;
+  animation-fill-mode: both;
+  animation-duration: var(--tw-duration); /* from a duration-* utility */
+  animation-timing-function: var(--tw-ease); /* from an ease-spring-* utility */
+}
+
+/* ── Scroll-triggered reveal (replaces the motion whileInView animation) ─────
+   Fades + scales content in as it scrolls into view. Gated behind @supports so
+   browsers without scroll-driven animations (Safari/Firefox) show the content
+   normally instead of leaving it stuck at the hidden `from` state. */
+@keyframes reveal-in-view {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .reveal-in-view {
+    animation: reveal-in-view linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+/* ── Per-character text reveal (replaces the motion AnimatedText stagger) ─────
+   Each character fades + slides in from a 20px offset. The in-view trigger and
+   per-character stagger delay are driven by the component (IntersectionObserver
+   + inline animation-delay). */
+@keyframes text-char-in {
+  from {
+    opacity: 0;
+    transform: translate(20px, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+/* ── Native page transitions (replaces the motion template animation) ───────
+   The persistent chrome (Header, Footer, MobileNavbar) lives outside the page
+   <ViewTransition>, so the `root` snapshot is identical across routes — keep it
+   from cross-fading. Only the page content (page-enter/page-exit) animates. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-new(.page-enter) {
+  animation:
+    0.5s ease-in-out both vt-page-fade-in,
+    0.5s ease-in-out both vt-page-slide-in;
+}
+::view-transition-old(.page-exit) {
+  animation:
+    0.5s ease-in-out both vt-page-fade-out,
+    0.5s ease-in-out both vt-page-slide-out;
+}
+
+/* Movie list items: fade in/out as search/pagination filters the grid
+   (replaces the motion AnimatePresence opacity animation). */
+::view-transition-new(.movie-fade) {
+  animation: 0.4s ease-in both vt-page-fade-in;
+}
+::view-transition-old(.movie-fade) {
+  animation: 0.4s ease-in both vt-page-fade-out;
+}
+
+@keyframes vt-page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vt-page-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-page-slide-in {
+  from {
+    transform: translateY(-100px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes vt-page-slide-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
 .text-shadow {
   text-shadow:
     2px 3px 2px rgba(0, 0, 0, 0.3),
@@ -48,4 +330,29 @@ html::-webkit-scrollbar-thumb:hover {
 
 .custom-scroolbar::-webkit-scrollbar-thumb:hover {
   background: #0b4cd6;
+}
+
+/* Search dropdown: thin, rounded scrollbar that sits flush inside the
+   rounded panel and uses the site's blue accent on hover. */
+.dropdown-scroolbar {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 transparent;
+}
+
+.dropdown-scroolbar::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.dropdown-scroolbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 0.5rem;
+}
+
+.dropdown-scroolbar::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 5rem;
+}
+
+.dropdown-scroolbar::-webkit-scrollbar-thumb:hover {
+  background: #007bff;
 }

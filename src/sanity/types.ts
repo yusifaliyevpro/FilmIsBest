@@ -210,6 +210,18 @@ export type AllSanitySchemaTypes =
   | Geopoint;
 
 // Source: src/data/sanity/movies/get.ts
+// Variable: AllMoviesQuery
+// Query: *[_type == 'Movie-studio']      | order(_createdAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        releaseDate,        imdbID      }
+export type AllMoviesQueryResult = Array<{
+  filmName: string;
+  poster: string;
+  posterlqip: string | null;
+  slug: string;
+  releaseDate: number;
+  imdbID: string;
+}>;
+
+// Source: src/data/sanity/movies/get.ts
 // Variable: MoviesQuery
 // Query: *[_type == 'Movie-studio']       | order(_createdAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        _id,        imdbpuan,        _updatedAt,        imdbID,        releaseDate      }
 export type MoviesQueryResult = Array<{
@@ -223,6 +235,11 @@ export type MoviesQueryResult = Array<{
   imdbID: string;
   releaseDate: number;
 }>;
+
+// Source: src/data/sanity/movies/get.ts
+// Variable: MovieCountQuery
+// Query: count(*[_type == 'Movie-studio'])
+export type MovieCountQueryResult = number;
 
 // Source: src/data/sanity/movies/get.ts
 // Variable: MovieQuery
@@ -272,7 +289,9 @@ export type SequelQueryResult = {
 
 declare module "@sanity/client" {
   interface SanityQueries {
+    '\n    *[_type == \'Movie-studio\']\n      | order(_createdAt desc) {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        releaseDate,\n        imdbID\n      }\n  ': AllMoviesQueryResult;
     '\n    *[_type == \'Movie-studio\'] \n      | order(_createdAt desc) {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        _id,\n        imdbpuan,\n        _updatedAt,\n        imdbID,\n        releaseDate\n      }\n  ': MoviesQueryResult;
+    "\n    count(*[_type == 'Movie-studio'])\n  ": MovieCountQueryResult;
     '\n    *[_type == \'Movie-studio\' && slug.current == $slug][0] {\n      filmName,\n      "poster": poster.asset->url,\n      "posterlqip": poster.asset->metadata.lqip,\n      "slug": slug.current,\n      imdbpuan,\n      releaseDate,\n      genre,\n      description,\n      _id,\n      directed,\n      country,\n      movieTime,\n      imdbID,\n      FraqmanLink,\n      actors\n    }\n  ': MovieQueryResult;
     '\n    *[_type == \'Movie-studio\'] \n      | order(_createdAt desc)[0...10] {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        imdbpuan,\n        releaseDate\n      }\n  ': RecentlyAddedMoviesQueryResult;
     '\n    *[_type == "sequel" && references(*[_type == "Movie-studio" && slug.current == $slug][0]._id)][0] {\n      name,\n      "movies": movies[]-> \n        | order(releaseDate desc) {\n          filmName,\n          "slug": slug.current,\n          "poster": poster.asset->url,\n          "posterlqip": poster.asset->metadata.lqip\n        }\n    }\n  ': SequelQueryResult;

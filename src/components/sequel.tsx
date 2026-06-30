@@ -1,6 +1,5 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "motion/react";
 import { useTranslations } from "next-intl";
 import SanityImage from "@/components/sanity-image";
 import { SequelQueryResult } from "@/sanity/types";
@@ -13,16 +12,9 @@ export default function Sequel({ currentSlug, sequel }: { currentSlug: string | 
   return (
     <section className="mx-3 mb-8 flex min-h-56 flex-col rounded-xl shadow-medium sm:mx-auto sm:w-209">
       <p className="rounded-t-10 bg-gray-900 p-3 pl-7 text-lg font-bold text-white">{sequel.name + " " + t("name")}</p>
-      <LazyMotion features={domAnimation}>
-        <ol className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
-          {sequel.movies.map((movie) => (
-            <m.li
-              key={movie.slug}
-              className="mx-3 my-5"
-              initial={{ scale: 1 }}
-              transition={{ duration: 0.2, type: "spring", stiffness: 110 }}
-              whileHover={{ scale: 1.08 }}
-            >
+      <ol className="custom-scroolbar mx-5 my-2 flex flex-1 flex-row gap-x-2 overflow-x-scroll">
+        {sequel.movies.map((movie) => (
+          <li key={movie.slug} className="mx-3 my-5 transition-transform duration-200 ease-out hover:scale-[1.08]">
             <Link
               className={`${movie.slug === currentSlug && "border-3 border-solid border-blue-600"} justify-content-center relative inline-block min-h-60 w-40 items-center justify-center rounded-xl text-center select-none`}
               href={`${movie.slug}`}
@@ -44,10 +36,9 @@ export default function Sequel({ currentSlug, sequel }: { currentSlug: string | 
                 </div>
               </div>
             </Link>
-            </m.li>
-          ))}
-        </ol>
-      </LazyMotion>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }

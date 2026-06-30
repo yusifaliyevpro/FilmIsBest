@@ -1,24 +1,16 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "motion/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Suspense } from "react";
 import { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 import MovieCard from "@/components/movie-card";
+import { Suspense } from "react";
 
 export default function RecentlyAddedMovies({ movies }: { movies: RecentlyAddedMoviesQueryResult }) {
   return (
-    <LazyMotion features={domAnimation}>
-      <m.div
-        className="relative h-auto w-full px-20 text-white"
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        initial={{ opacity: 0, scale: 0.8 }}
-      >
-        <Suspense>
+    <div className="reveal-in-view relative h-auto w-full px-20 text-white">
+      <Suspense>
         <Swiper
           loop
           lazyPreloadPrevNext={4}
@@ -39,8 +31,7 @@ export default function RecentlyAddedMovies({ movies }: { movies: RecentlyAddedM
             </SwiperSlide>
           ))}
         </Swiper>
-        </Suspense>
-      </m.div>
-    </LazyMotion>
+      </Suspense>
+    </div>
   );
 }

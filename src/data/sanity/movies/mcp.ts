@@ -61,10 +61,10 @@ export const MOVIE_GENRES = [
   "Crime",
   "Historical",
 ] as const;
-export type MovieGenre = (typeof MOVIE_GENRES)[number];
+type MovieGenre = (typeof MOVIE_GENRES)[number];
 
 export const MOVIE_SORTS = ["recent", "rating", "year"] as const;
-export type MovieSort = (typeof MOVIE_SORTS)[number];
+type MovieSort = (typeof MOVIE_SORTS)[number];
 
 const SORT_ORDERS: Record<MovieSort, string> = {
   recent: "_createdAt desc",
