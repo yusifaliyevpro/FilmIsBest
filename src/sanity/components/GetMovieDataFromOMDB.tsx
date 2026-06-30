@@ -43,9 +43,9 @@ export function GetMovieDataFromOMDB(props: InputProps) {
           const filmData = {
             filmName: OMDbMovie.Title.trim(),
             imdbpuan: parseFloat(OMDbMovie.imdbRating),
-            actors: OMDbMovie.Actors.split(", ").slice(0, 3).join(" ! ").trim(),
+            actors: OMDbMovie.Actors.split(", ").map((actor) => actor.trim()),
             country: OMDbMovie.Country.trim(),
-            directed: OMDbMovie.Director.split(", ").join(" ! ").trim(),
+            directed: OMDbMovie.Director.split(", ").map((director) => director.trim()),
             releaseDate: Number(OMDbMovie.Year),
             movieTime: extractMovieTime(OMDbMovie.Runtime),
             genre: validGenres,

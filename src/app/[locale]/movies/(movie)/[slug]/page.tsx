@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
       "yusif",
       "aliyev",
       `${movie.filmName}`,
-      `${movie.actors?.trim().replace(/!/g, "•")}`,
+      `${movie.actors?.join(" • ")}`,
     ],
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,
@@ -90,13 +90,13 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
         <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-xl bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-209">
           {movie.filmName}
         </h1>
-        <div className="spring-up ease-spring-50 duration-[1.45s]">
+        <div className="duration-[1.45s] ease-spring-50 spring-up">
           <MovieBar movie={movie}>
             <Share locale={locale} movie={movie} />
           </MovieBar>
         </div>
       </div>
-      <div className="spring-up ease-spring-50 duration-[1.45s]">
+      <div className="duration-[1.45s] ease-spring-50 spring-up">
         <Sequel currentSlug={movie.slug} sequel={sequel} />
         <MovieInfo movie={movie} />
       </div>

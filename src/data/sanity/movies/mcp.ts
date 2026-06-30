@@ -72,9 +72,6 @@ const SORT_ORDERS: Record<MovieSort, string> = {
   year: "releaseDate desc",
 };
 
-/** Fields stored as " ! "-joined strings that should be returned as arrays. */
-const MULTI_VALUE_FIELDS: MovieField[] = ["actors", "directed"];
-
 type MovieRecord = Partial<Record<MovieField, unknown>>;
 
 /** Builds a GROQ projection from the requested fields (ignoring unknown ones). */
@@ -82,21 +79,6 @@ function buildProjection(fields: MovieField[]): string {
   const valid = fields.filter((f) => f in MOVIE_FIELDS);
   const selected = valid.length > 0 ? valid : (["filmName", "slug"] as MovieField[]);
   return selected.map((f) => MOVIE_FIELDS[f]).join(", ");
-}
-
-/** Splits the " ! "-joined `actors`/`directed` strings into clean arrays. */
-function normalizeRecord(record: MovieRecord): MovieRecord {
-  const out: MovieRecord = { ...record };
-  for (const field of MULTI_VALUE_FIELDS) {
-    const value = out[field];
-    if (typeof value === "string") {
-      out[field] = value
-        .split("!")
-        .map((part) => part.trim())
-        .filter(Boolean);
-    }
-  }
-  return out;
 }
 
 /** GROQ predicate shared by list_movies and count_movies. */
@@ -156,7 +138,7 @@ export async function listMoviesForMCP(params: ListMoviesForMCPParams) {
     limit,
   });
 
-  return movies.map(normalizeRecord);
+  return movies;
 }
 
 export async function countMoviesForMCP(params: MovieFilterParams = {}) {
@@ -182,7 +164,7 @@ export async function getRecentlyAddedForMCP(fields: MovieField[], limit = 10) {
   `;
 
   const movies = await client.fetch<MovieRecord[]>(query, { limit: capped });
-  return movies.map(normalizeRecord);
+  return movies;
 }
 
 export async function getMovieDetailForMCP(slug: string, fields?: MovieField[]): Promise<MovieRecord | null> {
@@ -194,5 +176,5 @@ export async function getMovieDetailForMCP(slug: string, fields?: MovieField[]):
   for (const field of selected) {
     if (field in movie) result[field] = (movie as Record<string, unknown>)[field];
   }
-  return normalizeRecord(result);
+  return result;
 }

@@ -39,11 +39,11 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       `🍿 ${bold}${t("movieName")}${bold} ` +
       movie.filmName +
       `\n\n⭐ ${bold}${t("stars")}${bold} ` +
-      movie.actors?.trim().replace(/!/g, "•") +
+      movie.actors?.join(" • ") +
       `\n\n🎭 ${bold}${t("category")}${bold} ` +
       translatedGenres?.join(", ") +
       `\n\n🎬 ${bold}${t("director")}${bold} ` +
-      movie.directed?.trim().replace(/!/g, "•") +
+      movie.directed?.join(" • ") +
       `\n\n🥇 ${bold}${t("imdbScore")}${bold} ` +
       movie.imdbpuan +
       `\n\n ${bold}${t("Share.ctaText")}${bold} ⬇️` +

@@ -56,14 +56,16 @@ const movieSchema = defineField({
     defineField({
       name: "directed",
       title: "Director",
-      type: "string",
-      validation: (rule) => rule.required(),
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
+      validation: (rule) => rule.required().min(1),
     }),
     defineField({
       name: "actors",
       title: "Actors",
-      type: "string",
-      validation: (rule) => rule.required(),
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
+      validation: (rule) => rule.required().min(1),
     }),
     defineField({
       name: "genre",

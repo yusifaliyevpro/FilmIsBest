@@ -29,15 +29,15 @@ export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQue
         </li>
         <li className="mt-4 line-clamp-1 w-fit font-bold text-slate-400">
           {t("stars")}{" "}
-          <span className="text-white" title={movie.actors?.trim().replace(/!/g, "•")}>
-            {movie.actors?.trim().replace(/!/g, "•")}
+          <span className="text-white" title={movie.actors?.join(" • ")}>
+            {movie.actors?.join(" • ")}
           </span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("category")} <span className="text-white">{translatedGenres?.join(" • ")}</span>
         </li>
         <li className="mt-4 w-fit font-bold text-slate-400">
-          {t("director")} <span className="text-white">{movie.directed?.trim()}</span>
+          {t("director")} <span className="text-white">{movie.directed?.join(" • ")}</span>
         </li>
         <div className="relative mt-4 flex w-fit flex-row items-center gap-4">
           <Image alt="Imdb Logo" className="select-none" height={40} src="/imdb.svg" width={40} />
