@@ -1,6 +1,7 @@
 {
   "name": "filmisbest",
   "version": "1.5.0",
+  "packageManager": "pnpm@11.9.0",
   "private": true,
   "scripts": {
     "bootstrap": "pnpm install && pnpm run install:skills && pnpm run install:heroui_docs",
