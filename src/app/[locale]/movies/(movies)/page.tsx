@@ -1,16 +1,13 @@
-import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Pagination } from "@heroui/pagination";
-import { Skeleton } from "@heroui/skeleton";
 import { Suspense } from "react";
 import { getMovies } from "@/data/sanity/movies/get";
-import { MovieCardSkeleton } from "@/components/movie-card";
 import Movies from "@/components/movies";
-import PaginationUI from "@/components/pagination";
-import Search from "@/components/search";
 import { BASE_URL } from "@/lib/constants";
 import { locales } from "@/i18n/routing";
+import { Pagination } from "@heroui/pagination";
+import PaginationUI from "@/components/pagination";
+import Search from "@/components/search";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Movies");
@@ -42,33 +39,26 @@ export function generateStaticParams() {
 export default async function MoviesPage() {
   const movies = await getMovies();
   return (
-    <section className="justify-content-center relative mx-auto mt-6 mb-20 flex flex-col items-center justify-center">
+    <main className="justify-content-center relative mx-auto mt-6 mb-20 flex flex-col items-center justify-center">
       <div className="relative flex w-full flex-col items-center justify-center">
-        <Suspense fallback={<Skeleton className="mx-auto mt-6 mb-4 h-11.5 w-full rounded-3xl sm:w-125" />}>
-          <Search />
-        </Suspense>
-
+        <Search />
         <Suspense
           fallback={
-            <Skeleton className="mt-5 rounded-lg px-1">
-              <Pagination page={1} total={15} />
-            </Skeleton>
+            <div className="mt-5 rounded-lg px-1">
+              <Pagination page={1} total={15} classNames={{ item: "bg-gray-900" }} />
+            </div>
           }
         >
           <PaginationUI count={movies.length} />
         </Suspense>
       </div>
-      <motion.div initial={{ y: 600 }} animate={{ y: 0 }} transition={{ duration: 1.2, type: "spring", stiffness: 55 }}>
+      <div className="spring-up ease-spring-55 duration-[1.45s]">
         <div className="justify-content-center mx-2.5 flex min-h-[60vh] flex-wrap items-center justify-center gap-x-10">
-          <Suspense
-            fallback={Array.from({ length: 20 }).map((_, index) => (
-              <MovieCardSkeleton key={index} />
-            ))}
-          >
+          <Suspense>
             <Movies movies={movies} />
           </Suspense>
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </main>
   );
 }

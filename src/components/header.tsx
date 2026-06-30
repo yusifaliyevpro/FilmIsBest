@@ -1,53 +1,41 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Suspense } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { cn } from "@/lib/cn";
 import { Link } from "@/i18n/navigation";
 import { NavBarItem, NavItem } from "./nav-item";
 
 export function Header() {
   return (
-    <Navbar
-      className="min-h-10 bg-gray-800/90 font-bold text-white backdrop-blur-md select-none dark:text-white light:text-white"
-      classNames={{
-        item: cn(
-          "relative flex h-full items-center",
-          "data-[active=true]:after:content-['']",
-          "data-[active=true]:after:absolute",
-          "data-[active=true]:after:bottom-0",
-          "data-[active=true]:after:left-0",
-          "data-[active=true]:after:right-0",
-          "data-[active=true]:after:h-0.5",
-          "data-[active=true]:after:rounded-xs",
-          "data-[active=true]:after:bg-primary",
-          "data-[active=true]:after:mb-3",
-        ),
-      }}
-    >
-      <NavbarContent key="brand" justify="start">
-        <NavbarBrand as={"li"}>
+    <header className="sticky inset-x-0 top-0 z-40 flex w-full items-center justify-center bg-gray-800/90 font-bold text-white backdrop-blur-md select-none">
+      <nav className="relative flex h-16 w-full max-w-5xl flex-row flex-nowrap items-center justify-between gap-4 px-6">
+        {/* Brand (left) — grow/basis-0 mirrors the right side so the nav stays centered */}
+        <div className="flex grow basis-0 items-center justify-start">
           <Link className="relative left-0 flex flex-row items-center gap-1.5 text-xl font-bold" href={`/`}>
             <BiSolidMovie className="text-3xl font-normal text-blue-600" />
             <p className="font-bold text-inherit">FilmIsBest</p>
           </Link>
-        </NavbarBrand>
-      </NavbarContent>
-      <NavbarContent key="navigation" className="hidden gap-12 sm:flex" justify="center">
-        <Suspense>
-          {navigationItems.map((item) => (
-            <NavItem key={item.href} item={item} />
-          ))}
-        </Suspense>
-      </NavbarContent>
-      <NavbarContent key="actions" justify="end">
-        <NavbarItem>
+        </div>
+
+        {/* Navigation (center) — hidden on mobile; the mobile-navbar handles those */}
+        <ul className="hidden h-full flex-row flex-nowrap items-center justify-center gap-12 sm:flex">
           <Suspense>
-            <LanguageSwitcher />
+            {navigationItems.map((item) => (
+              <NavItem key={item.href} item={item} />
+            ))}
           </Suspense>
-        </NavbarItem>
-      </NavbarContent>
-    </Navbar>
+        </ul>
+
+        {/* Actions (right) — inner wrapper keeps the w-full Select sized to its
+            content instead of stretching across the grown half */}
+        <div className="flex grow basis-0 items-center justify-end">
+          <div className="flex items-center">
+            <Suspense>
+              <LanguageSwitcher />
+            </Suspense>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
 }
 

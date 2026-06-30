@@ -5,10 +5,9 @@ import { Pagination } from "@heroui/pagination";
 import { searchParams } from "@/lib/searchParams";
 
 export default function PaginationUI({ count }: { count: number }) {
-  const [searchQuery] = useQueryState("q", searchParams.q);
   const [pageQuery, setPage] = useQueryState("p", searchParams.p);
 
-  const total = Math.ceil((searchQuery ? 20 : count) / 20);
+  const total = Math.ceil(count / 20);
 
   return (
     <div className="mt-5">

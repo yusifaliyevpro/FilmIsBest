@@ -1,4 +1,3 @@
-import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { Button } from "@heroui/button";
 import { cacheLife } from "next/cache";
@@ -91,20 +90,16 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
         <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-xl bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-209">
           {movie.filmName}
         </h1>
-        <motion.div
-          animate={{ y: 0 }}
-          initial={{ y: 600 }}
-          transition={{ type: "spring", duration: 0.3, stiffness: 50 }}
-        >
+        <div className="spring-up ease-spring-50 duration-[1.45s]">
           <MovieBar movie={movie}>
             <Share locale={locale} movie={movie} />
           </MovieBar>
-        </motion.div>
+        </div>
       </div>
-      <motion.div animate={{ y: 0 }} initial={{ y: 600 }} transition={{ type: "spring", duration: 0.3, stiffness: 50 }}>
+      <div className="spring-up ease-spring-50 duration-[1.45s]">
         <Sequel currentSlug={movie.slug} sequel={sequel} />
         <MovieInfo movie={movie} />
-      </motion.div>
+      </div>
     </>
   );
 }

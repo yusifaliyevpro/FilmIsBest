@@ -1,6 +1,5 @@
-import { parseAsInteger, parseAsString } from "nuqs";
+import { parseAsInteger } from "nuqs";
 
 export const searchParams = {
-  q: parseAsString.withDefault(""),
   p: parseAsInteger.withDefault(1),
 };

@@ -17,6 +17,7 @@ env:
   BETTER_AUTH_URL: "http://localhost:3000"
   GITHUB_CLIENT_ID: "nice_try"
   GITHUB_CLIENT_SECRET: "nice_try"
+  TMDB_API_KEY: "nice_try"
 
 jobs:
   quality:
