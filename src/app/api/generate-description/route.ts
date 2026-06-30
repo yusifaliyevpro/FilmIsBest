@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   }
 
   const result = streamText({
-    model: openrouter.completion("deepseek/deepseek-chat-v3.1"),
+    model: openrouter.chat("deepseek/deepseek-chat-v3.1"),
     onError: ({ error }) => {
       console.error("[generate-description] streamText error:", error);
     },
