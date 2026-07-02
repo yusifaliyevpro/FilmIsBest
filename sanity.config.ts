@@ -10,8 +10,11 @@ import { schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { MyLogo } from "@/components/logo";
 
 export default defineConfig({
+  title: "FilmIsBest",
+  icon: MyLogo,
   basePath: "/studio",
   projectId,
   dataset,

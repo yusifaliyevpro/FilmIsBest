@@ -1,9 +1,11 @@
 import { defineArrayMember, defineField } from "sanity";
+import { TbStack2Filled } from "react-icons/tb";
 
-const sequelSchema = {
+const sequelSchema = defineField({
   name: "sequel",
   title: "Sequels",
   type: "document",
+  icon: TbStack2Filled,
   fields: [
     defineField({
       name: "name",
@@ -13,7 +15,6 @@ const sequelSchema = {
     }),
     defineField({
       name: "movies",
-
       title: "Movies",
       type: "array",
       validation: (rule) => rule.required(),
@@ -26,6 +27,6 @@ const sequelSchema = {
       ],
     }),
   ],
-};
+});
 
 export default sequelSchema;
