@@ -2,6 +2,7 @@
 
 import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
 import { cacheLife } from "next/cache";
+import { decodeOMDbStrings } from "./decode";
 
 export async function getOMDBDataById(imdbID: string, token: string) {
   "use cache";
@@ -13,7 +14,7 @@ export async function getOMDBDataById(imdbID: string, token: string) {
   const OMDB_API_KEY = process.env.OMDB_API_KEY;
   const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);
   const data: OMDbMovieData = await response.json();
-  return data;
+  return decodeOMDbStrings(data);
 }
 
 export type OMDbSearchItem = {

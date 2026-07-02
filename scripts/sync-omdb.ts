@@ -17,10 +17,15 @@
  * Movies with no differences are skipped silently. Poster, trailer,
  * description and slug are never touched.
  *
+ * Movies are walked oldest → newest (_createdAt). Pass a 1-based start position
+ * to resume partway through, e.g. start from the 100th movie:
+ *
  * Run: npx sanity exec scripts/sync-omdb.ts --with-user-token
+ *      npx sanity exec scripts/sync-omdb.ts --with-user-token 100
  */
 import { getCliClient } from "sanity/cli";
 import { GENRE_LIST } from "../src/lib/genres";
+import { decodeOMDbStrings } from "../src/data/omdb/decode";
 
 const client = getCliClient();
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
@@ -126,7 +131,7 @@ async function fetchOMDB(imdbID: string): Promise<OMDbMovieData | null> {
   const res = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);
   if (!res.ok) return null;
   const data = (await res.json()) as OMDbMovieData;
-  return data.Response === "False" ? null : data;
+  return data.Response === "False" ? null : decodeOMDbStrings(data);
 }
 
 /** True when the current Sanity value already matches the proposed OMDb value. */
@@ -206,15 +211,23 @@ async function run() {
     process.exit(1);
   }
 
-  // Published docs only — these are the ones live on the site.
+  // Optional 1-based start position, e.g. `... sync-omdb.ts --with-user-token 100`
+  // resumes from the 100th movie. Anything before it is skipped entirely.
+  const startArg = process.argv.find((a) => /^\d+$/.test(a));
+  const startFrom = startArg ? Math.max(1, parseInt(startArg, 10)) : 1;
+
+  // Oldest → newest so the walk order is stable across runs.
   const movies = await client.fetch<MovieDoc[]>(
     `*[_type == "Movie-studio" && !(_id in path("drafts.**")) && defined(imdbID)]
-      | order(filmName asc){
+      | order(_createdAt asc){
         _id, imdbID, filmName, imdbpuan, releaseDate, movieTime, country, genre, actors, directed
       }`,
   );
 
-  console.log(`Fetched ${movies.length} movies. ${dim("Enter = update · Ctrl+Enter = skip · q = quit")}\n`);
+  const from = startFrom > 1 ? ` (starting at #${startFrom})` : "";
+  console.log(
+    `Fetched ${movies.length} movies${from}. ${dim("Enter = update · Ctrl+Enter = skip · q = quit")}\n`,
+  );
 
   let updated = 0;
   let skipped = 0;
@@ -222,6 +235,7 @@ async function run() {
   let failed = 0;
 
   for (const [i, movie] of movies.entries()) {
+    if (i < startFrom - 1) continue; // resume point
     const counter = dim(`[${i + 1}/${movies.length}]`);
     let omdb: OMDbMovieData | null;
     try {
