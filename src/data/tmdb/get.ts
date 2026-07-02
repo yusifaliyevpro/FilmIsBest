@@ -1,8 +1,8 @@
 "use server";
 
-import { createClient } from "next-sanity";
-import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
 import { apiVersion, dataset, projectId } from "@/sanity/env";
+import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
+import { createClient } from "next-sanity";
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_API_BASE = "https://api.themoviedb.org/3";
@@ -30,10 +30,9 @@ type TmdbVideo = {
 
 /** Resolves a TMDB movie from an IMDb ID via the /find endpoint. */
 async function findTmdbMovie(imdbID: string): Promise<TmdbMovie | null> {
-  const res = await fetch(
-    `${TMDB_API_BASE}/find/${imdbID}?external_source=imdb_id&api_key=${TMDB_API_KEY}`,
-    { cache: "no-store" },
-  );
+  const res = await fetch(`${TMDB_API_BASE}/find/${imdbID}?external_source=imdb_id&api_key=${TMDB_API_KEY}`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
     console.error("[tmdb] find failed:", res.status, await res.text());
     return null;
@@ -46,10 +45,7 @@ async function findTmdbMovie(imdbID: string): Promise<TmdbMovie | null> {
  * Finds the official YouTube trailer ID for a film. Prefers a video flagged as
  * an official "Trailer", then any trailer, then a teaser, then anything.
  */
-export async function getMovieTrailerId(
-  imdbID: string,
-  token: string,
-): Promise<TmdbResult<string>> {
+export async function getMovieTrailerId(imdbID: string, token: string): Promise<TmdbResult<string>> {
   if (!TMDB_API_KEY) {
     console.error("[tmdb] TMDB_API_KEY is not set");
     return { status: "error", message: "TMDB_API_KEY is not configured on the server." };

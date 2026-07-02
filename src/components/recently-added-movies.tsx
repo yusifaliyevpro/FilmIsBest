@@ -3,9 +3,9 @@
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Suspense } from "react";
 import { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 import MovieCard from "@/components/movie-card";
-import { Suspense } from "react";
 
 export default function RecentlyAddedMovies({ movies }: { movies: RecentlyAddedMoviesQueryResult }) {
   return (

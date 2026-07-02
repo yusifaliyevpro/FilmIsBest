@@ -9,7 +9,7 @@
     "build": "prisma generate && next build",
     "prisma:generate": "prisma generate",
     "prisma:dbpush": "prisma db push",
-    "checks": "node scripts/pr-checks.ts",
+    "check": "node scripts/pr-checks.ts",
     "devbuild": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -17,9 +17,10 @@
     "install:skills": "pnpx skills@latest experimental_install",
     "install:heroui_docs": "pnpx heroui-cli@latest agents-md --react --output AGENTS.md",
     "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json",
-    "doctor": "npx react-doctor@latest",
-    "remove-assets": "npx sanity exec scripts/remove-unused-assets.ts --with-user-token",
-    "remove-assets:preview": "npx sanity exec scripts/preview-unused-assets.ts --with-user-token"
+    "doctor": "pnpx react-doctor@latest --verbose",
+    "sync:omdb": "pnpx sanity exec scripts/sync-omdb.ts --with-user-token",
+    "remove-assets": "pnpx sanity exec scripts/remove-unused-assets.ts --with-user-token",
+    "remove-assets:preview": "pnpx sanity exec scripts/preview-unused-assets.ts --with-user-token"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -33,10 +34,8 @@
     "@heroui/dropdown": "2.3.32",
     "@heroui/input": "2.4.33",
     "@heroui/modal": "2.2.29",
-    "@heroui/navbar": "2.2.30",
     "@heroui/pagination": "2.2.27",
     "@heroui/select": "2.4.33",
-    "@heroui/skeleton": "2.2.18",
     "@heroui/snippet": "2.2.33",
     "@heroui/system": "2.4.28",
     "@heroui/theme": "2.4.26",

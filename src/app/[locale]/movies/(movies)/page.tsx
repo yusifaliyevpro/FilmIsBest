@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Pagination } from "@heroui/pagination";
 import { Suspense } from "react";
 import { getMovies } from "@/data/sanity/movies/get";
 import Movies from "@/components/movies";
-import { BASE_URL } from "@/lib/constants";
-import { locales } from "@/i18n/routing";
-import { Pagination } from "@heroui/pagination";
 import PaginationUI from "@/components/pagination";
 import Search from "@/components/search";
+import { BASE_URL } from "@/lib/constants";
+import { locales } from "@/i18n/routing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Movies");
@@ -52,7 +52,7 @@ export default async function MoviesPage() {
           <PaginationUI count={movies.length} />
         </Suspense>
       </div>
-      <div className="spring-up ease-spring-55 duration-[1.45s]">
+      <div className="duration-[1.45s] ease-spring-55 spring-up">
         <div className="justify-content-center mx-2.5 flex min-h-[60vh] flex-wrap items-center justify-center gap-x-10">
           <Suspense>
             <Movies movies={movies} />

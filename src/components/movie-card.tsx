@@ -1,6 +1,6 @@
 import SanityImage from "@/components/sanity-image";
-import { Link } from "@/i18n/navigation";
 import { MoviesQueryResult } from "@/sanity/types";
+import { Link } from "@/i18n/navigation";
 
 type Movie = Pick<
   MoviesQueryResult[number],

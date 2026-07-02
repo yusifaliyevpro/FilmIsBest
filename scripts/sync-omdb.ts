@@ -24,8 +24,8 @@
  *      npx sanity exec scripts/sync-omdb.ts --with-user-token 100
  */
 import { getCliClient } from "sanity/cli";
-import { GENRE_LIST } from "../src/lib/genres";
 import { decodeOMDbStrings } from "../src/data/omdb/decode";
+import { GENRE_LIST } from "../src/lib/genres";
 
 const client = getCliClient();
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
@@ -184,8 +184,10 @@ function waitForAction(): Promise<"update" | "skip" | "quit"> {
         process.stdin.pause();
         console.log("\nAborted.");
         process.exit(0);
-      } else if (code === 13) action = "update"; // Enter (CR)
-      else if (code === 10) action = "skip"; // Ctrl+Enter (LF)
+      } else if (code === 13)
+        action = "update"; // Enter (CR)
+      else if (code === 10)
+        action = "skip"; // Ctrl+Enter (LF)
       else if (key.toLowerCase() === "s") action = "skip";
       else if (key.toLowerCase() === "q") action = "quit";
 
@@ -225,9 +227,7 @@ async function run() {
   );
 
   const from = startFrom > 1 ? ` (starting at #${startFrom})` : "";
-  console.log(
-    `Fetched ${movies.length} movies${from}. ${dim("Enter = update · Ctrl+Enter = skip · q = quit")}\n`,
-  );
+  console.log(`Fetched ${movies.length} movies${from}. ${dim("Enter = update · Ctrl+Enter = skip · q = quit")}\n`);
 
   let updated = 0;
   let skipped = 0;
@@ -241,7 +241,9 @@ async function run() {
     try {
       omdb = await fetchOMDB(movie.imdbID);
     } catch (err) {
-      console.log(`${counter} ${movie.filmName ?? movie.imdbID} — ${red("OMDb fetch failed")}: ${err instanceof Error ? err.message : err}`);
+      console.log(
+        `${counter} ${movie.filmName ?? movie.imdbID} — ${red("OMDb fetch failed")}: ${err instanceof Error ? err.message : err}`,
+      );
       failed++;
       continue;
     }

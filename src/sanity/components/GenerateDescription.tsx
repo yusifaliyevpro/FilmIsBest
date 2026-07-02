@@ -1,11 +1,10 @@
 "use client";
 
 import { useCompletion } from "@ai-sdk/react";
-import { SparklesIcon } from "@sanity/icons";
+import { SparklesIcon } from "@sanity/icons/Sparkles";
 import { Button, Flex, Stack, TextArea, useToast } from "@sanity/ui";
 import { InputProps, set, unset, useClient, useFormValue } from "sanity";
 import { apiVersion } from "../env";
-import { useEffect } from "react";
 
 export function GenerateDescriptionComponent(props: InputProps) {
   const { value, onChange } = props;
@@ -45,12 +44,6 @@ export function GenerateDescriptionComponent(props: InputProps) {
       });
     },
   });
-
-  useEffect(() => {
-    if (!isLoading && completion) {
-      console.log("Generated description:", completion);
-    }
-  }, [completion, isLoading]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputVal = e.currentTarget.value;

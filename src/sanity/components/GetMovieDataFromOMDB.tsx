@@ -1,12 +1,13 @@
 "use client";
 
 import { startTransition, useRef, useState } from "react";
-import { SearchIcon } from "@sanity/icons";
+import { SearchIcon } from "@sanity/icons/Search";
 import { Box, Button, Card, Flex, Popover, Stack, Text, useClickOutsideEvent, useToast } from "@sanity/ui";
 import { InputProps, set, useClient, useFormValue } from "sanity";
-import { getOMDBDataById, OMDbSearchItem, searchOMDBByTitle } from "@/data/omdb/get";
+import { OMDbSearchItem, getOMDBDataById, searchOMDBByTitle } from "@/data/omdb/get";
 import { GENRE_LIST } from "@/lib/genres";
 import { apiVersion } from "../env";
+import Image from "next/image";
 
 const IMDB_ID_PATTERN = /^tt\d+$/i;
 
@@ -141,12 +142,12 @@ export function GetMovieDataFromOMDB(props: InputProps) {
                 >
                   <Flex align="center" gap={3}>
                     {item.Poster && item.Poster !== "N/A" ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Image
                         src={item.Poster}
-                        alt=""
+                        alt="Film poster"
                         width={40}
                         height={60}
+                        unoptimized
                         style={{ objectFit: "cover", borderRadius: 4, flexShrink: 0 }}
                       />
                     ) : (

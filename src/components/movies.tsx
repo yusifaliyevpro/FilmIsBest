@@ -1,7 +1,7 @@
 "use client";
 
 import { useQueryState } from "nuqs";
-import { useDeferredValue, ViewTransition } from "react";
+import { ViewTransition, useDeferredValue } from "react";
 import { MoviesQueryResult } from "@/sanity/types";
 import MovieCard from "@/components/movie-card";
 import { searchParams } from "@/lib/searchParams";

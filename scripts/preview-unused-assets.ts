@@ -10,9 +10,7 @@ const client = getCliClient();
 const ASSET_TYPES = `["sanity.imageAsset", "sanity.fileAsset"]`;
 
 async function run() {
-  const ids = await client.fetch<string[]>(
-    `*[_type in ${ASSET_TYPES} && count(*[references(^._id)]) == 0]._id`,
-  );
+  const ids = await client.fetch<string[]>(`*[_type in ${ASSET_TYPES} && count(*[references(^._id)]) == 0]._id`);
   const total = await client.fetch<number>(`count(*[_type in ${ASSET_TYPES}])`);
 
   // Break down what keeps the remaining assets alive.

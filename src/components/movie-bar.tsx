@@ -19,7 +19,10 @@ const PLAYERS = [
   { name: "Flare", url: "https://www.vidking.net/embed/movie/{id}?autoPlay=true&color=e50914" },
   { name: "Theta", url: "https://moviesapi.to/movie/{id}" },
   { name: "Nebula", url: "https://www.zxcstream.xyz/player/movie/{id}" },
-  { name: "Nova", url: "https://peachify.top/embed/movie/{id}?autoPlay=true&sub=English&cast=hide&pip=hide&accent=e50914" },
+  {
+    name: "Nova",
+    url: "https://peachify.top/embed/movie/{id}?autoPlay=true&sub=English&cast=hide&pip=hide&accent=e50914",
+  },
   { name: "Haze", url: "https://primesrc.me/embed/movie?tmdb={id}&fallback=true&serverOrder=PrimeVid" },
   { name: "Pulsar", url: "https://vidfast.pro/movie/{id}" },
   { name: "Quasar", url: "https://airflix1.com/embed/movie/{id}" },

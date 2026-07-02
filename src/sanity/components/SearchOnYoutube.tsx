@@ -1,11 +1,13 @@
 "use client";
 
 import { startTransition, useState } from "react";
-import { CheckmarkIcon, ConfettiIcon, SearchIcon } from "@sanity/icons";
-import { InputProps, set, unset, useClient, useFormValue } from "sanity";
+import { SearchIcon } from "@sanity/icons/Search";
 import { Box, Button, Flex, useToast } from "@sanity/ui";
+import { InputProps, set, unset, useClient, useFormValue } from "sanity";
 import { getMovieTrailerId } from "@/data/tmdb/get";
 import { apiVersion } from "../env";
+import { CheckmarkIcon } from "@sanity/icons/Checkmark";
+import { ConfettiIcon } from "@sanity/icons/Confetti";
 
 /** How long the success checkmark stays on the button after a fetch. */
 const SUCCESS_FEEDBACK_MS = 1500;

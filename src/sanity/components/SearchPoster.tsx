@@ -1,18 +1,13 @@
 "use client";
 
 import { startTransition, useState } from "react";
-import { CheckmarkIcon, DownloadIcon, SearchIcon } from "@sanity/icons";
+import { SearchIcon } from "@sanity/icons/Search";
 import { Box, Button, Flex, useToast } from "@sanity/ui";
-import {
-  ImageValue,
-  ObjectFieldProps,
-  set,
-  setIfMissing,
-  useClient,
-  useFormValue,
-} from "sanity";
+import { ImageValue, ObjectFieldProps, set, setIfMissing, useClient, useFormValue } from "sanity";
 import { uploadMoviePosters } from "@/data/tmdb/get";
 import { apiVersion } from "../env";
+import { CheckmarkIcon } from "@sanity/icons/Checkmark";
+import { DownloadIcon } from "@sanity/icons/Download";
 
 /** How long the success checkmark stays on the button after a fetch. */
 const SUCCESS_FEEDBACK_MS = 1500;
@@ -26,7 +21,9 @@ export function SearchPoster(props: ObjectFieldProps<ImageValue>) {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const link = `https://www.google.com/search?q=${encodeURIComponent(filmName ?? "").trim().replace(/\s+/g, "+")}+poster+imdb&udm=2`;
+  const link = `https://www.google.com/search?q=${encodeURIComponent(filmName ?? "")
+    .trim()
+    .replace(/\s+/g, "+")}+poster+imdb&udm=2`;
 
   const handleFetch = () => {
     if (!imdbID) {

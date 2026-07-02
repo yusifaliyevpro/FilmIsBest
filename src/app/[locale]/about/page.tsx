@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
+import Image from "next/image";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiPrisma, SiSanity, SiVercel } from "react-icons/si";

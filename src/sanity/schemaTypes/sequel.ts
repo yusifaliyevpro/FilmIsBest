@@ -1,5 +1,5 @@
-import { defineArrayMember, defineField } from "sanity";
 import { TbStack2Filled } from "react-icons/tb";
+import { defineArrayMember, defineField } from "sanity";
 
 const sequelSchema = defineField({
   name: "sequel",

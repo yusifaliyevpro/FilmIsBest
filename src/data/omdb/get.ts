@@ -1,7 +1,7 @@
 "use server";
 
-import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
 import { cacheLife } from "next/cache";
+import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
 import { decodeOMDbStrings } from "./decode";
 
 export async function getOMDBDataById(imdbID: string, token: string) {
@@ -30,11 +30,7 @@ export type OMDbSearchItem = {
  * title, year and imdbID) for the caller to pick from. Returns null when the
  * caller isn't a project member.
  */
-export async function searchOMDBByTitle(
-  query: string,
-  token: string,
-  limit = 5,
-): Promise<OMDbSearchItem[] | null> {
+export async function searchOMDBByTitle(query: string, token: string, limit = 5): Promise<OMDbSearchItem[] | null> {
   "use cache";
   cacheLife("hours");
 

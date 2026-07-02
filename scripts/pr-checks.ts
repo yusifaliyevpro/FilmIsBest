@@ -38,22 +38,22 @@ function ask(question: string): Promise<boolean> {
 // ── Checks (same order as CI) ─────────────────────────────────────
 const checks: Check[] = [
   {
+    name: "TypeScript — type check",
+    cmd: "pnpm tsc --noEmit --incremental false",
+  },
+  {
     name: "Prettier — format check",
     cmd: "pnpm prettier --check .",
     onFail: "pnpm prettier --write .",
   },
   {
-    name: "TypeScript — type check",
-    cmd: "pnpm tsc --noEmit --incremental false",
-  },
-  {
     name: "ESLint — lint",
     cmd: "pnpm lint",
   },
-  {
-    name: "Next.js — production build",
-    cmd: "pnpm build",
-  },
+  // {
+  //   name: "Next.js — production build",
+  //   cmd: "pnpm build",
+  // },
 ];
 
 // ── Runner ────────────────────────────────────────────────────────

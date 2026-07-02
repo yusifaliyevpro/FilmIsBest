@@ -1,13 +1,13 @@
 import { createMcpHandler, withMcpAuth } from "mcp-handler";
 import { z } from "zod";
 import {
+  MOVIE_FIELD_NAMES,
+  MOVIE_GENRES,
+  MOVIE_SORTS,
   countMoviesForMCP,
   getMovieDetailForMCP,
   getRecentlyAddedForMCP,
   listMoviesForMCP,
-  MOVIE_FIELD_NAMES,
-  MOVIE_GENRES,
-  MOVIE_SORTS,
 } from "@/data/sanity/movies/mcp";
 
 const WATCHED_DISCLAIMER =

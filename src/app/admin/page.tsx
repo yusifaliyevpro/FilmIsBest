@@ -82,9 +82,7 @@ export async function AdminPageContent() {
                 <span
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold",
-                    suggestion.isAdded
-                      ? "bg-emerald-500/10 text-emerald-400"
-                      : "bg-amber-500/10 text-amber-400",
+                    suggestion.isAdded ? "bg-emerald-500/10 text-emerald-400" : "bg-amber-500/10 text-amber-400",
                   )}
                 >
                   <span
