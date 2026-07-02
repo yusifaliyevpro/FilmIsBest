@@ -5,6 +5,7 @@ import { SearchIcon } from "@sanity/icons";
 import { Box, Button, Card, Flex, Popover, Stack, Text, useClickOutsideEvent, useToast } from "@sanity/ui";
 import { InputProps, set, useClient, useFormValue } from "sanity";
 import { getOMDBDataById, OMDbSearchItem, searchOMDBByTitle } from "@/data/omdb/get";
+import { GENRE_LIST } from "@/lib/genres";
 import { apiVersion } from "../env";
 
 const IMDB_ID_PATTERN = /^tt\d+$/i;
@@ -38,7 +39,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
           toast.push({ title: "Movie is not found!", status: "error" });
         } else {
           const genreList = (OMDbMovie.Genre as string).split(", ").map((g) => g.trim());
-          const validGenres = genreList.filter((g) => availableGenres.includes(g));
+          const validGenres = genreList.filter((g) => (GENRE_LIST as readonly string[]).includes(g));
 
           const filmData = {
             filmName: OMDbMovie.Title.trim(),
@@ -189,24 +190,6 @@ export function GetMovieDataFromOMDB(props: InputProps) {
     </Flex>
   );
 }
-
-const availableGenres = [
-  "Action",
-  "Adventure",
-  "Drama",
-  "Thriller",
-  "Animation",
-  "Comedy",
-  "Family",
-  "Sci-Fi",
-  "Fantasy",
-  "Horror",
-  "Mystery",
-  "Documentary",
-  "War",
-  "Crime",
-  "Historical",
-];
 
 const triggerSlugGeneration = () => {
   const slugField = document.querySelector('[data-testid="field-slug"]');

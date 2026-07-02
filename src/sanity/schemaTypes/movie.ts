@@ -1,5 +1,6 @@
 import { BiSolidMovie } from "react-icons/bi";
 import { defineArrayMember, defineField } from "sanity";
+import { GENRE_LIST } from "@/lib/genres";
 import { GenerateDescriptionComponent } from "../components/GenerateDescription";
 import { GetMovieDataFromOMDB } from "../components/GetMovieDataFromOMDB";
 import { SearchOnYoutube } from "../components/SearchOnYoutube";
@@ -80,23 +81,7 @@ const movieSchema = defineField({
       validation: (rule) => rule.required(),
       of: [defineArrayMember({ type: "string" })],
       options: {
-        list: [
-          { title: "Aksiyon", value: "Action" },
-          { title: "Macəra", value: "Adventure" },
-          { title: "Dram", value: "Drama" },
-          { title: "Triller", value: "Thriller" },
-          { title: "Animasiya", value: "Animation" },
-          { title: "Komediya", value: "Comedy" },
-          { title: "Ailə", value: "Family" },
-          { title: "Sci-Fi", value: "Sci-Fi" },
-          { title: "Fantaziya", value: "Fantasy" },
-          { title: "Qorxu", value: "Horror" },
-          { title: "Sirli", value: "Mystery" },
-          { title: "Belgesel", value: "Documentary" },
-          { title: "Müharibə", value: "War" },
-          { title: "Cinayət", value: "Crime" },
-          { title: "Tarixi", value: "Historical" },
-        ],
+        list: [...GENRE_LIST],
         layout: "grid",
       },
     }),

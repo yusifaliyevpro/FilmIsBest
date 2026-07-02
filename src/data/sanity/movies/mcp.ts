@@ -1,6 +1,7 @@
 import "server-only";
 import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
+import { GENRE_LIST, Genre } from "@/lib/genres";
 import { getMovie } from "./get";
 
 /**
@@ -43,25 +44,9 @@ const MOVIE_FIELDS: Record<MovieField, string> = {
   poster: '"poster": poster.asset->url',
 };
 
-/** The fixed genre set (mirrors the Studio schema's genre list). */
-export const MOVIE_GENRES = [
-  "Action",
-  "Adventure",
-  "Drama",
-  "Thriller",
-  "Animation",
-  "Comedy",
-  "Family",
-  "Sci-Fi",
-  "Fantasy",
-  "Horror",
-  "Mystery",
-  "Documentary",
-  "War",
-  "Crime",
-  "Historical",
-] as const;
-type MovieGenre = (typeof MOVIE_GENRES)[number];
+/** The fixed genre set, shared with the Studio schema and OMDb autofill. */
+export const MOVIE_GENRES = GENRE_LIST;
+type MovieGenre = Genre;
 
 export const MOVIE_SORTS = ["recent", "rating", "year"] as const;
 type MovieSort = (typeof MOVIE_SORTS)[number];
