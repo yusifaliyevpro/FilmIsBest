@@ -101,6 +101,9 @@
       "min": "d",
       "year": "Yıl",
       "country": "Ülke",
+      "type": "Tür:",
+      "movie": "Film",
+      "series": "Dizi",
       "createdByChatGPT": "AI tarafından yazılmıştır"
     },
     "Genres": {

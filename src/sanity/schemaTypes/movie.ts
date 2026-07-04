@@ -37,6 +37,14 @@ const movieSchema = defineField({
       },
     }),
     defineField({
+      name: "series",
+      title: "Series?",
+      type: "boolean",
+      initialValue: false,
+      options: { layout: "switch" },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "movieTime",
       title: "Movie Time",
       type: "number",

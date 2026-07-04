@@ -1,4 +1,4 @@
-import "server-only";
+// import "server-only";
 import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
 import { GENRE_LIST, Genre } from "@/lib/genres";
@@ -11,6 +11,7 @@ import { getMovie } from "./get";
 export const MOVIE_FIELD_NAMES = [
   "filmName",
   "slug",
+  "series",
   "imdbID",
   "imdbpuan",
   "releaseDate",
@@ -42,6 +43,7 @@ const MOVIE_FIELDS: Record<MovieField, string> = {
   country: "country",
   description: "description",
   poster: '"poster": poster.asset->url',
+  series: "series",
 };
 
 /** The fixed genre set, shared with the Studio schema and OMDb autofill. */
@@ -72,7 +74,8 @@ const MOVIE_FILTER = `_type == 'Movie-studio'
       && ($minImdbRating == null || imdbpuan >= $minImdbRating)
       && ($fromYear == null || releaseDate >= $fromYear)
       && ($toYear == null || releaseDate <= $toYear)
-      && ($nameQuery == null || filmName match $nameQuery)`;
+      && ($nameQuery == null || filmName match $nameQuery)
+      && ($series == null || coalesce(series, false) == $series)`;
 
 export type MovieFilterParams = {
   genres?: MovieGenre[];
@@ -80,6 +83,7 @@ export type MovieFilterParams = {
   fromYear?: number;
   toYear?: number;
   nameQuery?: string;
+  series?: boolean;
 };
 
 /** Normalizes the filter inputs into the GROQ params MOVIE_FILTER expects. */
@@ -91,6 +95,8 @@ function buildFilterParams(params: MovieFilterParams) {
     fromYear: params.fromYear ?? null,
     toYear: params.toYear ?? null,
     nameQuery: params.nameQuery?.trim() ? `${params.nameQuery.trim()}*` : null,
+    // undefined means "either" — null disables the predicate for both movies and series.
+    series: params.series ?? null,
   };
 }
 

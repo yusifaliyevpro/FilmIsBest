@@ -1,4 +1,4 @@
-import "server-only";
+// import "server-only";
 import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
 import {
@@ -63,6 +63,7 @@ export async function getMovie(slug: string) {
   const MovieQuery = defineQuery(`
     *[_type == 'Movie-studio' && slug.current == $slug][0] {
       filmName,
+      series,
       "poster": poster.asset->url,
       "posterlqip": poster.asset->metadata.lqip,
       "slug": slug.current,

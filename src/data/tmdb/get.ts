@@ -18,7 +18,8 @@ export type TmdbResult<T> =
   | { status: "no-more" }
   | { status: "error"; message: string };
 
-type TmdbMovie = { id: number; poster_path: string | null };
+/** A resolved TMDB title. `mediaType` decides which endpoints apply below. */
+type TmdbTitle = { id: number; poster_path: string | null; mediaType: "movie" | "tv" };
 
 type TmdbVideo = {
   key: string;
@@ -28,8 +29,13 @@ type TmdbVideo = {
   name: string;
 };
 
-/** Resolves a TMDB movie from an IMDb ID via the /find endpoint. */
-async function findTmdbMovie(imdbID: string): Promise<TmdbMovie | null> {
+/**
+ * Resolves a TMDB title from an IMDb ID via the /find endpoint. The same IMDb ID
+ * can be a movie or a series, so we check both result buckets — movies live in
+ * `movie_results` and series in `tv_results` — and remember which one matched so
+ * the caller hits the right `/movie/…` or `/tv/…` endpoints.
+ */
+async function findTmdbTitle(imdbID: string): Promise<TmdbTitle | null> {
   const res = await fetch(`${TMDB_API_BASE}/find/${imdbID}?external_source=imdb_id&api_key=${TMDB_API_KEY}`, {
     cache: "no-store",
   });
@@ -37,8 +43,15 @@ async function findTmdbMovie(imdbID: string): Promise<TmdbMovie | null> {
     console.error("[tmdb] find failed:", res.status, await res.text());
     return null;
   }
-  const data = (await res.json()) as { movie_results?: TmdbMovie[] };
-  return data.movie_results?.[0] ?? null;
+  const data = (await res.json()) as {
+    movie_results?: Omit<TmdbTitle, "mediaType">[];
+    tv_results?: Omit<TmdbTitle, "mediaType">[];
+  };
+  const movie = data.movie_results?.[0];
+  if (movie) return { ...movie, mediaType: "movie" };
+  const tv = data.tv_results?.[0];
+  if (tv) return { ...tv, mediaType: "tv" };
+  return null;
 }
 
 /**
@@ -54,10 +67,10 @@ export async function getMovieTrailerId(imdbID: string, token: string): Promise<
   const isMember = await isSanityProjectMember(token);
   if (!isMember) return { status: "unauthorized" };
 
-  const movie = await findTmdbMovie(imdbID);
-  if (!movie) return { status: "not-found" };
+  const title = await findTmdbTitle(imdbID);
+  if (!title) return { status: "not-found" };
 
-  const res = await fetch(`${TMDB_API_BASE}/movie/${movie.id}/videos?api_key=${TMDB_API_KEY}`, {
+  const res = await fetch(`${TMDB_API_BASE}/${title.mediaType}/${title.id}/videos?api_key=${TMDB_API_KEY}`, {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -103,13 +116,13 @@ export async function uploadMoviePosters(
   const isMember = await isSanityProjectMember(token);
   if (!isMember) return { status: "unauthorized" };
 
-  const movie = await findTmdbMovie(imdbID);
-  if (!movie) return { status: "not-found" };
+  const title = await findTmdbTitle(imdbID);
+  if (!title) return { status: "not-found" };
 
   // Pull all poster variants; fall back to the single primary poster.
   let posterPaths: string[] = [];
   const imagesRes = await fetch(
-    `${TMDB_API_BASE}/movie/${movie.id}/images?api_key=${TMDB_API_KEY}&include_image_language=en,null`,
+    `${TMDB_API_BASE}/${title.mediaType}/${title.id}/images?api_key=${TMDB_API_KEY}&include_image_language=en,null`,
     { cache: "no-store" },
   );
   if (imagesRes.ok) {
@@ -118,7 +131,7 @@ export async function uploadMoviePosters(
   } else {
     console.error("[tmdb] images failed:", imagesRes.status);
   }
-  if (posterPaths.length === 0 && movie.poster_path) posterPaths = [movie.poster_path];
+  if (posterPaths.length === 0 && title.poster_path) posterPaths = [title.poster_path];
   if (posterPaths.length === 0) return { status: "not-found" };
 
   const writeClient = createClient({ projectId, dataset, apiVersion, token, useCdn: false });

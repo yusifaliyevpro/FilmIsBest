@@ -39,6 +39,10 @@ export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQue
         <li className="mt-4 w-fit font-bold text-slate-400">
           {t("director")} <span className="text-white">{movie.directed?.join(" • ")}</span>
         </li>
+        <li className="mt-4 w-fit font-bold text-slate-400">
+          {t("MovieInfo.type")}{" "}
+          <span className="text-white">{movie.series ? t("MovieInfo.series") : t("MovieInfo.movie")}</span>
+        </li>
         <div className="relative mt-4 flex w-fit flex-row items-center gap-4">
           <Image alt="Imdb Logo" className="select-none" height={40} src="/imdb.svg" width={40} />
           <span className="font-bold text-white">{parseFloat(String(movie.imdbpuan)).toFixed(1)}</span>

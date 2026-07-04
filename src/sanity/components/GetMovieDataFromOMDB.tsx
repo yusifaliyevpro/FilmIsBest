@@ -4,6 +4,7 @@ import { startTransition, useRef, useState } from "react";
 import { SearchIcon } from "@sanity/icons/Search";
 import { Box, Button, Card, Flex, Popover, Stack, Text, useClickOutsideEvent, useToast } from "@sanity/ui";
 import { InputProps, set, useClient, useFormValue } from "sanity";
+import { parseReleaseYear } from "@/data/omdb/decode";
 import { OMDbSearchItem, getOMDBDataById, searchOMDBByTitle } from "@/data/omdb/get";
 import { GENRE_LIST } from "@/lib/genres";
 import { apiVersion } from "../env";
@@ -44,11 +45,12 @@ export function GetMovieDataFromOMDB(props: InputProps) {
 
           const filmData = {
             filmName: OMDbMovie.Title.trim(),
+            series: OMDbMovie.Type === "series",
             imdbpuan: parseFloat(OMDbMovie.imdbRating),
             actors: OMDbMovie.Actors.split(", ").map((actor) => actor.trim()),
             country: OMDbMovie.Country.trim(),
             directed: OMDbMovie.Director.split(", ").map((director) => director.trim()),
-            releaseDate: Number(OMDbMovie.Year),
+            releaseDate: parseReleaseYear(OMDbMovie.Year),
             movieTime: extractMovieTime(OMDbMovie.Runtime),
             genre: validGenres,
           };

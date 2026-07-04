@@ -23,6 +23,19 @@ function decodeHtmlEntities(input: string): string {
   });
 }
 
+/**
+ * OMDb reports a film's `Year` as a plain year for movies (`"2024"`) but as a
+ * range for series (`"2024–"` while running, `"2019–2023"` once ended — note the
+ * en-dash). We only store the release (start) year, so pull the first 4-digit
+ * run out of the string. Returns `undefined` when there's no usable year.
+ */
+export function parseReleaseYear(year: string | undefined | null): number | undefined {
+  const match = year?.match(/\d{4}/);
+  if (!match) return undefined;
+  const parsed = Number(match[0]);
+  return Number.isInteger(parsed) ? parsed : undefined;
+}
+
 /** Returns a shallow copy of an OMDb record with all top-level strings decoded. */
 export function decodeOMDbStrings<T extends Record<string, unknown>>(data: T): T {
   const out: Record<string, unknown> = { ...data };

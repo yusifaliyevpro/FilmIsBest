@@ -38,6 +38,10 @@ const handler = createMcpHandler(
           `filters and request only the fields you need via 'fields'. ${WATCHED_DISCLAIMER}`,
         inputSchema: {
           fields: fieldsSchema.min(1).describe(`REQUIRED. Which fields to return per movie. ${FIELDS_DESCRIPTION}`),
+          series: z
+            .boolean()
+            .optional()
+            .describe("If true, only return series; if false, only return movies; omit for both."),
           genres: z
             .array(z.literal(MOVIE_GENRES))
             .optional()
@@ -154,6 +158,10 @@ const handler = createMcpHandler(
           `(omit all filters for the total catalogue size). Use this instead of ` +
           `list_movies when you just need a count. ${WATCHED_DISCLAIMER}`,
         inputSchema: {
+          series: z
+            .boolean()
+            .optional()
+            .describe("If true, only count series; if false, only count movies; omit for both."),
           genres: z
             .array(z.literal(MOVIE_GENRES))
             .optional()

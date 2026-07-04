@@ -101,6 +101,9 @@
       "min": "d",
       "year": "İl",
       "country": "Ölkə",
+      "type": "Növ:",
+      "movie": "Film",
+      "series": "Serial",
       "createdByChatGPT": "AI tərəfindən yazılmışdır"
     },
     "Genres": {

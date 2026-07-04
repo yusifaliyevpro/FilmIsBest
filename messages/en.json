@@ -101,6 +101,9 @@
       "min": "m",
       "year": "Year",
       "country": "Country",
+      "type": "Type:",
+      "movie": "Movie",
+      "series": "Series",
       "createdByChatGPT": "Written by AI"
     },
     "Genres": {

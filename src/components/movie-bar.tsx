@@ -10,31 +10,66 @@ import { BiSolidVideos } from "react-icons/bi";
 import { BsPlayFill } from "react-icons/bs";
 import { MovieQueryResult } from "@/sanity/types";
 
-// Embeddable players, best first. `{id}` is replaced with the movie's IMDb ID
-// (these endpoints accept IMDb IDs even where their docs show TMDB IDs).
+// Embeddable players, best first. `{id}` is replaced with the title's IMDb ID
+// (these endpoints accept IMDb IDs even where their docs show TMDB IDs). `movie`
+// and `tv` hold the per-type templates; series play the first episode (…/1/1),
+// and each player's own UI handles season/episode navigation from there.
 const PLAYERS = [
-  { name: "Umbra", url: "https://cinemaos.tech/player/{id}" },
-  { name: "Spark", url: "https://player.videasy.net/movie/{id}?color=e50914&overlay=true" },
-  { name: "Photon", url: "https://play.xpass.top/e/movie/{id}" },
-  { name: "Flare", url: "https://www.vidking.net/embed/movie/{id}?autoPlay=true&color=e50914" },
-  { name: "Theta", url: "https://moviesapi.to/movie/{id}" },
-  { name: "Nebula", url: "https://www.zxcstream.xyz/player/movie/{id}" },
+  { name: "Umbra", movie: "https://cinemaos.tech/player/{id}", tv: "https://cinemaos.tech/player/{id}/1/1" },
+  {
+    name: "Spark",
+    movie: "https://player.videasy.net/movie/{id}?color=e50914&overlay=true",
+    tv: "https://player.videasy.net/tv/{id}/1/1?color=e50914&overlay=true&nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true",
+  },
+  { name: "Photon", movie: "https://play.xpass.top/e/movie/{id}", tv: "https://play.xpass.top/e/tv/{id}/1/1" },
+  {
+    name: "Flare",
+    movie: "https://www.vidking.net/embed/movie/{id}?autoPlay=true&color=e50914",
+    tv: "https://www.vidking.net/embed/tv/{id}/1/1?autoPlay=true&color=e50914&nextEpisode=true&episodeSelector=true",
+  },
+  { name: "Theta", movie: "https://moviesapi.to/movie/{id}", tv: "https://moviesapi.to/tv/{id}/1/1" },
+  {
+    name: "Nebula",
+    movie: "https://www.zxcstream.xyz/player/movie/{id}",
+    tv: "https://www.zxcstream.xyz/player/tv/{id}/1/1",
+  },
   {
     name: "Nova",
-    url: "https://peachify.top/embed/movie/{id}?autoPlay=true&sub=English&cast=hide&pip=hide&accent=e50914",
+    movie: "https://peachify.top/embed/movie/{id}?autoPlay=true&sub=English&cast=hide&pip=hide&accent=e50914",
+    tv: "https://peachify.top/embed/tv/{id}/1/1?autoPlay=true&autoNext=30&showNextBtn=true&sub=English&cast=hide&pip=hide&accent=e50914",
   },
-  { name: "Haze", url: "https://primesrc.me/embed/movie?tmdb={id}&fallback=true&serverOrder=PrimeVid" },
-  { name: "Pulsar", url: "https://vidfast.pro/movie/{id}" },
-  { name: "Quasar", url: "https://airflix1.com/embed/movie/{id}" },
-  { name: "Prism", url: "https://vidrock.ru/movie/{id}" },
-  { name: "Talon", url: "https://vsembed.ru/embed/movie/{id}" },
-  { name: "Pulse", url: "https://vidcore.net/movie/{id}?autoPlay=true&theme=e50914&sub=en&chromecast=false" },
-  { name: "Ember", url: "https://vaplayer.ru/embed/movie/{id}" },
-  { name: "Blaze", url: "https://vidup.to/movie/{id}?autoPlay=true&theme=e50914&sub=en&chromecast=false" },
-  { name: "Drift", url: "https://vidsync.xyz/embed/movie/{id}?autoPlay=true&theme=e50914" },
-  { name: "Comet", url: "https://vidnest.fun/movie/{id}" },
-  { name: "Lumen", url: "https://cinesrc.st/embed/movie/{id}?color=%23e50914&autoskip=true&quality=1080" },
-  { name: "Mist", url: "https://vidzen.fun/movie/{id}" },
+  {
+    name: "Haze",
+    movie: "https://primesrc.me/embed/movie?tmdb={id}&fallback=true&serverOrder=PrimeVid",
+    tv: "https://primesrc.me/embed/tv?tmdb={id}&season=1&episode=1&fallback=true&serverOrder=PrimeVid",
+  },
+  { name: "Pulsar", movie: "https://vidfast.pro/movie/{id}", tv: "https://vidfast.pro/tv/{id}/1/1" },
+  { name: "Quasar", movie: "https://airflix1.com/embed/movie/{id}", tv: "https://airflix1.com/embed/tv/{id}/1/1" },
+  { name: "Prism", movie: "https://vidrock.ru/movie/{id}", tv: "https://vidrock.ru/tv/{id}/1/1" },
+  { name: "Talon", movie: "https://vsembed.ru/embed/movie/{id}", tv: "https://vsembed.ru/embed/tv/{id}/1/1" },
+  {
+    name: "Pulse",
+    movie: "https://vidcore.net/movie/{id}?autoPlay=true&theme=e50914&sub=en&chromecast=false",
+    tv: "https://vidcore.net/tv/{id}/1/1?autoPlay=true&theme=e50914&sub=en&chromecast=false",
+  },
+  { name: "Ember", movie: "https://vaplayer.ru/embed/movie/{id}", tv: "https://vaplayer.ru/embed/tv/{id}/1/1" },
+  {
+    name: "Blaze",
+    movie: "https://vidup.to/movie/{id}?autoPlay=true&theme=e50914&sub=en&chromecast=false",
+    tv: "https://vidup.to/tv/{id}/1/1?autoPlay=true&autoNext=true&nextButton=true&theme=e50914&sub=en&chromecast=false",
+  },
+  {
+    name: "Drift",
+    movie: "https://vidsync.xyz/embed/movie/{id}?autoPlay=true&theme=e50914",
+    tv: "https://vidsync.xyz/embed/tv/{id}/1/1?autoPlay=true&autoNext=true&nextButton=true&theme=e50914",
+  },
+  { name: "Comet", movie: "https://vidnest.fun/movie/{id}", tv: "https://vidnest.fun/tv/{id}/1/1" },
+  {
+    name: "Lumen",
+    movie: "https://cinesrc.st/embed/movie/{id}?color=%23e50914&autoskip=true&quality=1080",
+    tv: "https://cinesrc.st/embed/tv/{id}?s=1&e=1&color=%23e50914&autonext=true&autoskip=true&quality=1080",
+  },
+  { name: "Mist", movie: "https://vidzen.fun/movie/{id}", tv: "https://vidzen.fun/tv/{id}/1/1" },
 ] as const;
 
 export default function MovieBar({ movie, children }: { movie: MovieQueryResult; children?: ReactNode }) {
@@ -47,7 +82,8 @@ export default function MovieBar({ movie, children }: { movie: MovieQueryResult;
   if (!movie) return null;
 
   const activePlayer = PLAYERS.find((p) => p.name === activeName) ?? PLAYERS[0];
-  const activeLink = activePlayer.url.replace("{id}", movie.imdbID);
+  const template = movie.series ? activePlayer.tv : activePlayer.movie;
+  const activeLink = template.replace("{id}", movie.imdbID);
 
   // The iframe only mounts after a deliberate play click (a "facade"), so the
   // player can't auto-redirect to ads the moment the page loads.

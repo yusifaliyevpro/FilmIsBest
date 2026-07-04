@@ -24,7 +24,7 @@
  *      npx sanity exec scripts/sync-omdb.ts --with-user-token 100
  */
 import { getCliClient } from "sanity/cli";
-import { decodeOMDbStrings } from "../src/data/omdb/decode";
+import { decodeOMDbStrings, parseReleaseYear } from "../src/data/omdb/decode";
 import { GENRE_LIST } from "../src/lib/genres";
 
 const client = getCliClient();
@@ -110,8 +110,8 @@ function buildFields(omdb: OMDbMovieData): Record<string, unknown> {
   const country = omdb.Country?.trim();
   if (country && country !== "N/A") fields.country = country;
 
-  const year = Number(omdb.Year);
-  if (Number.isInteger(year) && year >= 1895 && year <= new Date().getFullYear()) {
+  const year = parseReleaseYear(omdb.Year);
+  if (year !== undefined && year >= 1895 && year <= new Date().getFullYear()) {
     fields.releaseDate = year;
   }
 
