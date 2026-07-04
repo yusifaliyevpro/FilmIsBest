@@ -34,7 +34,12 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 // When true, changes are committed automatically without the per-movie Enter
 // prompt (useful for bulk backfills, e.g. filling in the new tmdbId). Set to
 // false to review each movie's diff interactively before it's written.
-const FLAG_YES = true;
+const FLAG_YES = false;
+
+// When true, movies missing a tmdbId get one resolved from TMDB. Set to false
+// to skip TMDB entirely (one fewer network call per movie) once the ids are
+// backfilled and you're only re-syncing OMDb fields.
+const FLAG_TMDB_CHECK = false;
 
 // --- tiny ANSI helpers (no dependency) ---------------------------------------
 const red = (s: string) => `\x1b[31m${s}\x1b[0m`;
@@ -65,7 +70,7 @@ type MovieDoc = {
   genre?: string[];
   actors?: unknown;
   directed?: unknown;
-  tmdbId?: number;
+  tmdbId?: number | null;
 };
 
 const FIELD_ORDER = [
@@ -234,8 +239,11 @@ async function run() {
     console.error("This script is interactive — run it in a terminal (TTY).");
     process.exit(1);
   }
-  if (FLAG_YES && !TMDB_API_KEY) {
-    console.warn("TMDB_API_KEY is not set — tmdbId will be left unchanged.\n");
+  // Print key status up front so a missing TMDB key (which silently leaves
+  // tmdbId unfilled) is obvious rather than hidden as "no changes".
+  console.log(`Keys — OMDb: ${OMDB_API_KEY ? green("✓") : red("✗")}  TMDB: ${TMDB_API_KEY ? green("✓") : red("✗")}`);
+  if (FLAG_TMDB_CHECK && !TMDB_API_KEY) {
+    console.warn(red("TMDB_API_KEY is not set — tmdbId cannot be backfilled. Check your .env.\n"));
   }
 
   // Optional 1-based start position, e.g. `... sync-omdb.ts --with-user-token 100`
@@ -286,7 +294,8 @@ async function run() {
 
     // Backfill the TMDB id (best-effort; only propose it when we don't already
     // have one so an existing value is never wiped by a transient TMDB miss).
-    if (movie.tmdbId === undefined) {
+    // GROQ returns a missing field as null, so match both null and undefined.
+    if (FLAG_TMDB_CHECK && movie.tmdbId == null) {
       try {
         const tmdbId = await fetchTmdbId(movie.imdbID);
         if (tmdbId !== undefined) proposed.tmdbId = tmdbId;
@@ -298,8 +307,10 @@ async function run() {
     const diffs = computeDiffs(movie, proposed);
 
     if (diffs.length === 0) {
+      // Log the movie so the walk is visible even when there's nothing to change.
+      console.log(`${counter} ${movie.filmName ?? movie.imdbID} ${dim("— no changes")}`);
       unchanged++;
-      continue; // identical — skip silently
+      continue;
     }
 
     console.log(`${counter} ${bold(movie.filmName ?? movie.imdbID)} ${dim(movie.imdbID)}`);

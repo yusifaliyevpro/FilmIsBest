@@ -1,4 +1,3 @@
-// import "server-only";
 import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
 import { GENRE_LIST, Genre } from "@/lib/genres";

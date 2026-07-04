@@ -21,6 +21,12 @@ export function GetMovieDataFromOMDB(props: InputProps) {
   const client = useClient({ apiVersion: apiVersion });
   const toast = useToast();
   const documentId = useFormValue(["_id"]) as string;
+  // Current values of the dependent fields, so we only auto-generate the ones
+  // that aren't filled in yet (re-fetching mustn't clobber existing work).
+  const slug = useFormValue(["slug"]) as { current?: string } | undefined;
+  const description = useFormValue(["description"]) as string | undefined;
+  const poster = useFormValue(["poster"]) as { asset?: { _ref?: string } } | undefined;
+  const trailer = useFormValue(["FraqmanLink"]) as string | undefined;
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const popoverRef = useRef<HTMLDivElement | null>(null);
 
@@ -62,10 +68,13 @@ export function GetMovieDataFromOMDB(props: InputProps) {
           if (tmdbResult.status === "ok") filmData.tmdbId = tmdbResult.data;
 
           await client.patch(documentId).set(filmData).commit();
-          triggerSlugGeneration();
-          triggerDescriptionGeneration();
-          triggerPosterFetch();
-          triggerTrailerFetch();
+
+          // Only generate the dependent fields that are still empty. FraqmanLink
+          // defaults to the sentinel "Empty", which counts as unset.
+          if (!slug?.current) triggerSlugGeneration();
+          if (!description?.trim()) triggerDescriptionGeneration();
+          if (!poster?.asset?._ref) triggerPosterFetch();
+          if (!trailer || !trailer.trim() || trailer.trim() === "Empty") triggerTrailerFetch();
         }
       } catch (err) {
         console.error(err);

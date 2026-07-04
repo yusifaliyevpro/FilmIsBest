@@ -24,7 +24,6 @@ const movieSchema = defineField({
       name: "tmdbId",
       title: "TMDB ID",
       type: "number",
-      description: "Numeric TMDB id used to build the front-end player URLs. Filled automatically from the IMDb ID.",
       readOnly: true,
       validation: (rule) => rule.required(),
     }),
@@ -32,6 +31,7 @@ const movieSchema = defineField({
       name: "filmName",
       title: "Movie Name",
       type: "string",
+      readOnly: true,
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -49,6 +49,7 @@ const movieSchema = defineField({
       title: "Series?",
       type: "boolean",
       initialValue: false,
+      readOnly: true,
       options: { layout: "switch" },
       validation: (rule) => rule.required(),
     }),
@@ -56,24 +57,28 @@ const movieSchema = defineField({
       name: "movieTime",
       title: "Movie Time",
       type: "number",
+      readOnly: true,
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "imdbpuan",
       title: "IMDb Rate",
       type: "number",
+      readOnly: true,
       validation: (rule) => rule.min(0).max(10).precision(1).required(),
     }),
     defineField({
       name: "releaseDate",
       title: "Release Date",
       type: "number",
+      readOnly: true,
       validation: (rule) => rule.min(1895).max(new Date().getFullYear()).required(),
     }),
     defineField({
       name: "directed",
       title: "Director",
       type: "array",
+      readOnly: true,
       of: [defineArrayMember({ type: "string" })],
       validation: (rule) => rule.required().min(1),
       options: {
@@ -84,6 +89,7 @@ const movieSchema = defineField({
       name: "actors",
       title: "Actors",
       type: "array",
+      readOnly: true,
       of: [defineArrayMember({ type: "string" })],
       validation: (rule) => rule.required().min(1),
       options: {
@@ -105,6 +111,7 @@ const movieSchema = defineField({
       name: "country",
       title: "Country",
       type: "string",
+      readOnly: true,
       validation: (rule) => rule.required(),
     }),
     defineField({

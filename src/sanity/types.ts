@@ -53,7 +53,7 @@ export type MovieStudio = {
   _updatedAt: string;
   _rev: string;
   imdbID: string;
-  tmdbId?: number;
+  tmdbId: number;
   filmName: string;
   slug: Slug;
   series: boolean;
@@ -244,7 +244,7 @@ export type MoviesQueryResult = Array<{
 export type MovieQueryResult = {
   filmName: string;
   series: boolean;
-  tmdbId: number | null;
+  tmdbId: number;
   poster: string;
   posterlqip: string | null;
   slug: string;
