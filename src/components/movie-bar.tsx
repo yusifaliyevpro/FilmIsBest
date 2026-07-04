@@ -15,7 +15,6 @@ import { MovieQueryResult } from "@/sanity/types";
 // series play the first episode (…/1/1), and each player's own UI handles
 // season/episode navigation from there.
 const PLAYERS = [
-  { name: "Umbra", movie: "https://cinemaos.tech/player/{id}", tv: "https://cinemaos.tech/player/{id}/1/1" },
   {
     name: "Spark",
     movie: "https://player.videasy.net/movie/{id}?color=e50914&overlay=true",
@@ -70,6 +69,7 @@ const PLAYERS = [
     tv: "https://cinesrc.st/embed/tv/{id}?s=1&e=1&color=%23e50914&autonext=true&autoskip=true&quality=1080",
   },
   { name: "Mist", movie: "https://vidzen.fun/movie/{id}", tv: "https://vidzen.fun/tv/{id}/1/1" },
+  { name: "Umbra", movie: "https://cinemaos.tech/player/{id}", tv: "https://cinemaos.tech/player/{id}/1/1" },
 ] as const;
 
 export default function MovieBar({ movie, children }: { movie: MovieQueryResult; children?: ReactNode }) {
