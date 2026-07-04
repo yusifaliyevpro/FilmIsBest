@@ -29,6 +29,12 @@ import { GENRE_LIST } from "../src/lib/genres";
 
 const client = getCliClient();
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+
+// When true, changes are committed automatically without the per-movie Enter
+// prompt (useful for bulk backfills, e.g. filling in the new tmdbId). Set to
+// false to review each movie's diff interactively before it's written.
+const FLAG_YES = true;
 
 // --- tiny ANSI helpers (no dependency) ---------------------------------------
 const red = (s: string) => `\x1b[31m${s}\x1b[0m`;
@@ -59,6 +65,7 @@ type MovieDoc = {
   genre?: string[];
   actors?: unknown;
   directed?: unknown;
+  tmdbId?: number;
 };
 
 const FIELD_ORDER = [
@@ -70,6 +77,7 @@ const FIELD_ORDER = [
   "genre",
   "actors",
   "directed",
+  "tmdbId",
 ] as const;
 
 /** Extracts the minutes count from an OMDb runtime string like "142 min". */
@@ -132,6 +140,20 @@ async function fetchOMDB(imdbID: string): Promise<OMDbMovieData | null> {
   if (!res.ok) return null;
   const data = (await res.json()) as OMDbMovieData;
   return data.Response === "False" ? null : decodeOMDbStrings(data);
+}
+
+/**
+ * Resolves the numeric TMDB id for an IMDb ID via the /find endpoint, checking
+ * both movies and series. Returns undefined when TMDB has no match.
+ */
+async function fetchTmdbId(imdbID: string): Promise<number | undefined> {
+  if (!TMDB_API_KEY) return undefined;
+  const res = await fetch(
+    `https://api.themoviedb.org/3/find/${imdbID}?external_source=imdb_id&api_key=${TMDB_API_KEY}`,
+  );
+  if (!res.ok) return undefined;
+  const data = (await res.json()) as { movie_results?: { id: number }[]; tv_results?: { id: number }[] };
+  return data.movie_results?.[0]?.id ?? data.tv_results?.[0]?.id;
 }
 
 /** True when the current Sanity value already matches the proposed OMDb value. */
@@ -208,9 +230,12 @@ async function run() {
     console.error("OMDB_API_KEY is not set. Add it to your .env file.");
     process.exit(1);
   }
-  if (!process.stdin.isTTY) {
+  if (!FLAG_YES && !process.stdin.isTTY) {
     console.error("This script is interactive — run it in a terminal (TTY).");
     process.exit(1);
+  }
+  if (FLAG_YES && !TMDB_API_KEY) {
+    console.warn("TMDB_API_KEY is not set — tmdbId will be left unchanged.\n");
   }
 
   // Optional 1-based start position, e.g. `... sync-omdb.ts --with-user-token 100`
@@ -222,12 +247,15 @@ async function run() {
   const movies = await client.fetch<MovieDoc[]>(
     `*[_type == "Movie-studio" && !(_id in path("drafts.**")) && defined(imdbID)]
       | order(_createdAt asc){
-        _id, imdbID, filmName, imdbpuan, releaseDate, movieTime, country, genre, actors, directed
+        _id, imdbID, filmName, imdbpuan, releaseDate, movieTime, country, genre, actors, directed, tmdbId
       }`,
   );
 
   const from = startFrom > 1 ? ` (starting at #${startFrom})` : "";
-  console.log(`Fetched ${movies.length} movies${from}. ${dim("Enter = update · Ctrl+Enter = skip · q = quit")}\n`);
+  const hint = FLAG_YES
+    ? dim("auto-committing changes (FLAG_YES)")
+    : dim("Enter = update · Ctrl+Enter = skip · q = quit");
+  console.log(`Fetched ${movies.length} movies${from}. ${hint}\n`);
 
   let updated = 0;
   let skipped = 0;
@@ -255,6 +283,18 @@ async function run() {
     }
 
     const proposed = buildFields(omdb);
+
+    // Backfill the TMDB id (best-effort; only propose it when we don't already
+    // have one so an existing value is never wiped by a transient TMDB miss).
+    if (movie.tmdbId === undefined) {
+      try {
+        const tmdbId = await fetchTmdbId(movie.imdbID);
+        if (tmdbId !== undefined) proposed.tmdbId = tmdbId;
+      } catch {
+        // ignore — TMDB is optional, OMDb fields still sync
+      }
+    }
+
     const diffs = computeDiffs(movie, proposed);
 
     if (diffs.length === 0) {
@@ -267,7 +307,7 @@ async function run() {
       console.log(`  ${d.label}: ${red(formatValue(d.current))} ${dim("->")} ${green(formatValue(d.next))}`);
     }
 
-    const action = await waitForAction();
+    const action = FLAG_YES ? "update" : await waitForAction();
     if (action === "quit") {
       console.log(dim("Quit."));
       break;

@@ -64,6 +64,7 @@ export async function getMovie(slug: string) {
     *[_type == 'Movie-studio' && slug.current == $slug][0] {
       filmName,
       series,
+      tmdbId,
       "poster": poster.asset->url,
       "posterlqip": poster.asset->metadata.lqip,
       "slug": slug.current,

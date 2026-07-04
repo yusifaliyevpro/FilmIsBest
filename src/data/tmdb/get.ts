@@ -55,6 +55,25 @@ async function findTmdbTitle(imdbID: string): Promise<TmdbTitle | null> {
 }
 
 /**
+ * Resolves the numeric TMDB id for an IMDb ID. Stored on the document so the
+ * front-end players can be addressed by TMDB id (their canonical identifier).
+ */
+export async function getTmdbId(imdbID: string, token: string): Promise<TmdbResult<number>> {
+  if (!TMDB_API_KEY) {
+    console.error("[tmdb] TMDB_API_KEY is not set");
+    return { status: "error", message: "TMDB_API_KEY is not configured on the server." };
+  }
+
+  const isMember = await isSanityProjectMember(token);
+  if (!isMember) return { status: "unauthorized" };
+
+  const title = await findTmdbTitle(imdbID);
+  if (!title) return { status: "not-found" };
+
+  return { status: "ok", data: title.id };
+}
+
+/**
  * Finds the official YouTube trailer ID for a film. Prefers a video flagged as
  * an official "Trailer", then any trailer, then a teaser, then anything.
  */

@@ -6,6 +6,7 @@ import { Box, Button, Card, Flex, Popover, Stack, Text, useClickOutsideEvent, us
 import { InputProps, set, useClient, useFormValue } from "sanity";
 import { parseReleaseYear } from "@/data/omdb/decode";
 import { OMDbSearchItem, getOMDBDataById, searchOMDBByTitle } from "@/data/omdb/get";
+import { getTmdbId } from "@/data/tmdb/get";
 import { GENRE_LIST } from "@/lib/genres";
 import { apiVersion } from "../env";
 import Image from "next/image";
@@ -43,7 +44,11 @@ export function GetMovieDataFromOMDB(props: InputProps) {
           const genreList = (OMDbMovie.Genre as string).split(", ").map((g) => g.trim());
           const validGenres = genreList.filter((g) => (GENRE_LIST as readonly string[]).includes(g));
 
-          const filmData = {
+          // Resolve the TMDB id in parallel so the front-end players can be
+          // addressed by it. Best-effort: if TMDB can't find it, leave it unset.
+          const tmdbResult = await getTmdbId(imdbID, token);
+
+          const filmData: Record<string, unknown> = {
             filmName: OMDbMovie.Title.trim(),
             series: OMDbMovie.Type === "series",
             imdbpuan: parseFloat(OMDbMovie.imdbRating),
@@ -54,6 +59,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
             movieTime: extractMovieTime(OMDbMovie.Runtime),
             genre: validGenres,
           };
+          if (tmdbResult.status === "ok") filmData.tmdbId = tmdbResult.data;
 
           await client.patch(documentId).set(filmData).commit();
           triggerSlugGeneration();

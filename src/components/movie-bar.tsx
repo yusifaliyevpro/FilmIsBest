@@ -10,10 +10,11 @@ import { BiSolidVideos } from "react-icons/bi";
 import { BsPlayFill } from "react-icons/bs";
 import { MovieQueryResult } from "@/sanity/types";
 
-// Embeddable players, best first. `{id}` is replaced with the title's IMDb ID
-// (these endpoints accept IMDb IDs even where their docs show TMDB IDs). `movie`
-// and `tv` hold the per-type templates; series play the first episode (…/1/1),
-// and each player's own UI handles season/episode navigation from there.
+// Embeddable players, best first. `{id}` is replaced with the title's TMDB id
+// (their canonical identifier; we fall back to the IMDb ID when a document
+// hasn't been synced yet). `movie` and `tv` hold the per-type templates; series
+// play the first episode (…/1/1), and each player's own UI handles
+// season/episode navigation from there.
 const PLAYERS = [
   { name: "Umbra", movie: "https://cinemaos.tech/player/{id}", tv: "https://cinemaos.tech/player/{id}/1/1" },
   {
@@ -83,7 +84,9 @@ export default function MovieBar({ movie, children }: { movie: MovieQueryResult;
 
   const activePlayer = PLAYERS.find((p) => p.name === activeName) ?? PLAYERS[0];
   const template = movie.series ? activePlayer.tv : activePlayer.movie;
-  const activeLink = template.replace("{id}", movie.imdbID);
+  // Prefer the TMDB id; fall back to the IMDb ID for documents not yet synced.
+  const playerId = movie.tmdbId != null ? String(movie.tmdbId) : movie.imdbID;
+  const activeLink = template.replace("{id}", playerId);
 
   // The iframe only mounts after a deliberate play click (a "facade"), so the
   // player can't auto-redirect to ads the moment the page loads.

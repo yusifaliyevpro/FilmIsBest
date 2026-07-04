@@ -21,6 +21,14 @@ const movieSchema = defineField({
       components: { input: GetMovieDataFromOMDB },
     }),
     defineField({
+      name: "tmdbId",
+      title: "TMDB ID",
+      type: "number",
+      description: "Numeric TMDB id used to build the front-end player URLs. Filled automatically from the IMDb ID.",
+      readOnly: true,
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "filmName",
       title: "Movie Name",
       type: "string",
