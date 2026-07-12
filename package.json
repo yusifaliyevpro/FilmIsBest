@@ -17,10 +17,10 @@
     "install:skills": "pnpx skills@latest experimental_install",
     "install:heroui_docs": "pnpx heroui-cli@latest agents-md --react --output AGENTS.md",
     "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json",
-    "doctor": "pnpm react-doctor --verbose",
-    "sync:omdb": "pnpm sanity exec scripts/sync-omdb.ts --with-user-token",
-    "remove-assets": "pnpm sanity exec scripts/remove-unused-assets.ts --with-user-token",
-    "remove-assets:preview": "pnpm sanity exec scripts/preview-unused-assets.ts --with-user-token"
+    "doctor": "react-doctor --verbose",
+    "sync:omdb": "sanity exec scripts/sync-omdb.ts --with-user-token",
+    "remove-assets": "sanity exec scripts/remove-unused-assets.ts --with-user-token",
+    "remove-assets:preview": "sanity exec scripts/preview-unused-assets.ts --with-user-token"
   },
   "engines": {
     "node": ">=24.0.0"
