@@ -4,7 +4,7 @@ import { clientEnvSchema } from "./env.client";
 const serverEnvSchema = z.object({
   ...clientEnvSchema.shape,
   DATABASE_URL: z.string().min(3),
-  DIRECT_URL: z.string().min(3),
+  DIRECT_URL: z.string().min(3).optional(),
   BETTER_AUTH_SECRET: z.string().min(3),
   BETTER_AUTH_URL: z.string().min(3),
   GITHUB_CLIENT_ID: z.string().min(3),
