@@ -1,8 +1,6 @@
 import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const isCI = process.env.CI === "true";
-
 const nextConfig: NextConfig = {
   reactCompiler: true,
   typedRoutes: true,
@@ -11,7 +9,7 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
     rootParams: true,
     viewTransition: true,
-    cpus: isCI ? undefined : 7,
+    cpus: 30000,
   },
   images: {
     remotePatterns: [
