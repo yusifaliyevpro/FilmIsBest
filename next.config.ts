@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
     rootParams: true,
     viewTransition: true,
-    cpus: 30000,
   },
   images: {
     remotePatterns: [
