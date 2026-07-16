@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { getMovies } from "@/data/sanity/movies/get";
 import { BASE_URL } from "@/lib/constants";
 

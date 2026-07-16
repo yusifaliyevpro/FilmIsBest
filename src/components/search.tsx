@@ -1,14 +1,14 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { useDebounce } from "use-debounce";
 import { Input } from "@heroui/input";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { BiLoaderAlt, BiSearch } from "react-icons/bi";
+import { useDebounce } from "use-debounce";
 import SanityImage from "@/components/sanity-image";
 import { searchMovies } from "@/data/sanity/movies/search";
-import { AllMoviesQueryResult } from "@/sanity/types";
 import { Link } from "@/i18n/navigation";
+import type { AllMoviesQueryResult } from "@/sanity/types";
 
 export default function Search() {
   const t = useTranslations("Movies.Search");

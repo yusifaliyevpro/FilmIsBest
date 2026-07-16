@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Link } from "@/i18n/navigation";
-import { NavBarItem, NavItem } from "./nav-item";
+import { type NavBarItem, NavItem } from "./nav-item";
 
 export function Header() {
   return (

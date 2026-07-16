@@ -1,13 +1,13 @@
+import { Pagination } from "@heroui/pagination";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Pagination } from "@heroui/pagination";
 import { Suspense } from "react";
-import { getMovies } from "@/data/sanity/movies/get";
 import Movies from "@/components/movies";
 import PaginationUI from "@/components/pagination";
 import Search from "@/components/search";
-import { BASE_URL } from "@/lib/constants";
+import { getMovies } from "@/data/sanity/movies/get";
 import { locales } from "@/i18n/routing";
+import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData.Movies");

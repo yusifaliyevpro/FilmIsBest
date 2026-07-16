@@ -1,14 +1,14 @@
 "use client";
 
-import { YouTubeEmbed } from "@next/third-parties/google";
-import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@heroui/modal";
-import { ReactNode, useState } from "react";
+import { YouTubeEmbed } from "@next/third-parties/google";
+import { useTranslations } from "next-intl";
+import { type ReactNode, useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BiSolidVideos } from "react-icons/bi";
 import { BsPlayFill } from "react-icons/bs";
-import { MovieQueryResult } from "@/sanity/types";
+import type { MovieQueryResult } from "@/sanity/types";
 
 // Embeddable players, best first. `{id}` is replaced with the title's TMDB id
 // (their canonical identifier). `movie` and `tv` hold the per-type templates;

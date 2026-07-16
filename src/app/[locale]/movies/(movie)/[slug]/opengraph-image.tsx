@@ -1,11 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-import { readFile } from "fs/promises";
-import { join } from "path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { getMovie } from "@/data/sanity/movies/get";
+import type { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import sanityLoader from "@/lib/imageLoader";
-import { Locale } from "@/i18n/routing";
 
 export const alt = "Movie Poster";
 export const size = {
@@ -21,11 +20,12 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
     readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf")),
   ]);
 
-  if (!!movie)
+  if (movie)
     return new ImageResponse(
       <div tw="relative flex h-full w-full flex-col items-center justify-center bg-white">
         <div tw="relative flex h-full w-full flex-row justify-between">
           <div tw="flex py-5">
+            {/* oxlint-disable-next-line next/no-img-element */}
             <img
               src={sanityLoader({ src: movie.poster!, width: 600, height: 900, quality: 100 })}
               tw="ml-10 h-full w-95 rounded-2xl shadow-2xl shadow-blue-900"
@@ -37,6 +37,7 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
             <h1 tw="relative flex h-auto w-auto text-center text-7xl font-bold text-blue-600">{movie.filmName}</h1>
             <div tw="relative flex rounded-xl bg-blue-600 p-9 text-5xl font-bold text-white">Watch it Now!</div>
             <div tw="relative right-0 flex flex-row items-center justify-around">
+              {/* oxlint-disable-next-line next/no-img-element */}
               <img alt="FilmIsBest Logo" height={70} src={`${BASE_URL}/icon.png`} width={70} />
               <p tw="ml-2 text-6xl font-bold text-inherit">
                 Film<span tw="text-blue-600">Is</span>Best

@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import SanityImage from "@/components/sanity-image";
-import { SequelQueryResult } from "@/sanity/types";
 import { Link } from "@/i18n/navigation";
+import type { SequelQueryResult } from "@/sanity/types";
 
 export default function Sequel({ currentSlug, sequel }: { currentSlug: string | null; sequel: SequelQueryResult }) {
   const t = useTranslations("Movie.Sequels");

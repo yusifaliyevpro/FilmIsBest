@@ -3,7 +3,7 @@
 import { useCompletion } from "@ai-sdk/react";
 import { SparklesIcon } from "@sanity/icons/Sparkles";
 import { Button, Flex, Stack, TextArea, useToast } from "@sanity/ui";
-import { InputProps, set, unset, useClient, useFormValue } from "sanity";
+import { type InputProps, set, unset, useClient, useFormValue } from "sanity";
 import { apiVersion } from "../env";
 
 export function GenerateDescriptionComponent(props: InputProps) {
@@ -31,9 +31,9 @@ export function GenerateDescriptionComponent(props: InputProps) {
       }
       return response;
     },
-    onFinish: (_, completion) => {
-      console.log("[GenerateDescription] finished, length:", completion?.length ?? 0);
-      onChange(completion ? set(completion) : unset());
+    onFinish: (_, finishCompletion) => {
+      console.log("[GenerateDescription] finished, length:", finishCompletion?.length ?? 0);
+      onChange(finishCompletion ? set(finishCompletion) : unset());
     },
     onError: (error) => {
       console.error("[GenerateDescription] error:", error);

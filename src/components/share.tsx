@@ -1,17 +1,17 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/modal";
 import { Snippet } from "@heroui/snippet";
 import { addToast, closeAll } from "@heroui/toast";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
-import { MovieQueryResult } from "@/sanity/types";
-import { Locale } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
+import type { MovieQueryResult } from "@/sanity/types";
 import { BASE_URL } from "../lib/constants";
 
 export default function Share({ movie, locale }: { movie: MovieQueryResult; locale: Locale }) {

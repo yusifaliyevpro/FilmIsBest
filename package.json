@@ -2,29 +2,27 @@
   "name": "filmisbest",
   "version": "1.5.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "bootstrap": "pnpm install && pnpm install:skills && pnpm install:heroui_docs",
     "dev": "next dev",
     "build": "prisma generate && next build",
+    "start": "next start",
     "prisma:generate": "prisma generate",
     "prisma:dbpush": "prisma db push",
     "check": "node scripts/pr-checks.ts",
-    "devbuild": "next build",
-    "start": "next start",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix",
+    "doctor": "react-doctor --verbose",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json",
     "install:skills": "pnpx skills@latest experimental_install",
     "install:heroui_docs": "pnpx heroui-cli@latest agents-md --react --output AGENTS.md",
-    "typegen": "sanity schema extract --enforce-required-fields  --path=./src/sanity/extract.json && sanity typegen generate && rm ./src/sanity/extract.json",
-    "doctor": "react-doctor --verbose",
     "sync:omdb": "sanity exec scripts/sync-omdb.ts --with-user-token",
     "remove-assets": "sanity exec scripts/remove-unused-assets.ts --with-user-token",
-    "remove-assets:preview": "sanity exec scripts/preview-unused-assets.ts --with-user-token"
+    "remove-assets:preview": "sanity exec scripts/preview-unused-assets.ts --with-user-token",
+    "bootstrap": "pnpm install && pnpm install:skills && pnpm install:heroui_docs"
   },
-  "engines": {
-    "node": ">=24.0.0"
-  },
-  "type": "module",
   "dependencies": {
     "@ai-sdk/react": "4.0.23",
     "@better-auth/prisma-adapter": "1.6.23",
@@ -73,21 +71,20 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.2",
-    "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "@types/node": "24.12.4",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "babel-plugin-react-compiler": "1.0.0",
     "dotenv": "17.4.2",
-    "eslint": "9.39.4",
-    "eslint-config-next": "16.2.10",
-    "eslint-config-prettier": "10.1.8",
+    "oxfmt": "0.59.0",
+    "oxlint": "1.74.0",
     "postcss": "8.5.16",
     "postcss-load-config": "6.0.1",
-    "prettier": "3.9.5",
-    "prettier-plugin-tailwindcss": "0.8.0",
     "prisma": "7.8.0",
     "react-doctor": "0.7.4",
     "tailwindcss": "4.3.2"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }

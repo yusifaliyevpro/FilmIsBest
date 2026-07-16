@@ -4,16 +4,17 @@
 // It was a great starting point for learning about web forms and handling submissions with basic HTML POST methods.
 // Since then, I've explored more advanced technologies like Next.js, UI libraries, Server Actions, Prisma, and useActionState.
 // It's interesting to see how much my approach to building forms has evolved since those first experiments with Formsubmit.co.
-import { useTranslations } from "next-intl";
+
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
 import { addToast, closeAll } from "@heroui/toast";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { HiAtSymbol } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
-import { ActionState, submitMovieSuggestion } from "@/data/prisma/suggestions/actions";
+import { type ActionState, submitMovieSuggestion } from "@/data/prisma/suggestions/actions";
 
 const initialState: ActionState = {
   success: false,

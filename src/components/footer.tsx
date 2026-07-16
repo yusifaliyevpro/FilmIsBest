@@ -1,8 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { useDisclosure } from "@heroui/modal";
+import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 
 const FormSubmit = dynamic(() => import("@/components/form-submit"), {

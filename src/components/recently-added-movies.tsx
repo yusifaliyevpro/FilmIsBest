@@ -1,11 +1,11 @@
 "use client";
 
 import "swiper/css";
+import { Suspense } from "react";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Suspense } from "react";
-import { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 import MovieCard from "@/components/movie-card";
+import type { RecentlyAddedMoviesQueryResult } from "@/sanity/types";
 
 export default function RecentlyAddedMovies({ movies }: { movies: RecentlyAddedMoviesQueryResult }) {
   return (

@@ -1,12 +1,12 @@
+import { defineQuery } from "next-sanity";
 import { cacheLife } from "next/cache";
 import { client } from "@/sanity/lib/client";
-import {
+import type {
   AllMoviesQueryResult,
   MovieQueryResult,
   MoviesQueryResult,
   RecentlyAddedMoviesQueryResult,
 } from "@/sanity/types";
-import { defineQuery } from "next-sanity";
 
 // Lean projection used only by the search dropdown. Cached for an hour so that
 // every keystroke-driven search reuses the same dataset instead of refetching.

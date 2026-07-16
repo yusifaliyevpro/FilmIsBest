@@ -1,11 +1,11 @@
 "use client";
 
-import { startTransition, useState } from "react";
 import { CheckmarkIcon } from "@sanity/icons/Checkmark";
 import { DownloadIcon } from "@sanity/icons/Download";
 import { SearchIcon } from "@sanity/icons/Search";
 import { Box, Button, Flex, useToast } from "@sanity/ui";
-import { ImageValue, ObjectFieldProps, set, setIfMissing, useClient, useFormValue } from "sanity";
+import { startTransition, useState } from "react";
+import { type ImageValue, type ObjectFieldProps, set, setIfMissing, useClient, useFormValue } from "sanity";
 import { uploadMoviePosters } from "@/data/tmdb/get";
 import { apiVersion } from "../env";
 

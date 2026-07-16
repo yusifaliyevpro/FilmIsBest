@@ -3,7 +3,7 @@
 import { err, ok } from "@/lib/action-helpers";
 import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
-import { MovieSuggestionFormData, movieSuggestionSchema } from "@/lib/validation";
+import { type MovieSuggestionFormData, movieSuggestionSchema } from "@/lib/validation";
 
 export type ActionState = {
   success: boolean;

@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { Button } from "@heroui/button";
+import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { getMovie } from "@/data/sanity/movies/get";
-import { getSequel } from "@/data/sanity/sequel/get";
 import MovieBar from "@/components/movie-bar";
 import MovieInfo from "@/components/movie-info";
 import Sequel from "@/components/sequel";
-import { BASE_URL } from "@/lib/constants";
+import { getMovie } from "@/data/sanity/movies/get";
+import { getSequel } from "@/data/sanity/sequel/get";
 import { routing, validateLocale } from "@/i18n/routing";
+import { BASE_URL } from "@/lib/constants";
 
 const Share = dynamic(() => import("@/components/share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,

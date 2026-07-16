@@ -1,11 +1,11 @@
 "use client";
 
-import { startTransition, useState } from "react";
 import { CheckmarkIcon } from "@sanity/icons/Checkmark";
 import { ConfettiIcon } from "@sanity/icons/Confetti";
 import { SearchIcon } from "@sanity/icons/Search";
 import { Box, Button, Flex, useToast } from "@sanity/ui";
-import { InputProps, set, unset, useClient, useFormValue } from "sanity";
+import { startTransition, useState } from "react";
+import { type InputProps, set, unset, useClient, useFormValue } from "sanity";
 import { getMovieTrailerId } from "@/data/tmdb/get";
 import { apiVersion } from "../env";
 

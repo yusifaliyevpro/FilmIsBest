@@ -1,10 +1,10 @@
 "use client";
 
-import { Route } from "next";
 import { HeroUIProvider } from "@heroui/system";
 import { ToastProvider } from "@heroui/toast";
+import type { Route } from "next";
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export function Providers({ children }: { children: Readonly<ReactNode> }) {
   const router = useRouter();

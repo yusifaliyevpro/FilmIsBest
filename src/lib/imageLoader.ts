@@ -1,4 +1,4 @@
-import { ImageLoaderProps } from "next/image";
+import type { ImageLoaderProps } from "next/image";
 import { imageBuilder } from "@/sanity/lib/image";
 
 export default function sanityLoader({ src, width, height, quality = 75 }: ImageLoaderProps & { height: number }) {

@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { startTransition, useRef, useState } from "react";
 import { SearchIcon } from "@sanity/icons/Search";
 import { Box, Button, Card, Flex, Popover, Stack, Text, useClickOutsideEvent, useToast } from "@sanity/ui";
-import { InputProps, set, useClient, useFormValue } from "sanity";
+import Image from "next/image";
+import { startTransition, useRef, useState } from "react";
+import { type InputProps, set, useClient, useFormValue } from "sanity";
 import { parseReleaseYear } from "@/data/omdb/decode";
-import { OMDbSearchItem, getOMDBDataById, searchOMDBByTitle } from "@/data/omdb/get";
+import { type OMDbSearchItem, getOMDBDataById, searchOMDBByTitle } from "@/data/omdb/get";
 import { getTmdbId } from "@/data/tmdb/get";
 import { GENRE_LIST } from "@/lib/genres";
 import { apiVersion } from "../env";

@@ -295,7 +295,7 @@ async function run() {
     // Backfill the TMDB id (best-effort; only propose it when we don't already
     // have one so an existing value is never wiped by a transient TMDB miss).
     // GROQ returns a missing field as null, so match both null and undefined.
-    if (FLAG_TMDB_CHECK && movie.tmdbId == null) {
+    if (FLAG_TMDB_CHECK && movie.tmdbId === null) {
       try {
         const tmdbId = await fetchTmdbId(movie.imdbID);
         if (tmdbId !== undefined) proposed.tmdbId = tmdbId;

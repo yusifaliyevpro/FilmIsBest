@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import AdminSignIn from "@/components/admin-signin";
 import AvatarMenu from "@/components/avatar-menu";
@@ -74,8 +74,8 @@ export async function AdminPageContent() {
               className={cn(
                 "group flex flex-col gap-4 rounded-2xl border p-5 transition-colors sm:flex-row sm:items-center",
                 suggestion.isAdded
-                  ? "border-white/5 bg-white/[0.02]"
-                  : "border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.06]",
+                  ? "border-white/5 bg-white/2"
+                  : "border-white/10 bg-white/4 hover:border-white/20 hover:bg-white/6",
               )}
             >
               <div className="flex shrink-0 items-center">

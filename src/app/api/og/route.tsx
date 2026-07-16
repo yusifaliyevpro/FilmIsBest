@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-import { readFile } from "fs/promises";
-import { join } from "path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { cacheLife } from "next/cache";
 import { ImageResponse } from "next/og";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
 async function getInterFont() {
@@ -25,6 +24,7 @@ export async function GET(request: NextRequest) {
   return new ImageResponse(
     <div tw="relative flex h-full w-full flex-col items-center justify-start bg-white">
       <div tw="relative inset-0 mt-28 flex items-start justify-center">
+        {/* oxlint-disable-next-line next/no-img-element */}
         <img alt="FilmIsBest Logo" height={550} src={`${BASE_URL}/icon.png`} width={550} />
         <div tw="absolute inset-0 flex" />
       </div>

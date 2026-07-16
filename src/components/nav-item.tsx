@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/cn";
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/cn";
 
 export type NavBarItem = {
   href: string;

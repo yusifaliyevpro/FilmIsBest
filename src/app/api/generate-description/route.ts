@@ -1,7 +1,7 @@
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { isSanityProjectMember } from "@/sanity/lib/verifyUser";
 
 const bodySchema = z.object({ prompt: z.string().min(1).max(200), token: z.string().min(3) });
