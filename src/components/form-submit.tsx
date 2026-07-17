@@ -65,6 +65,7 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
         <form onSubmit={handleSubmit} noValidate>
           <ModalBody>
             <Input
+              // oxlint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               autoComplete="off"
               name="fullName"

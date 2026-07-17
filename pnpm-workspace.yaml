@@ -8,31 +8,7 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 minimumReleaseAge: 1440
-minimumReleaseAgeExclude:
-  - "@ai-sdk/gateway@4.0.8"
-  - '@ai-sdk/mcp@2.0.5 || 2.0.14'
-  - "@ai-sdk/provider-utils@5.0.3"
-  - '@ai-sdk/react@4.0.11 || 4.0.12 || 4.0.31'
-  - "@sanity/icons@4.0.0 || 4.1.0"
-  - ai@7.0.10 || 7.0.11
-  - "@next/env@16.2.10"
-  - "@next/eslint-plugin-next@16.2.10"
-  - "@next/swc-darwin-arm64@16.2.10"
-  - "@next/swc-darwin-x64@16.2.10"
-  - "@next/swc-linux-arm64-gnu@16.2.10"
-  - "@next/swc-linux-arm64-musl@16.2.10"
-  - "@next/swc-linux-x64-gnu@16.2.10"
-  - "@next/swc-linux-x64-musl@16.2.10"
-  - "@next/swc-win32-arm64-msvc@16.2.10"
-  - "@next/swc-win32-x64-msvc@16.2.10"
-  - "@next/third-parties@16.2.10"
-  - deslop-js@0.6.0
-  - eslint-config-next@16.2.10
-  - next@16.2.10
-  - oxlint-plugin-react-doctor@0.6.0
-  - react-doctor@0.6.0
 trustPolicy: "no-downgrade"
 trustPolicyExclude:
   - semver@6.3.1||5.7.2
   - groq@3.88.1-typegen-experimental.0
-  - eslint-import-resolver-typescript@3.10.1

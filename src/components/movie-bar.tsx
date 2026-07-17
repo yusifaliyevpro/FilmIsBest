@@ -123,6 +123,7 @@ export default function MovieBar({ movie, children }: { movie: MovieQueryResult;
                 </div>
               </div>
             )}
+            {/* oxlint-disable-next-line react/iframe-missing-sandbox */}
             <iframe
               allowFullScreen
               allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
@@ -178,6 +179,7 @@ export default function MovieBar({ movie, children }: { movie: MovieQueryResult;
           </ModalHeader>
           <ModalBody className="mb-5 h-full w-full">
             <YouTubeEmbed
+              // oxlint-disable-next-line react/style-prop-object
               style="margin-right: auto; margin-left: auto; border-radius: 10px;"
               videoid={movie.FraqmanLink}
             />
