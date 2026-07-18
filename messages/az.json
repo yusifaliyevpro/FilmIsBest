@@ -2,7 +2,7 @@
   "Home": {
     "movies": "Filmlər",
     "recentlyAdded": "Ən Son Əlavə Olunanlar",
-    "cta": "İzlədiyim bütün filmlər",
+    "cta": "Axtardığın bütün filmlər",
     "ctaUrl": "{url}-da"
   },
   "MetaData": {
@@ -33,8 +33,7 @@
     "buyACoffee": "Layihələrimə dəstək olmaq üçün mənə bir dənə kofe ala bilərsən😊:",
     "myCodes": "Kodlarım GitHub hesabımdadır😺:",
     "dataSources": "Məlumat mənbələri:",
-    "tmdbAttribution": "Bu məhsul TMDB API-dən istifadə edir, lakin TMDB tərəfindən təsdiqlənməyib və ya sertifikatlaşdırılmayıb.",
-    "watchedNote": "Qeyd: buradakı hər film şəxsən mənim izlədiyim filmdir. Bu sayt bütün filmlərin kataloqu deyil, sadəcə izlədiyim filmlərin qeydidir."
+    "tmdbAttribution": "Bu məhsul TMDB API-dən istifadə edir, lakin TMDB tərəfindən təsdiqlənməyib və ya sertifikatlaşdırılmayıb."
   },
   "Header": {
     "homePage": "Ana Səhifə",
@@ -47,7 +46,7 @@
   "Footer": {
     "FormSubmit": {
       "movieSuggestion": "Film Tövsiyə Et",
-      "description": "FilmIsBest yalnız mənim şəxsən izlədiyim filmləri əhatə edir. Sevdiyiniz bir filmi təklif edin. Əgər izləyib bəyənsəm, onu sayta əlavə edəcəyəm!",
+      "description": "Sevdiyiniz filmi tapa bilmirsiniz? Onu təklif edin, mümkün olsa sayta əlavə edəcəyik!",
       "name": "Ad",
       "email": "Email",
       "movieName": "Filmin Adı",

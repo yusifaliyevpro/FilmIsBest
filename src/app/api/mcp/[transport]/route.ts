@@ -10,9 +10,8 @@ import {
   listMoviesForMCP,
 } from "@/data/sanity/movies/mcp";
 
-const WATCHED_DISCLAIMER =
-  "IMPORTANT: Every movie returned by this server is one the user has ALREADY WATCHED. " +
-  "Use them as taste signal for recommendations; never recommend them back to the user.";
+const CATALOGUE_DISCLAIMER =
+  "Every movie returned by this server is part of the FilmIsBest catalogue.";
 
 const FIELDS_DESCRIPTION =
   `Allowed values: ${MOVIE_FIELD_NAMES.join(", ")}. ` +
@@ -31,11 +30,11 @@ const handler = createMcpHandler(
     server.registerTool(
       "list_movies",
       {
-        title: "List watched movies",
+        title: "List movies",
         description:
-          `Returns a list of movies the user has watched, filtered by the given criteria. ` +
+          `Returns a list of movies from the catalogue, filtered by the given criteria. ` +
           `By default it returns the entire catalogue (newest first) — narrow it with the ` +
-          `filters and request only the fields you need via 'fields'. ${WATCHED_DISCLAIMER}`,
+          `filters and request only the fields you need via 'fields'. ${CATALOGUE_DISCLAIMER}`,
         inputSchema: {
           fields: fieldsSchema.min(1).describe(`REQUIRED. Which fields to return per movie. ${FIELDS_DESCRIPTION}`),
           series: z
@@ -95,8 +94,8 @@ const handler = createMcpHandler(
       {
         title: "Get movie details",
         description:
-          `Returns details for a single watched movie by its slug (from list_movies). ` +
-          `Defaults to all available fields; pass 'fields' to narrow it. ${WATCHED_DISCLAIMER}`,
+          `Returns details for a single movie by its slug (from list_movies). ` +
+          `Defaults to all available fields; pass 'fields' to narrow it. ${CATALOGUE_DISCLAIMER}`,
         inputSchema: {
           slug: z.string().min(1).describe("The slug of the movie, as returned by list_movies."),
           fields: fieldsSchema
@@ -108,7 +107,7 @@ const handler = createMcpHandler(
         try {
           const movie = await getMovieDetailForMCP(slug, fields);
           if (!movie) {
-            return errorResult(`No watched movie found with slug "${slug}".`);
+            return errorResult(`No movie found with slug "${slug}".`);
           }
           return { content: [{ type: "text", text: JSON.stringify(movie, null, 2) }] };
         } catch (err) {
@@ -123,8 +122,8 @@ const handler = createMcpHandler(
       {
         title: "Get recently added movies",
         description:
-          `Returns the most recently added watched movies (newest first). ` +
-          `Useful as a shortcut when the user asks for recs based on what they've watched lately. ${WATCHED_DISCLAIMER}`,
+          `Returns the most recently added movies (newest first). ` +
+          `Useful as a shortcut when the user asks what's new in the catalogue. ${CATALOGUE_DISCLAIMER}`,
         inputSchema: {
           fields: fieldsSchema.min(1).describe(`REQUIRED. Which fields to return per movie. ${FIELDS_DESCRIPTION}`),
           limit: z
@@ -152,11 +151,11 @@ const handler = createMcpHandler(
     server.registerTool(
       "count_movies",
       {
-        title: "Count watched movies",
+        title: "Count movies",
         description:
-          `Returns only the number of watched movies matching the given filters ` +
+          `Returns only the number of movies matching the given filters ` +
           `(omit all filters for the total catalogue size). Use this instead of ` +
-          `list_movies when you just need a count. ${WATCHED_DISCLAIMER}`,
+          `list_movies when you just need a count. ${CATALOGUE_DISCLAIMER}`,
         inputSchema: {
           series: z
             .boolean()

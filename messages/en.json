@@ -2,7 +2,7 @@
   "Home": {
     "movies": "Movies",
     "recentlyAdded": "Recently Added Movies",
-    "cta": "See the movies I have watched",
+    "cta": "Find all your favorite movies",
     "ctaUrl": "at {url}!"
   },
   "MetaData": {
@@ -33,8 +33,7 @@
     "buyACoffee": "You can buy me a coffee to support my projects😊:",
     "myCodes": "My codes are in my GitHub account😺:",
     "dataSources": "Data sources:",
-    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
-    "watchedNote": "Note: every movie listed here is one I have personally watched. This is not a catalogue of all films, just a record of what I have watched."
+    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
   },
   "Header": {
     "homePage": "Home",
@@ -47,7 +46,7 @@
   "Footer": {
     "FormSubmit": {
       "movieSuggestion": "Suggest a Movie",
-      "description": "FilmIsBest only features movies I've personally watched. Suggest one you love. If I watch it and enjoy it, I'll add it to the site!",
+      "description": "Can't find a movie you love? Suggest it and if possible we'll add it to the site!",
       "name": "Name",
       "email": "Email",
       "movieName": "Movie Name",

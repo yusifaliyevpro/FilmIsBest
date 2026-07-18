@@ -10,7 +10,7 @@
     "prisma:generate": "prisma generate",
     "prisma:dbpush": "prisma db push",
     "check": "node scripts/pr-checks.ts",
-    "doctor": "react-doctor --verbose",
+    "react-doctor": "react-doctor --verbose",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",

@@ -67,7 +67,6 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
     { t: "text1" },
     { t: "text2" },
     { t: "text3" },
-    { t: "watchedNote", className: "flex flex-col text-base leading-relaxed font-semibold" },
     {
       t: "toolsIUsed",
       className: "mx-auto mt-4 w-fit text-center text-2xl font-bold drop-shadow-2xl",
