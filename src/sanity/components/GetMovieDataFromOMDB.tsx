@@ -215,7 +215,7 @@ const triggerSlugGeneration = () => {
   const button = buttonField?.querySelector("button");
 
   if (button) {
-    button.click();
+    setTimeout(() => button.click(), 1000);
   } else {
     console.warn("Slug generate butonu tapılmadı.");
   }
