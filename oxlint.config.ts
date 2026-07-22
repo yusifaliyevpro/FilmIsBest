@@ -5,6 +5,10 @@ export default defineConfig({
   categories: {
     suspicious: "warn",
   },
+  options: {
+    typeAware: true,
+    typeCheck: true,
+  },
   rules: {
     eqeqeq: "warn",
     "no-throw-literal": "warn",

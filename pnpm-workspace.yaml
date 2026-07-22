@@ -8,6 +8,83 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@oxlint-tsgolint/darwin-arm64@7.0.2000 || 7.0.2001'
+  - '@oxlint-tsgolint/darwin-x64@7.0.2000 || 7.0.2001'
+  - '@oxlint-tsgolint/linux-arm64@7.0.2000 || 7.0.2001'
+  - '@oxlint-tsgolint/linux-x64@7.0.2000 || 7.0.2001'
+  - '@oxlint-tsgolint/win32-arm64@7.0.2000 || 7.0.2001'
+  - '@oxlint-tsgolint/win32-x64@7.0.2000 || 7.0.2001'
+  - oxlint-tsgolint@7.0.2000 || 7.0.2001
+  - '@ai-sdk/gateway@4.0.25 || 4.0.26'
+  - '@ai-sdk/mcp@2.0.16'
+  - '@ai-sdk/provider-utils@5.0.12'
+  - '@ai-sdk/react@4.0.36 || 4.0.37'
+  - '@next/env@16.2.11'
+  - '@next/swc-darwin-arm64@16.2.11'
+  - '@next/swc-darwin-x64@16.2.11'
+  - '@next/swc-linux-arm64-gnu@16.2.11'
+  - '@next/swc-linux-arm64-musl@16.2.11'
+  - '@next/swc-linux-x64-gnu@16.2.11'
+  - '@next/swc-linux-x64-musl@16.2.11'
+  - '@next/swc-win32-arm64-msvc@16.2.11'
+  - '@next/swc-win32-x64-msvc@16.2.11'
+  - '@next/third-parties@16.2.11'
+  - '@oxfmt/binding-android-arm-eabi@0.60.0'
+  - '@oxfmt/binding-android-arm64@0.60.0'
+  - '@oxfmt/binding-darwin-arm64@0.60.0'
+  - '@oxfmt/binding-darwin-x64@0.60.0'
+  - '@oxfmt/binding-freebsd-x64@0.60.0'
+  - '@oxfmt/binding-linux-arm-gnueabihf@0.60.0'
+  - '@oxfmt/binding-linux-arm-musleabihf@0.60.0'
+  - '@oxfmt/binding-linux-arm64-gnu@0.60.0'
+  - '@oxfmt/binding-linux-arm64-musl@0.60.0'
+  - '@oxfmt/binding-linux-ppc64-gnu@0.60.0'
+  - '@oxfmt/binding-linux-riscv64-gnu@0.60.0'
+  - '@oxfmt/binding-linux-riscv64-musl@0.60.0'
+  - '@oxfmt/binding-linux-s390x-gnu@0.60.0'
+  - '@oxfmt/binding-linux-x64-gnu@0.60.0'
+  - '@oxfmt/binding-linux-x64-musl@0.60.0'
+  - '@oxfmt/binding-openharmony-arm64@0.60.0'
+  - '@oxfmt/binding-win32-arm64-msvc@0.60.0'
+  - '@oxfmt/binding-win32-ia32-msvc@0.60.0'
+  - '@oxfmt/binding-win32-x64-msvc@0.60.0'
+  - '@oxlint/binding-android-arm-eabi@1.75.0'
+  - '@oxlint/binding-android-arm64@1.75.0'
+  - '@oxlint/binding-darwin-arm64@1.75.0'
+  - '@oxlint/binding-darwin-x64@1.75.0'
+  - '@oxlint/binding-freebsd-x64@1.75.0'
+  - '@oxlint/binding-linux-arm-gnueabihf@1.75.0'
+  - '@oxlint/binding-linux-arm-musleabihf@1.75.0'
+  - '@oxlint/binding-linux-arm64-gnu@1.75.0'
+  - '@oxlint/binding-linux-arm64-musl@1.75.0'
+  - '@oxlint/binding-linux-ppc64-gnu@1.75.0'
+  - '@oxlint/binding-linux-riscv64-gnu@1.75.0'
+  - '@oxlint/binding-linux-riscv64-musl@1.75.0'
+  - '@oxlint/binding-linux-s390x-gnu@1.75.0'
+  - '@oxlint/binding-linux-x64-gnu@1.75.0'
+  - '@oxlint/binding-linux-x64-musl@1.75.0'
+  - '@oxlint/binding-openharmony-arm64@1.75.0'
+  - '@oxlint/binding-win32-arm64-msvc@1.75.0'
+  - '@oxlint/binding-win32-ia32-msvc@1.75.0'
+  - '@oxlint/binding-win32-x64-msvc@1.75.0'
+  - '@sanity/icons@5.2.0'
+  - '@sanity/ui@3.4.0'
+  - '@sanity/visual-editing@5.6.0'
+  - ai@7.0.33 || 7.0.34
+  - icu-minify@4.13.3
+  - next-intl-swc-plugin-extractor@4.13.3
+  - next-intl@4.13.3
+  - next-sanity@13.1.5
+  - next@16.2.11
+  - oxfmt@0.60.0
+  - oxlint@1.75.0
+  - postcss@8.5.22
+  - react-dom@19.2.8
+  - react@19.2.8
+  - use-intl@4.13.3
+  - '@lottiefiles/dotlottie-react@0.19.11'
+  - '@lottiefiles/dotlottie-web@0.78.1'
 trustPolicy: "no-downgrade"
 trustPolicyExclude:
   - semver@6.3.1||5.7.2
