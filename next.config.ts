@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   experimental: {
     globalNotFound: true,
     rootParams: true,
+    useTypeScriptCli: true,
     viewTransition: true,
   },
   images: {
