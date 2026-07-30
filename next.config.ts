@@ -5,11 +5,11 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   typedRoutes: true,
   cacheComponents: true,
+  partialPrefetching: true,
   experimental: {
     globalNotFound: true,
-    rootParams: true,
     useTypeScriptCli: true,
-    viewTransition: true,
+    turbopackRustReactCompiler: true,
   },
   images: {
     remotePatterns: [
