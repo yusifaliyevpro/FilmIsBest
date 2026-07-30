@@ -4,13 +4,13 @@ import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
 import { useLocale } from "next-intl";
 import { redirect, usePathname } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
+import { validateLocale, type Locale } from "@/i18n/routing";
 
 type Languages = { key: Locale; lang: string; flag: string }[];
 
 export function LanguageSwitcher() {
   const pathname = usePathname();
-  const locale = useLocale() as Locale;
+  const locale = useLocale();
   const changeLocale = (lang: Locale) => {
     if (lang !== locale) redirect({ locale: lang, href: pathname });
   };
@@ -47,7 +47,10 @@ export function LanguageSwitcher() {
           </div>
         );
       }}
-      onSelectionChange={(value) => changeLocale(value.currentKey as Locale)}
+      onSelectionChange={(value) => {
+        validateLocale(value.currentKey);
+        changeLocale(value.currentKey);
+      }}
     >
       {(language) => (
         <SelectItem

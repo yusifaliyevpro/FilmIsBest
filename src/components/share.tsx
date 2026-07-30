@@ -31,7 +31,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   if (!movie) return null;
 
   const buildShareBody = (platform: "whatsapp" | "telegram" | "copy") => {
-    const translatedGenres = movie.genre.map((genre) => t(`Genres.${genre.toLowerCase()}` as "Genres.action") || genre);
+    const translatedGenres = movie.genre.map((genre) => t(`Genres.${genre.toLowerCase()}`) || genre);
 
     const bold = platform === "telegram" ? "**" : platform === "whatsapp" ? "*" : "";
 
@@ -48,18 +48,18 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       movie.imdbpuan +
       `\n\n ${bold}${t("Share.ctaText")}${bold} ⬇️` +
       "\n\n" +
-      `${BASE_URL}` +
+      BASE_URL +
       pathname
     );
   };
 
-  const handleShare = (platform: string) => {
+  const handleShare = async (platform: string) => {
     if (platform === "whatsapp") {
       router.push(`whatsapp://send?text=${encodeURIComponent(buildShareBody("whatsapp"))}`);
     } else if (platform === "telegram") {
       router.push(`tg://msg?text=${encodeURIComponent(buildShareBody("telegram"))}`);
     } else if (platform === "copy") {
-      navigator.clipboard.writeText(buildShareBody("copy"));
+      await navigator.clipboard.writeText(buildShareBody("copy"));
       closeAll();
       addToast({ title: t("Share.copied"), color: "success" });
       if (navigator.vibrate) {
@@ -72,7 +72,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       };
       closeAll();
       addToast({ title: t("Share.inProgress"), timeout: 1000 });
-      navigator.share(shareData);
+      await navigator.share(shareData);
     }
   };
 
@@ -82,7 +82,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       files: [] as File[],
     };
     try {
-      const response = await fetch(movie!.poster as string);
+      const response = await fetch(movie!.poster);
 
       if (!response.ok) {
         addToast({ title: t("Share.anErrorOccurred"), color: "danger" });
@@ -109,7 +109,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
           throw new Error(t("Share.anErrorOccurred"));
         });
     } catch (error: unknown) {
-      addToast({ title: error instanceof Error ? error.message : (error as string), color: "danger" });
+      addToast({ title: error instanceof Error ? error.message : String(error), color: "danger" });
     }
   }
 

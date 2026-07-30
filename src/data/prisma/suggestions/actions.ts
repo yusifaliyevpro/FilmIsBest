@@ -18,6 +18,7 @@ export async function submitMovieSuggestion(_: ActionState, formData: FormData):
   if (!result.success) {
     const errors: ActionState["errors"] = {};
     for (const issue of result.error.issues) {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       const field = issue.path[0] as keyof MovieSuggestionFormData;
       errors[field] = issue.message;
     }

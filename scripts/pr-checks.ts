@@ -83,7 +83,7 @@ for (const check of checks) {
   } catch (err: unknown) {
     // Collect stderr output, print it cleanly before prompt
     if (err && typeof err === "object" && "stderr" in err) {
-      errorOutput = String((err as { stderr: string }).stderr ?? "");
+      errorOutput = JSON.stringify(err.stderr ?? "");
     }
     if (errorOutput) process.stderr.write(errorOutput);
 

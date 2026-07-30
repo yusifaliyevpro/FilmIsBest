@@ -43,10 +43,10 @@ async function findTmdbTitle(imdbID: string): Promise<TmdbTitle | null> {
     console.error("[tmdb] find failed:", res.status, await res.text());
     return null;
   }
-  const data = (await res.json()) as {
+  const data: {
     movie_results?: Omit<TmdbTitle, "mediaType">[];
     tv_results?: Omit<TmdbTitle, "mediaType">[];
-  };
+  } = await res.json();
   const movie = data.movie_results?.[0];
   if (movie) return { ...movie, mediaType: "movie" };
   const tv = data.tv_results?.[0];
@@ -97,7 +97,7 @@ export async function getMovieTrailerId(imdbID: string, token: string): Promise<
     return { status: "error", message: "Failed to fetch videos from TMDB." };
   }
 
-  const data = (await res.json()) as { results?: TmdbVideo[] };
+  const data: { results?: TmdbVideo[] } = await res.json();
   const youtube = (data.results ?? []).filter((v) => v.site === "YouTube");
 
   const pick =
@@ -145,7 +145,7 @@ export async function uploadMoviePosters(
     { cache: "no-store" },
   );
   if (imagesRes.ok) {
-    const data = (await imagesRes.json()) as { posters?: { file_path: string }[] };
+    const data: { posters?: { file_path: string }[] } = await imagesRes.json();
     posterPaths = (data.posters ?? []).map((p) => p.file_path);
   } else {
     console.error("[tmdb] images failed:", imagesRes.status);

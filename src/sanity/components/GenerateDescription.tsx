@@ -8,6 +8,7 @@ import { apiVersion } from "../env";
 
 export function GenerateDescriptionComponent(props: InputProps) {
   const { value, onChange } = props;
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const filmName = useFormValue(["filmName"]) as string | undefined;
   const client = useClient({ apiVersion: apiVersion });
   const toast = useToast();
@@ -53,14 +54,14 @@ export function GenerateDescriptionComponent(props: InputProps) {
 
   return (
     <Stack gap={3}>
-      <TextArea value={completion || (value as string)} rows={10} onChange={handleChange} />
+      <TextArea value={completion || JSON.stringify(value)} rows={10} onChange={handleChange} />
       <Flex align="center" justify="flex-end">
         <Button
           type="button"
           data-selector="description-generate-button"
-          onClick={() => {
+          onClick={async () => {
             if (!filmName) return alert("Əvvəlcə film adı daxil edin.");
-            complete(filmName);
+            await complete(filmName);
           }}
           disabled={isLoading}
           loading={isLoading}

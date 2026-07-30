@@ -17,13 +17,13 @@ export default function Sequel({ currentSlug, sequel }: { currentSlug: string | 
           <li key={movie.slug} className="mx-3 my-5 transition-transform duration-200 ease-out hover:scale-[1.08]">
             <Link
               className={`${movie.slug === currentSlug && "border-3 border-solid border-blue-600"} justify-content-center relative inline-block min-h-60 w-40 items-center justify-center rounded-xl text-center select-none`}
-              href={`${movie.slug}`}
+              href={movie.slug}
               prefetch={false}
             >
               <div>
                 <div className="relative">
                   <SanityImage
-                    src={movie.poster!}
+                    src={movie.poster}
                     width={625}
                     height={910}
                     quality={90}

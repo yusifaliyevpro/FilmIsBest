@@ -21,7 +21,7 @@ export async function isSanityProjectMember(token: string | undefined): Promise<
 
     if (!res.ok) return false;
 
-    const user = (await res.json()) as { id?: string; role?: string } | null;
+    const user: { id?: string; role?: string } | null = await res.json();
     return Boolean(user?.id);
   } catch {
     return false;

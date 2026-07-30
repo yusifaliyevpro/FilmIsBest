@@ -8,7 +8,7 @@ export default function AnimatedText({ text, className, once }: { text: string; 
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el) return undefined;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -32,12 +32,12 @@ export default function AnimatedText({ text, className, once }: { text: string; 
         {words.map((word, index) => {
           const wordStart = words.slice(0, index).reduce((sum, w) => sum + w.length, 0);
           return (
-            <span key={String(word + index)} className="inline-block">
+            <span key={word + index} className="inline-block">
               {word.split("").map((char, i) => {
                 const delay = (wordStart + i) * 0.1;
                 return (
                   <span
-                    key={String(i + char)}
+                    key={i + char}
                     className="inline-block"
                     style={{
                       animation: isInView ? `text-char-in 0.2s ease-out ${delay}s both` : undefined,

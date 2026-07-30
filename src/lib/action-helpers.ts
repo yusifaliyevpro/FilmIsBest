@@ -1,15 +1,17 @@
-export function ok<T = void>(data?: T): ActionResult<T> {
-  return { ok: true, data: data as T };
+export function ok(): ActionSuccess<undefined>;
+export function ok<T>(data: T): ActionSuccess<T>;
+export function ok<T>(data?: T): ActionSuccess<T | undefined> {
+  return { ok: true, data };
 }
 
-export function err(error: unknown): ActionResult<never> {
+export function err(error: unknown): ActionFailure {
   let message: string;
   if (typeof error === "string") {
     message = error;
   } else if (error instanceof Error) {
     message = error.message;
   } else if (error && typeof error === "object" && "message" in error && typeof error.message === "string") {
-    message = String(error.message);
+    message = error.message;
   } else {
     message = "Something went wrong on our side.";
   }
@@ -27,10 +29,4 @@ type ActionFailure = { ok: false; error: string };
 
 type ActionResult<T = void> = ActionSuccess<T> | ActionFailure;
 
-// export type InferActionData<T> = T extends (...args: never[]) => Promise<ActionResult<infer D>> ? D : never;
-
-// export type InferActionParams<T> = T extends (params: infer P) => Promise<ActionResult<unknown>> ? P : never;
-
-// export type InferActionReturn<T> = T extends (...args: never[]) => Promise<ActionResult<infer R>>
-//   ? ActionResult<R>
-//   : never;
+export type InferActionData<T> = T extends (...args: never[]) => Promise<ActionResult<infer D>> ? D : never;

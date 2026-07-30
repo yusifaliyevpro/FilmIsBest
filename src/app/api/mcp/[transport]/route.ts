@@ -10,8 +10,7 @@ import {
   listMoviesForMCP,
 } from "@/data/sanity/movies/mcp";
 
-const CATALOGUE_DISCLAIMER =
-  "Every movie returned by this server is part of the FilmIsBest catalogue.";
+const CATALOGUE_DISCLAIMER = "Every movie returned by this server is part of the FilmIsBest catalogue.";
 
 const FIELDS_DESCRIPTION =
   `Allowed values: ${MOVIE_FIELD_NAMES.join(", ")}. ` +

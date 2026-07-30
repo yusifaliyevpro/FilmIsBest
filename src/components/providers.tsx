@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 
 export function Providers({ children }: { children: Readonly<ReactNode> }) {
   const router = useRouter();
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const routerPush = (path: string, routerOptions: undefined) => router.push(path as Route, routerOptions);
   return (
     <HeroUIProvider navigate={routerPush}>

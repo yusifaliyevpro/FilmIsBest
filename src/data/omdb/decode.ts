@@ -42,5 +42,6 @@ export function decodeOMDbStrings<T extends Record<string, unknown>>(data: T): T
   for (const [key, value] of Object.entries(out)) {
     if (typeof value === "string") out[key] = decodeHtmlEntities(value);
   }
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   return out as T;
 }

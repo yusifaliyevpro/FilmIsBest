@@ -13,3 +13,6 @@ allowBuilds:
   prisma: true
   sharp: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - mcp-handler@2.0.1
+  - nuqs@2.9.3

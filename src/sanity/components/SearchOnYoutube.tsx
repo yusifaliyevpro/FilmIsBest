@@ -14,7 +14,9 @@ const SUCCESS_FEEDBACK_MS = 1500;
 
 export function SearchOnYoutube(props: InputProps) {
   const { renderDefault, onChange } = props;
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const filmName = useFormValue(["filmName"]) as string | undefined;
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const imdbID = useFormValue(["imdbID"]) as string | undefined;
   const client = useClient({ apiVersion: apiVersion });
   const toast = useToast();

@@ -143,7 +143,7 @@ function buildFields(omdb: OMDbMovieData): Record<string, unknown> {
 async function fetchOMDB(imdbID: string): Promise<OMDbMovieData | null> {
   const res = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);
   if (!res.ok) return null;
-  const data = (await res.json()) as OMDbMovieData;
+  const data: OMDbMovieData = await res.json();
   return data.Response === "False" ? null : decodeOMDbStrings(data);
 }
 
@@ -157,7 +157,7 @@ async function fetchTmdbId(imdbID: string): Promise<number | undefined> {
     `https://api.themoviedb.org/3/find/${imdbID}?external_source=imdb_id&api_key=${TMDB_API_KEY}`,
   );
   if (!res.ok) return undefined;
-  const data = (await res.json()) as { movie_results?: { id: number }[]; tv_results?: { id: number }[] };
+  const data: { movie_results?: { id: number }[]; tv_results?: { id: number }[] } = await res.json();
   return data.movie_results?.[0]?.id ?? data.tv_results?.[0]?.id;
 }
 
@@ -168,14 +168,14 @@ function isEqual(current: unknown, next: unknown): boolean {
     return current.every((v, i) => String(v) === String(next[i]));
   }
   if (typeof next === "number") return Number(current) === next;
-  return String(current ?? "").trim() === String(next).trim();
+  return JSON.stringify(current ?? "").trim() === JSON.stringify(next).trim();
 }
 
 function formatValue(v: unknown): string {
   if (v === undefined || v === null || v === "") return "(empty)";
   if (Array.isArray(v)) return `[${v.map((x) => `"${x}"`).join(", ")}]`;
   if (typeof v === "string") return `"${v}"`;
-  return String(v);
+  return JSON.stringify(v);
 }
 
 type Diff = { label: string; current: unknown; next: unknown };
@@ -278,7 +278,7 @@ async function run() {
       omdb = await fetchOMDB(movie.imdbID);
     } catch (err) {
       console.log(
-        `${counter} ${movie.filmName ?? movie.imdbID} — ${red("OMDb fetch failed")}: ${err instanceof Error ? err.message : err}`,
+        `${counter} ${movie.filmName ?? movie.imdbID} — ${red("OMDb fetch failed")}: ${err instanceof Error ? err.message : String(err)}`,
       );
       failed++;
       continue;
@@ -337,7 +337,7 @@ async function run() {
       console.log(`  ${green("✓ updated")}\n`);
       updated++;
     } catch (err) {
-      console.log(`  ${red("✗ update failed")}: ${err instanceof Error ? err.message : err}\n`);
+      console.log(`  ${red("✗ update failed")}: ${err instanceof Error ? err.message : String(err)}\n`);
       failed++;
     }
   }

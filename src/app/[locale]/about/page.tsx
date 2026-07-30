@@ -77,7 +77,7 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
       <ul className="relative mt-8 mb-5 flex w-auto flex-col gap-y-6 rounded-lg p-3 sm:w-200 lg:mt-0 lg:p-12">
         {texts.map((text, i) => (
           <p key={i + text.t} className={text.className ? text.className : "flex flex-col text-base leading-relaxed"}>
-            {t(text.t as "text1")}
+            {t(text.t)}
           </p>
         ))}
         <ol className="tools relative my-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-8 select-none sm:flex-row">
@@ -114,7 +114,7 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
         </div>
         {links.map((link, i) => (
           <p key={link.t + i} className="text-center lg:text-left">
-            {t(link.t as "text1")}{" "}
+            {t(link.t)}{" "}
             <a className="text-blue-600 hover:text-blue-800" href={link.link} target="_blank">
               {link.linkText}
             </a>

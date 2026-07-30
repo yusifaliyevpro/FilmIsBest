@@ -16,7 +16,7 @@ export default function MovieCard({ movie, isLazyLoad }: { movie: Movie; isLazyL
         prefetch={false}
       >
         <SanityImage
-          src={movie.poster!}
+          src={movie.poster}
           width={625}
           preload={!isLazyLoad}
           height={910}

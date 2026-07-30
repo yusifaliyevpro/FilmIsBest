@@ -20,12 +20,15 @@ export function GetMovieDataFromOMDB(props: InputProps) {
   const [open, setOpen] = useState(false);
   const client = useClient({ apiVersion: apiVersion });
   const toast = useToast();
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const documentId = useFormValue(["_id"]) as string;
-  // Current values of the dependent fields, so we only auto-generate the ones
-  // that aren't filled in yet (re-fetching mustn't clobber existing work).
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const slug = useFormValue(["slug"]) as { current?: string } | undefined;
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const description = useFormValue(["description"]) as string | undefined;
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const poster = useFormValue(["poster"]) as { asset?: { _ref?: string } } | undefined;
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const trailer = useFormValue(["FraqmanLink"]) as string | undefined;
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const popoverRef = useRef<HTMLDivElement | null>(null);
@@ -47,7 +50,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
         } else if (OMDbMovie.Response === "False") {
           toast.push({ title: "Movie is not found!", status: "error" });
         } else {
-          const genreList = (OMDbMovie.Genre as string).split(", ").map((g) => g.trim());
+          const genreList = OMDbMovie.Genre.split(", ").map((g) => g.trim());
           const validGenres = genreList.filter((g) => (GENRE_LIST as readonly string[]).includes(g));
 
           // Resolve the TMDB id in parallel so the front-end players can be
@@ -87,7 +90,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
   // The field accepts either an imdbID (fetch directly) or a movie title (search
   // OMDb and show pickable results).
   const handleSearch = () => {
-    const query = (value as string | undefined)?.trim();
+    const query = typeof value === "string" ? value.trim() : undefined;
     if (!query) {
       toast.push({ title: "Field is empty! Type a movie name or IMDb ID.", status: "error" });
       return;
@@ -222,9 +225,9 @@ const triggerSlugGeneration = () => {
 };
 
 const triggerDescriptionGeneration = () => {
-  const descriptionButton = document.querySelector(
+  const descriptionButton: HTMLButtonElement | null = document.querySelector(
     '[data-selector="description-generate-button"]',
-  ) as HTMLButtonElement;
+  );
 
   if (descriptionButton) {
     descriptionButton.click();
@@ -234,7 +237,7 @@ const triggerDescriptionGeneration = () => {
 };
 
 const triggerPosterFetch = () => {
-  const posterButton = document.querySelector('[data-selector="poster-fetch-button"]') as HTMLButtonElement;
+  const posterButton: HTMLButtonElement | null = document.querySelector('[data-selector="poster-fetch-button"]');
 
   if (posterButton) {
     posterButton.click();
@@ -244,7 +247,7 @@ const triggerPosterFetch = () => {
 };
 
 const triggerTrailerFetch = () => {
-  const trailerButton = document.querySelector('[data-selector="trailer-fetch-button"]') as HTMLButtonElement;
+  const trailerButton: HTMLButtonElement | null = document.querySelector('[data-selector="trailer-fetch-button"]');
 
   if (trailerButton) {
     trailerButton.click();

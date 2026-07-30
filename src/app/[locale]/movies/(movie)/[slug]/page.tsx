@@ -59,8 +59,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
       "yusifaliyev",
       "yusif",
       "aliyev",
-      `${movie.filmName}`,
-      `${movie.actors?.join(" • ")}`,
+      movie.filmName,
+      movie.actors?.join(" • "),
     ],
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,

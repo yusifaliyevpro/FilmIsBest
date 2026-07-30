@@ -25,7 +25,7 @@ export default function Search() {
   // `active` guard drops stale responses that resolve out of order.
   useEffect(() => {
     const trimmed = debouncedQuery.trim();
-    if (!trimmed) return;
+    if (!trimmed) return undefined;
 
     let active = true;
     startTransition(async () => {
@@ -67,7 +67,7 @@ export default function Search() {
   // Close the dropdown when clicking outside of the search bar.
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (containerRef.current && event.target instanceof Node && !containerRef.current.contains(event.target)) {
         setOpen(false);
       }
     }
@@ -129,7 +129,7 @@ export default function Search() {
                   onMouseEnter={() => setActiveIndex(index)}
                 >
                   <SanityImage
-                    src={movie.poster!}
+                    src={movie.poster}
                     width={46}
                     height={68}
                     quality={100}

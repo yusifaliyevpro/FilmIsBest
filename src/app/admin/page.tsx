@@ -56,7 +56,7 @@ export async function AdminPageContent() {
           </div>
           <div className="flex flex-row items-center gap-4">
             <RefreshButton />
-            <AvatarMenu image={session!.user.image || "/account_image_placeholder.jpg"} email={session!.user.email} />
+            <AvatarMenu image={session.user.image || "/account_image_placeholder.jpg"} email={session.user.email} />
           </div>
         </div>
       </header>
