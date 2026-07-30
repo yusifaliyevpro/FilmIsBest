@@ -14,5 +14,17 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 minimumReleaseAgeExclude:
-  - mcp-handler@2.0.1
+  - mcp-handler@2.0.1 || 2.1.0
   - nuqs@2.9.3
+  - greenly@1.0.1
+  - "@sanity/cli-core@2.7.1"
+  - "@sanity/cli@7.15.1"
+  - "@sanity/client@7.26.0"
+  - "@sanity/diff@6.8.0"
+  - "@sanity/mutator@6.8.0"
+  - "@sanity/schema@6.8.0"
+  - "@sanity/types@6.8.0"
+  - "@sanity/ui@3.5.1"
+  - "@sanity/util@6.8.0"
+  - "@sanity/vision@6.8.0"
+  - sanity@6.8.0
