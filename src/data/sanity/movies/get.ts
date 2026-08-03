@@ -1,5 +1,6 @@
 import { defineQuery } from "next-sanity";
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
+import { cacheTags } from "@/lib/cache-tags";
 import { client } from "@/sanity/lib/client";
 import type {
   AllMoviesQueryResult,
@@ -10,9 +11,10 @@ import type {
 
 // Lean projection used only by the search dropdown. Cached for an hour so that
 // every keystroke-driven search reuses the same dataset instead of refetching.
-export async function getAllMovies() {
+export async function getAllMoviesForSearch() {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movies);
 
   const AllMoviesQuery = defineQuery(`
     *[_type == 'Movie-studio']
@@ -33,7 +35,8 @@ export async function getAllMovies() {
 
 export async function getMovies() {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movies);
 
   const MoviesQuery = defineQuery(`
     *[_type == 'Movie-studio']
@@ -57,7 +60,8 @@ export async function getMovies() {
 
 export async function getMovie(slug: string) {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movie(slug));
 
   const MovieQuery = defineQuery(`
     *[_type == 'Movie-studio' && slug.current == $slug][0] {
@@ -88,7 +92,8 @@ export async function getMovie(slug: string) {
 
 export async function getRecentlyAddedMovies() {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movies);
 
   const RecentlyAddedMoviesQuery = defineQuery(`
     *[_type == 'Movie-studio'] 

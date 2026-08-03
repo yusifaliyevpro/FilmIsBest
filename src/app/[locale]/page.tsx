@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 import { BiSolidChevronRight } from "react-icons/bi";
 import AnimatedText from "@/components/animated-text";
 import LottieComponent from "@/components/lottie-component";
@@ -8,6 +8,7 @@ import RecentlyAddedMovies from "@/components/recently-added-movies";
 import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { Link } from "@/i18n/navigation";
 import { locales } from "@/i18n/routing";
+import { cacheTags } from "@/lib/cache-tags";
 import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -41,7 +42,8 @@ export function generateStaticParams() {
 
 export default async function Home() {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movies);
 
   const [recentlyAddedMovies, t] = await Promise.all([getRecentlyAddedMovies(), getTranslations("Home")]);
 

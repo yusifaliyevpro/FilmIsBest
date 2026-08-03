@@ -6,7 +6,7 @@ import { decodeOMDbStrings } from "./decode";
 
 export async function getOMDBDataById(imdbID: string, token: string) {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
 
   const isMember = await isSanityProjectMember(token);
   if (!isMember) return null;
@@ -33,7 +33,7 @@ export type OMDbSearchItem = {
  */
 export async function searchOMDBByTitle(query: string, token: string, limit = 5): Promise<OMDbSearchItem[] | null> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
 
   const isMember = await isSanityProjectMember(token);
   if (!isMember) return null;

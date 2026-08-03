@@ -13,6 +13,7 @@ const serverEnvSchema = z.object({
   OPENROUTER_API_KEY: z.string().min(3),
   MCP_AUTH_TOKEN: z.string().min(3),
   TMDB_API_KEY: z.string().min(3),
+  SANITY_REVALIDATE_SECRET: z.string().min(3),
 });
 
 type ServerEnv = z.infer<typeof serverEnvSchema>;

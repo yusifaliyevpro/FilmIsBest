@@ -1,4 +1,5 @@
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
+import { cacheTags } from "@/lib/cache-tags";
 import { GENRE_LIST, type Genre } from "@/lib/genres";
 import { client } from "@/sanity/lib/client";
 import { getMovie } from "./get";
@@ -107,7 +108,8 @@ export type ListMoviesForMCPParams = MovieFilterParams & {
 
 export async function listMoviesForMCP(params: ListMoviesForMCPParams) {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movies);
 
   // Default to the whole catalogue; only cap to keep a single response sane.
   const limit = Math.min(Math.max(params.limit ?? 1000, 1), 1000);
@@ -133,7 +135,8 @@ export async function listMoviesForMCP(params: ListMoviesForMCPParams) {
 
 export async function countMoviesForMCP(params: MovieFilterParams = {}) {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movies);
 
   const query = `count(*[${MOVIE_FILTER}])`;
   return client.fetch<number>(query, buildFilterParams(params));
@@ -141,7 +144,8 @@ export async function countMoviesForMCP(params: MovieFilterParams = {}) {
 
 export async function getRecentlyAddedForMCP(fields: MovieField[], limit = 10) {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  cacheTag(cacheTags.movies);
 
   const capped = Math.min(Math.max(limit, 1), 100);
   const projection = buildProjection(fields);

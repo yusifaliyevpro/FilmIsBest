@@ -1,11 +1,15 @@
 import { defineQuery } from "next-sanity";
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
+import { cacheTags } from "@/lib/cache-tags";
 import { client } from "@/sanity/lib/client";
 import type { SequelQueryResult } from "@/sanity/types";
 
 export async function getSequel(movieSlug: string) {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
+  // `sequels` busts on any sequel-doc change; the movie tag busts when this
+  // specific movie changes (its poster/name shows in the sequel list).
+  cacheTag(cacheTags.sequels, cacheTags.movie(movieSlug));
 
   const SequelQuery = defineQuery(`
     *[_type == "sequel" && references(*[_type == "Movie-studio" && slug.current == $slug][0]._id)][0] {

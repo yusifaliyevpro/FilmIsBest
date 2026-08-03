@@ -1,14 +1,15 @@
 import { Button } from "@heroui/button";
 import type { Metadata } from "next";
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import MovieBar from "@/components/movie-bar";
 import MovieInfo from "@/components/movie-info";
 import Sequel from "@/components/sequel";
-import { getMovie } from "@/data/sanity/movies/get";
+import { getMovie, getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { getSequel } from "@/data/sanity/sequel/get";
 import { routing, validateLocale } from "@/i18n/routing";
+import { cacheTags } from "@/lib/cache-tags";
 import { BASE_URL } from "@/lib/constants";
 
 const Share = dynamic(() => import("@/components/share"), {
@@ -17,9 +18,10 @@ const Share = dynamic(() => import("@/components/share"), {
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[slug]">): Promise<Metadata> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
 
   const { slug } = await params;
+  cacheTag(cacheTags.movie(slug));
   const movie = await getMovie(slug);
   if (!movie) return notFound();
 
@@ -71,16 +73,19 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
   };
 }
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale, slug: "first-signal" }));
+export async function generateStaticParams() {
+  const movies = await getRecentlyAddedMovies();
+  return routing.locales.map((locale) => movies.map((movie) => ({ locale, slug: movie.slug }))).flat();
 }
 
 export default async function Page({ params }: PageProps<"/[locale]/movies/[slug]">) {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
 
   const { locale, slug } = await params;
   validateLocale(locale);
+  // `sequels` so a sequel-doc change busts this page (it renders <Sequel/>).
+  cacheTag(cacheTags.movie(slug), cacheTags.sequels);
   const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
   if (!movie) return notFound();
 
