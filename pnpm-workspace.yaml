@@ -20,14 +20,14 @@ minimumReleaseAgeExclude:
   - "@sanity/cli-core@2.7.1"
   - "@sanity/cli@7.15.1"
   - "@sanity/client@7.26.0"
-  - "@sanity/diff@6.8.0"
-  - "@sanity/mutator@6.8.0"
-  - "@sanity/schema@6.8.0"
-  - "@sanity/types@6.8.0"
+  - "@sanity/diff@6.8.0 || 6.9.1"
+  - "@sanity/mutator@6.8.0 || 6.9.1"
+  - "@sanity/schema@6.8.0 || 6.9.1"
+  - "@sanity/types@6.8.0 || 6.9.1"
   - "@sanity/ui@3.5.1"
-  - "@sanity/util@6.8.0"
-  - "@sanity/vision@6.8.0"
-  - sanity@6.8.0
+  - "@sanity/util@6.8.0 || 6.9.1"
+  - "@sanity/vision@6.8.0 || 6.9.1"
+  - sanity@6.8.0 || 6.9.1
   - "@oxfmt/binding-android-arm-eabi@0.62.0"
   - "@oxfmt/binding-android-arm64@0.62.0"
   - "@oxfmt/binding-darwin-arm64@0.62.0"
@@ -78,3 +78,7 @@ minimumReleaseAgeExclude:
   - "@next/swc-win32-arm64-msvc@16.3.0"
   - "@next/swc-win32-x64-msvc@16.3.0"
   - next@16.3.0
+  - "@ai-sdk/gateway@4.0.44"
+  - "@ai-sdk/react@4.0.59"
+  - ai@7.0.56
+  - swiper@14.1.0
