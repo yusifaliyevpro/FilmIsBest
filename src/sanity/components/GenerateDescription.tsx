@@ -2,7 +2,8 @@
 
 import { useCompletion } from "@ai-sdk/react";
 import { SparklesIcon } from "@sanity/icons/Sparkles";
-import { Button, Flex, Stack, TextArea, useToast } from "@sanity/ui";
+import { Button, Flex, Stack, TextArea } from "@sanity/ui";
+import { useToast } from "@sanity/ui/toast";
 import { type InputProps, set, unset, useClient, useFormValue } from "sanity";
 import { apiVersion } from "../env";
 

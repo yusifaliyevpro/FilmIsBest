@@ -3,7 +3,8 @@
 import { CheckmarkIcon } from "@sanity/icons/Checkmark";
 import { DownloadIcon } from "@sanity/icons/Download";
 import { SearchIcon } from "@sanity/icons/Search";
-import { Box, Button, Flex, useToast } from "@sanity/ui";
+import { Box, Button, Flex } from "@sanity/ui";
+import { useToast } from "@sanity/ui/toast";
 import { startTransition, useState } from "react";
 import { type ImageValue, type ObjectFieldProps, set, setIfMissing, useClient, useFormValue } from "sanity";
 import { uploadMoviePosters } from "@/data/tmdb/get";

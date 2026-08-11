@@ -1,7 +1,9 @@
 "use client";
 
 import { SearchIcon } from "@sanity/icons/Search";
-import { Box, Button, Card, Flex, Popover, Stack, Text, useClickOutsideEvent, useToast } from "@sanity/ui";
+import { Box, Button, Card, Flex, Stack, Text, useClickOutsideEvent } from "@sanity/ui";
+import { Popover } from "@sanity/ui/popover";
+import { useToast } from "@sanity/ui/toast";
 import Image from "next/image";
 import { startTransition, useRef, useState } from "react";
 import { type InputProps, set, useClient, useFormValue } from "sanity";
@@ -149,7 +151,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
         placement="bottom-end"
         content={
           <Box ref={popoverRef} padding={1} style={{ maxHeight: 360, overflowY: "auto", width: 340 }}>
-            <Stack space={1}>
+            <Stack gap={1}>
               {results?.map((item) => (
                 <Card
                   key={item.imdbID}
@@ -181,7 +183,7 @@ export function GetMovieDataFromOMDB(props: InputProps) {
                         }}
                       />
                     )}
-                    <Stack space={2}>
+                    <Stack gap={2}>
                       <Text size={1} weight="semibold">
                         {item.Title}
                       </Text>
