@@ -7,8 +7,6 @@ import type { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { sanityLoader } from "@/lib/imageLoader";
 
-export const instant = false;
-
 export const alt = "Movie Poster";
 export const size = {
   width: 1200,

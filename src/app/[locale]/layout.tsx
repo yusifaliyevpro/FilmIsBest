@@ -81,9 +81,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
-  return params.then(({ locale }) => (
-    <html lang={locale} className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}>
+export default function RootLayout({ children }: LayoutProps<"/[locale]">) {
+  return (
+    <html lang="en" className={`dark ${inter.variable} ${poppins.variable} min-h-screen bg-gray-800 text-white`}>
       <body className="font-inter">
         <NuqsAdapter>
           <NextIntlClientProvider>
@@ -99,5 +99,5 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
         </NuqsAdapter>
       </body>
     </html>
-  ));
+  );
 }
