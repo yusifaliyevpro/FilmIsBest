@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 import { getMovie } from "@/data/sanity/movies/get";
 import type { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import sanityLoader from "@/lib/imageLoader";
+import { sanityLoader } from "@/lib/imageLoader";
 
 export const alt = "Movie Poster";
 export const size = {

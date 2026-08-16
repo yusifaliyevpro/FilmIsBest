@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type ImageProps } from "next/image";
-import sanityLoader from "@/lib/imageLoader";
+import { sanityLoader } from "@/lib/imageLoader";
 
 export default function SanityImage(props: ImageProps) {
   return (
