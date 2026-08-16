@@ -8,11 +8,7 @@ import type { MoviesQueryResult } from "@/sanity/types";
 
 export default function Movies({ movies }: { movies: MoviesQueryResult }) {
   const [pageQuery] = useQueryState("p", searchParams.p);
-
-  // Defer the page input so the list update runs as a Transition, which is
-  // what activates the <ViewTransition> enter/exit animations below.
   const deferredPageQuery = useDeferredValue(pageQuery);
-
   const paginatedMovies = movies.slice((deferredPageQuery - 1) * 20, deferredPageQuery * 20);
 
   return (

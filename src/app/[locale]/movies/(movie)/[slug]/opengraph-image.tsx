@@ -23,28 +23,81 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
 
   if (!movie) notFound();
 
+  const genres = movie.genre?.slice(0, 3) ?? [];
+
   return new ImageResponse(
-    <div tw="relative flex h-full w-full flex-col items-center justify-center bg-white">
-      <div tw="relative flex h-full w-full flex-row justify-between">
-        <div tw="flex py-5">
-          {/* oxlint-disable-next-line next/no-img-element */}
-          <img
-            src={sanityLoader({ src: movie.poster, width: 600, height: 900, quality: 100 })}
-            tw="ml-10 h-full w-95 rounded-2xl shadow-2xl shadow-blue-900"
-            alt={movie.filmName || ""}
-          />
+    <div
+      tw="relative flex h-full w-full flex-row items-center bg-gray-800"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at 78% 28%, rgba(37,99,235,0.35) 0%, rgba(37,99,235,0) 45%), linear-gradient(135deg, #111827 0%, #1f2937 55%, #111827 100%)",
+      }}
+    >
+      {/* Poster (left) */}
+      <div tw="flex h-full items-center pl-14">
+        {/* oxlint-disable-next-line next/no-img-element */}
+        <img
+          src={sanityLoader({ src: movie.poster, width: 600, height: 900, quality: 100 })}
+          width={356}
+          height={534}
+          tw="rounded-2xl"
+          style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.6)" }}
+          alt={movie.filmName || ""}
+        />
+      </div>
+
+      {/* Info (right) */}
+      <div tw="relative flex flex-1 flex-col justify-center px-14 py-12">
+        <h1 tw="flex text-6xl font-bold text-white" style={{ lineHeight: 1.1 }}>
+          {movie.filmName}
+        </h1>
+
+        {/* Meta badges */}
+        <div tw="mt-7 flex flex-row items-center">
+          <div tw="flex items-center rounded-lg bg-[#ffc107] px-4 py-2 text-2xl font-bold text-gray-900">
+            IMDb {movie.imdbpuan?.toFixed(1)}
+          </div>
+          <div tw="ml-4 flex items-center rounded-lg bg-gray-900/70 px-4 py-2 text-2xl font-bold text-gray-200">
+            {movie.releaseDate}
+          </div>
+          {movie.movieTime ? (
+            <div tw="ml-4 flex items-center rounded-lg bg-gray-900/70 px-4 py-2 text-2xl font-bold text-gray-200">
+              {movie.movieTime} min
+            </div>
+          ) : null}
         </div>
 
-        <div tw="relative flex w-190 flex-col items-center justify-around text-xl font-bold">
-          <h1 tw="relative flex h-auto w-auto text-center text-7xl font-bold text-blue-600">{movie.filmName}</h1>
-          <div tw="relative flex rounded-xl bg-blue-600 p-9 text-5xl font-bold text-white">Watch it Now!</div>
-          <div tw="relative right-0 flex flex-row items-center justify-around">
-            {/* oxlint-disable-next-line next/no-img-element */}
-            <img alt="FilmIsBest Logo" height={70} src={`${BASE_URL}/icon.png`} width={70} />
-            <p tw="ml-2 text-6xl font-bold text-inherit">
-              Film<span tw="text-blue-600">Is</span>Best
-            </p>
+        {/* Genres */}
+        {genres.length > 0 ? (
+          <div tw="mt-5 flex flex-row items-center">
+            {genres.map((g) => (
+              <div
+                key={g}
+                tw="mr-3 flex items-center rounded-full border-2 border-blue-600 px-4 py-1 text-xl font-bold text-blue-400"
+              >
+                {g}
+              </div>
+            ))}
           </div>
+        ) : null}
+
+        {/* CTA */}
+        <div tw="mt-10 flex">
+          <div
+            tw="flex rounded-xl bg-blue-600 px-10 py-5 text-4xl font-bold text-white"
+            style={{ boxShadow: "0 12px 30px rgba(37,99,235,0.5)" }}
+          >
+            Watch it Now!
+          </div>
+        </div>
+
+        {/* Brand */}
+        <div tw="mt-14 flex flex-row items-center">
+          {/* oxlint-disable-next-line next/no-img-element */}
+          <img alt="FilmIsBest Logo" height={56} src={`${BASE_URL}/icon.png`} width={56} />
+          <p tw="ml-3 flex text-4xl font-bold text-white">
+            Film<span tw="text-blue-600">Is</span>Best
+          </p>
         </div>
       </div>
     </div>,
