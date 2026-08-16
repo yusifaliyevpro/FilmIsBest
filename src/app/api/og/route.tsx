@@ -5,12 +5,12 @@ import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
-async function getInterFont() {
+async function getPoppinsFont() {
   "use cache";
   cacheLife("max");
 
-  const interSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));
-  return interSemiBold;
+  const poppinsSemiBold = await readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf"));
+  return poppinsSemiBold;
 }
 
 export async function GET(request: NextRequest) {
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   // ?title=<title>
   const hasTitle = searchParams.has("title");
   const title = hasTitle ? searchParams.get("title")?.slice(0, 100) : "Default title";
-  const interSemiBold = await getInterFont();
+  const poppinsSemiBold = await getPoppinsFont();
 
   return new ImageResponse(
     <div tw="relative flex h-full w-full flex-col items-center justify-start bg-white">
@@ -35,10 +35,10 @@ export async function GET(request: NextRequest) {
     {
       fonts: [
         {
-          name: "Inter",
-          data: interSemiBold,
+          name: "Poppins",
+          data: poppinsSemiBold,
           style: "normal",
-          weight: 400,
+          weight: 600,
         },
       ],
       height: 1000,

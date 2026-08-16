@@ -10,7 +10,7 @@ import { getMovie, getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { getSequel } from "@/data/sanity/sequel/get";
 import { routing, validateLocale } from "@/i18n/routing";
 import { cacheTags } from "@/lib/cache-tags";
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL, SITE_KEYWORDS } from "@/lib/constants";
 
 const Share = dynamic(() => import("@/components/share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
@@ -29,40 +29,16 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
     metadataBase: BASE_URL,
     title: movie.filmName,
     description: movie.description,
+    // Movie-specific terms first (the ones that actually help this page rank),
+    // then the shared site keywords — no more per-movie copy of the full list.
     keywords: [
-      "FilmIsBest",
-      "Film",
-      "Filmlər səhifəsi",
-      "Movie",
-      "filmisbest.vercel.app",
-      "yusifaliyevpro",
-      "yusifaliyevpro.com",
-      "Azfilm",
-      "Türkçə film",
-      "İngiliscə film",
-      "Türkçə altyazılı film",
-      "İngiliscə altyazılı film",
-      "Azərbaycan film",
-      "Film izle",
-      "Türkçə dublaj",
-      "Film dublajı",
-      "Filmlər",
-      "Movies",
-      "hd",
-      "hd film",
-      "full film",
-      "1080p film",
-      "filmifullizle",
-      "film izle türk",
-      "Netflix film",
-      "sinema",
-      "film sineması",
-      "Azəri film",
-      "yusifaliyev",
-      "yusif",
-      "aliyev",
       movie.filmName,
-      movie.actors?.join(" • "),
+      `watch ${movie.filmName} online`,
+      `${movie.filmName} trailer`,
+      `${movie.filmName} full movie`,
+      ...(movie.genre ?? []),
+      ...(movie.actors ?? []),
+      ...SITE_KEYWORDS,
     ],
     openGraph: {
       title: `FilmIsBest | ${movie.filmName}`,

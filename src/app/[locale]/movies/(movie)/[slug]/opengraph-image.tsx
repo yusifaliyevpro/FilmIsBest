@@ -16,7 +16,7 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { slug } = await params;
-  const [movie, interSemiBold] = await Promise.all([
+  const [movie, poppinsSemiBold] = await Promise.all([
     getMovie(slug),
     readFile(join(process.cwd(), "assets/fonts/Poppins-SemiBold.ttf")),
   ]);
@@ -104,10 +104,10 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
     {
       fonts: [
         {
-          name: "Inter",
-          data: interSemiBold,
+          name: "Poppins",
+          data: poppinsSemiBold,
           style: "normal",
-          weight: 400,
+          weight: 600,
         },
       ],
       height: size.height,

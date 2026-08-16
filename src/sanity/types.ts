@@ -222,7 +222,7 @@ export type AllMoviesQueryResult = Array<{
 
 // Source: src/data/sanity/movies/get.ts
 // Variable: MoviesQuery
-// Query: *[_type == 'Movie-studio']      | order(_createdAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        _id,        imdbpuan,        _updatedAt,        imdbID,        releaseDate      }
+// Query: *[_type == 'Movie-studio']      | order(_createdAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        _id,        imdbpuan,        releaseDate      }
 export type MoviesQueryResult = Array<{
   filmName: string;
   poster: string;
@@ -230,8 +230,6 @@ export type MoviesQueryResult = Array<{
   slug: string;
   _id: string;
   imdbpuan: number;
-  _updatedAt: string;
-  imdbID: string;
   releaseDate: number;
 }>;
 
