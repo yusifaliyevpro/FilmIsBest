@@ -47,6 +47,7 @@ export async function getMovies() {
         "slug": slug.current,
         _id,
         imdbpuan,
+        _updatedAt,
         releaseDate
       }
   `);

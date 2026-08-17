@@ -230,6 +230,7 @@ export type MoviesQueryResult = Array<{
   slug: string;
   _id: string;
   imdbpuan: number;
+  _updatedAt: string;
   releaseDate: number;
 }>;
 
