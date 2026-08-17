@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: `Ignored document type: ${body.type}`, revalidated: false });
     }
 
-    for (const tag of tags) revalidateTag(tag, { expire: 0 });
+    for (const tag of tags) revalidateTag(tag, "max");
 
     return NextResponse.json({ revalidated: true, tags });
   } catch (err) {
