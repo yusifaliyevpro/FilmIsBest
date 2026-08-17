@@ -1,15 +1,5 @@
-import "server-only";
 import { projectId } from "../env";
 
-/**
- * Verifies that the given personal token belongs to a member of this Sanity
- * project. The Studio configures its client with the logged-in user's personal
- * token, so a valid token here means the caller is authenticated in our Studio.
- *
- * The project-scoped `users/me` endpoint returns the current user (including
- * their role in this project) and responds with 401 if the token is invalid or
- * the user isn't a member of the project.
- */
 export async function isSanityProjectMember(token: string | undefined): Promise<boolean> {
   if (!token) return false;
 
