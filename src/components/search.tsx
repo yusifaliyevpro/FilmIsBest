@@ -124,7 +124,7 @@ export default function Search() {
                     index === activeIndex ? "bg-gray-700" : "hover:bg-gray-700"
                   }`}
                   href={`/movies/${movie.slug}`}
-                  prefetch={false}
+                  prefetch={true}
                   onClick={() => setOpen(false)}
                   onMouseEnter={() => setActiveIndex(index)}
                 >

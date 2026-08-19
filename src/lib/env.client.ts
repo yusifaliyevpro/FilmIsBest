@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 
 export const clientEnvSchema = z.object({
   NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(3),
