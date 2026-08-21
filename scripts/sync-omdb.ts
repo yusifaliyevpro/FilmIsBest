@@ -26,6 +26,7 @@
 import { getCliClient } from "sanity/cli";
 import { decodeOMDbStrings, parseReleaseYear } from "../src/data/omdb/decode";
 import { GENRE_LIST } from "../src/lib/genres";
+import { cachedFetchJson } from "./fetch-cache";
 
 const client = getCliClient();
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
@@ -141,10 +142,12 @@ function buildFields(omdb: OMDbMovieData): Record<string, unknown> {
 }
 
 async function fetchOMDB(imdbID: string): Promise<OMDbMovieData | null> {
-  const res = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`);
-  if (!res.ok) return null;
-  const data: OMDbMovieData = await res.json();
-  return data.Response === "False" ? null : decodeOMDbStrings(data);
+  const { ok, body } = await cachedFetchJson<OMDbMovieData>(
+    "fetchOMDB",
+    `https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`,
+  );
+  if (!ok) return null;
+  return body.Response === "False" ? null : decodeOMDbStrings(body);
 }
 
 /**
@@ -153,12 +156,12 @@ async function fetchOMDB(imdbID: string): Promise<OMDbMovieData | null> {
  */
 async function fetchTmdbId(imdbID: string): Promise<number | undefined> {
   if (!TMDB_API_KEY) return undefined;
-  const res = await fetch(
+  const { ok, body } = await cachedFetchJson<{ movie_results?: { id: number }[]; tv_results?: { id: number }[] }>(
+    "fetchTmdbId",
     `https://api.themoviedb.org/3/find/${imdbID}?external_source=imdb_id&api_key=${TMDB_API_KEY}`,
   );
-  if (!res.ok) return undefined;
-  const data: { movie_results?: { id: number }[]; tv_results?: { id: number }[] } = await res.json();
-  return data.movie_results?.[0]?.id ?? data.tv_results?.[0]?.id;
+  if (!ok) return undefined;
+  return body.movie_results?.[0]?.id ?? body.tv_results?.[0]?.id;
 }
 
 /** True when the current Sanity value already matches the proposed OMDb value. */
@@ -262,7 +265,7 @@ async function run() {
   const from = startFrom > 1 ? ` (starting at #${startFrom})` : "";
   const hint = FLAG_YES
     ? dim("auto-committing changes (FLAG_YES)")
-    : dim("Enter = update · Ctrl+Enter = skip · q = quit");
+    : dim("Enter = update · s = skip · q = quit");
   console.log(`Fetched ${movies.length} movies${from}. ${hint}\n`);
 
   let updated = 0;

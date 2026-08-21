@@ -19,6 +19,7 @@
     "install:skills": "pnpx skills@latest experimental_install",
     "install:heroui_docs": "pnpx heroui-cli@latest agents-md --react --output AGENTS.md",
     "sync:omdb": "sanity exec scripts/sync-omdb.ts --with-user-token",
+    "sync:sequels": "sanity exec scripts/sync-sequels.ts --with-user-token",
     "remove-assets": "sanity exec scripts/remove-unused-assets.ts --with-user-token",
     "remove-assets:preview": "sanity exec scripts/preview-unused-assets.ts --with-user-token",
     "bootstrap": "pnpm install && pnpm install:skills && pnpm install:heroui_docs"

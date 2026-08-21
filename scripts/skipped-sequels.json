@@ -1,0 +1,52 @@
+[
+  {
+    "tmdbCollectionId": 1434946,
+    "name": "Alien: Romulus",
+    "movies": [
+      {
+        "filmName": "Alien: Romulus",
+        "releaseDate": 2024
+      }
+    ]
+  },
+  {
+    "tmdbCollectionId": 1749328,
+    "name": "Cloverfield - Saga",
+    "movies": [
+      {
+        "filmName": "The Cloverfield Paradox",
+        "releaseDate": 2018
+      }
+    ]
+  },
+  {
+    "tmdbCollectionId": 1025281,
+    "name": "Constantine",
+    "movies": [
+      {
+        "filmName": "Constantine",
+        "releaseDate": 2005
+      }
+    ]
+  },
+  {
+    "tmdbCollectionId": 1216426,
+    "name": "Uncharted",
+    "movies": [
+      {
+        "filmName": "Uncharted",
+        "releaseDate": 2022
+      }
+    ]
+  },
+  {
+    "tmdbCollectionId": 1046516,
+    "name": "Wind River",
+    "movies": [
+      {
+        "filmName": "Wind River",
+        "releaseDate": 2017
+      }
+    ]
+  }
+]

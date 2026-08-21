@@ -45,3 +45,6 @@ next-env.d.ts
 # heroui-agents-md
 .heroui-docs
 .claude
+
+# script request cache
+/scripts/.cache
