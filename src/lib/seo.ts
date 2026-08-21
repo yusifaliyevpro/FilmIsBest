@@ -15,7 +15,7 @@ const OG_LOCALE: Record<Locale, string> = {
   tr: "tr_TR",
 };
 
-export function alternates(locale: Locale, path = ""): Metadata["alternates"] {
+function alternates(locale: Locale, path = ""): Metadata["alternates"] {
   const languages: Record<string, string> = {};
   for (const l of routing.locales) languages[HREFLANG[l]] = `/${l}${path}`;
   languages["x-default"] = `/${routing.defaultLocale}${path}`;
@@ -23,7 +23,7 @@ export function alternates(locale: Locale, path = ""): Metadata["alternates"] {
   return { canonical: `/${locale}${path}`, languages };
 }
 
-export function ogImage(title: string) {
+function ogImage(title: string) {
   return {
     url: `/api/og?title=${encodeURIComponent(title)}`,
     width: 1200,
@@ -84,12 +84,8 @@ export function movieJsonLd(movie: NonNullable<MovieQueryResult>, url: string) {
     ...(movie.country ? { countryOfOrigin: movie.country } : {}),
     ...(movie.movieTime ? { duration: `PT${movie.movieTime}M` } : {}),
     ...(movie.imdbID ? { sameAs: `https://www.imdb.com/title/${movie.imdbID}/` } : {}),
-    ...(movie.directed?.length
-      ? { director: movie.directed.map((name) => ({ "@type": "Person", name })) }
-      : {}),
-    ...(movie.actors?.length
-      ? { actor: movie.actors.map((name) => ({ "@type": "Person", name })) }
-      : {}),
+    ...(movie.directed?.length ? { director: movie.directed.map((name) => ({ "@type": "Person", name })) } : {}),
+    ...(movie.actors?.length ? { actor: movie.actors.map((name) => ({ "@type": "Person", name })) } : {}),
     ...(movie.imdbpuan
       ? {
           aggregateRating: {
