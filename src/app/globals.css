@@ -355,3 +355,16 @@ html::-webkit-scrollbar-thumb:hover {
 .dropdown-scroolbar::-webkit-scrollbar-thumb:hover {
   background: #007bff;
 }
+
+/* Sonner Tokens */
+body [data-sonner-toaster][data-sonner-theme="dark"] {
+  --normal-bg: #212936;
+  --normal-border: #374151;
+  --normal-text: #f9fafb;
+  --border-radius: 14px;
+  font-family: var(--font-inter);
+}
+
+body [data-sonner-toaster] [data-sonner-toast] [data-description] {
+  color: #9ca3af;
+}

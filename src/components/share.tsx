@@ -2,14 +2,21 @@
 
 import { Button } from "@heroui/button";
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/modal";
-import { Snippet } from "@heroui/snippet";
-import { addToast, closeAll } from "@heroui/toast";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { BiDotsVerticalRounded, BiImageAlt, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
+import {
+  BiCheck,
+  BiCopy,
+  BiDotsVerticalRounded,
+  BiImageAlt,
+  BiLogoTelegram,
+  BiLogoWhatsapp,
+  BiSolidShareAlt,
+} from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
+import { toast } from "sonner";
 import type { Locale } from "@/i18n/routing";
 import type { MovieQueryResult } from "@/sanity/types";
 import { BASE_URL } from "../lib/constants";
@@ -24,6 +31,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   const [canShareText] = useState(() =>
     navigator && navigator.canShare ? navigator.canShare({ text: "Test" }) : false,
   );
+  const [copied, setCopied] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -60,8 +68,8 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       router.push(`tg://msg?text=${encodeURIComponent(buildShareBody("telegram"))}`);
     } else if (platform === "copy") {
       await navigator.clipboard.writeText(buildShareBody("copy"));
-      closeAll();
-      addToast({ title: t("Share.copied"), color: "success" });
+      toast.dismiss();
+      toast.success(t("Share.copied"));
       if (navigator.vibrate) {
         navigator.vibrate(200);
       }
@@ -70,8 +78,8 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
         title: `FilmIsBest | ${movie.filmName}`,
         text: buildShareBody("copy"),
       };
-      closeAll();
-      addToast({ title: t("Share.inProgress"), timeout: 1000 });
+      toast.dismiss();
+      toast(t("Share.inProgress"), { duration: 1000 });
       await navigator.share(shareData);
     }
   };
@@ -85,7 +93,7 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
       const response = await fetch(movie!.poster);
 
       if (!response.ok) {
-        addToast({ title: t("Share.anErrorOccurred"), color: "danger" });
+        toast.error(t("Share.anErrorOccurred"));
         return;
       }
 
@@ -97,21 +105,29 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
         }),
       ];
       shareData.files = filesArray;
-      closeAll();
-      addToast({ title: t("Share.imageBeingPrepared") });
+      toast.dismiss();
+      toast(t("Share.imageBeingPrepared"));
       return navigator
         .share(shareData)
         .then(() => {
-          closeAll();
-          addToast({ title: t("Share.pictureIsReady"), color: "success" });
+          toast.dismiss();
+          toast.success(t("Share.pictureIsReady"));
         })
         .catch(() => {
           throw new Error(t("Share.anErrorOccurred"));
         });
     } catch (error: unknown) {
-      addToast({ title: error instanceof Error ? error.message : String(error), color: "danger" });
+      toast.error(error instanceof Error ? error.message : String(error));
     }
   }
+
+  const shareUrl = `${BASE_URL}/${locale}/movies/${movie.slug}`;
+
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
 
   return (
     <div className="relative flex">
@@ -185,12 +201,16 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
                 ""
               )}
             </div>
-            <div className="mx-auto">
-              <Snippet codeString={`${BASE_URL}/${locale}/movies/${movie.slug}`} symbol="" variant="bordered">
-                <div className="line-clamp-1 w-48 flex-row truncate text-wrap lg:w-auto">
-                  {`${BASE_URL}/${locale}/movies/${movie.slug}`}
-                </div>
-              </Snippet>
+            <div className="mx-auto flex w-full max-w-sm items-center gap-2 rounded-xl border border-gray-700 bg-gray-800/40 py-2 pr-2 pl-3.5">
+              <span className="line-clamp-1 flex-1 truncate text-sm text-gray-300">{shareUrl}</span>
+              <button
+                type="button"
+                aria-label="Copy link"
+                onClick={copyLink}
+                className="shrink-0 cursor-pointer rounded-lg p-1.5 text-blue-500 transition-colors hover:bg-gray-700 hover:text-blue-400"
+              >
+                {copied ? <BiCheck className="text-xl" /> : <BiCopy className="text-xl" />}
+              </button>
             </div>
           </ModalBody>
         </ModalContent>

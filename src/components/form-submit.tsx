@@ -8,12 +8,12 @@
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
-import { addToast, closeAll } from "@heroui/toast";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { HiAtSymbol } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
+import { toast } from "sonner";
 import { type ActionState, submitMovieSuggestion } from "@/data/prisma/suggestions/actions";
 
 const initialState: ActionState = {
@@ -41,11 +41,11 @@ export default function FormSubmit({ isOpen, onClose, onOpenChange }: FormSubmit
       const result = await submitMovieSuggestion(state, formData);
       setState(result);
       if (result.success) {
-        closeAll();
-        addToast({ title: t("sent"), color: "success", timeout: 3000 });
+        toast.dismiss();
+        toast.success(t("sent"), { duration: 3000 });
         onClose();
       } else if (Object.keys(result.errors ?? {}).length > 0) {
-        addToast({ title: t("failedToSend"), color: "danger", timeout: 3000 });
+        toast.error(t("failedToSend"), { duration: 3000 });
       }
     });
   };

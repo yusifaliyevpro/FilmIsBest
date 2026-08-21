@@ -1,10 +1,10 @@
 "use client";
 
 import { HeroUIProvider } from "@heroui/system";
-import { ToastProvider } from "@heroui/toast";
 import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
+import { Toaster } from "sonner";
 
 export function Providers({ children }: { children: Readonly<ReactNode> }) {
   const router = useRouter();
@@ -13,7 +13,7 @@ export function Providers({ children }: { children: Readonly<ReactNode> }) {
   return (
     <HeroUIProvider navigate={routerPush}>
       {children}
-      <ToastProvider toastOffset={70} />
+      <Toaster theme="dark" position="bottom-right" offset={{ bottom: "70px" }} mobileOffset={{ bottom: "80px" }} />
     </HeroUIProvider>
   );
 }

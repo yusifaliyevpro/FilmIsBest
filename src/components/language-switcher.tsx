@@ -1,8 +1,8 @@
 "use client";
 
-import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
 import { useLocale } from "next-intl";
+import { Avatar } from "@/components/avatar";
 import { redirect, usePathname } from "@/i18n/navigation";
 import { validateLocale, type Locale } from "@/i18n/routing";
 
