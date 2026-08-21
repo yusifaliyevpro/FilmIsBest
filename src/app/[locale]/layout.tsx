@@ -23,15 +23,6 @@ export const metadata: Metadata = {
     apple: "/icon.png",
     other: [{ rel: "apple-touch-icon-precomposed", url: "/icon.png" }],
   },
-  alternates: {
-    canonical: ``,
-    languages: {
-      en: `/en`,
-      "az-AZ": `/az`,
-      "tr-TR": `/tr`,
-    },
-  },
-
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   keywords: [...SITE_KEYWORDS],
   category: "movie",
@@ -50,10 +41,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: LayoutProps<"/[locale]">) {
-  // Only these namespaces are consumed by client components (Header, Footer,
-  // Movies, Movie). Sending just this subset keeps the server-only namespaces
-  // (Home, MetaData, About, NotFound) out of the client bundle.
+export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
+  const { locale } = await params;
   const messages = await getMessages();
   const clientMessages = {
     Header: messages.Header,
@@ -63,7 +52,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
   };
 
   return (
-    <html lang="en" className={`dark ${inter.variable} min-h-screen bg-gray-800 text-white`}>
+    <html lang={locale} className={`dark ${inter.variable} min-h-screen bg-gray-800 text-white`}>
       <body className="font-inter">
         <NuqsAdapter>
           <NextIntlClientProvider messages={clientMessages}>

@@ -6,30 +6,20 @@ import Movies from "@/components/movies";
 import PaginationUI from "@/components/pagination";
 import Search from "@/components/search";
 import { getMovies } from "@/data/sanity/movies/get";
-import { locales } from "@/i18n/routing";
-import { BASE_URL } from "@/lib/constants";
+import { locales, validateLocale } from "@/i18n/routing";
+import { buildMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]/movies">): Promise<Metadata> {
+  const { locale } = await params;
+  validateLocale(locale);
   const t = await getTranslations("MetaData.Movies");
-  return {
-    metadataBase: BASE_URL,
+  return buildMetadata({
+    locale,
+    path: "/movies",
     title: t("title"),
     description: t("description"),
-    openGraph: {
-      description: t("description"),
-      images: [
-        {
-          url: `/api/og?title=${encodeURI(t("title"))}`,
-          width: 1200,
-          height: 1000,
-          alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
-          type: "image/png",
-        },
-      ],
-      title: `FilmIsBest | ${t("title")}`,
-      url: `/movies`,
-    },
-  };
+    ogImageTitle: t("title"),
+  });
 }
 
 export function generateStaticParams() {

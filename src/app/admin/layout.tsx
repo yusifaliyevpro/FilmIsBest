@@ -1,7 +1,12 @@
 import "@/lib/env.server";
+import type { Metadata } from "next";
 import { Providers } from "@/components/providers";
 import { inter } from "@/lib/fonts";
 import "../globals.css";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
+};
 
 export default async function RootLayout({ children }: LayoutProps<"/admin">) {
   return (

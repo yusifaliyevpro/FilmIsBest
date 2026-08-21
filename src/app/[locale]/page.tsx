@@ -7,33 +7,21 @@ import LottieComponent from "@/components/lottie-component";
 import RecentlyAddedMovies from "@/components/recently-added-movies";
 import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { Link } from "@/i18n/navigation";
-import { locales } from "@/i18n/routing";
+import { locales, validateLocale } from "@/i18n/routing";
 import { cacheTags } from "@/lib/cache-tags";
-import { BASE_URL } from "@/lib/constants";
+import { buildMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
+  const { locale } = await params;
+  validateLocale(locale);
   const t = await getTranslations("MetaData.Home");
-  return {
-    metadataBase: BASE_URL,
-    title: {
-      absolute: `FilmIsBest | ${t("title")}`,
-    },
+  return buildMetadata({
+    locale,
+    path: "",
+    title: { absolute: `FilmIsBest | ${t("title")}` },
     description: t("description"),
-    openGraph: {
-      description: t("description"),
-      images: [
-        {
-          url: `/api/og?title=${encodeURI(t("title"))}`,
-          width: 1200,
-          height: 1000,
-          alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
-          type: "image/png",
-        },
-      ],
-      title: `FilmIsBest | ${t("title")}`,
-      url: `/`,
-    },
-  };
+    ogImageTitle: t("title"),
+  });
 }
 
 export function generateStaticParams() {

@@ -6,40 +6,22 @@ import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiPrisma, SiSanity, SiVercel } from "react-icons/si";
 import { locales, validateLocale } from "@/i18n/routing";
+import { buildMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]/about">): Promise<Metadata> {
   "use cache";
   cacheLife("max");
 
+  const { locale } = await params;
+  validateLocale(locale);
   const t = await getTranslations("MetaData.About");
-  return {
+  return buildMetadata({
+    locale,
+    path: "/about",
     title: t("title"),
     description: t("description"),
-    alternates: {
-      canonical: `/about`,
-      languages: {
-        "en-US": `/en/about`,
-        "en-GB": `/en/about`,
-        "az-AZ": `/az/about`,
-        "tr-TR": `/tr/about`,
-      },
-    },
-    openGraph: {
-      title: `FilmIsBest | ${t("title")}`,
-      images: [
-        {
-          url: `/api/og?title=${encodeURI(t("title"))}`,
-          width: 1200,
-          height: 1000,
-          alt: `FilmIsBest | ${t("title")} | OpenGraph-Image`,
-          type: "image/png",
-        },
-      ],
-      url: `/about`,
-      description: t("description"),
-      type: "website",
-    },
-  };
+    ogImageTitle: t("title"),
+  });
 }
 
 export function generateStaticParams() {

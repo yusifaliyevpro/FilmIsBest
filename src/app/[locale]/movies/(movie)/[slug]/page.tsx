@@ -10,7 +10,8 @@ import { getMovie, getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { getSequel } from "@/data/sanity/sequel/get";
 import { routing, validateLocale } from "@/i18n/routing";
 import { cacheTags } from "@/lib/cache-tags";
-import { BASE_URL, SITE_KEYWORDS } from "@/lib/constants";
+import { BASE_URL } from "@/lib/constants";
+import { buildMetadata, movieJsonLd } from "@/lib/seo";
 
 const Share = dynamic(() => import("@/components/share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
@@ -20,17 +21,17 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
   "use cache";
   cacheLife("max");
 
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  validateLocale(locale);
   cacheTag(cacheTags.movie(slug));
   const movie = await getMovie(slug);
   if (!movie) return notFound();
 
-  return {
-    metadataBase: BASE_URL,
+  return buildMetadata({
+    locale,
+    path: `/movies/${movie.slug}`,
     title: movie.filmName,
     description: movie.description,
-    // Movie-specific terms first (the ones that actually help this page rank),
-    // then the shared site keywords — no more per-movie copy of the full list.
     keywords: [
       movie.filmName,
       `watch ${movie.filmName} online`,
@@ -38,15 +39,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
       `${movie.filmName} full movie`,
       ...(movie.genre ?? []),
       ...(movie.actors ?? []),
-      ...SITE_KEYWORDS,
     ],
-    openGraph: {
-      title: `FilmIsBest | ${movie.filmName}`,
-      url: `/movies/${movie.slug}`,
-      description: movie.description || "",
-      type: "website",
-    },
-  };
+  });
 }
 
 export async function generateStaticParams() {
@@ -65,8 +59,11 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
   const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
   if (!movie) return notFound();
 
+  const jsonLd = movieJsonLd(movie, `${BASE_URL}/${locale}/movies/${movie.slug}`);
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="sm:relative sm:flex sm:w-auto sm:flex-col sm:items-center">
         <h1 className="text-shadow relative top-0 z-0 m-auto mx-5 mt-14 w-auto rounded-xl bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 p-3 text-center text-3xl font-bold text-white shadow-small drop-shadow-2xl sm:mx-auto sm:w-209">
           {movie.filmName}
