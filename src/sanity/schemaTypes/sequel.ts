@@ -26,6 +26,12 @@ const sequelSchema = defineField({
         }),
       ],
     }),
+    defineField({
+      name: "tmdbCollectionId",
+      title: "TMDB Collection ID",
+      type: "number",
+      readOnly: true,
+    }),
   ],
 });
 
