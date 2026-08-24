@@ -1,11 +1,16 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import SanityImage from "@/components/sanity-image";
+import { isGenreKey } from "@/lib/genres";
 import type { MovieQueryResult } from "@/sanity/types";
 
 export default async function MovieInfo({ movie }: { movie: NonNullable<MovieQueryResult> }) {
   const t = await getTranslations("Movie");
-  const translatedGenres = movie.genre?.map((genre) => t(`Genres.${genre.toLowerCase()}`) || genre);
+  const tGenre = await getTranslations("Movie.Genres");
+  const translatedGenres = movie.genre?.map((genre) => {
+    const key = genre.toLowerCase();
+    return isGenreKey(key) ? tGenre(key) : genre;
+  });
   const hours = (movie.movieTime || 0) >= 60 ? Math.floor((movie.movieTime || 0) / 60) : 0;
   const minutes = (movie.movieTime || 0) - hours * 60;
   return (

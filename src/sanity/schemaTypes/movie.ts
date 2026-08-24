@@ -1,10 +1,10 @@
 import { BiSolidMovie } from "react-icons/bi";
 import { defineArrayMember, defineField } from "sanity";
 import { GENRE_LIST } from "@/lib/genres";
-import { GenerateDescriptionComponent } from "../components/GenerateDescription";
-import { GetMovieDataFromOMDB } from "../components/GetMovieDataFromOMDB";
-import { SearchOnYoutube } from "../components/SearchOnYoutube";
-import { SearchPoster } from "../components/SearchPoster";
+import { GenerateDescriptionComponent } from "../components/generate-description";
+import { GetMovieDataFromOMDB } from "../components/get-data-from-omdb";
+import { SearchOnYoutube } from "../components/search-on-youtube";
+import { SearchPoster } from "../components/search-poster";
 
 const movieSchema = defineField({
   name: "Movie-studio",

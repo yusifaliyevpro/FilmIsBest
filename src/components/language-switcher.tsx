@@ -1,10 +1,9 @@
 "use client";
 
 import { Select, SelectItem } from "@heroui/select";
-import { useLocale } from "next-intl";
+import { useLocale, type Locale } from "next-intl";
 import { Avatar } from "@/components/avatar";
 import { redirect, usePathname } from "@/i18n/navigation";
-import { type Locale } from "@/i18n/routing";
 
 type Languages = { key: Locale; lang: string; flag: string }[];
 

@@ -3,7 +3,6 @@ import { join } from "node:path";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 import { getMovie } from "@/data/sanity/movies/get";
-import type { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { sanityLoader } from "@/lib/imageLoader";
 
@@ -14,7 +13,7 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const [movie, poppinsSemiBold] = await Promise.all([
     getMovie(slug),

@@ -27,9 +27,9 @@
   "About": {
     "aboutTheProject": "Proje hakkında",
     "toolsIUsed": "Kullandığım araçlar:",
-    "text1": "Bu site bir ihtiyaçtan doğmuştur. Mart 2022'de arkadaşlarımızın haftalık sinema kulübüne film getirme sırası bendeydi. Ancak hafıza kartım çalışmadığından film getirmek için 3-4 saatte bu siteyi oluşturdum.",
-    "text2": "İlk aylarda web sitesi oldukça statikti ve yalnızca HTML içeriyordu. Ancak bir yıl içinde kendimi geliştirdim ve web sitesi üzerinde çalışmaya devam ettim. Bu yıl web sitesini yeni öğrendiğim NextJS Framework ile yeniden yazdım.",
-    "text3": "Şu anda web sitesinin aktif gelişimini durdurmuş olsam da ara sıra küçük değişiklikler yapıyorum.",
+    "originStory": "Bu site bir ihtiyaçtan doğmuştur. Mart 2022'de arkadaşlarımızın haftalık sinema kulübüne film getirme sırası bendeydi. Ancak hafıza kartım çalışmadığından film getirmek için 3-4 saatte bu siteyi oluşturdum.",
+    "evolution": "İlk aylarda web sitesi oldukça statikti ve yalnızca HTML içeriyordu. Ancak bir yıl içinde kendimi geliştirdim ve web sitesi üzerinde çalışmaya devam ettim. Bu yıl web sitesini yeni öğrendiğim NextJS Framework ile yeniden yazdım.",
+    "currentStatus": "Şu anda web sitesinin aktif gelişimini durdurmuş olsam da ara sıra küçük değişiklikler yapıyorum.",
     "buyACoffee": "Projelerimi desteklemek için bana bir kahve ısmarlayabilirsin😊:",
     "myCodes": "Kodlarım GitHub hesabımdadır😺:",
     "dataSources": "Veri kaynakları:",

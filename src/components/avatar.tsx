@@ -18,6 +18,7 @@ export function Avatar({ src, alt = "avatar", className, isBordered }: AvatarPro
   useEffect(() => {
     const img = imgRef.current;
     setLoaded(!!img?.complete);
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies
   }, [src]);
 
   return (

@@ -44,6 +44,12 @@ export function GetMovieDataFromOMDB(props: InputProps) {
   // and triggers the dependent fields (slug, description, poster, trailer).
   const applyMovieData = (imdbID: string, token: string) => {
     setIsLoading(true);
+    // Evaluate the "field is still empty" checks here, outside the try/catch:
+    // React Compiler bails out on optional-chaining/logical value blocks inside try.
+    const needsSlug = !slug?.current;
+    const needsDescription = !description?.trim();
+    const needsPoster = !poster?.asset?._ref;
+    const needsTrailer = !trailer || !trailer.trim() || trailer.trim() === "Empty";
     startTransition(async () => {
       try {
         const OMDbMovie = await getOMDBDataById(imdbID, token);
@@ -76,10 +82,10 @@ export function GetMovieDataFromOMDB(props: InputProps) {
 
           // Only generate the dependent fields that are still empty. FraqmanLink
           // defaults to the sentinel "Empty", which counts as unset.
-          if (!slug?.current) triggerSlugGeneration();
-          if (!description?.trim()) triggerDescriptionGeneration();
-          if (!poster?.asset?._ref) triggerPosterFetch();
-          if (!trailer || !trailer.trim() || trailer.trim() === "Empty") triggerTrailerFetch();
+          if (needsSlug) triggerSlugGeneration();
+          if (needsDescription) triggerDescriptionGeneration();
+          if (needsPoster) triggerPosterFetch();
+          if (needsTrailer) triggerTrailerFetch();
         }
       } catch (err) {
         console.error(err);

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { type Locale, routing } from "@/i18n/routing";
+import type { Locale } from "next-intl";
+import { routing } from "@/i18n/routing";
 import { SITE_KEYWORDS } from "@/lib/constants";
 import type { MovieQueryResult } from "@/sanity/types";
 

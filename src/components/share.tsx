@@ -2,7 +2,7 @@
 
 import { Button } from "@heroui/button";
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/modal";
-import { useTranslations } from "next-intl";
+import { useTranslations, type Locale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +17,7 @@ import {
 } from "react-icons/bi";
 import { BsCardText } from "react-icons/bs";
 import { toast } from "sonner";
-import type { Locale } from "@/i18n/routing";
+import { isGenreKey } from "@/lib/genres";
 import type { MovieQueryResult } from "@/sanity/types";
 import { BASE_URL } from "../lib/constants";
 
@@ -36,10 +36,14 @@ export default function Share({ movie, locale }: { movie: MovieQueryResult; loca
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("Movie");
+  const tGenre = useTranslations("Movie.Genres");
   if (!movie) return null;
 
   const buildShareBody = (platform: "whatsapp" | "telegram" | "copy") => {
-    const translatedGenres = movie.genre.map((genre) => t(`Genres.${genre.toLowerCase()}`) || genre);
+    const translatedGenres = movie.genre.map((genre) => {
+      const key = genre.toLowerCase();
+      return isGenreKey(key) ? tGenre(key) : genre;
+    });
 
     const bold = platform === "telegram" ? "**" : platform === "whatsapp" ? "*" : "";
 

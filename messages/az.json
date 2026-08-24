@@ -27,9 +27,9 @@
   "About": {
     "aboutTheProject": "Layihə Haqqında",
     "toolsIUsed": "İstiafadə etdiyim alətlər:",
-    "text1": "Bu vebsayt bir ehtiyac səbəbindən yaranıb. 2022-ci ilin Mart ayında dostlarımızla birlikdə keçirdiyimiz həftəlik film klubuna film gətirmə növbəsi məndə idi. Lakin yaddaş kartım işləmədiyindən, filmləri yükləmək üçün 3-4 saat ərzində bu vebsaytı yaratdım.",
-    "text2": "İlk aylarda vebsayt çox statik idi və yalnız HTML-dən ibarət idi. Lakin sonrakı bir il ərzində öz bacarıqlarımı inkişaf etdirdim və vebsayt üzərində işləməyə davam etdim. Bu il yeni öyrəndiyim NextJS Framework-ü ilə vebsaytı yenidən yazdım.",
-    "text3": "Hal-hazırda vebsaytın aktiv inkişafını dayandırmış olsam da, bəzən kiçik dəyişikliklər edirəm.",
+    "originStory": "Bu vebsayt bir ehtiyac səbəbindən yaranıb. 2022-ci ilin Mart ayında dostlarımızla birlikdə keçirdiyimiz həftəlik film klubuna film gətirmə növbəsi məndə idi. Lakin yaddaş kartım işləmədiyindən, filmləri yükləmək üçün 3-4 saat ərzində bu vebsaytı yaratdım.",
+    "evolution": "İlk aylarda vebsayt çox statik idi və yalnız HTML-dən ibarət idi. Lakin sonrakı bir il ərzində öz bacarıqlarımı inkişaf etdirdim və vebsayt üzərində işləməyə davam etdim. Bu il yeni öyrəndiyim NextJS Framework-ü ilə vebsaytı yenidən yazdım.",
+    "currentStatus": "Hal-hazırda vebsaytın aktiv inkişafını dayandırmış olsam da, bəzən kiçik dəyişikliklər edirəm.",
     "buyACoffee": "Layihələrimə dəstək olmaq üçün mənə bir dənə kofe ala bilərsən😊:",
     "myCodes": "Kodlarım GitHub hesabımdadır😺:",
     "dataSources": "Məlumat mənbələri:",

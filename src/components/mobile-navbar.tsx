@@ -2,35 +2,37 @@
 
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import type { IconType } from "react-icons";
 import { FaHome } from "react-icons/fa";
 import { MdMovieFilter } from "react-icons/md";
 import { MdOutlineInfo } from "react-icons/md";
 import { Link } from "@/i18n/navigation";
+import type { TranslationKeys } from "@/i18n/types";
+
+const navigationItems: { href: string; icon: IconType; translationKey: TranslationKeys<"Header">; path: string }[] = [
+  {
+    href: "/",
+    icon: FaHome,
+    translationKey: "homePage",
+    path: `/`,
+  },
+  {
+    href: "/movies",
+    icon: MdMovieFilter,
+    translationKey: "movies",
+    path: `/movies`,
+  },
+  {
+    href: "/about",
+    icon: MdOutlineInfo,
+    translationKey: "about",
+    path: `/about`,
+  },
+];
 
 export function MobileNavbar() {
   const t = useTranslations("Header");
   const pathname = usePathname();
-
-  const navigationItems = [
-    {
-      href: "/",
-      icon: FaHome,
-      translationKey: "homePage",
-      path: `/`,
-    },
-    {
-      href: "/movies",
-      icon: MdMovieFilter,
-      translationKey: "movies",
-      path: `/movies`,
-    },
-    {
-      href: "/about",
-      icon: MdOutlineInfo,
-      translationKey: "about",
-      path: `/about`,
-    },
-  ];
 
   return (
     <div

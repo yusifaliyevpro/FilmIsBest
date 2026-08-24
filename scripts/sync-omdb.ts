@@ -263,9 +263,7 @@ async function run() {
   );
 
   const from = startFrom > 1 ? ` (starting at #${startFrom})` : "";
-  const hint = FLAG_YES
-    ? dim("auto-committing changes (FLAG_YES)")
-    : dim("Enter = update · s = skip · q = quit");
+  const hint = FLAG_YES ? dim("auto-committing changes (FLAG_YES)") : dim("Enter = update · s = skip · q = quit");
   console.log(`Fetched ${movies.length} movies${from}. ${hint}\n`);
 
   let updated = 0;

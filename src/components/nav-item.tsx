@@ -3,11 +3,12 @@
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { Link } from "@/i18n/navigation";
+import type { TranslationKeys } from "@/i18n/types";
 import { cn } from "@/lib/cn";
 
 export type NavBarItem = {
   href: string;
-  translationKey: string;
+  translationKey: TranslationKeys<"Header">;
   path: string;
 };
 

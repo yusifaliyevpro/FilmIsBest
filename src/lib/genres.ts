@@ -37,3 +37,11 @@ export const GENRE_LIST = [
 ] as const;
 
 export type Genre = (typeof GENRE_LIST)[number];
+
+export type GenreKey = Lowercase<Genre>;
+
+const genreKeys = new Set<string>(GENRE_LIST.map((genre) => genre.toLowerCase()));
+
+export function isGenreKey(key: string): key is GenreKey {
+  return genreKeys.has(key);
+}

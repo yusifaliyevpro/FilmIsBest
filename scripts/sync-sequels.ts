@@ -17,7 +17,9 @@ function loadSkipped(): SkippedEntry[] {
   if (!existsSync(SKIP_FILE)) return [];
   try {
     const parsed: unknown = JSON.parse(readFileSync(SKIP_FILE, "utf8"));
-    return Array.isArray(parsed) ? (parsed as SkippedEntry[]) : [];
+    if (!Array.isArray(parsed)) return [];
+    const skipped: SkippedEntry[] = parsed;
+    return skipped;
   } catch {
     return [];
   }
@@ -177,9 +179,7 @@ async function run() {
 
   console.log(`Scan complete — ${bold(String(groups.size))} TMDB collections found.\n`);
 
-  const hint = FLAG_YES
-    ? dim("auto-committing changes (FLAG_YES)")
-    : dim("Enter = apply · s = skip · q = quit");
+  const hint = FLAG_YES ? dim("auto-committing changes (FLAG_YES)") : dim("Enter = apply · s = skip · q = quit");
   console.log(`${hint}\n`);
 
   const byCollectionId = new Map<number, SequelDoc>();

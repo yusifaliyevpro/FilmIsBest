@@ -27,9 +27,9 @@
   "About": {
     "aboutTheProject": "About the project",
     "toolsIUsed": "Tools I used:",
-    "text1": "This website was born out of necessity. In March 2022, it was my turn to bring a movie to our weekly movie club with friends. However, my memory card didn't work, so I spent 3-4 hours creating this website to upload the movies.",
-    "text2": "In the early months, the website was very static and consisted only of HTML. However, over the next year, I continued to work on the website and develop my skills. This year, I rewrote the website using the NextJS Framework, which I had recently learned.",
-    "text3": "Although I have currently stopped active development on the website, I sometimes make minor changes.",
+    "originStory": "This website was born out of necessity. In March 2022, it was my turn to bring a movie to our weekly movie club with friends. However, my memory card didn't work, so I spent 3-4 hours creating this website to upload the movies.",
+    "evolution": "In the early months, the website was very static and consisted only of HTML. However, over the next year, I continued to work on the website and develop my skills. This year, I rewrote the website using the NextJS Framework, which I had recently learned.",
+    "currentStatus": "Although I have currently stopped active development on the website, I sometimes make minor changes.",
     "buyACoffee": "You can buy me a coffee to support my projects😊:",
     "myCodes": "My codes are in my GitHub account😺:",
     "dataSources": "Data sources:",
