@@ -1,5 +1,6 @@
 import { Button } from "@heroui/button";
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import { cacheLife, cacheTag } from "next/cache";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
@@ -8,7 +9,7 @@ import MovieInfo from "@/components/movie-info";
 import Sequel from "@/components/sequel";
 import { getMovie, getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { getSequel } from "@/data/sanity/sequel/get";
-import { routing, validateLocale } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { cacheTags } from "@/lib/cache-tags";
 import { BASE_URL } from "@/lib/constants";
 import { buildMetadata, movieJsonLd } from "@/lib/seo";
@@ -21,8 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[
   "use cache";
   cacheLife("max");
 
-  const { locale, slug } = await params;
-  validateLocale(locale);
+  const [locale, { slug }] = await Promise.all([getLocale(), params]);
   cacheTag(cacheTags.movie(slug));
   const movie = await getMovie(slug);
   if (!movie) return notFound();
@@ -52,9 +52,7 @@ export default async function Page({ params }: PageProps<"/[locale]/movies/[slug
   "use cache";
   cacheLife("max");
 
-  const { locale, slug } = await params;
-  validateLocale(locale);
-  // `sequels` so a sequel-doc change busts this page (it renders <Sequel/>).
+  const [locale, { slug }] = await Promise.all([getLocale(), params]);
   cacheTag(cacheTags.movie(slug), cacheTags.sequels);
   const [movie, sequel] = await Promise.all([getMovie(slug), getSequel(slug)]);
   if (!movie) return notFound();
