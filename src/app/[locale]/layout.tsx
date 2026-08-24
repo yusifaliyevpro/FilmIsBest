@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 import { Footer } from "@/components/footer";
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children, params }: LayoutProps<"/[locale]">) {
-  const { locale } = await params;
+export default async function RootLayout({ children }: LayoutProps<"/[locale]">) {
+  const locale = await getLocale();
   const messages = await getMessages();
   const clientMessages = {
     Header: messages.Header,

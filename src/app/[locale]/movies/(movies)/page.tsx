@@ -1,17 +1,16 @@
 import { Pagination } from "@heroui/pagination";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import Movies from "@/components/movies";
 import PaginationUI from "@/components/pagination";
 import Search from "@/components/search";
 import { getMovies } from "@/data/sanity/movies/get";
-import { locales, validateLocale } from "@/i18n/routing";
+import { locales } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/movies">): Promise<Metadata> {
-  const { locale } = await params;
-  validateLocale(locale);
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("MetaData.Movies");
   return buildMetadata({
     locale,
