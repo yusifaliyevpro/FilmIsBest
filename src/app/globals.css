@@ -203,6 +203,37 @@
   }
 }
 
+.marquee-viewport {
+  --per: 1;
+  max-width: calc(var(--per) * 304px);
+}
+@media (min-width: 650px) {
+  .marquee-viewport {
+    --per: 2;
+  }
+}
+@media (min-width: 960px) {
+  .marquee-viewport {
+    --per: 3;
+  }
+}
+@media (min-width: 1280px) {
+  .marquee-viewport {
+    --per: 4;
+  }
+}
+
+.marquee-viewport {
+  scrollbar-width: none;
+}
+.marquee-viewport::-webkit-scrollbar {
+  display: none;
+}
+.marquee-viewport a,
+.marquee-viewport img {
+  -webkit-user-drag: none;
+}
+
 /* ── Per-character text reveal (replaces the motion AnimatedText stagger) ─────
    Each character fades + slides in from a 20px offset. The in-view trigger and
    per-character stagger delay are driven by the component (IntersectionObserver

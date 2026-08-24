@@ -15,7 +15,7 @@ export default defineConfig({
     "no-underscore-dangle": ["warn", { allow: ["_updatedAt", "_createdAt", "_id", "_type", "_ref"] }],
     "import/no-unassigned-import": [
       "warn",
-      { allow: ["**/globals.css", "**/env.server", "dotenv/config", "server-only", "@sanity/client", "swiper/css"] },
+      { allow: ["**/globals.css", "**/env.server", "dotenv/config", "server-only", "@sanity/client"] },
     ],
     "react/react-in-jsx-scope": "off",
     "unicorn/prefer-node-protocol": "warn",
