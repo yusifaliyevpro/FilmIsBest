@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { cacheLife, cacheTag } from "next/cache";
 import { BiSolidChevronRight } from "react-icons/bi";
 import AnimatedText from "@/components/animated-text";
@@ -7,13 +7,12 @@ import LottieComponent from "@/components/lottie-component";
 import RecentlyAddedMovies from "@/components/recently-added-movies";
 import { getRecentlyAddedMovies } from "@/data/sanity/movies/get";
 import { Link } from "@/i18n/navigation";
-import { locales, validateLocale } from "@/i18n/routing";
+import { locales } from "@/i18n/routing";
 import { cacheTags } from "@/lib/cache-tags";
 import { buildMetadata } from "@/lib/seo";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
-  const { locale } = await params;
-  validateLocale(locale);
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("MetaData.Home");
   return buildMetadata({
     locale,

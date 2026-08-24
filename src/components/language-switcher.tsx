@@ -4,7 +4,7 @@ import { Select, SelectItem } from "@heroui/select";
 import { useLocale } from "next-intl";
 import { Avatar } from "@/components/avatar";
 import { redirect, usePathname } from "@/i18n/navigation";
-import { validateLocale, type Locale } from "@/i18n/routing";
+import { type Locale } from "@/i18n/routing";
 
 type Languages = { key: Locale; lang: string; flag: string }[];
 
@@ -48,8 +48,8 @@ export function LanguageSwitcher() {
         );
       }}
       onSelectionChange={(value) => {
-        validateLocale(value.currentKey);
-        changeLocale(value.currentKey);
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+        changeLocale(value.currentKey as Locale);
       }}
     >
       {(language) => (
