@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Link } from "@/i18n/navigation";
@@ -18,20 +17,16 @@ export function Header() {
 
         {/* Navigation (center) — hidden on mobile; the mobile-navbar handles those */}
         <ul className="hidden h-full flex-row flex-nowrap items-center justify-center gap-12 sm:flex">
-          <Suspense>
-            {navigationItems.map((item) => (
-              <NavItem key={item.href} item={item} />
-            ))}
-          </Suspense>
+          {navigationItems.map((item) => (
+            <NavItem key={item.href} item={item} />
+          ))}
         </ul>
 
         {/* Actions (right) — inner wrapper keeps the w-full Select sized to its
             content instead of stretching across the grown half */}
         <div className="flex grow basis-0 items-center justify-end">
           <div className="flex items-center">
-            <Suspense>
-              <LanguageSwitcher />
-            </Suspense>
+            <LanguageSwitcher />
           </div>
         </div>
       </nav>

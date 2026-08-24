@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Suspense } from "react";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { MobileNavbar } from "@/components/mobile-navbar";
@@ -59,9 +58,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
             <Providers>
               <Header />
               {children}
-              <Suspense>
-                <MobileNavbar />
-              </Suspense>
+              <MobileNavbar />
               <Footer />
             </Providers>
           </NextIntlClientProvider>

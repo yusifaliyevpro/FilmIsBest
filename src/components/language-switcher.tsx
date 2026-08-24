@@ -3,15 +3,18 @@
 import { Select, SelectItem } from "@heroui/select";
 import { useLocale, type Locale } from "next-intl";
 import { Avatar } from "@/components/avatar";
-import { redirect, usePathname } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 type Languages = { key: Locale; lang: string; flag: string }[];
 
 export function LanguageSwitcher() {
-  const pathname = usePathname();
+  const router = useRouter();
   const locale = useLocale();
   const changeLocale = (lang: Locale) => {
-    if (lang !== locale) redirect({ locale: lang, href: pathname });
+    if (lang === locale) return;
+    // Strip the current locale prefix; useRouter re-adds the target one.
+    const href = window.location.pathname.replace(new RegExp(`^/${locale}(?=/|$)`), "") || "/";
+    router.replace(href, { locale: lang });
   };
 
   const languages: Languages = [
