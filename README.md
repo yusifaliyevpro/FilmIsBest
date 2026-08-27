@@ -54,6 +54,8 @@ The idea for FilmIsBest came from a need to quickly share and watch movies with 
 
 3. **Set up environment variables:**
    - Copy `.env.example` to `.env.local` and fill in your credentials for Sanity, database, etc.
+   - Open a Sanity account, then use the Sanity CLI to log in and create a project.
+   - You will also need to set up Sanity webhooks for your production server; otherwise, your content will not be updated even if you change something in the Studio. You can use your AI agents to learn how to set them up. It is very easy.
 
 4. **Run the development server:**
 
