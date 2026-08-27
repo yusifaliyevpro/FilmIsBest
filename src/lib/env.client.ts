@@ -1,8 +1,8 @@
-import { z } from "zod";
+import * as z from "zod/mini";
 
 export const clientEnvSchema = z.object({
-  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(3),
-  NEXT_PUBLIC_SANITY_DATASET: z.string().min(3),
+  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().check(z.trim(), z.minLength(3)),
+  NEXT_PUBLIC_SANITY_DATASET: z.string().check(z.trim(), z.minLength(3)),
 });
 
 clientEnvSchema.parse({
