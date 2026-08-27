@@ -14,7 +14,7 @@ export function LanguageSwitcher() {
     if (lang === locale) return;
     // Strip the current locale prefix; useRouter re-adds the target one.
     const href = window.location.pathname.replace(new RegExp(`^/${locale}(?=/|$)`), "") || "/";
-    router.replace(href, { locale: lang });
+    router.push(href, { locale: lang });
   };
 
   const languages: Languages = [
