@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { BiSolidMovie } from "react-icons/bi";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Link } from "@/i18n/navigation";
@@ -26,7 +27,9 @@ export function Header() {
             content instead of stretching across the grown half */}
         <div className="flex grow basis-0 items-center justify-end">
           <div className="flex items-center">
-            <LanguageSwitcher />
+            <Suspense>
+              <LanguageSwitcher />
+            </Suspense>
           </div>
         </div>
       </nav>

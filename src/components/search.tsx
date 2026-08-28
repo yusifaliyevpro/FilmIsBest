@@ -1,6 +1,5 @@
 "use client";
 
-import { Input } from "@heroui/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { BiLoaderAlt, BiSearch } from "react-icons/bi";
@@ -77,34 +76,26 @@ export default function Search() {
   }, []);
 
   const showDropdown = open && query.trim().length > 0;
-  // True while the request is in flight (isPending) or still waiting for the
-  // debounce to settle on the latest input, so we never flash "no result"
-  // before a search has actually completed.
   const isLoading = isPending || query.trim() !== debouncedQuery.trim();
 
   return (
     <div ref={containerRef} className="relative mx-auto mt-6 mb-4 w-auto sm:w-125">
-      <Input
-        placeholder={t("placeholder")}
-        radius="full"
-        size="lg"
-        startContent={<BiSearch className="text-[1.7rem] font-bold" />}
-        type="search"
-        value={query}
-        variant="bordered"
-        classNames={{
-          base: "h-11 bg-gray-800 sm:max-w-400",
-          mainWrapper: "h-full bg-gray-800 dark:border-[#121827]!",
-          input: "text-md bg-gray-800 text-small font-bold",
-          inputWrapper: "h-full bg-gray-800 font-normal text-white dark:bg-gray-800",
-        }}
-        onFocus={() => setOpen(true)}
-        onKeyDown={handleKeyDown}
-        onValueChange={(value) => {
-          setQuery(value);
-          if (!value.trim()) setResults([]);
-        }}
-      />
+      <div className="flex h-11 items-center gap-2 rounded-2xl border-2 border-[#121827] bg-[#121827] px-4 text-white sm:max-w-400">
+        <input
+          placeholder={t("placeholder")}
+          type="search"
+          value={query}
+          className="text-md w-full bg-[#121827] text-small font-bold text-white placeholder:font-semibold focus:outline-none"
+          onFocus={() => setOpen(true)}
+          onKeyDown={handleKeyDown}
+          onChange={(event) => {
+            const value = event.target.value;
+            setQuery(value);
+            if (!value.trim()) setResults([]);
+          }}
+        />
+        <BiSearch className="size-5.5 shrink-0 font-bold" />
+      </div>
 
       <div
         aria-hidden={!showDropdown}
@@ -113,14 +104,14 @@ export default function Search() {
         }`}
       >
         {results.length > 0 ? (
-          <ul className="dropdown-scroolbar max-h-100 scrollbar-gutter-stable overflow-y-auto py-1">
+          <ul className="dropdown-scroolbar max-h-100 scrollbar-gutter-stable overflow-y-auto py-1 pl-2.25">
             {results.map((movie, index) => (
-              <li key={movie.slug}>
+              <li key={movie.slug} className="w-full">
                 <Link
                   ref={(node) => {
                     itemRefs.current[index] = node;
                   }}
-                  className={`flex items-center gap-3 px-3 py-2 transition-colors ${
+                  className={`flex items-center gap-3 rounded-xl px-3 py-2 transition-colors ${
                     index === activeIndex ? "bg-gray-700" : "hover:bg-gray-700"
                   }`}
                   href={`/movies/${movie.slug}`}
