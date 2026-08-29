@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
@@ -7,8 +8,8 @@ import { Header } from "@/components/header";
 import { MobileNavbar } from "@/components/mobile-navbar";
 import { Providers } from "@/components/providers";
 import { BASE_URL, SITE_KEYWORDS } from "@/lib/constants";
-import { inter } from "@/lib/fonts";
 import "../globals.css";
+import { inter } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   metadataBase: BASE_URL,
@@ -63,6 +64,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
             </Providers>
           </NextIntlClientProvider>
         </NuqsAdapter>
+        <SpeedInsights />
       </body>
     </html>
   );
