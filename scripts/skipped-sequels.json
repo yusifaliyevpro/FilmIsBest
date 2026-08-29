@@ -30,6 +30,26 @@
     ]
   },
   {
+    "tmdbCollectionId": 1539140,
+    "name": "Godzilla x Kong",
+    "movies": [
+      {
+        "filmName": "Godzilla X Kong: The New Empire",
+        "releaseDate": 2024
+      }
+    ]
+  },
+  {
+    "tmdbCollectionId": 1701563,
+    "name": "The Hunger Games – New Trilogy",
+    "movies": [
+      {
+        "filmName": "The Hunger Games: The Ballad of Songbirds & Snakes",
+        "releaseDate": 2023
+      }
+    ]
+  },
+  {
     "tmdbCollectionId": 1216426,
     "name": "Uncharted",
     "movies": [
