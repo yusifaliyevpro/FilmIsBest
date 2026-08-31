@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@heroui/button";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { FiRefreshCw } from "react-icons/fi";
 import { cn } from "@/lib/cn";
+import { Button } from "./button";
 
 export function RefreshButton() {
   const router = useRouter();
@@ -16,15 +16,8 @@ export function RefreshButton() {
   };
 
   return (
-    <Button
-      isIconOnly
-      aria-label="Refresh"
-      variant="light"
-      radius="full"
-      className="text-gray-400 hover:text-white"
-      onPress={refresh}
-    >
-      <FiRefreshCw className={cn("text-xl", isPending && "animate-spin")} />
+    <Button isIconOnly aria-label="Refresh" color="default" variant="outline" onPress={refresh} disabled={isPending}>
+      <FiRefreshCw className={cn("text-lg", isPending && "animate-spin")} />
     </Button>
   );
 }

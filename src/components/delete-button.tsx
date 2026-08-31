@@ -5,6 +5,7 @@ import { useTransition } from "react";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { toast } from "sonner";
 import { removeMovieSuggestion } from "@/data/prisma/suggestions/actions";
+import { Button } from "./button";
 
 export function DeleteButton({ id }: { id: string }) {
   const router = useRouter();
@@ -26,9 +27,16 @@ export function DeleteButton({ id }: { id: string }) {
   };
 
   return (
-    <MdOutlineDeleteOutline
-      className={`cursor-pointer text-2xl text-red-500 hover:text-red-700`}
-      onClick={deleteRequest}
-    />
+    <Button
+      isIconOnly
+      size="sm"
+      variant="outline"
+      color="danger"
+      aria-label="Delete suggestion"
+      onPress={deleteRequest}
+      disabled={isPending}
+    >
+      <MdOutlineDeleteOutline className="size-5 shrink-0" />
+    </Button>
   );
 }
