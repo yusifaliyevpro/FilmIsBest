@@ -28,6 +28,8 @@ model User {
   banReason  String?
   banExpires DateTime?
 
+  passkeys Passkey[]
+
   @@unique([email])
   @@map("user")
 }
@@ -67,7 +69,7 @@ model Account {
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
-  @@unique([issuer, accountId])
+  @@unique([issuer, accountId], map: "account_issuer_accountId_uidx")
   @@index([userId])
   @@map("account")
 }
@@ -103,4 +105,23 @@ model MovieSuggestions {
   createdAt DateTime @default(now())
 
   @@map("movie_suggestions")
+}
+
+model Passkey {
+  id           String    @id @default(uuid(7))
+  name         String?
+  publicKey    String
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentialID String
+  counter      Int
+  deviceType   String
+  backedUp     Boolean
+  transports   String?
+  createdAt    DateTime?
+  aaguid       String?
+
+  @@index([userId])
+  @@index([credentialID])
+  @@map("passkey")
 }
