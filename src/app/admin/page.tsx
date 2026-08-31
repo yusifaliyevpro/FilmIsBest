@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import AdminSignIn from "@/components/admin-signin";
-import AvatarMenu from "@/components/avatar-menu";
 import { DeleteButton } from "@/components/delete-button";
+import { PasskeyManager } from "@/components/passkey-manager";
+import { PasskeyToggleButton } from "@/components/passkey-toggle-button";
 import { RefreshButton } from "@/components/refresh-button";
+import { SignOutButton } from "@/components/sign-out-button";
 import { UpdateButton } from "@/components/update-button";
 import { getAllMovieSuggestions } from "@/data/prisma/suggestions/get";
 import { getAdminSession } from "@/lib/admin-auth";
@@ -37,34 +39,29 @@ export async function AdminPageContent() {
     );
 
   const suggestions = result.data ?? [];
-  const pendingCount = suggestions.filter((suggestion) => !suggestion.isAdded).length;
-  const addedCount = suggestions.length - pendingCount;
 
   return (
     <div className="w-full max-w-6xl px-4 pb-20 sm:px-6">
-      <header className="sticky top-0 z-10 -mx-4 mb-8 border-b border-white/10 bg-gray-950/80 px-4 py-5 backdrop-blur-md sm:-mx-6 sm:px-6">
-        <div className="flex flex-row items-center justify-between gap-4">
+      <header className="sticky top-0 z-10 -mx-4 mb-8 bg-[#111113]/80 px-4 py-5 backdrop-blur-md sm:-mx-6 sm:px-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-1">
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Movie Suggestions</h1>
-            <p className="text-sm text-gray-400">
-              {suggestions.length} total
-              <span className="mx-1.5 text-gray-600">·</span>
-              <span className="text-amber-400">{pendingCount} pending</span>
-              <span className="mx-1.5 text-gray-600">·</span>
-              <span className="text-emerald-400">{addedCount} added</span>
+            <p className="text-sm text-default-500">
+              Signed in as <span className="font-medium text-default-300">{session.user.email}</span>
             </p>
           </div>
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center gap-2">
             <RefreshButton />
-            <AvatarMenu image={session.user.image || "/account_image_placeholder.jpg"} email={session.user.email} />
+            <PasskeyToggleButton />
+            <SignOutButton />
           </div>
         </div>
       </header>
 
       {suggestions.length === 0 ? (
-        <div className="mt-24 flex flex-col items-center justify-center gap-2 text-center">
-          <p className="text-lg font-semibold text-gray-300">No suggestions yet</p>
-          <p className="text-sm text-gray-500">New movie suggestions will appear here.</p>
+        <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-900 py-20 text-center">
+          <p className="text-lg font-semibold text-default-300">No suggestions yet</p>
+          <p className="text-sm text-default-500">New movie suggestions will appear here.</p>
         </div>
       ) : (
         <ul className="flex flex-col gap-3">
@@ -74,8 +71,8 @@ export async function AdminPageContent() {
               className={cn(
                 "group flex flex-col gap-4 rounded-2xl border p-5 transition-colors sm:flex-row sm:items-center",
                 suggestion.isAdded
-                  ? "border-white/5 bg-white/2"
-                  : "border-white/10 bg-white/4 hover:border-white/20 hover:bg-white/6",
+                  ? "border-zinc-800 bg-zinc-900/50"
+                  : "border-zinc-700 bg-zinc-900 hover:border-zinc-600 hover:bg-zinc-800/60",
               )}
             >
               <div className="flex shrink-0 items-center">
@@ -94,19 +91,19 @@ export async function AdminPageContent() {
 
               <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-3">
                 <div className="flex flex-col gap-0.5 overflow-hidden">
-                  <p className="text-xs font-medium tracking-wide text-gray-500 uppercase">Requester</p>
-                  <p className="truncate font-medium text-gray-100" title={capitalize(suggestion.fullName)}>
+                  <p className="text-xs font-medium tracking-wide text-default-500 uppercase">Requester</p>
+                  <p className="truncate font-medium text-default-100" title={capitalize(suggestion.fullName)}>
                     {suggestion.fullName !== "" ? capitalize(suggestion.fullName) : "—"}
                   </p>
                 </div>
                 <div className="flex flex-col gap-0.5 overflow-hidden">
-                  <p className="text-xs font-medium tracking-wide text-gray-500 uppercase">Movie</p>
-                  <p className="truncate font-medium text-gray-100" title={capitalize(suggestion.movieName)}>
+                  <p className="text-xs font-medium tracking-wide text-default-500 uppercase">Movie</p>
+                  <p className="truncate font-medium text-default-100" title={capitalize(suggestion.movieName)}>
                     {capitalize(suggestion.movieName)}
                   </p>
                 </div>
                 <div className="flex flex-col gap-0.5 overflow-hidden">
-                  <p className="text-xs font-medium tracking-wide text-gray-500 uppercase">Email</p>
+                  <p className="text-xs font-medium tracking-wide text-default-500 uppercase">Email</p>
                   <a
                     className="truncate font-medium text-sky-400 transition-colors hover:text-sky-300"
                     target="_blank"
@@ -120,7 +117,7 @@ export async function AdminPageContent() {
                 </div>
               </div>
 
-              <div className="flex shrink-0 flex-row items-center gap-4 border-t border-white/5 pt-4 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5">
+              <div className="flex shrink-0 flex-row items-center gap-2 border-t border-zinc-800 pt-4 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5">
                 <UpdateButton added={!suggestion.isAdded} id={suggestion.id} />
                 <DeleteButton id={suggestion.id} />
               </div>
@@ -128,6 +125,8 @@ export async function AdminPageContent() {
           ))}
         </ul>
       )}
+
+      <PasskeyManager />
     </div>
   );
 }
