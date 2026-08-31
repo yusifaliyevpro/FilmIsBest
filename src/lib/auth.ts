@@ -1,12 +1,22 @@
+import { passkey } from "@better-auth/passkey";
 import { prismaAdapter } from "@better-auth/prisma-adapter";
 import { betterAuth } from "better-auth";
 import { admin } from "better-auth/plugins";
 import { serverEnv } from "./env.server";
 import { prisma } from "./prisma";
 
+const authOrigin = serverEnv.BETTER_AUTH_URL.replace(/\/+$/, "");
+
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
-  plugins: [admin()],
+  plugins: [
+    admin(),
+    passkey({
+      rpID: new URL(authOrigin).hostname,
+      rpName: "FilmIsBest",
+      origin: authOrigin,
+    }),
+  ],
   advanced: {
     database: {
       generateId: false,
