@@ -1,7 +1,7 @@
 import { defineConfig } from "oxlint";
 
 export default defineConfig({
-  plugins: ["typescript", "nextjs", "unicorn", "import", "jsx-a11y", "react", "react-perf"],
+  plugins: ["typescript", "nextjs", "unicorn", "import", "react", "react-perf"],
   categories: {
     suspicious: "warn",
   },
