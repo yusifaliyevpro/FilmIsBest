@@ -41,7 +41,7 @@ export function PasskeyManager() {
 
   const handleCreate = async () => {
     setIsCreating(true);
-    const { error } = await authClient.passkey.addPasskey({ name: "Admin passkey" });
+    const { error } = await authClient.passkey.addPasskey({ name: "FilmIsBest Admin" });
     setIsCreating(false);
     if (error) {
       toast.error("Couldn't create passkey.", { description: error.message });
