@@ -1,30 +1,97 @@
 "use client";
 
-import { Button } from "@heroui/button";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { BsGithub } from "react-icons/bs";
-import { RiShieldKeyholeLine } from "react-icons/ri";
+import { FiKey, FiLock } from "react-icons/fi";
+import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { Button } from "./button";
 
 export default function AdminSignIn() {
-  return (
-    <div className="flex min-h-screen w-full items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-white/[0.03] p-8 shadow-2xl shadow-black/40">
-        <div className="flex flex-col items-center gap-3 text-center">
-          <div className="flex size-14 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-2xl text-sky-400">
-            <RiShieldKeyholeLine />
-          </div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-100">Admin Console</h1>
-          <p className="text-sm text-gray-400">Access is restricted to authorized personnel only.</p>
-        </div>
+  const router = useRouter();
+  const [isPasskeyPending, setIsPasskeyPending] = useState(false);
 
-        <Button
-          onPress={() => authClient.signIn.social({ provider: "github", callbackURL: "/admin" })}
-          startContent={<BsGithub className="text-lg" />}
-          className="mt-8 w-full bg-white font-semibold text-black hover:bg-gray-200"
-          size="lg"
-        >
-          Continue with GitHub
-        </Button>
+  // Conditional UI: as soon as the page loads, ask the browser / password
+  // manager (e.g. 1Password) to surface a "sign in with passkey" prompt on its
+  // own. Requires the hidden input with `autocomplete="... webauthn"` below.
+  useEffect(() => {
+    if (typeof PublicKeyCredential === "undefined" || !PublicKeyCredential.isConditionalMediationAvailable) {
+      return undefined;
+    }
+
+    let cancelled = false;
+    void PublicKeyCredential.isConditionalMediationAvailable().then((available) => {
+      if (!available || cancelled) return;
+      void authClient.signIn.passkey({
+        autoFill: true,
+        fetchOptions: {
+          onSuccess: () => router.refresh(),
+        },
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [router]);
+
+  // Explicit fallback for when the password manager doesn't pop up on its own.
+  const handlePasskeySignIn = async () => {
+    setIsPasskeyPending(true);
+    const { error } = await authClient.signIn.passkey();
+    setIsPasskeyPending(false);
+    if (error) {
+      toast.error("Passkey sign-in failed.", { description: error.message });
+      return;
+    }
+    router.refresh();
+  };
+
+  return (
+    <div className="flex min-h-svh items-center justify-center px-6">
+      <div className="w-full max-w-md rounded-large border border-zinc-700 bg-zinc-900 p-2 text-foreground shadow-lg">
+        <div className="flex flex-col gap-3 px-4 pt-6 text-center">
+          <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-zinc-800">
+            <FiLock className="size-6 text-default-400" />
+          </div>
+          <div className="flex flex-col gap-1">
+            <h1 className="text-2xl font-bold">Admin Console</h1>
+            <p className="text-sm text-default-500">Access restricted to authorized personnel only</p>
+          </div>
+        </div>
+        <div className="flex flex-col gap-3 px-4 pt-4 pb-6">
+          {/* Hidden anchor so the browser can offer passkey autofill on load. */}
+          <input
+            type="email"
+            name="email"
+            autoComplete="username webauthn"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="sr-only"
+          />
+
+          <Button
+            onPress={handlePasskeySignIn}
+            isLoading={isPasskeyPending}
+            startContent={!isPasskeyPending && <FiKey className="text-lg" />}
+            className="w-full"
+            color="default"
+            variant="flat"
+          >
+            Sign in with passkey
+          </Button>
+
+          <Button
+            onPress={() => authClient.signIn.social({ provider: "github", callbackURL: "/admin" })}
+            startContent={<BsGithub className="text-lg" />}
+            className="w-full"
+            color="default"
+            variant="flat"
+          >
+            Sign in with GitHub
+          </Button>
+        </div>
       </div>
     </div>
   );
