@@ -26,8 +26,17 @@ export function PasskeyManager() {
     setPasskeys(data ?? []);
   };
 
+  // Refetch whenever the panel opens. Inlined (rather than calling `load`) so the
+  // effect has no function dependency and the state update stays in an async callback.
   useEffect(() => {
-    if (open) void load();
+    if (!open) return undefined;
+    let cancelled = false;
+    void authClient.passkey.listUserPasskeys().then(({ data }) => {
+      if (!cancelled) setPasskeys(data ?? []);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [open]);
 
   const handleCreate = async () => {
