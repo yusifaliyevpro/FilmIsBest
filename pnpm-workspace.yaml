@@ -14,27 +14,27 @@ allowBuilds:
   esbuild: true
   prisma: true
 minimumReleaseAgeExclude:
-  - '@ai-sdk/gateway@4.0.72'
-  - '@ai-sdk/react@4.0.93'
-  - '@next/env@16.3.4'
-  - '@next/swc-darwin-arm64@16.3.4'
-  - '@next/swc-darwin-x64@16.3.4'
-  - '@next/swc-linux-arm64-gnu@16.3.4'
-  - '@next/swc-linux-arm64-musl@16.3.4'
-  - '@next/swc-linux-x64-gnu@16.3.4'
-  - '@next/swc-linux-x64-musl@16.3.4'
-  - '@next/swc-win32-arm64-msvc@16.3.4'
-  - '@next/swc-win32-x64-msvc@16.3.4'
+  - "@ai-sdk/gateway@4.0.72"
+  - "@ai-sdk/react@4.0.93"
+  - "@next/env@16.3.4"
+  - "@next/swc-darwin-arm64@16.3.4"
+  - "@next/swc-darwin-x64@16.3.4"
+  - "@next/swc-linux-arm64-gnu@16.3.4"
+  - "@next/swc-linux-arm64-musl@16.3.4"
+  - "@next/swc-linux-x64-gnu@16.3.4"
+  - "@next/swc-linux-x64-musl@16.3.4"
+  - "@next/swc-win32-arm64-msvc@16.3.4"
+  - "@next/swc-win32-x64-msvc@16.3.4"
   - ai@7.0.90
   - next@16.3.4
-  - '@eloqnt/config@0.1.0'
-  - '@eloqnt/format-json@0.1.0'
-  - '@eloqnt/format-po@0.1.0'
-  - '@next/third-parties@16.3.4'
+  - "@eloqnt/config@0.1.0"
+  - "@eloqnt/format-json@0.1.0"
+  - "@eloqnt/format-po@0.1.0"
+  - "@next/third-parties@16.3.4"
   - icu-minify@4.14.2
   - next-intl-swc-plugin-extractor@4.14.2
   - next-intl@4.14.2
   - use-intl@4.14.2
-  - '@ai-sdk/mcp@2.0.43'
-  - '@ai-sdk/provider-utils@5.0.36'
-  - '@ai-sdk/provider@4.0.10'
+  - "@ai-sdk/mcp@2.0.43"
+  - "@ai-sdk/provider-utils@5.0.36"
+  - "@ai-sdk/provider@4.0.10"

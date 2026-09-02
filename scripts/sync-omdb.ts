@@ -214,10 +214,8 @@ function waitForAction(): Promise<"update" | "skip" | "quit"> {
         process.stdin.pause();
         console.log("\nAborted.");
         process.exit(0);
-      } else if (code === 13)
-        action = "update"; // Enter (CR)
-      else if (code === 10)
-        action = "skip"; // Ctrl+Enter (LF)
+      } else if (code === 13) action = "update"; // Enter (CR)
+      else if (code === 10) action = "skip"; // Ctrl+Enter (LF)
       else if (key.toLowerCase() === "s") action = "skip";
       else if (key.toLowerCase() === "q") action = "quit";
 
