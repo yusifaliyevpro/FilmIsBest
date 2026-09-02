@@ -25,7 +25,7 @@
     "bootstrap": "pnpm install && pnpm install:skills && pnpm install:heroui_docs"
   },
   "dependencies": {
-    "@ai-sdk/react": "4.0.90",
+    "@ai-sdk/react": "4.0.93",
     "@better-auth/passkey": "1.7.2",
     "@better-auth/prisma-adapter": "1.7.2",
     "@heroui/button": "2.2.32",
@@ -46,7 +46,7 @@
     "@sanity/ui": "4.0.7",
     "@sanity/vision": "6.11.0",
     "@vercel/speed-insights": "2.0.0",
-    "ai": "7.0.87",
+    "ai": "7.0.90",
     "better-auth": "1.7.2",
     "clsx": "2.1.1",
     "fuse.js": "7.5.0",
@@ -75,8 +75,8 @@
     "babel-plugin-react-compiler": "1.0.0",
     "dotenv": "17.4.2",
     "greenly": "1.1.6",
-    "oxfmt": "0.65.0",
-    "oxlint": "1.80.0",
+    "oxfmt": "0.66.0",
+    "oxlint": "1.81.0",
     "oxlint-tsgolint": "7.0.2001",
     "postcss-load-config": "6.0.1",
     "prisma": "7.9.1",
