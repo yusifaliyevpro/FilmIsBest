@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const movieSuggestionSchema = z.object({
   fullName: z.string().trim(),
-  email: z.string().trim().email(),
+  email: z.email().trim(),
   movieName: z.string().trim().min(1),
 });
 
