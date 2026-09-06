@@ -14,32 +14,32 @@ allowBuilds:
   esbuild: true
   prisma: true
 minimumReleaseAgeExclude:
-  - '@next/env@16.3.4'
-  - '@next/swc-darwin-arm64@16.3.4'
-  - '@next/swc-darwin-x64@16.3.4'
-  - '@next/swc-linux-arm64-gnu@16.3.4'
-  - '@next/swc-linux-arm64-musl@16.3.4'
-  - '@next/swc-linux-x64-gnu@16.3.4'
-  - '@next/swc-linux-x64-musl@16.3.4'
-  - '@next/swc-win32-arm64-msvc@16.3.4'
-  - '@next/swc-win32-x64-msvc@16.3.4'
+  - "@next/env@16.3.4"
+  - "@next/swc-darwin-arm64@16.3.4"
+  - "@next/swc-darwin-x64@16.3.4"
+  - "@next/swc-linux-arm64-gnu@16.3.4"
+  - "@next/swc-linux-arm64-musl@16.3.4"
+  - "@next/swc-linux-x64-gnu@16.3.4"
+  - "@next/swc-linux-x64-musl@16.3.4"
+  - "@next/swc-win32-arm64-msvc@16.3.4"
+  - "@next/swc-win32-x64-msvc@16.3.4"
   - next@16.3.4
-  - '@eloqnt/config@0.1.0'
-  - '@eloqnt/format-json@0.1.0'
-  - '@eloqnt/format-po@0.1.0'
-  - '@next/third-parties@16.3.4'
+  - "@eloqnt/config@0.1.0"
+  - "@eloqnt/format-json@0.1.0"
+  - "@eloqnt/format-po@0.1.0"
+  - "@next/third-parties@16.3.4"
   - icu-minify@4.14.2
   - next-intl-swc-plugin-extractor@4.14.2
   - next-intl@4.14.2
   - use-intl@4.14.2
-  - '@ai-sdk/provider-utils@5.0.36'
-  - '@ai-sdk/provider@4.0.10'
-  - '@better-auth/core@1.7.3'
-  - '@better-auth/drizzle-adapter@1.7.3'
-  - '@better-auth/kysely-adapter@1.7.3'
-  - '@better-auth/memory-adapter@1.7.3'
-  - '@better-auth/mongo-adapter@1.7.3'
-  - '@better-auth/passkey@1.7.3'
-  - '@better-auth/prisma-adapter@1.7.3'
-  - '@better-auth/telemetry@1.7.3'
+  - "@ai-sdk/provider-utils@5.0.36"
+  - "@ai-sdk/provider@4.0.10"
+  - "@better-auth/core@1.7.3"
+  - "@better-auth/drizzle-adapter@1.7.3"
+  - "@better-auth/kysely-adapter@1.7.3"
+  - "@better-auth/memory-adapter@1.7.3"
+  - "@better-auth/mongo-adapter@1.7.3"
+  - "@better-auth/passkey@1.7.3"
+  - "@better-auth/prisma-adapter@1.7.3"
+  - "@better-auth/telemetry@1.7.3"
   - better-auth@1.7.3
