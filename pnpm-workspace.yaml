@@ -6,7 +6,6 @@ trustPolicy: "no-downgrade"
 trustPolicyExcludePrune: true
 trustPolicyExclude:
   - semver@6.3.1||5.7.2
-  - "@sanity/import@7.0.1"
 allowBuilds:
   "@heroui/shared-utils": true
   "@parcel/watcher": true
@@ -15,11 +14,15 @@ allowBuilds:
   esbuild: true
   prisma: true
 minimumReleaseAgeExclude:
-  - "@ai-sdk/gateway@4.0.87"
-  - "@ai-sdk/mcp@2.0.54"
-  - "@ai-sdk/provider-utils@5.0.45"
-  - "@ai-sdk/react@4.0.110"
+  - "@ai-sdk/gateway@4.0.91"
+  - "@ai-sdk/mcp@2.0.57"
+  - "@ai-sdk/provider-utils@5.0.47"
+  - "@ai-sdk/react@4.0.116"
   - "@openrouter/ai-sdk-provider@3.1.0"
   - "@types/node@24.13.6"
-  - ai@7.0.107
+  - ai@7.0.113
   - mcp-handler@2.2.0
+  - "@ai-sdk/provider@4.0.18"
+  - "@modelcontextprotocol/core@2.1.0"
+  - "@modelcontextprotocol/server@2.1.0"
+  - "@sanity/client@8.7.0"
