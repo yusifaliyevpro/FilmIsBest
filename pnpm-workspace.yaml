@@ -14,15 +14,33 @@ allowBuilds:
   esbuild: true
   prisma: true
 minimumReleaseAgeExclude:
-  - "@ai-sdk/gateway@4.0.91"
-  - "@ai-sdk/mcp@2.0.57"
-  - "@ai-sdk/provider-utils@5.0.47"
-  - "@ai-sdk/react@4.0.116"
+  - "@ai-sdk/gateway@4.0.102"
+  - "@ai-sdk/mcp@2.0.65"
+  - "@ai-sdk/provider-utils@5.0.53"
+  - "@ai-sdk/react@4.0.129"
   - "@openrouter/ai-sdk-provider@3.1.0"
-  - "@types/node@24.13.6"
-  - ai@7.0.113
+  - ai@7.0.126
   - mcp-handler@2.2.0
-  - "@ai-sdk/provider@4.0.18"
-  - "@modelcontextprotocol/core@2.1.0"
-  - "@modelcontextprotocol/server@2.1.0"
+  - "@ai-sdk/provider@4.0.21"
   - "@sanity/client@8.7.0"
+  - "@better-auth/core@1.7.7"
+  - "@better-auth/drizzle-adapter@1.7.7"
+  - "@better-auth/kysely-adapter@1.7.7"
+  - "@better-auth/memory-adapter@1.7.7"
+  - "@better-auth/mongo-adapter@1.7.7"
+  - "@better-auth/passkey@1.7.7"
+  - "@better-auth/prisma-adapter@1.7.7"
+  - "@better-auth/telemetry@1.7.7"
+  - "@next/env@16.3.8"
+  - "@next/swc-darwin-arm64@16.3.8"
+  - "@next/swc-darwin-x64@16.3.8"
+  - "@next/swc-linux-arm64-gnu@16.3.8"
+  - "@next/swc-linux-arm64-musl@16.3.8"
+  - "@next/swc-linux-x64-gnu@16.3.8"
+  - "@next/swc-linux-x64-musl@16.3.8"
+  - "@next/swc-win32-arm64-msvc@16.3.8"
+  - "@next/swc-win32-x64-msvc@16.3.8"
+  - "@next/third-parties@16.3.8"
+  - "@sanity/ui@4.3.0"
+  - better-auth@1.7.7
+  - next@16.3.8
