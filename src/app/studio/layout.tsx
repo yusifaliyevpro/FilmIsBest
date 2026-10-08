@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+export const ensureStatic = "prefetch";
+
 export const metadata: Metadata = {
   robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
 };

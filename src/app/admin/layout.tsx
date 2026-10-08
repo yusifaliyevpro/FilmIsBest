@@ -5,6 +5,8 @@ import { Providers } from "@/components/providers";
 import { inter } from "@/lib/fonts";
 import "../globals.css";
 
+export const ensureStatic = "prefetch";
+
 export const metadata: Metadata = {
   robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
 };
