@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   experimental: {
+    agentUpgrade: "latest",
     globalNotFound: true,
     useOffline: true,
     useTypeScriptCli: true,
