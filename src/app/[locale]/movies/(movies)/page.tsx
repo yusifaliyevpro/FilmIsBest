@@ -9,6 +9,8 @@ import { getMovies } from "@/data/sanity/movies/get";
 import { locales } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
 
+export const ensureStatic = "navigation";
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations("MetaData.Movies");

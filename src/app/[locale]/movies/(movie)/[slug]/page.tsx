@@ -18,6 +18,8 @@ const Share = dynamic(() => import("@/components/share"), {
   loading: () => <Button color="primary" className="h-10 w-28" />,
 });
 
+export const ensureStatic = "navigation";
+
 export async function generateMetadata({ params }: PageProps<"/[locale]/movies/[slug]">): Promise<Metadata> {
   "use cache";
   cacheLife("max");

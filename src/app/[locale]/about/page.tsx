@@ -8,6 +8,8 @@ import { SiHeroui, SiNextdotjs, SiPrisma, SiSanity, SiVercel } from "react-icons
 import { locales } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
 
+export const ensureStatic = "navigation";
+
 export async function generateMetadata(): Promise<Metadata> {
   "use cache";
   cacheLife("max");
