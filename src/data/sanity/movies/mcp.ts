@@ -54,7 +54,7 @@ export const MOVIE_SORTS = ["recent", "rating", "year"] as const;
 type MovieSort = (typeof MOVIE_SORTS)[number];
 
 const SORT_ORDERS: Record<MovieSort, string> = {
-  recent: "_createdAt desc",
+  recent: "publishedAt desc",
   rating: "imdbpuan desc",
   year: "releaseDate desc",
 };
@@ -152,7 +152,7 @@ export async function getRecentlyAddedForMCP(fields: MovieField[], limit = 10) {
 
   const query = `
     *[_type == 'Movie-studio']
-      | order(_createdAt desc)[0...$limit] {
+      | order(publishedAt desc)[0...$limit] {
         ${projection}
       }
   `;

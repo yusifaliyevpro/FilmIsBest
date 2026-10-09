@@ -141,7 +141,7 @@ async function run() {
   console.log(dim("Fetching movies and sequels from Sanity…"));
   const movies = await client.fetch<MovieDoc[]>(
     `*[_type == "Movie-studio" && !(_id in path("drafts.**")) && defined(tmdbId) && series != true]
-      | order(_createdAt asc){ _id, filmName, tmdbId, series, releaseDate }`,
+      | order(publishedAt asc){ _id, filmName, tmdbId, series, releaseDate }`,
   );
 
   const sequels = await client.fetch<SequelDoc[]>(

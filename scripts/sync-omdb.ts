@@ -17,7 +17,7 @@
  * Movies with no differences are skipped silently. Poster, trailer,
  * description and slug are never touched.
  *
- * Movies are walked oldest → newest (_createdAt). Pass a 1-based start position
+ * Movies are walked oldest → newest (publishedAt). Pass a 1-based start position
  * to resume partway through, e.g. start from the 100th movie:
  *
  * Run: npx sanity exec scripts/sync-omdb.ts --with-user-token
@@ -255,7 +255,7 @@ async function run() {
   // Oldest → newest so the walk order is stable across runs.
   const movies = await client.fetch<MovieDoc[]>(
     `*[_type == "Movie-studio" && !(_id in path("drafts.**")) && defined(imdbID)]
-      | order(_createdAt asc){
+      | order(publishedAt asc){
         _id, imdbID, filmName, imdbpuan, releaseDate, movieTime, country, genre, actors, directed, tmdbId
       }`,
   );

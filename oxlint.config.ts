@@ -12,7 +12,7 @@ export default defineConfig({
   rules: {
     eqeqeq: "warn",
     "no-throw-literal": "warn",
-    "no-underscore-dangle": ["warn", { allow: ["_updatedAt", "_createdAt", "_id", "_type", "_ref"] }],
+    "no-underscore-dangle": ["warn", { allow: ["_updatedAt", "_id", "_type", "_ref"] }],
     "import/no-unassigned-import": [
       "warn",
       { allow: ["**/globals.css", "**/env.server", "dotenv/config", "server-only", "@sanity/client"] },

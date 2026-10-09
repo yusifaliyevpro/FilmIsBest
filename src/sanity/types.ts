@@ -34,6 +34,7 @@ export type Sequel = {
       _key: string;
     } & MovieStudioReference
   >;
+  tmdbCollectionId: number;
 };
 
 export type SanityImageAssetReference = {
@@ -70,6 +71,7 @@ export type MovieStudio = {
   };
   description: string;
   FraqmanLink: string;
+  publishedAt: string;
 };
 
 export type SanityImageCrop = {
@@ -210,7 +212,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/data/sanity/movies/get.ts
 // Variable: AllMoviesQuery
-// Query: *[_type == 'Movie-studio']      | order(_createdAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        releaseDate,        imdbID      }
+// Query: *[_type == 'Movie-studio']      | order(publishedAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        releaseDate,        imdbID      }
 export type AllMoviesQueryResult = Array<{
   filmName: string;
   poster: string;
@@ -222,7 +224,7 @@ export type AllMoviesQueryResult = Array<{
 
 // Source: src/data/sanity/movies/get.ts
 // Variable: MoviesQuery
-// Query: *[_type == 'Movie-studio']      | order(_createdAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        _id,        imdbpuan,        releaseDate      }
+// Query: *[_type == 'Movie-studio']      | order(publishedAt desc) {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        _id,        imdbpuan,        _updatedAt,        releaseDate      }
 export type MoviesQueryResult = Array<{
   filmName: string;
   poster: string;
@@ -259,7 +261,7 @@ export type MovieQueryResult = {
 
 // Source: src/data/sanity/movies/get.ts
 // Variable: RecentlyAddedMoviesQuery
-// Query: *[_type == 'Movie-studio']       | order(_createdAt desc)[0...10] {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        imdbpuan,        releaseDate      }
+// Query: *[_type == 'Movie-studio']       | order(publishedAt desc)[0...10] {        filmName,        "poster": poster.asset->url,        "posterlqip": poster.asset->metadata.lqip,        "slug": slug.current,        imdbpuan,        releaseDate      }
 export type RecentlyAddedMoviesQueryResult = Array<{
   filmName: string;
   poster: string;
@@ -283,13 +285,16 @@ export type SequelQueryResult = {
 } | null;
 
 // Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
+declare global {
   interface SanityQueries {
-    '\n    *[_type == \'Movie-studio\']\n      | order(_createdAt desc) {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        releaseDate,\n        imdbID\n      }\n  ': AllMoviesQueryResult;
-    '\n    *[_type == \'Movie-studio\']\n      | order(_createdAt desc) {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        _id,\n        imdbpuan,\n        _updatedAt,\n        imdbID,\n        releaseDate\n      }\n  ': MoviesQueryResult;
+    '\n    *[_type == \'Movie-studio\']\n      | order(publishedAt desc) {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        releaseDate,\n        imdbID\n      }\n  ': AllMoviesQueryResult;
+    '\n    *[_type == \'Movie-studio\']\n      | order(publishedAt desc) {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        _id,\n        imdbpuan,\n        _updatedAt,\n        releaseDate\n      }\n  ': MoviesQueryResult;
     '\n    *[_type == \'Movie-studio\' && slug.current == $slug][0] {\n      filmName,\n      series,\n      tmdbId,\n      "poster": poster.asset->url,\n      "posterlqip": poster.asset->metadata.lqip,\n      "slug": slug.current,\n      imdbpuan,\n      releaseDate,\n      genre,\n      description,\n      _id,\n      directed,\n      country,\n      movieTime,\n      imdbID,\n      FraqmanLink,\n      actors\n    }\n  ': MovieQueryResult;
-    '\n    *[_type == \'Movie-studio\'] \n      | order(_createdAt desc)[0...10] {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        imdbpuan,\n        releaseDate\n      }\n  ': RecentlyAddedMoviesQueryResult;
+    '\n    *[_type == \'Movie-studio\'] \n      | order(publishedAt desc)[0...10] {\n        filmName,\n        "poster": poster.asset->url,\n        "posterlqip": poster.asset->metadata.lqip,\n        "slug": slug.current,\n        imdbpuan,\n        releaseDate\n      }\n  ': RecentlyAddedMoviesQueryResult;
     '\n    *[_type == "sequel" && references(*[_type == "Movie-studio" && slug.current == $slug][0]._id)][0] {\n      name,\n      "movies": movies[]-> \n        | order(releaseDate desc) {\n          filmName,\n          "slug": slug.current,\n          "poster": poster.asset->url,\n          "posterlqip": poster.asset->metadata.lqip\n        }\n    }\n  ': SequelQueryResult;
   }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
 }

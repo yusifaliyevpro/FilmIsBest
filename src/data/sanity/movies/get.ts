@@ -18,7 +18,7 @@ export async function getAllMoviesForSearch() {
 
   const AllMoviesQuery = defineQuery(`
     *[_type == 'Movie-studio']
-      | order(_createdAt desc) {
+      | order(publishedAt desc) {
         filmName,
         "poster": poster.asset->url,
         "posterlqip": poster.asset->metadata.lqip,
@@ -40,7 +40,7 @@ export async function getMovies() {
 
   const MoviesQuery = defineQuery(`
     *[_type == 'Movie-studio']
-      | order(_createdAt desc) {
+      | order(publishedAt desc) {
         filmName,
         "poster": poster.asset->url,
         "posterlqip": poster.asset->metadata.lqip,
@@ -96,7 +96,7 @@ export async function getRecentlyAddedMovies() {
 
   const RecentlyAddedMoviesQuery = defineQuery(`
     *[_type == 'Movie-studio'] 
-      | order(_createdAt desc)[0...10] {
+      | order(publishedAt desc)[0...10] {
         filmName,
         "poster": poster.asset->url,
         "posterlqip": poster.asset->metadata.lqip,
