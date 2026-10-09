@@ -144,7 +144,6 @@ const movieSchema = defineField({
     defineField({
       name: "publishedAt",
       title: "Published At",
-      description: "Controls the movie's position in the movies list (newest first). Defaults to when it was added.",
       type: "datetime",
       initialValue: () => new Date().toISOString(),
       validation: (rule) => rule.required(),
