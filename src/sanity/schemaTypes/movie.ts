@@ -12,6 +12,12 @@ const movieSchema = defineField({
   type: "document",
   icon: BiSolidMovie,
   preview: { select: { title: "filmName", media: "poster" } },
+  orderings: [
+    { title: "Published At", name: "publishedAtDesc", by: [{ field: "publishedAt", direction: "desc" }] },
+    { title: "Movie Name", name: "filmNameAsc", by: [{ field: "filmName", direction: "asc" }] },
+    { title: "IMDb Rate", name: "imdbpuanDesc", by: [{ field: "imdbpuan", direction: "desc" }] },
+    { title: "Release Date", name: "releaseDateDesc", by: [{ field: "releaseDate", direction: "desc" }] },
+  ],
   fields: [
     defineField({
       name: "imdbID",
