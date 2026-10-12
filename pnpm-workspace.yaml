@@ -14,10 +14,8 @@ allowBuilds:
   esbuild: true
   prisma: true
 minimumReleaseAgeExclude:
-  - "@ai-sdk/provider-utils@5.0.53"
   - "@openrouter/ai-sdk-provider@3.1.0"
   - mcp-handler@2.3.0
-  - "@ai-sdk/provider@4.0.21"
   - "@better-auth/core@1.7.7"
   - "@better-auth/drizzle-adapter@1.7.7"
   - "@better-auth/kysely-adapter@1.7.7"
@@ -26,6 +24,7 @@ minimumReleaseAgeExclude:
   - "@better-auth/passkey@1.7.7"
   - "@better-auth/prisma-adapter@1.7.7"
   - "@better-auth/telemetry@1.7.7"
-  - "@sanity/ui@4.4.0"
+  - "@sanity/ui@4.4.2"
   - better-auth@1.7.7
   - greenly@1.2.0
+  - zod@4.6.6
