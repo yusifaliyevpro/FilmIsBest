@@ -7,6 +7,10 @@ on:
     types: [opened, synchronize, reopened]
     branches: [main]
 
+env:
+  DATABASE_URL: "nice_try"
+  DIRECT_URL: "nice_try"
+
 jobs:
   quality:
     name: Checks
